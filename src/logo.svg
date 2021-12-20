@@ -1,0 +1,91 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 660" width="660" height="660">
+	<title>111_Readbook-ai</title>
+	<defs>
+		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="604.5" y1="191.4" x2="607.9" y2="317.6">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd2" gradientUnits="userSpaceOnUse"  x1="589.5" y1="180.9" x2="546.7" y2="285.2">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd3" gradientUnits="userSpaceOnUse"  x1="334.7" y1="72.8" x2="579.6" y2="210.6">
+			<stop offset="0" stop-color="#116799"  />
+			<stop offset=".4" stop-color="#06a0ca"  />
+			<stop offset=".9" stop-color="#97dded"  />
+		</linearGradient>
+		<linearGradient id="grd4" gradientUnits="userSpaceOnUse"  x1="371.8" y1="173" x2="551.9" y2="224.9">
+			<stop offset="0" stop-color="#116799"  />
+			<stop offset=".4" stop-color="#06a0ca"  />
+			<stop offset=".9" stop-color="#97dded"  />
+		</linearGradient>
+		<linearGradient id="grd5" gradientUnits="userSpaceOnUse"  x1="633.6" y1="73.8" x2="494.9" y2="322.4">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd6" gradientUnits="userSpaceOnUse"  x1="329.6" y1="179.3" x2="600.1" y2="179.3">
+			<stop offset="0" stop-color="#116799"  />
+			<stop offset=".4" stop-color="#06a0ca"  />
+			<stop offset=".9" stop-color="#97dded"  />
+		</linearGradient>
+		<linearGradient id="grd7" gradientUnits="userSpaceOnUse"  x1="55.2" y1="190.8" x2="51.9" y2="317">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd8" gradientUnits="userSpaceOnUse"  x1="70.3" y1="180.4" x2="113.1" y2="284.7">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd9" gradientUnits="userSpaceOnUse"  x1="391.3" y1="489.9" x2="223.5" y2="565.1">
+			<stop offset="0" stop-color="#116799"  />
+			<stop offset=".4" stop-color="#06a0ca"  />
+			<stop offset=".9" stop-color="#97dded"  />
+		</linearGradient>
+		<linearGradient id="grd10" gradientUnits="userSpaceOnUse"  x1="26.2" y1="73.3" x2="164.9" y2="321.9">
+			<stop offset=".1" stop-color="#97dded"  />
+			<stop offset=".6" stop-color="#06a0ca"  />
+			<stop offset="1" stop-color="#116799"  />
+		</linearGradient>
+		<linearGradient id="grd11" gradientUnits="userSpaceOnUse"  x1="330.2" y1="178.7" x2="59.7" y2="178.7">
+			<stop offset="0" stop-color="#116799"  />
+			<stop offset=".4" stop-color="#06a0ca"  />
+			<stop offset=".9" stop-color="#97dded"  />
+		</linearGradient>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.s0 { fill: url(#grd1) } 
+		.s1 { fill: url(#grd2) } 
+		.s2 { fill: url(#grd3) } 
+		.s3 { fill: url(#grd4) } 
+		.s4 { fill: url(#grd5) } 
+		.s5 { fill: url(#grd6) } 
+		.s6 { fill: url(#grd7) } 
+		.s7 { fill: url(#grd8) } 
+		.s8 { fill: #39c2ec } 
+		.s9 { fill: url(#grd9) } 
+		.s10 { fill: url(#grd10) } 
+		.s11 { fill: url(#grd11) } 
+	</style>
+	<g id="graphics">
+		<g id="&lt;Group&gt;">
+			<path id="&lt;Path&gt;" class="s0" d="m542.67 313.7l27.04-111.49c28.44 12.83 38.13 34.3 29.06 64.39c-6.05 14.55-20.03 36.23-56.1 47.1z" />
+			<path id="&lt;Path&gt;" class="s1" d="m577.37 224.59c-0.89 2.84-2.55 5.42-4.15 8.04c-16 26.07-53.41 45.47-98.74 49.74c1.06-28.63 4.33-88.47 9.33-153.53c63.93 18.73 108.1 49.2 93.56 95.74z" />
+			<path id="&lt;Path&gt;" class="s2" d="m546.5 191.2l-70.75 262.05h-0.44c-3.97 22.97-34.97 43.58-72.64 43.58c-40.37 0-71.53-23.26-71.53-48.58c0-266.25-2.01-273.91-0.75-267.75c9.34 46.23 62.15 69.37 109.5 69.37c51.11 0 94.09-24.9 106.61-58.68z" />
+			<path id="&lt;Path&gt;" class="s3" d="m577.37 224.59l-80.82 262.05h-0.5c-4.53 22.97-39.95 43.58-82.98 43.58c-46.11 0-81.93-23.25-81.93-48.58c0-305.99-1.67-291.63-1.33-293.81c3.76 42.88 58.63 95.44 125.78 95.44c58.39 0 107.48-24.9 121.79-58.68z" />
+			<path id="&lt;Path&gt;" class="s4" d="m436.26 91.97c61.12-1.66 113.94 33.63 113.94 78.92c0 43.63-49.39 78.99-110.31 78.99c-4.71 0-9.34-0.24-13.88-0.64l10.25-157.26z" />
+			<path id="&lt;Path&gt;" class="s5" d="m600.07 263.18l-88.23 251.1h-0.54c-4.96 22.02-43.61 41.76-90.59 41.76c-50.33 0-91.13-22.28-91.13-46.55c0-2.49-0.01-324.74 0.02-326.23c0.69 42.63 20.21 126.59 137.53 136.15c95.06 7.74 122.48-30.75 131.65-52.81l1.29-3.42z" />
+			<path id="&lt;Path&gt;" class="s6" d="m61 266.08c-9.07-30.1 0.62-51.56 29.06-64.39l27.04 111.49c-36.07-10.87-50.05-32.55-56.1-47.1z" />
+			<path id="&lt;Path&gt;" class="s7" d="m175.97 128.33c5 65.06 8.27 124.89 9.33 153.53c-45.33-4.28-82.74-23.67-98.74-49.75c-1.61-2.61-3.27-5.2-4.15-8.04c-14.54-46.54 29.63-77.02 93.56-95.74z" />
+			<path id="&lt;Path&gt;" class="s8" d="m219.89 249.36c47.35 0 100.16-23.14 109.5-69.37c1.26-6.16-0.75 1.5-0.75 267.75c0 25.32-31.16 48.58-71.53 48.58c-37.67 0-68.67-20.61-72.64-43.58h-0.44l-70.75-262.05c12.52 33.78 55.5 58.68 106.61 58.68z" />
+			<path id="&lt;Path&gt;" class="s9" d="m204.2 282.76c67.16 0 122.03-52.56 125.79-95.44c0.34 2.19-1.34-12.18-1.34 293.81c0 25.32-35.82 48.57-81.93 48.57c-43.04 0-78.45-20.61-82.99-43.58h-0.5l-80.82-262.05c14.3 33.78 63.39 58.68 121.78 58.68z" />
+			<path id="&lt;Path&gt;" class="s10" d="m233.77 248.72c-4.55 0.4-9.17 0.64-13.88 0.64c-60.92 0-110.31-35.36-110.31-78.99c0-45.29 52.82-80.57 113.94-78.92l10.25 157.27z" />
+			<path id="&lt;Path&gt;" class="s11" d="m61 266.08c9.17 22.06 36.59 60.55 131.65 52.81c117.32-9.55 136.84-93.51 137.53-136.14c0.03 1.49 0.02 323.73 0.02 326.23c0 24.26-40.8 46.54-91.13 46.54c-46.98 0-85.64-19.75-90.59-41.76h-0.54l-88.22-251.09l1.29 3.42z" />
+		</g>
+	</g>
+</svg>
