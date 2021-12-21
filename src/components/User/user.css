@@ -1,4 +1,8 @@
-header #user {
+/* --------------------------------------------------------------- */
+/* Header User */
+/* --------------------------------------------------------------- */
+
+header .user {
     display: flex;
     align-items: center;
     margin-right: 16px;
@@ -10,11 +14,20 @@ header #user {
     position: relative;
 }
 
-header #userAvatar {
+header .userWrapper {
+    height: 64px;
+    width: 64px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+header .userAvatar {
     height: 56px;
 }
 
-header #userSignedIn {
+header .userSignedIn {
     position: absolute;
     background-color: #c97200;
     height: 20px;
@@ -22,8 +35,12 @@ header #userSignedIn {
     border-radius: 50%;
     border: 3px solid #f1f1f1;
     bottom: 8px;
-    left: 8px;
+    left: 0px;
     animation: online 5s ease-out 0s infinite forwards;
+}
+
+header .userLink {
+    display: none;
 }
 
 @keyframes online {
@@ -32,20 +49,20 @@ header #userSignedIn {
     100% {transform: scale(100%) translate(0);}
 }
 
-header #user:hover {
+header .user:hover {
     border-left: 1px solid rgba(0, 0, 0, 0.0);
     border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-header #userExpand {
+header .userExpand {
     transition: .5s;
 }
 
-header #user:hover #userExpand {
+header .user:hover .userExpand {
     transform: rotate(180deg);
 }
 
-header #userDropdown {
+header .userDropdown {
     list-style: none;
     width: 240px;
     position: absolute;
@@ -57,7 +74,7 @@ header #userDropdown {
     display: none;
 }
 
-header #user:hover #userDropdown {
+header .user:hover .userDropdown {
     display: block;
     border-left: 1px solid rgba(0, 0, 0, 0.3);
     border-right: 1px solid rgba(0, 0, 0, 0.3);
@@ -66,24 +83,23 @@ header #user:hover #userDropdown {
 header .userDropdownItem {
     padding: 12px;
     transition: .3s;
-    font-family: 'Poppins', 'Roboto', sans-serif;
     font-weight: bold;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
-header .spaceBetween {
+.spaceBetween {
     justify-content: space-between;
 }
 
-header #userDropdownItemDark {
-    font-family: 'Poppins', 'Roboto', sans-serif;
+header .userDropdownItemDark {
     font-weight: bold;
     display: flex;
     align-items: center;
 }
 
-header #userDropdownItemDarkToggleOut {
+header .userDropdownItemDarkToggleOut {
     border: 2px solid #1f1f1f;
     background-color: rgba(0, 0, 0, 0.3);
     width: 64px;
@@ -96,7 +112,7 @@ header #userDropdownItemDarkToggleOut {
     transition: transform 1s;
 }
 
-header #userDropdownItemDarkToggleIn {
+header .userDropdownItemDarkToggleIn {
     height: 24px;
     width: 24px;
     border-radius: 50%;
@@ -107,13 +123,13 @@ header #userDropdownItemDarkToggleIn {
         inset -3px -3px 3px rgba(0, 0, 0, 0.1);
 }
 
-header .userDropdownItem:hover #userDropdownItemDarkToggleOut {
+header .userDropdownItem:hover .userDropdownItemDarkToggleOut {
     border: 2px solid #0d79a8;
     background-color: rgba(13, 121, 168, 0.5);
     transform: scale(1.05);
 }
 
-header .userDropdownItem:hover #userDropdownItemDark {
+header .userDropdownItem:hover .userDropdownItemDark {
     color: #0d79a8;
 }
 
@@ -136,7 +152,139 @@ header .userDropdownItem:hover svg {
 }
 
 @media only screen and (max-width: 420px) {
-    header #user {
+    header .user {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu User */
+/* --------------------------------------------------------------- */
+
+#menu .user {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    transition: .5s;
+}
+
+#menu .userWrapper {
+    height: 72px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#menu .userAvatar {
+    height: 56px;
+    margin: 8px 12px 8px 16px;
+}
+
+#menu .userSignedIn {
+    position: absolute;
+    background-color: #c97200;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 3px solid #f1f1f1;
+    bottom: 8px;
+    left: 12px;
+    animation: online 5s ease-out 0s infinite forwards;
+}
+
+#menu .userLink {
+    font-weight: bold;
+}
+
+#menu .userExpand {
+    display: none;
+}
+
+#menu .userDropdown {
+    list-style: none;
+    width: 100%;
+    display: none;
+}
+
+#menu .user:hover .userDropdown {
+    display: block;
+}
+
+#menu .userDropdownItem {
+    padding: 8px;
+    transition: .3s;
+    font-weight: bold;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#menu .userDropdownItemDark {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+#menu .userDropdownItemDarkToggleOut {
+    border: 2px solid #1f1f1f;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 64px;
+    height: 32px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2px;
+    transition: transform 1s;
+}
+
+#menu .userDropdownItemDarkToggleIn {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: rgb(209,209,209);
+    background: linear-gradient(135deg, rgba(209,209,209,1) 0%, rgba(241,241,241,1) 100%);
+    box-shadow: 
+        inset 3px 3px 3px rgba(255, 255, 255, 0.8),
+        inset -3px -3px 3px rgba(0, 0, 0, 0.1);
+}
+
+#menu .userDropdownItem:hover .userDropdownItemDarkToggleOut {
+    border: 2px solid #0d79a8;
+    background-color: rgba(13, 121, 168, 0.5);
+    transform: scale(1.05);
+}
+
+#menu .userDropdownItem:hover .userDropdownItemDark {
+    color: #0d79a8;
+}
+
+#menu .userDropdownItem svg {
+    height: 24px;
+    width: 24px;
+    margin: 0 16px 0 8px;
+    fill: #1f1f1f;
+    transition: transform .5s;
+}
+
+#menu .userDropdownItem:hover {
+    background-color: rgba(0, 0, 0, .1);
+    color: #0d79a8;
+}
+
+#menu .userDropdownItem:hover svg {
+    transform: translate(0, -2px);
+    fill: #0d79a8;
+}
+
+@media only screen and (min-width: 420px) {
+    #menu .user {
         display: none;
     }
 }

@@ -22,9 +22,16 @@ export const handleLogin = createAsyncThunk(
 export const loginSlice = createSlice({
     name: 'login',
     initialState: {},
-    reducers: {},
+    reducers: {
+        logout: state => {
+            return state = {
+                isLoading: state.isLoading,
+                hasError: state.hasError
+            };
+        }
+    },
     extraReducers: {
-        [handleLogin.pending]: (state, action) => {
+        [handleLogin.pending]: (state) => {
             state.isLoading = true;
             state.hasError = false;
         },
@@ -33,13 +40,17 @@ export const loginSlice = createSlice({
             state.hasError = false;
             state.authorization = action.payload;
         },
-        [handleLogin.rejected]: (state, action) => {
+        [handleLogin.rejected]: (state) => {
             state.isLoading = false;
             state.hasError = true;
         }
     }
 });
 
-export const login = state => state;
+export const { logout } = loginSlice.actions;
+
+export const selectLogin = state => {
+    return state.login;
+};
 
 export default loginSlice.reducer;

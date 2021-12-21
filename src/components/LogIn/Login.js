@@ -5,9 +5,9 @@ import './login.css';
 
 const Login = () => {
     return (
-        <div id='login' data-test='login'>
+        <div className='login' data-test='login'>
             <button onClick={reddit.handleLogin} className='loginButton' type='button' data-test='loginButtons'>
-                <img id='loginButtonImg' src={redditLogo} alt='Reddit Logo'  data-test='loginButtonSvg'/>
+                <img className='loginButtonImg' src={redditLogo} alt='Reddit Logo'  data-test='loginButtonSvg'/>
                 <span className='loginButtonText'>
                     Log In
                 </span>

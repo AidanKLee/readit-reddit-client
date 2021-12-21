@@ -1,14 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Communities from '../Communities';
 import { findTest } from '../../../utilities/testUtils';
+import { Provider } from 'react-redux';
+import store from '../../../app/store';
 
 describe('Communities', () => {
 
     let communities;
     beforeEach(() => {
-        communities = shallow(<Communities />);
-    });
+        communities = mount(
+          <Provider store={store}>
+            <Communities />
+          </Provider>
+        );
+      });
 
     it('should render the svg elements to the DOM', () => {
         const communitiesSvgs = findTest(communities, 'communitiesSvgs');
@@ -31,7 +37,7 @@ describe('Communities', () => {
     it('should render the list item element(s) to the DOM', () => {
         const communitiesListItem = findTest(communities, 'communitiesListItem');
 
-        expect(communitiesListItem.length).toBe(4);
+        expect(communitiesListItem.length).toBe(8);
     });
 
 });

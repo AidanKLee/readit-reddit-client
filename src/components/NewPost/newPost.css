@@ -1,4 +1,8 @@
-header #newPost {
+/* --------------------------------------------------------------- */
+/* Header New Post */
+/* --------------------------------------------------------------- */
+
+header .newPost {
     display: flex;
     height: 40px;
     width: 40px;
@@ -8,21 +12,21 @@ header #newPost {
     transition: transform .3s;
 }
 
-header #newPost:hover {
+header .newPost:hover {
     background-color: rgba(31, 31, 31, .1);
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-header #newPost:active {
+header .newPost:active {
     transform: scale(.9);
 }
 
-header #newPost:active {
+header .newPost:active {
     background-color: rgba(31, 31, 31, .3);
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-header #newPostSvg {
+header .newPostSvg {
     display: flex;
     height: 40px;
     width: 40px;
@@ -31,16 +35,53 @@ header #newPostSvg {
     transition: transform .5s;
 }
 
-header #newPost:hover #newPostSvg {
+header .newPost:hover .newPostSvg {
     transform: scale(1.1) rotate(720deg);
 }
 
-header #newPostText {
+header .newPostText {
     display: none;
 }
 
 @media only screen and (max-width: 620px) {
-    header #newPost {
+    header .newPost {
         display: none;
     }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu New Post */
+/* --------------------------------------------------------------- */
+
+#menu .newPost {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    margin-right: 16px;
+    transition: transform .3s;
+    font-weight: bold;
+    padding: 12px 0;
+}
+
+#menu .newPost:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#menu .newPostSvg {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    padding: 4px;
+    fill: #1f1f1f;
+    transition: transform .5s;
+    margin: 0 8px;
+}
+
+#menu .newPost:hover .newPostSvg {
+    fill: #0d79a8;
+}
+
+#menu .newPost:hover .newPostText {
+    color: #0d79a8;
 }

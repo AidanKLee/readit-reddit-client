@@ -1,4 +1,8 @@
-header #mainLinks {
+/* --------------------------------------------------------------- */
+/* Header Main Links */
+/* --------------------------------------------------------------- */
+
+header .mainLinks {
     display: flex;
     list-style: none;
     margin-right: 8px;
@@ -34,7 +38,47 @@ header .mainLinksItems p {
 }
 
 @media only screen and (max-width: 520px) {
-    header #mainLinks {
+    header .mainLinks {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu Main Links */
+/* --------------------------------------------------------------- */
+
+#menu .mainLinksItems {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    margin-right: 8px;
+    background-color: rgba(13, 121, 168, 0.1);
+    font-weight: bold;
+    transition: transform .5s;
+    font-size: .9rem;
+}
+
+#menu .mainLinksItems:hover {
+    background-color: rgba(13, 121, 168, 1);
+}
+
+#menu .mainLinksItems svg {
+    padding: 0 4px;
+    margin: 0 8px;
+    height: 40px;
+    width: 40px;
+}
+
+#menu .mainLinksItems:hover svg {
+    fill: #f1f1f1;
+}
+
+#menu .mainLinksItems:hover p {
+    color: #f1f1f1;
+}
+
+@media only screen and (min-width: 520px) {
+    #menu .mainLinks {
         display: none;
     }
 }

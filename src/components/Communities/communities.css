@@ -1,4 +1,8 @@
-header #communities {
+/* --------------------------------------------------------------- */
+/* Header Communities */
+/* --------------------------------------------------------------- */
+
+header .communities {
     height: 64px;
     width: 96px;
     display: flex;
@@ -11,37 +15,37 @@ header #communities {
     transition: .5s;
 }
 
-header #communities:hover {
+header .communities:hover {
     border-left: 1px solid rgba(0, 0, 0, 0.3);
     border-right: 1px solid rgba(0, 0, 0, 0);
 }
 
-header #communitiesWrapper {
+header .communitiesWrapper {
     display: flex;
     align-items: center;
 }
 
-header #communitiesSvg {
+header .communitiesSvg {
     width: 36px;
     height: 36px;
     margin-right: 8px;
     fill: #1f1f1f;
 }
 
-header #communities:hover #communitiesSvg {
+header .communities:hover .communitiesSvg {
     fill: #0d79a8;
 }
 
-#communitiesExpand {
+.communitiesExpand {
     transition: .5s;
     fill: #1f1f1f;
 }
 
-header #communities:hover #communitiesExpand {
+header .communities:hover .communitiesExpand {
     transform: rotate(180deg);
 }
 
-header #communitiesDropdown {
+header .communitiesDropdown {
     position: absolute;
     left: -1px;
     top: 63px;
@@ -52,11 +56,11 @@ header #communitiesDropdown {
     display: none;
 }
 
-header #communities:hover #communitiesDropdown {
+header .communities:hover .communitiesDropdown {
     display: block;
 }
 
-header #communitiesDropdown input {
+header .communitiesDropdown input {
     width: 100%;
     padding: 12px;
     background: rgb(209,209,209);
@@ -64,11 +68,11 @@ header #communitiesDropdown input {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-header #communitiesDropdown input:focus {
+header .communitiesDropdown input:focus {
     outline: 0 none transparent;
 }
 
-header #communitiesDropdownList {
+header .communitiesDropdownList {
     width: 100%;
     list-style: none;
 }
@@ -84,7 +88,67 @@ header .communitiesDropdownListItem:hover {
 }
 
 @media only screen and (max-width: 720px) {
-    header #communities {
+    header .communities {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu Communities */
+/* --------------------------------------------------------------- */
+
+#menu .communities {
+    width: 100%;
+    display: flex;
+    margin-right: 16px;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#menu .communitiesWrapper {
+    display: none;
+}
+
+#menu .communitiesDropdown {
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+#menu .communitiesDropdown input {
+    width: 100%;
+    padding: 16px;
+    background: rgb(209,209,209);
+    background: linear-gradient(180deg, rgba(209,209,209,0) 0%, rgba(255,255,255,1) 100%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#menu .communitiesDropdown input:focus {
+    outline: 0 none transparent;
+}
+
+#menu .communitiesDropdownList {
+    width: 100%;
+    /* height: fit-content;
+    max-height: 200px; */
+    height: auto;
+    list-style: none;
+    overflow: auto;
+}
+
+#menu .communitiesDropdownListItem {
+    padding: 16px;
+    font-weight: bold;
+}
+
+#menu .communitiesDropdownListItem:hover {
+    background-color: #f9f9f9;
+    color: #0d79a8;
+}
+
+@media only screen and (min-width: 720px) {
+    #menu .communities {
         display: none;
     }
 }

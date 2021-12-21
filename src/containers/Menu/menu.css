@@ -1,0 +1,39 @@
+#menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 320px;
+    height: 100%;
+    background-color: rgb(245, 245, 245);
+    border-left: 1px solid rgb(0, 0, 0, .1);
+    overflow: auto;
+    right: -100%;
+    transition: 1s;
+    z-index: 100;
+}
+
+.openMenu {
+    right: 0 !important;
+}
+
+@keyframes open {
+    0% {right: -100%}
+    100% {right: 0}
+}
+
+#menurWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+#menuClose {
+    height: 24px;
+    width: 24px;
+    margin: 8px;
+}
+
+@media only screen and (min-width: 720px) {
+    #menu {
+        display: none;
+    }
+}

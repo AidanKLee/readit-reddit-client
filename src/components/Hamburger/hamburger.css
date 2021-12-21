@@ -31,6 +31,7 @@
 
 #line2 {
     top: 6px;
+    transition: .3s;
 }
 
 #line3 {
@@ -39,11 +40,15 @@
 }
 
 #hamburgerWrapper:hover #line1 {
-    top: 0px;
+    top: -1px;
 }
 
 #hamburgerWrapper:hover #line3 {
-    top: 12px;
+    top: 13px;
+}
+
+#hamburgerWrapper:active #line1, #hamburgerWrapper:active #line2, #hamburgerWrapper:active #line3 {
+    transform: scale(.8);
 }
 
 .hamburgerWrapperLine1 {
@@ -94,7 +99,7 @@
     }
 }
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 720px) {
     #hamburgerWrapper {
         display: flex;
     }

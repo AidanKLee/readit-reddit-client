@@ -1,14 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Hamburger from '../Hamburger';
 import { findTest } from '../../../utilities/testUtils';
+import { Provider } from 'react-redux';
+import store from '../../../app/store';
 
 describe('Hamburger', () => {
 
     let hamburger;
     beforeEach(() => {
-        hamburger = shallow(<Hamburger />);
-    });
+        hamburger = mount(
+          <Provider store={store}>
+            <Hamburger />
+          </Provider>
+        );
+      });
 
     it('should render the first div element to the DOM', () => {
         const hamburgerDiv = findTest(hamburger, 'line1');
