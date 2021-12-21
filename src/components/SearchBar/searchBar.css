@@ -1,0 +1,32 @@
+header #searchBar {
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    border-radius: 32px;
+    flex: 1 0;
+    margin-right: 16px;
+    border: 1px solid rgba(0, 0, 0, 0)
+}
+
+header #searchBar:hover {
+    border: 1px solid rgba(0, 0, 0, .1)
+}
+
+header #searchBarSvg {
+    display: flex;
+    margin-left: 20px;
+    fill: rgba(0, 0, 0, 0.5);
+}
+
+header #searchBarInput {
+    height: 40px;
+    margin: 4px;
+    padding: 16px;
+    background-color: transparent;
+    width: calc(100% - 32px);
+}
+
+header #searchBarInput:focus {
+    outline: 0px;
+}
+

@@ -1,0 +1,95 @@
+#hamburgerWrapper {
+    width: 40px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+}
+
+#hamburger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 14px;
+    width: 32px;
+}
+
+.lines {
+    position: absolute;
+    height: 2px;
+    width: 24px;
+    background-color: #1f1f1f;
+    border-radius: 1px;
+}
+
+#line1 {
+    top: 3px;
+    transition: .3s;
+}
+
+#line2 {
+    top: 6px;
+}
+
+#line3 {
+    top: 9px;
+    transition: .3s;
+}
+
+#hamburgerWrapper:hover #line1 {
+    top: 0px;
+}
+
+#hamburgerWrapper:hover #line3 {
+    top: 12px;
+}
+
+.hamburgerWrapperLine1 {
+    animation: click1 1s ease-in-out 0s 1 forwards;
+}
+
+.hamburgerWrapperLine2 {
+    animation: click2 1s ease-in-out 0s 1 forwards;
+}
+
+.hamburgerWrapperLine3 {
+    animation: click3 1s ease-in-out 0s 1 forwards;
+}
+
+@keyframes click1 {
+    0% {
+        transform: translate(0, 0) rotate(0);
+    }
+    50% {
+        transform: translate(0, 6px) rotate(0);
+    }
+    100% {
+        transform: translate(0, 6px) rotate(135deg);
+    }
+}
+
+@keyframes click2 {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(135deg);
+    }
+}
+
+@keyframes click3 {
+    0% {
+        transform: translate(0, 0) rotate(0);
+    }
+    50% {
+        transform: translate(0, -6px) rotate(0);
+    }
+    100% {
+        transform: translate(0, -6px) rotate(-135deg);
+    }
+}

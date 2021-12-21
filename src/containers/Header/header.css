@@ -1,6 +1,11 @@
 header {
     height: 64px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: .5s;
+}
+
+header:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 #headerWrapper {
@@ -8,6 +13,20 @@ header {
     width: 100%;
     margin: 0 auto;
     max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#headerWrapperLeft {
+    display: flex;
+    align-items: center;
+    flex: 1 0;
+}
+
+#headerWrapperRight {
+    display: flex;
+    align-items: center;
 }
 
 #headerLogoWrapper {
