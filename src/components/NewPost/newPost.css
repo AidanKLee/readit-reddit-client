@@ -38,3 +38,9 @@ header #newPost:hover #newPostSvg {
 header #newPostText {
     display: none;
 }
+
+@media only screen and (max-width: 620px) {
+    header #newPost {
+        display: none;
+    }
+}

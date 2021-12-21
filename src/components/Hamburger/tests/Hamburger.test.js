@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Hamburger from './Hamburger';
-import { findTest } from '../../utilities/testUtils';
+import Hamburger from '../Hamburger';
+import { findTest } from '../../../utilities/testUtils';
 
 describe('Hamburger', () => {
 

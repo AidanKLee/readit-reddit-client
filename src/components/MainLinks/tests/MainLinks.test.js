@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MainLinks from './MainLinks';
-import { findTest } from '../../utilities/testUtils';
+import MainLinks from '../MainLinks';
+import { findTest } from '../../../utilities/testUtils';
 
 describe('Main Links', () => {
 

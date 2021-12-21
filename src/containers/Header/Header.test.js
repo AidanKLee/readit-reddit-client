@@ -1,13 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Header from './Header';
 import { findTest } from '../../utilities/testUtils';
+import { Provider } from 'react-redux';
+import store from '../../app/store';
+
 
 describe('Header', () => {
 
     let header;
     beforeEach(() => {
-        header = shallow(<Header />);
+      header = mount(
+        <Provider store={store}>
+          <Header/>
+        </Provider>
+      );
     });
 
     it('should render a header HTML element to the DOM', () => {

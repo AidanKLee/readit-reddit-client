@@ -32,3 +32,9 @@ header .mainLinksItems svg {
 header .mainLinksItems p {
     display: none;
 }
+
+@media only screen and (max-width: 520px) {
+    header #mainLinks {
+        display: none;
+    }
+}

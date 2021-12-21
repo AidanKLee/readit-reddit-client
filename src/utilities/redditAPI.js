@@ -18,6 +18,7 @@ export class redditAPI {
             },
         };
 
+        this.corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
         this.fullAuthorizeEndpoint = `${this.authorize.endpoint}client_id=${this.authorize.clientId}&response_type=${this.authorize.responseType}&state=${this.authorize.state}&redirect_uri=${this.authorize.redirectUri}&duration=${this.authorize.duration}&scope=${this.authorize.scope}`;
 
     }
@@ -93,7 +94,10 @@ export class redditAPI {
             refreshToken: jsonData.refresh_token
         }
 
-        // console.log(accessToken)
+        this.authorize.access.token = jsonData.access_token;
+        this.authorize.access.expiresAt = jsonData.expires_in + new Date().getTime();
+        this.authorize.access.tokenType = jsonData.token_type;
+        this.authorize.access.refreshToken = jsonData.refresh_token;
 
         return accessToken;
 
@@ -137,26 +141,35 @@ export class redditAPI {
         };
 
         // console.log(jsonData)
+        const accessToken = {
+            accessToken: jsonData.access_token,
+            expiresAt: jsonData.expires_in + new Date().getTime(),
+            tokenType: jsonData.token_type,
+            refreshToken: jsonData.refresh_token
+        }
 
         this.authorize.access.token = jsonData.access_token;
         this.authorize.access.expiresAt = jsonData.expires_in + new Date().getTime();
         this.authorize.access.tokenType = jsonData.token_type;
         this.authorize.access.refreshToken = jsonData.refresh_token;
 
-        this.fetchUser();
 
-        this.startTimer();
+        return accessToken;
+        // this.fetchUser();
+
+        // this.startTimer();
     }
 
     fetchUser = async () => {
-        const data = await fetch('https://cors-anywhere.herokuapp.com/https://oauth.reddit.com/api/v1/me', {
+        const data = await fetch('https://oauth.reddit.com/api/v1/me', {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
             }
         });
         const jsonData = await data.json();
-        this.me = jsonData;
-        // console.log(jsonData)
+
+        return jsonData;
+        // this.me = jsonData;
     }
 
 }

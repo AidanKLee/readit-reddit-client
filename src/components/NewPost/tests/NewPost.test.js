@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import NewPost from './NewPost';
-import { findTest } from '../../utilities/testUtils';
+import NewPost from '../NewPost';
+import { findTest } from '../../../utilities/testUtils';
 
 describe('NewPost', () => {
 

@@ -12,9 +12,8 @@ function App() {
 
   const dispatch = useDispatch();
   
-  const { hasError } = useSelector(state => state.login);
-
-  console.log(hasError)
+  const login = useSelector(state => state.login);
+  console.log(login)
 
   useEffect(() => {
     dispatch(handleLogin());

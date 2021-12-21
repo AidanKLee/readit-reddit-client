@@ -82,3 +82,9 @@ header .communitiesDropdownListItem:hover {
     background-color: #f9f9f9;
     color: #0d79a8;
 }
+
+@media only screen and (max-width: 720px) {
+    header #communities {
+        display: none;
+    }
+}

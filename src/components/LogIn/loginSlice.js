@@ -5,20 +5,23 @@ export const handleLogin = createAsyncThunk(
     'login/handleLogin',
     async () => {
         const code = reddit.handleCallback();
+        let accessToken;
         if (code) {
-            const accessToken = await reddit.fetchToken(code);
-            return accessToken;
+            accessToken = await reddit.fetchToken(code);
+        }
+        if (accessToken) {
+            const user = await reddit.fetchUser();
+            return {
+                accessToken: accessToken,
+                user: user
+            }
         }
     }
 );
 
-const sliceOptions = {
+export const loginSlice = createSlice({
     name: 'login',
-    initialState: {
-        authorization: {},
-        isLoading: false,
-        hasError: false
-    },
+    initialState: {},
     reducers: {},
     extraReducers: {
         [handleLogin.pending]: (state, action) => {
@@ -35,10 +38,8 @@ const sliceOptions = {
             state.hasError = true;
         }
     }
-};
+});
 
-export const loginSlice = createSlice(sliceOptions);
-
-export const authorization = state => state.authorization;
+export const login = state => state;
 
 export default loginSlice.reducer;

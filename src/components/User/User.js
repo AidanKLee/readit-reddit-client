@@ -1,10 +1,14 @@
 import React from "react";
 import './user.css';
+import { useSelector } from 'react-redux';
 
 const User = () => {
+
+    const login = useSelector(state => state.login);
+
     return (
         <div id='user' data-test='user'>
-            {/* <img id='userAvatar' src={reddit.me.snoovatar_img} alt='My Avatar' /> */}
+            {login.authorization ? <img id='userAvatar' src={login.authorization.user.snoovatar_img} alt='My Avatar' /> : undefined}
             <div id='userSignedIn'></div>
             <svg id='userExpand' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
             <ul id='userDropdown'>

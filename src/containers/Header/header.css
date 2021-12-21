@@ -45,3 +45,9 @@ header:hover {
     font-size: 1.5rem;
     margin-left: 8px;
 }
+
+@media only screen and (max-width: 920px) {
+    #headerLogoText {
+        display: none;
+    }
+}

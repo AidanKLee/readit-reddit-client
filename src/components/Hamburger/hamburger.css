@@ -1,10 +1,10 @@
 #hamburgerWrapper {
     width: 40px;
     height: 64px;
-    display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 16px;
+    display: none;
 }
 
 #hamburger {
@@ -91,5 +91,11 @@
     }
     100% {
         transform: translate(0, -6px) rotate(-135deg);
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    #hamburgerWrapper {
+        display: flex;
     }
 }

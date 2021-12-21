@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Login from './Login';
-import { findTest } from '../../utilities/testUtils';
+import Login from '../Login';
+import { findTest } from '../../../utilities/testUtils';
 
 describe('Login', () => {
 

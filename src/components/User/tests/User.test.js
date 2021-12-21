@@ -1,13 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import User from './user';
-import { findTest } from '../../utilities/testUtils';
+import { mount } from 'enzyme';
+import User from '../user';
+import { findTest } from '../../../utilities/testUtils';
+import store from '../../../app/store';
+import { Provider } from 'react-redux';
 
 describe('user', () => {
 
     let user;
     beforeEach(() => {
-        user = shallow(<User />);
+      user = mount(
+        <Provider store={store}>
+          <User />
+        </Provider>
+      );
     });
 
     it('should render user div element to the DOM', () => {

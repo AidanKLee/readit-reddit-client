@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Communities from './Communities';
-import { findTest } from '../../utilities/testUtils';
+import Communities from '../Communities';
+import { findTest } from '../../../utilities/testUtils';
 
 describe('Communities', () => {
 
