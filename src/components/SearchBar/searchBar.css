@@ -5,7 +5,8 @@ header .searchBar {
     border-radius: 32px;
     flex: 1 0;
     margin-right: 16px;
-    border: 1px solid rgba(0, 0, 0, 0)
+    border: 1px solid rgba(0, 0, 0, 0);
+    position: relative;
 }
 
 header .searchBar:hover {
@@ -30,3 +31,101 @@ header .searchBarInput:focus {
     outline: 0px;
 }
 
+header .searchBarInput:focus + .searchBarResults{
+    display: flex;
+}
+
+header .searchBarResults {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    background-color: #f1f1f1;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 0 none transparent;
+    width: 800px;
+    max-height: calc(100vh - 94px);
+    display: none;
+    list-style: none;
+    flex-direction: column;
+    overflow: auto;
+}
+
+header .searchBarTitle {
+    display: block;
+    font-weight: bold;
+    font-size: .8rem;
+    padding: 8px 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+header .searchBarResultsItem, .searchBarSubredditsItem {
+    padding: 4px !important;
+}
+
+header .searchBarResultsItem {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+header .searchBarResultsItem:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+header .searchBarResultsItem p {
+    font-size: .7rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+header .searchBarSubreddits {
+    font-size: .7rem;
+    font-weight: bold;
+}
+
+header .searchBarSubredditsItem {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+header .searchBarSubredditsItem:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+header .searchBarSubredditsItemTitle span {
+    color: #0d79a8;
+    font-size: .5rem;
+}
+
+header .searchBarSubredditsItem p {
+    font-size: .7rem;
+}
+
+header .searchBarViewMore {
+    font-size: .7rem;
+    font-weight: bold;
+    padding: 4px;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+header .searchBarViewMore:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+    header .searchBar {
+        position: static;
+    }
+
+    header .searchBarResults {
+        width: 100%;
+        max-width: 800px;
+        left: 50%;
+        top: 62px;
+        transform: translate(-50%);
+    }
+}

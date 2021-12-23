@@ -11,9 +11,11 @@ export const handleLogin = createAsyncThunk(
         }
         if (accessToken) {
             const user = await reddit.fetchUser();
+            const communities = await reddit.fetchCommunities();
             return {
                 accessToken: accessToken,
-                user: user
+                user: user,
+                communities: communities
             }
         }
     }

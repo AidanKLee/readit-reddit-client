@@ -1,13 +1,72 @@
 import React from 'react';
 import './communities.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../LogIn/loginSlice';
-import loader from '../../assets/loader.svg'
+import { selectMenu } from '../../containers/Menu/menuSlice';
+import loader from '../../assets/loader.svg';
+import redditLogo from '../../assets/redditLogo.svg';
+import { search, selectCommunities } from './communitiesSlice';
 
 const Communities = () => {
 
-    const login = useSelector(selectLogin)
-;
+    const dispatch = useDispatch();
+
+    const login = useSelector(selectLogin);
+    const menu = useSelector(selectMenu);
+    const communities = useSelector(selectCommunities);
+
+    const handleChange = (e) => {
+        dispatch(search(e.target.value));
+    }
+
+    const renderCommunities = () => {
+        if (login.authorization) {
+            let communitiesCopy = login.authorization.communities.data.children.slice();
+
+            communitiesCopy = communitiesCopy.filter(community => community.data.display_name.toLowerCase().includes(communities.search))
+                
+            communitiesCopy = communitiesCopy.sort((a, b) => {
+                let nameA = a.data.display_name.toUpperCase();
+                let nameB = b.data.display_name.toUpperCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            return communitiesCopy.map(community => {
+                return (
+                    <li key={community.data.name} className="communitiesDropdownListItem" data-test='communitiesListItem'>
+                        <img src={community.data.icon_img ? community.data.icon_img : redditLogo} alt={community.data.display_name}/>
+                        <p>
+                            {community.data.display_name_prefixed}
+                        </p>
+                    </li>
+                )
+            });
+        };
+    };
+
+    const returnHeight = () => {
+        if (login.authorization && menu.menuOpen && login.isLoading) {
+            const top = document.getElementsByClassName('communitiesDropdownList')[1].offsetTop;
+            const windowHeight = window.innerHeight;
+            let height = windowHeight - top;
+            return height + 'px';
+        } else if (login.authorization && menu.menuOpen && login.isLoading) {
+            const top = document.getElementsByClassName('communitiesDropdownList')[1].offsetTop;
+            const windowHeight = window.innerHeight;
+            let height = windowHeight - top;
+            return height + 'px';
+        }
+
+        return '';
+    };
+
+
     return (
         <div className='communities'>
             <div className='communitiesWrapper'>
@@ -16,32 +75,9 @@ const Communities = () => {
                 {!login.isLoading ? <svg className='communitiesExpand' data-test='communitiesSvgs' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg> : undefined}
             </div>
             <div className='communitiesDropdown'>
-                <input type='search' placeholder="Search Communities..." data-test='communitiesInput'/>
-                <ul className='communitiesDropdownList' data-test='communitiesList'>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 1
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 2
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 3
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 4
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 1
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 2
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 3
-                    </li>
-                    <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        Item 4
-                    </li>
+                <input onChange={handleChange} value={communities.search} type='search' placeholder="Search Communities..." data-test='communitiesInput'/>
+                <ul className='communitiesDropdownList' style={menu.menuOpen && login.isLoading ? {height: ''} : {height: returnHeight()}} data-test='communitiesList'>
+                    {renderCommunities()}
                 </ul>
             </div>
         </div>

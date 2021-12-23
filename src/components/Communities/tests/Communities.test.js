@@ -34,10 +34,10 @@ describe('Communities', () => {
         expect(communitiesList.length).toBe(1);
     });
 
-    it('should render the list item element(s) to the DOM', () => {
-        const communitiesListItem = findTest(communities, 'communitiesListItem');
+    // it('should render the list item element(s) to the DOM', () => {
+    //     const communitiesListItem = findTest(communities, 'communitiesListItem');
 
-        expect(communitiesListItem.length).toBe(8);
-    });
+    //     expect(communitiesListItem.length).toBe(8);
+    // });
 
 });

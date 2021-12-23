@@ -54,6 +54,9 @@ header .communitiesDropdown {
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-top: 0px none transparent;
     display: none;
+    overflow: auto;
+    height: fit-content;
+    max-height: calc(100vh - 94px);
 }
 
 header .communities:hover .communitiesDropdown {
@@ -78,7 +81,19 @@ header .communitiesDropdownList {
 }
 
 header .communitiesDropdownListItem {
-    padding: 16px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+header .communitiesDropdownListItem img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+header .communitiesDropdownListItem p {
     font-weight: bold;
 }
 
@@ -130,15 +145,24 @@ header .communitiesDropdownListItem:hover {
 
 #menu .communitiesDropdownList {
     width: 100%;
-    /* height: fit-content;
-    max-height: 200px; */
-    height: auto;
     list-style: none;
     overflow: auto;
 }
 
 #menu .communitiesDropdownListItem {
-    padding: 16px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+#menu .communitiesDropdownListItem img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+#menu .communitiesDropdownListItem p {
     font-weight: bold;
 }
 

@@ -1,23 +1,29 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import SearchBar from '../SearchBar';
 import { findTest } from '../../../utilities/testUtils';
+import { Provider } from 'react-redux';
+import store from '../../../app/store';
 
 describe('Search Bar', () => {
 
-    let newPost;
+    let searchBar;
     beforeEach(() => {
-        newPost = shallow(<SearchBar />);
-    });
+        searchBar = mount(
+          <Provider store={store}>
+            <SearchBar />
+          </Provider>
+        );
+      });
 
     it('should render the input element to the DOM', () => {
-        const searchBar = findTest(newPost, 'searchBar');
+        const searchBarInput = findTest(searchBar, 'searchBar');
 
-        expect(searchBar.length).toBe(1);
+        expect(searchBarInput.length).toBe(1);
     });
 
     it('should render the search bar SVG to the DOM', () => {
-        const searchBarSvg = findTest(newPost, 'searchBarSvg');
+        const searchBarSvg = findTest(searchBar, 'searchBarSvg');
 
         expect(searchBarSvg.length).toBe(1);
     });

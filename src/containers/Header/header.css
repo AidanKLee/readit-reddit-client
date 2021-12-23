@@ -4,6 +4,7 @@ header {
     height: 64px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: .5s;
+    z-index: 90;
 }
 
 header:hover {

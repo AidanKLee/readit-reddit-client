@@ -86,7 +86,6 @@ export class redditAPI {
             return console.log(error)
         };
 
-        // console.log(jsonData)
         const accessToken = {
             accessToken: jsonData.access_token,
             expiresAt: jsonData.expires_in + new Date().getTime(),
@@ -170,6 +169,35 @@ export class redditAPI {
 
         return jsonData;
         // this.me = jsonData;
+    }
+
+    fetchCommunities = async () => {
+        const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber', {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+    fetchSearch = async (search) => {
+        const endpoint = `https://www.reddit.com/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=10`;
+
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+    fetchSubredditSearch = async (search) => {
+        const endpoint = `https://www.reddit.com/subreddits/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=5`
+
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
     }
 
 }
