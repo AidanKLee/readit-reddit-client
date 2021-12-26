@@ -74,6 +74,10 @@ header .searchBarResultsItem:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+header .searchBarResultsItemSubredditName {
+    font-weight: bold;
+}
+
 header .searchBarResultsItem p {
     font-size: .7rem;
     white-space: nowrap;

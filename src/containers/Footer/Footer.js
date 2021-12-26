@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <footer className={menu.menuOpen ? 'blur' : ''}>
             <div id='footerWrapper'>
-                Footer
+                &copy; 2021 Readit - Reddit Client: <a target='_blank' rel="noreferrer" href='https://aidanklee.github.io/kaiGenPortfolio/'>Kai-Gen</a>
             </div>
         </footer>
     );

@@ -4,7 +4,7 @@ import reddit from '../../utilities/redditAPI';
 export const fetchSearch = createAsyncThunk(
     'searchBar/fetchSearch',
     async (search) => {
-        const results = reddit.fetchSearch(search);
+        const results = await reddit.fetchSearch(search);
         return results;
     }
 )
@@ -12,7 +12,7 @@ export const fetchSearch = createAsyncThunk(
 export const fetchSubredditSearch = createAsyncThunk(
     'searchBar/fetchSubredditSearch',
     async (search) => {
-        const results = reddit.fetchSubredditSearch(search);
+        const results = await reddit.fetchSubredditSearch(search);
         return results;
     }
 )

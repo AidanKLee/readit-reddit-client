@@ -200,6 +200,18 @@ export class redditAPI {
         return jsonData;
     }
 
+    fetchContent = async (limit = 25, url = 'best', after = null, before = null) => {
+        const endpoint = `https://www.reddit.com/${url}.json?limit=${limit}`;
+        const beforeAfter = `&before=${before}&after=${after}`;
+
+        const data = await fetch(`${endpoint}${beforeAfter}`);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+
+
 }
 
 const reddit = new redditAPI();

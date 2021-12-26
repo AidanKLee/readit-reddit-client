@@ -17,10 +17,10 @@ function App() {
 
   return (
     <div className="App" data-test='App'>
-     <Header />
-     <Main />
-<Menu />
-     <Footer />
+      <Header />
+      <Main />
+      <Menu />
+      <Footer />
     </div>
   );
 }

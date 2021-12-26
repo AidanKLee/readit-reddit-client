@@ -28,7 +28,7 @@ const SearchBar = () => {
                             return (
                                 <li key={result.data.id} className='searchBarResultsItem'>
                                     <p>
-                                        <span></span>{result.data.title}
+                                        <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
                                     </p>
                                 </li>
                             )

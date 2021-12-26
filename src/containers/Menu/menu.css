@@ -30,6 +30,15 @@
     height: 24px;
     width: 24px;
     margin: 8px;
+    transition: .3s;
+}
+
+#menuClose:hover {
+    transform: scale(1.2);
+}
+
+#menuClose:active {
+    transform: scale(.9);
 }
 
 @media only screen and (min-width: 720px) {
