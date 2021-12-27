@@ -17,6 +17,14 @@ export const fetchSubredditSearch = createAsyncThunk(
     }
 )
 
+export const fetchUsersSearch = createAsyncThunk(
+    'searchBar/fetchUsersSearch',
+    async (search) => {
+        const results = await reddit.fetchUsersSearch(search);
+        return results;
+    }
+)
+
 export const searchBarSlice = createSlice({
     name: 'searchBar',
     initialState: {
@@ -27,6 +35,9 @@ export const searchBarSlice = createSlice({
         subreddits: {},
         subrettitsAreLoading: false,
         subrettitsHasError: false,
+        users: {},
+        usersAreLoading: false,
+        usersHasError: false,
     },
     reducers: {
         search: (state, action) => {
@@ -59,6 +70,19 @@ export const searchBarSlice = createSlice({
         [fetchSubredditSearch.rejected]: (state) => {
             state.subrettitsAreLoading = false;
             state.subrettitsHasError = true;
+        },
+        [fetchUsersSearch.pending] : (state) => {
+            state.usersAreLoading = true;
+            state.usersHasError = false;
+        },
+        [fetchUsersSearch.fulfilled]: (state, action) => {
+            state.usersAreLoading = false;
+            state.usersHasError = false;
+            state.users = action.payload;
+        },
+        [fetchUsersSearch.rejected]: (state) => {
+            state.usersAreLoading = false;
+            state.usersHasError = true;
         }
     }
 });

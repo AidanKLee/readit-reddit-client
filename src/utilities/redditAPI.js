@@ -200,11 +200,21 @@ export class redditAPI {
         return jsonData;
     }
 
+    fetchUsersSearch = async (search) => {
+        const endpoint = `https://www.reddit.com/users/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=5`
+
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
     fetchContent = async (limit = 25, url = 'best', after = null, before = null) => {
         const endpoint = `https://www.reddit.com/${url}.json?limit=${limit}`;
         const beforeAfter = `&before=${before}&after=${after}`;
 
         const data = await fetch(`${endpoint}${beforeAfter}`);
+        console.log(data)
         const jsonData = await data.json();
 
         return jsonData;

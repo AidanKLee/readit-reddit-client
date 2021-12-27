@@ -1,3 +1,8 @@
+.mainLinks a {
+    text-decoration: none;
+    display: block;
+}
+
 /* --------------------------------------------------------------- */
 /* Header Main Links */
 /* --------------------------------------------------------------- */
@@ -5,7 +10,23 @@
 header .mainLinks {
     display: flex;
     list-style: none;
-    margin-right: 8px;
+}
+
+header .mainLinks a {
+    margin-right: 16px;
+    border-radius: 50%;
+    background-color: rgba(13, 121, 168, 0.1);
+    transition: transform .5s;
+}
+
+header .mainLinks a:hover {
+    background-color: rgba(13, 121, 168, 0.2);
+    transform: scale(1.2);
+}
+
+header .mainLinks a:active {
+    background-color: rgba(13, 121, 168, 0.3);
+    transform: scale(.9);
 }
 
 header .mainLinksItems {
@@ -13,20 +34,7 @@ header .mainLinksItems {
     align-items: center;
     justify-content: center;
     padding: 8px;
-    margin-right: 8px;
     border-radius: 50%;
-    background-color: rgba(13, 121, 168, 0.1);
-    transition: transform .5s;
-}
-
-header .mainLinksItems:hover {
-    background-color: rgba(13, 121, 168, 0.2);
-    transform: scale(1.2);
-}
-
-header .mainLinksItems:active {
-    background-color: rgba(13, 121, 168, 0.3);
-    transform: scale(.9);
 }
 
 header .mainLinksItems svg {
@@ -51,7 +59,6 @@ header .mainLinksItems p {
     display: flex;
     align-items: center;
     padding: 8px 0;
-    margin-right: 8px;
     background-color: rgba(13, 121, 168, 0.1);
     font-weight: bold;
     transition: transform .5s;

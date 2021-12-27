@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './searchBar.css';
-import { selectSearchBar, search, fetchSearch, fetchSubredditSearch } from './searchBarSlice';
+import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 const SearchBar = () => {
@@ -16,6 +16,7 @@ const SearchBar = () => {
     useEffect(() => {
         dispatch(fetchSearch(searchBar.search));
         dispatch(fetchSubredditSearch(searchBar.search));
+        dispatch(fetchUsersSearch(searchBar.search));
     },[dispatch, searchBar.search])
 
     const renderSearchResults = () => {
@@ -63,6 +64,28 @@ const SearchBar = () => {
         return;
     }
 
+    const renderUsersResults = () => {
+        if (searchBar.users && searchBar.users.data && searchBar.users.data.children.length > 0) {
+            return (
+                <div>
+                    <span className='searchBarTitle'>USERS</span>
+                    {
+                        searchBar.users.data.children.map(user => {
+                            return (
+                                <li key={user.data.id} className='searchBarSubredditsItem'>
+                                    <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
+                                    <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
+                                </li>
+                            )
+                        })
+                    }
+                    <p className='searchBarViewMore'>VIEW MORE...</p>
+                </div>
+            )
+        }
+        return;
+    }
+
     return (
         <div className='searchBar'>
             <label htmlFor='searchBarInput'>
@@ -72,6 +95,7 @@ const SearchBar = () => {
             <ul className='searchBarResults'>
                 {renderSubredditsResults()}
                 {renderSearchResults()}
+                {renderUsersResults()}
             </ul>
         </div>
     );

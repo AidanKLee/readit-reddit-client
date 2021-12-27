@@ -10,6 +10,7 @@ export const fetchContent = createAsyncThunk(
             url: url,
             content: await reddit.fetchContent(limit, url, after, before)
         }
+        console.log(content.content)
         return content;
     }
 )
@@ -30,7 +31,6 @@ export const mainSlice = createSlice({
         [fetchContent.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
-            console.log(action.payload)
             if (!state.page) {
                 state.page = action.payload;
             } else if (state.page.url !== action.payload.url) {
