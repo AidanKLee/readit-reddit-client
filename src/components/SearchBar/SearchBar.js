@@ -14,9 +14,18 @@ const SearchBar = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchSearch(searchBar.search));
-        dispatch(fetchSubredditSearch(searchBar.search));
-        dispatch(fetchUsersSearch(searchBar.search));
+        dispatch(fetchSearch({
+            search: searchBar.search,
+            limit: 10,
+        }));
+        dispatch(fetchSubredditSearch({
+            search: searchBar.search,
+            limit: 5,
+        }));
+        dispatch(fetchUsersSearch({
+            search: searchBar.search,
+            limit: 5,
+        }));
     },[dispatch, searchBar.search])
 
     const renderSearchResults = () => {

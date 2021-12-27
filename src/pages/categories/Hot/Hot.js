@@ -15,6 +15,22 @@ const Hot = (props) => {
             url: props.page + 'hot'
         }))
     },[dispatch, props.page])
+
+    window.onscroll = () => {
+        const loadMore = document.getElementsByClassName('mainLoadMore');
+        if (loadMore.length > 0 && main.page.url.includes(props.page + 'hot')) {
+            const loadPosition = loadMore[0].offsetTop;
+            const scrollPosition = window.scrollY + (window.innerHeight - 44)
+            const after = Array.from(main.page.content.data.children.slice());
+            if (loadPosition <= scrollPosition) {
+                dispatch(fetchContent({
+                    limit: 25,
+                    url: props.page + 'hot',
+                    after: after[after.length - 1].data.name
+                }))
+            }
+        }
+    }
     
     return (
         <div className='hot'>

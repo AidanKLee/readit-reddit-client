@@ -120,7 +120,7 @@ main {
     justify-content: flex-start;
 } */
 
-.mainLoadMore {
+/* .mainLoadMore {
     margin-bottom: 16px;
     display: block;
     width: 100%;
@@ -135,9 +135,18 @@ main {
 .mainLoadMore:hover {
     border: 1px solid rgba(0, 0, 0, 0.3);
     background-color: rgba(0, 0, 0, 0.1);
-}
+} */
 
 .mainLoading {
+    font-weight: bold;
+    animation: loading, 1s ease-in-out 0s infinite alternate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainLoadMore {
     font-weight: bold;
     animation: loading, 1s ease-in-out 0s infinite alternate;
     display: flex;

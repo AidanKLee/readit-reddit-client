@@ -182,8 +182,8 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchSearch = async (search) => {
-        const endpoint = `https://www.reddit.com/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=10`;
+    fetchSearch = async (search, limit = 5, after = null, over18 = true) => {
+        const endpoint = `https://www.reddit.com/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}`;
 
         const data = await fetch(endpoint);
         const jsonData = await data.json();
@@ -191,8 +191,8 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchSubredditSearch = async (search) => {
-        const endpoint = `https://www.reddit.com/subreddits/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=5`
+    fetchSubredditSearch = async (search, limit = 5, after = null, over18 = true) => {
+        const endpoint = `https://www.reddit.com/subreddits/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}`
 
         const data = await fetch(endpoint);
         const jsonData = await data.json();
@@ -200,8 +200,8 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchUsersSearch = async (search) => {
-        const endpoint = `https://www.reddit.com/users/search.json?q=${search}&exact=false&include_over_18=true&include_unadvertisable=false&limit=5`
+    fetchUsersSearch = async (search, limit = 5, after = null, over18 = true) => {
+        const endpoint = `https://www.reddit.com/users/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}`
 
         const data = await fetch(endpoint);
         const jsonData = await data.json();

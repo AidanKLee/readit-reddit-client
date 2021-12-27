@@ -56,7 +56,7 @@ const Main = () => {
                     <Sub />
                     <User/> */}
                 </Routes>
-                {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading More...</p></div>}
+                {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : <div className="mainLoadMore"><img className="loader" src={loader} alt='Loader' /><p>Loading More...</p></div>}
             </div>
         </main>
     );

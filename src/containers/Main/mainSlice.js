@@ -4,13 +4,11 @@ import reddit from '../../utilities/redditAPI';
 export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
-        console.log(params)
         const { limit, url = 'best', after, before } = params;
         const content = {
             url: url,
             content: await reddit.fetchContent(limit, url, after, before)
         }
-        console.log(content.content)
         return content;
     }
 )

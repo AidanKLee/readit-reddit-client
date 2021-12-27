@@ -3,24 +3,27 @@ import reddit from '../../utilities/redditAPI';
 
 export const fetchSearch = createAsyncThunk(
     'searchBar/fetchSearch',
-    async (search) => {
-        const results = await reddit.fetchSearch(search);
+    async (params) => {
+        const { search, limit, over18} = params;
+        const results = await reddit.fetchSearch(search, limit, over18);
         return results;
     }
 )
 
 export const fetchSubredditSearch = createAsyncThunk(
     'searchBar/fetchSubredditSearch',
-    async (search) => {
-        const results = await reddit.fetchSubredditSearch(search);
+    async (params) => {
+        const { search, limit, over18} = params;
+        const results = await reddit.fetchSubredditSearch(search, limit, over18);
         return results;
     }
 )
 
 export const fetchUsersSearch = createAsyncThunk(
     'searchBar/fetchUsersSearch',
-    async (search) => {
-        const results = await reddit.fetchUsersSearch(search);
+    async (params) => {
+        const { search, limit, over18} = params;
+        const results = await reddit.fetchUsersSearch(search, limit, over18);
         return results;
     }
 )
