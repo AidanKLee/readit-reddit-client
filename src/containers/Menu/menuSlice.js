@@ -12,11 +12,16 @@ export const menuSlice = createSlice({
             } else {
                 state.menuOpen = true;
             }
+        },
+        closeMenu: (state, action) => {
+            if (state.menuOpen) {
+                state.menuOpen = false;
+            }
         }
     }
 });
 
-export const { toggleMenu } = menuSlice.actions;
+export const { toggleMenu, closeMenu } = menuSlice.actions;
 
 export const selectMenu = state => {
     return state.menu;
