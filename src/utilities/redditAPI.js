@@ -214,13 +214,28 @@ export class redditAPI {
         const beforeAfter = `&before=${before}&after=${after}`;
 
         const data = await fetch(`${endpoint}${beforeAfter}`);
-        console.log(data)
         const jsonData = await data.json();
 
         return jsonData;
     }
 
+    fetchComment = async (link) => {
+        const endpoint = `https://www.reddit.com${link}.json`;
 
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+    fetchSubreddit = async (link) => {
+        const endpoint = `https://www.reddit.com/${link}/about.json`;
+
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
 
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContent, selectMain } from '../../../containers/Main/mainSlice';
+import { fetchContent, fetchSubreddits, fetchComments, selectMain } from '../../../containers/Main/mainSlice';
 import ContentTile from '../../../components/ContentTile/ContentTile';
 
 const New = (props) => {
@@ -15,6 +15,19 @@ const New = (props) => {
             url: props.page + 'new'
         }))
     },[dispatch, props.page])
+
+    useEffect(() => {
+        if (main.contentReady) {
+            const content = main.page.content.data.children.slice(-25);
+            dispatch(fetchComments({
+                comments: content
+            }));
+            dispatch(fetchSubreddits({
+                subreddits: content
+            }));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[main.contentReady])
 
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
@@ -37,7 +50,7 @@ const New = (props) => {
             {
                 main.page.content && main.page.content.data && main.page.content.data.children ?
 
-                main.page.content.data.children.map(article => <ContentTile key={article.data.id} article={article}/>) : undefined
+                main.page.content.data.children.map((article, index) => <ContentTile key={article.data.id + index} i={index} article={article}/>) : undefined
             }
         </div>
     )
