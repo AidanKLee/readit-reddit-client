@@ -22,7 +22,6 @@ const ContentTile = (props) => {
         const hours = posted.getHours() - 1;
         const minutes = posted.getMinutes();
         const seconds = posted.getSeconds();
-        console.log(hours)
 
         if (hours === 0 && minutes === 0) {
             return seconds.toString() + ' seconds ago';
