@@ -6,8 +6,10 @@ import Categories from '../../components/Categories/Categories';
 const Popular = () => {
     return (
         <div className='popular'>
-            <Categories page={'/popular'}/>
-            <Outlet page={'popular'}/>
+            <div className='content'>
+                <Categories page={'/popular'}/>
+                <Outlet page={'popular'}/>
+            </div>
         </div>
     )
 }

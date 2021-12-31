@@ -3,7 +3,8 @@ import './contentTIle.css';
 import { useSelector } from "react-redux";
 import { selectMain } from "../../containers/Main/mainSlice";
 import { selectLogin } from '../LogIn/loginSlice';
-import redditLogo from '../../assets/redditLogo.svg';
+import { Link } from "react-router-dom";
+import reddit from "../../utilities/redditAPI";
 
 const ContentTile = (props) => {
 
@@ -69,7 +70,7 @@ const ContentTile = (props) => {
                 return (
                     <li key={comment.data.id} className="tileComment">
                         <p>{comment.data.body}</p>
-                        <span><strong>Posted {getTimePosted(main.page.comments[i][main.page.comments[i].length - 2].data.created)}</strong> by {'u/' + comment.data.author}</span>
+                        <span><strong>Posted {getTimePosted(main.page.comments[i][main.page.comments[i].length - 2].data.created)}</strong> by <Link to={`u/${comment.data.author}`.toLowerCase()}>{'u/' + comment.data.author}</Link></span>
                         {renderSubComments(comment)}
                     </li>
                 )
@@ -87,7 +88,7 @@ const ContentTile = (props) => {
                                 return (
                                     <li key={subComment.data.id} className="tileComment">
                                         <p>{subComment.data.body}</p>
-                                        <span><strong>Posted {getTimePosted(subComment.data.created)}</strong> by {'u/' + subComment.data.author}</span>
+                                        <span><strong>Posted {getTimePosted(subComment.data.created)}</strong> by <Link to={`u/${subComment.data.author}`.toLowerCase()}>{'u/' + subComment.data.author}</Link></span>
                                     </li>
                                 )
                             }
@@ -119,6 +120,8 @@ const ContentTile = (props) => {
         }
     }
 
+    // console.log(article.data)
+
     return (
         <article className="tile" key={article.data.id}>
             <div className="tileSide">
@@ -128,11 +131,13 @@ const ContentTile = (props) => {
             </div>
             <div className="tileContent">
                 <div className="tileHeader">
-                    {main.page.subreddits && main.page.subreddits[i] && main.page.subreddits[i].icon_img ? <img className="tileHeaderImg" src={main.page.subreddits[i].icon_img} alt={main.page.subreddits.display_name}/> : <img className="tileHeaderImg" src={redditLogo} alt={article.data.subreddit}/>}
-                    <p className="tileHeaderText"><span className="bold">{article.data.subreddit_name_prefixed}</span> - Posted by u/{article.data.author} {getTimePosted(article.data.created)}</p>
+                    <Link to={article.data.subreddit_name_prefixed.toLowerCase()}>                
+                        {reddit.getIconImg(main.page.subreddits[i])}
+                    </Link>
+                    <p className="tileHeaderText"><Link to={article.data.subreddit_name_prefixed.toLowerCase()}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link to={`u/${article.data.author.toLowerCase()}`}>u/{article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    <p className="tileMainTitle">{article.data.title}</p>
+                    <Link to={article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>
                     {article.data.selftext ? <p className="tileMainText">{article.data.selftext}</p> : undefined}
                     <div className="tileObjectContainer video">
                         {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}

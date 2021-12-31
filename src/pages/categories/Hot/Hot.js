@@ -9,6 +9,7 @@ const Hot = (props) => {
 
     const main = useSelector(selectMain);
 
+
     useEffect(() => {
         dispatch(fetchContent({
             limit: 25,

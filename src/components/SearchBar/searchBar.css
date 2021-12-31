@@ -50,6 +50,14 @@ header .searchBarResults {
     overflow: auto;
 }
 
+header .searchBarResults:hover {
+    display: flex;
+}
+
+header .searchBarResults a:hover {
+    text-decoration: none;
+}
+
 header .searchBarTitle {
     display: block;
     font-weight: bold;

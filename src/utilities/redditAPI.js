@@ -1,3 +1,5 @@
+import redditLogo from '../assets/redditLogo.svg';
+
 export class redditAPI {
     constructor() {
         this.time = 0;
@@ -237,6 +239,29 @@ export class redditAPI {
         return jsonData;
     }
 
+    getIconImg = (community) => {
+        if (community && !community.data) {
+            if (community) {
+                if (community.icon_img) {
+                    return <img src={community.icon_img} alt={community.display_name}/>
+                } else if (community.community_icon) {
+                    let url = community.community_icon.split('?')[0]
+                    return <img src={url} alt={community.display_name}/>
+                } else {
+                    return <img src={redditLogo} alt={community.display_name}/>
+                }
+            } 
+        } else if (community && community.data) {
+            if (community.data.icon_img) {
+                return <img src={community.data.icon_img} alt={community.data.display_name}/>
+            } else if (community.data.community_icon) {
+                let url = community.data.community_icon.split('?')[0]
+                return <img src={url} alt={community.data.display_name}/>
+            } else {
+                return <img src={redditLogo} alt={community.data.display_name}/>
+            }
+        } 
+    }
 }
 
 const reddit = new redditAPI();

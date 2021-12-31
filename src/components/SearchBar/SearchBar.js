@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './searchBar.css';
 import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const SearchBar = () => {
 
@@ -36,11 +37,13 @@ const SearchBar = () => {
                     {
                         searchBar.results.data.children.map(result => {
                             return (
-                                <li key={result.data.id} className='searchBarResultsItem'>
-                                    <p>
-                                        <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
-                                    </p>
-                                </li>
+                                <Link key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
+                                    <li className='searchBarResultsItem'>
+                                        <p>
+                                            <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
+                                        </p>
+                                    </li>
+                                </Link>
                             )
                         })
                     }
@@ -59,10 +62,12 @@ const SearchBar = () => {
                     {
                         searchBar.subreddits.data.children.map(subreddit => {
                             return (
-                                <li key={subreddit.data.id} className='searchBarSubredditsItem'>
-                                    <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
-                                    <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
-                                </li>
+                                <Link key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
+                                    <li className='searchBarSubredditsItem'>
+                                        <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
+                                        <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
+                                    </li>
+                                </Link>
                             )
                         })
                     }
@@ -81,10 +86,12 @@ const SearchBar = () => {
                     {
                         searchBar.users.data.children.map(user => {
                             return (
-                                <li key={user.data.id} className='searchBarSubredditsItem'>
-                                    <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
-                                    <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
-                                </li>
+                                <Link to={`u/${user.data.name}`.toLowerCase()} key={user.data.id}>
+                                    <li className='searchBarSubredditsItem'>
+                                        <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
+                                        <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
+                                    </li>
+                                </Link>
                             )
                         })
                     }

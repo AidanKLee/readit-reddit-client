@@ -5,6 +5,7 @@ export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
         const { limit, url = 'best', after, before } = params;
+        console.log(url)
 
         const data = await reddit.fetchContent(limit, url, after, before);
 
@@ -60,6 +61,7 @@ export const mainSlice = createSlice({
             subreddits: [],
             url: ''
         },
+        selectedSubreddit: '',
         isLoading: false,
         hasError: false,
         contentReady: false,
@@ -68,7 +70,11 @@ export const mainSlice = createSlice({
         subredditsAreLoading: false,
         subredditsHasError: false
     },
-    reducers: {},
+    reducers: {
+        setSelectedSubreddit: (state, action) => {
+            state.selectedSubreddit = action.payload;
+        }
+    },
     extraReducers: {
         [fetchContent.pending] : (state) => {
             state.isLoading = true;
@@ -143,6 +149,8 @@ export const mainSlice = createSlice({
         }
     }
 });
+
+export const { setSelectedSubreddit } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 

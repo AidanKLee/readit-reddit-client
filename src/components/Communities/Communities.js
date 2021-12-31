@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../LogIn/loginSlice';
 import { selectMenu } from '../../containers/Menu/menuSlice';
 import loader from '../../assets/loader.svg';
-import redditLogo from '../../assets/redditLogo.svg';
+import reddit from '../../utilities/redditAPI';
 import { search, selectCommunities } from './communitiesSlice';
 
 const Communities = () => {
@@ -37,10 +37,12 @@ const Communities = () => {
                 return 0;
             });
 
+            console.log(communitiesCopy)
+
             return communitiesCopy.map(community => {
                 return (
                     <li key={community.data.name} className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                        <img src={community.data.icon_img ? community.data.icon_img : redditLogo} alt={community.data.display_name}/>
+                        {reddit.getIconImg(community)}
                         <p>
                             {community.data.display_name_prefixed}
                         </p>
