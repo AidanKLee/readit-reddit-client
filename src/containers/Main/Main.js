@@ -27,18 +27,6 @@ const Main = () => {
         setSubredditUrl(url);
         console.log(subredditUrl)
     }
-    
-    const renderSubreddit = () => {
-        if (main.selectedSubreddit) {
-            <div>
-                <Route path={''} element={<Best page={`r/${main.selectedSubreddit}/`}/>}/>
-                <Route path={'/r/:subredditId/hot'} element={<Hot page={`r/${main.selectedSubreddit}/`}/>}/>
-                <Route path={'/r/:subredditId/new'} element={<New page={`r/${main.selectedSubreddit}/`}/>}/>
-                <Route path={'/r/:subredditId/top'} element={<Top page={`r/${main.selectedSubreddit}/`}/>}/>
-                <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${main.selectedSubreddit}/`}/>}/>
-            </div>  
-        }
-    }
 
     return (
         <main className={menu.menuOpen ? 'blur' : ''}>

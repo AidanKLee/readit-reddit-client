@@ -37,7 +37,7 @@ const SearchBar = () => {
                     {
                         searchBar.results.data.children.map(result => {
                             return (
-                                <Link key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
+                                <Link onClick={returnToTop} key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
                                     <li className='searchBarResultsItem'>
                                         <p>
                                             <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
@@ -62,7 +62,7 @@ const SearchBar = () => {
                     {
                         searchBar.subreddits.data.children.map(subreddit => {
                             return (
-                                <Link key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
+                                <Link onClick={returnToTop} key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
                                     <li className='searchBarSubredditsItem'>
                                         <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
                                         <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
@@ -86,7 +86,7 @@ const SearchBar = () => {
                     {
                         searchBar.users.data.children.map(user => {
                             return (
-                                <Link to={`u/${user.data.name}`.toLowerCase()} key={user.data.id}>
+                                <Link onClick={returnToTop} to={`u/${user.data.name}`.toLowerCase()} key={user.data.id}>
                                     <li className='searchBarSubredditsItem'>
                                         <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
                                         <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
@@ -100,6 +100,14 @@ const SearchBar = () => {
             )
         }
         return;
+    }
+
+    const returnToTop = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     return (

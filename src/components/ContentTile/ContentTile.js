@@ -70,7 +70,7 @@ const ContentTile = (props) => {
                 return (
                     <li key={comment.data.id} className="tileComment">
                         <p>{comment.data.body}</p>
-                        <span><strong>Posted {getTimePosted(main.page.comments[i][main.page.comments[i].length - 2].data.created)}</strong> by <Link to={`u/${comment.data.author}`.toLowerCase()}>{'u/' + comment.data.author}</Link></span>
+                        <span><strong>Posted {getTimePosted(main.page.comments[i][main.page.comments[i].length - 2].data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${comment.data.author}`.toLowerCase()}>{'u/' + comment.data.author}</Link></span>
                         {renderSubComments(comment)}
                     </li>
                 )
@@ -88,7 +88,7 @@ const ContentTile = (props) => {
                                 return (
                                     <li key={subComment.data.id} className="tileComment">
                                         <p>{subComment.data.body}</p>
-                                        <span><strong>Posted {getTimePosted(subComment.data.created)}</strong> by <Link to={`u/${subComment.data.author}`.toLowerCase()}>{'u/' + subComment.data.author}</Link></span>
+                                        <span><strong>Posted {getTimePosted(subComment.data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${subComment.data.author}`.toLowerCase()}>{'u/' + subComment.data.author}</Link></span>
                                     </li>
                                 )
                             }
@@ -120,33 +120,9 @@ const ContentTile = (props) => {
         }
     }
 
-    // console.log(article.data)
-
-    return (
-        <article className="tile" key={article.data.id}>
-            <div className="tileSide">
-                <svg className="tileSideUp" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
-                <span>{getUpVotes(article.data.ups)}</span>
-                <svg className="tileSideDown" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
-            </div>
-            <div className="tileContent">
-                <div className="tileHeader">
-                    <Link to={article.data.subreddit_name_prefixed.toLowerCase()}>                
-                        {reddit.getIconImg(main.page.subreddits[i])}
-                    </Link>
-                    <p className="tileHeaderText"><Link to={article.data.subreddit_name_prefixed.toLowerCase()}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link to={`u/${article.data.author.toLowerCase()}`}>u/{article.data.author}</Link> {getTimePosted(article.data.created)}</p>
-                </div>
-                <div className="tileMain">
-                    <Link to={article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>
-                    {article.data.selftext ? <p className="tileMainText">{article.data.selftext}</p> : undefined}
-                    <div className="tileObjectContainer video">
-                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}
-                        {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
-                    </div>
-                    <div className="tileObjectContainer">
-                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
-                    </div>
-                </div>
+    const renderAwards = () => {
+        if (article.data.all_awardings.length > 0) {
+            return (
                 <div className="tileAwards">
                     {
                         article.data.all_awardings.map(award => {
@@ -161,6 +137,44 @@ const ContentTile = (props) => {
                         })
                     }
                 </div>
+            )
+        }
+    }
+
+    const returnToTop = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    return (
+        <article className="tile" key={article.data.id}>
+            <div className="tileSide">
+                <svg className="tileSideUp" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+                <span>{getUpVotes(article.data.ups)}</span>
+                <svg className="tileSideDown" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+            </div>
+            <div className="tileContent">
+                <div className="tileHeader">
+                    <Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed.toLowerCase()}>                
+                        {reddit.getIconImg(main.page.subreddits[i])}
+                    </Link>
+                    <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed.toLowerCase()}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.author.toLowerCase()}`}>u/{article.data.author}</Link> {getTimePosted(article.data.created)}</p>
+                </div>
+                <div className="tileMain">
+                    <Link onClick={returnToTop} to={'/' + article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>
+                    {article.data.selftext ? <p className="tileMainText">{article.data.selftext}</p> : undefined}
+                    <div className="tileObjectContainer video">
+                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}
+                        {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
+                    </div>
+                    <div className="tileObjectContainer">
+                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
+                    </div>
+                </div>
+                {renderAwards()}
                 {
                     login.authorization ?
                         <div className="tileActions">

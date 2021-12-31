@@ -9,7 +9,11 @@ const MainLinks = () => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
         dispatch(closeMenu());
     }
 

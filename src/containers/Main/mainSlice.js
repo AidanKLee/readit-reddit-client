@@ -5,7 +5,6 @@ export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
         const { limit, url = 'best', after, before } = params;
-        console.log(url)
 
         const data = await reddit.fetchContent(limit, url, after, before);
 
