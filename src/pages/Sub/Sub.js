@@ -120,7 +120,7 @@ const Sub = (props) => {
                                             {reddit.getIconImg(sub)}
                                         </Link>
                                         <div className='subContentRightRecommendedLinkData'>
-                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.data.display_name_prefixed}</p></Link>
+                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.data.display_name_prefixed} {sub.data.over18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
                                             <p className='subHeading'>{sub.data.subscribers} members</p>
                                         </div>
                                     </div>

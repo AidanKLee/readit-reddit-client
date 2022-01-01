@@ -191,7 +191,7 @@ const ContentTile = (props) => {
                 <ul className="tileComments">
                     {main.page.comments && main.page.comments[i] ? renderComments() : undefined}
                 </ul>
-                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 1 ? <p className="tileCommentsRemaining">{main.page.comments[i].length - 1 - commentsShowing} comments remaining</p> : undefined}
+                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 1 && main.page.comments[i].length - 1 - commentsShowing !== 0 ? <p className="tileCommentsRemaining">{main.page.comments[i].length - 1 - commentsShowing} comments remaining</p> : undefined}
                 <div className="tileCommentsView">
                     {
                         main.page.comments[i] && main.page.comments[i].length - 1 > commentsShowing ? <p className="tileCommentsViewMore" onClick={handleViewMoreClick}>VIEW MORE...</p> : undefined
