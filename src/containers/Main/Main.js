@@ -68,7 +68,13 @@ const Main = () => {
                         {main.selectedSubreddit ? <Route path={'/r/:subredditId/top'} element={<Top page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}
                         {main.selectedSubreddit ? <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}        
                     </Route>
-                    <Route path='u/:userId' element={<User/>}/>
+                    {/* <Route path='u/:userId' element={<User/>}>
+                        {main.selectedSubreddit ? <Route path={''} element={<Best page={`u/${main.selectedSubreddit}/`}/>}/> : undefined}
+                        {main.selectedSubreddit ? <Route path={'/r/:userId/hot'} element={<Hot page={`u/${main.selectedSubreddit}/`}/>}/> : undefined}
+                        {main.selectedSubreddit ? <Route path={'/r/:userId/new'} element={<New page={`u/${main.selectedSubreddit}/`}/>}/> : undefined}
+                        {main.selectedSubreddit ? <Route path={'/r/:userId/top'} element={<Top page={`u/${main.selectedSubreddit}/`}/>}/> : undefined}
+                        {main.selectedSubreddit ? <Route path={'/r/:userId/rising'} element={<Rising page={`u/${main.selectedSubreddit}/`}/>}/> : undefined} 
+                    </Route> */}
                 </Routes>
                 {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : <div className="mainLoadMore"><img className="loader" src={loader} alt='Loader' /><p>Loading More...</p></div>}
             </div>

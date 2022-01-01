@@ -1,6 +1,6 @@
 .sub {
     width: 100%;
-max-width: 800px;
+    /* max-width: 800px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@ max-width: 800px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: -64px;
+    margin-top: -48px;
     height: 100%;
 }
 
@@ -57,12 +57,13 @@ max-width: 800px;
 .subBannerUnderText {
     padding: 0 0 8px;
     width: calc(100% - 144px);
+    z-index: 30;
 }
 
 
 .subBannerUnderWrapper h1 {
     font-size: 1.2rem;
-    margin: 70px 16px 0 16px;
+    margin: 54px 16px 0 16px;
     word-wrap: break-word;
 }
 
@@ -91,6 +92,7 @@ max-width: 800px;
     box-shadow: 
         inset 2px 2px 2px rgba(255, 255, 255, 0.2),
         inset -2px -2px 2px rgba(0, 0, 0, 0.0);
+        z-index: 31;
 }
 
 .subBanner button:hover {
@@ -103,6 +105,145 @@ max-width: 800px;
     box-shadow: 
         inset 2px 2px 4px rgba(0, 0, 0, 0.6),
         inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.subContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    max-width: 1280px;
+}
+
+.subContentRight {
+    flex: 1 1;
+    padding: 16px 16px 0 0;
+    max-width: 360px;
+}
+
+.subContentRightSticky {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 128px);
+    background-color: #f1f1f1;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.subContentRightHeader {
+    background-color: rgba(255, 255, 255, .5);
+    padding: 16px;
+}
+
+.heading {
+    font-size: .8rem;
+}
+
+.subHeading {
+    font-size: .6rem;
+}
+
+.paragraph {
+    font-size: .8rem;
+}
+
+.subContentRightHeaderStats {
+    display: flex;
+    margin-top: 8px;
+}
+
+.subContentRightHeaderStats div {
+    width: 50%;
+}
+
+.subContentRightMain {
+    padding: 16px;
+}
+
+.subContentRightRecommendedHeading {
+    padding: 16px;
+}
+
+.subContentRightRecommendedLinks {
+    width: 100%;
+    overflow-y: auto;
+}
+
+.subContentRightRecommendedLinksWrapper {
+    width: 100%;
+}
+
+.subContentRightRecommendedLink {
+    background-color: #f1f1f1;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subContentRightRecommendedLink button {
+    background-color: #0d79a8;
+    border: 2px solid #f1f1f1;
+    display: flex;
+    justify-content: center;
+    color: #f1f1f1;
+    padding: 4px;
+    margin-right: 4px;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 16px;
+    box-shadow: 
+        inset 2px 2px 2px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 2px rgba(0, 0, 0, 0.0);
+        z-index: 31;
+}
+
+.subContentRightRecommendedLink button:hover {
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subContentRightRecommendedLink button:active {
+    box-shadow: 
+        inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.subContentRightRecommendedLinkLeft {
+    display: flex;
+    align-items: center;
+}
+
+.subContentRightRecommendedLink img {
+    height: 48px;
+    width: 48px;
+    display: flex;
+    border-radius: 50%;
+}
+
+.subContentRightRecommendedLinkData {
+    margin-left: 8px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .subContentRightSticky {
+        height: fit-content;
+    }
+
+    .subContentRight {
+        padding-left: 16px;
+        width: 100%;
+        flex: none;
+        max-width: 800px;
+    }
+
+    .subContentRightRecommendedLinks {
+        height: 130px !important;
+    }
 }
 
 @media only screen and (max-width: 520px) {

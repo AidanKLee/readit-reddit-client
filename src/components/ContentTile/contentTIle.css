@@ -166,6 +166,7 @@
 
 .tileComment span {
     font-size: .6rem;
+    word-wrap: break-word;
 }
 
 .tileCommentsRemaining {

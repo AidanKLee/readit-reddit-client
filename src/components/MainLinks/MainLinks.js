@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './mainLinks.css';
 import { closeMenu } from '../../containers/Menu/menuSlice';
 import { useDispatch } from 'react-redux';
+import { setSelectedSubreddit } from '../../containers/Main/mainSlice';
 
 const MainLinks = () => {
 
@@ -15,6 +16,7 @@ const MainLinks = () => {
             behavior: 'smooth'
         });
         dispatch(closeMenu());
+        dispatch(setSelectedSubreddit(''));
     }
 
     return (
