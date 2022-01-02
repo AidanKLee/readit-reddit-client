@@ -243,6 +243,9 @@ export class redditAPI {
         if (community && !community.data) {
             if (community) {
                 if (community.icon_img) {
+                    if (community.icon_img.includes('?')) {
+                        return <img src={community.icon_img.split('?')[0]} alt={community.display_name}/>
+                    }
                     return <img src={community.icon_img} alt={community.display_name}/>
                 } else if (community.community_icon) {
                     let url = community.community_icon.split('?')[0]

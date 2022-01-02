@@ -11,9 +11,12 @@
     justify-content: center;
     align-items: center;
     min-height: 64px;
-    max-height: 384px;
+    max-height: 440px;
     position: relative;
     overflow: hidden;
+    background-color: #0d79a8;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .subBanner img {
@@ -30,6 +33,8 @@
     align-items: center;
     background-color: #f1f1f1;
     position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 0px none transparent;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
@@ -41,6 +46,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: -48px;
+    margin-bottom: 16px;
     height: 100%;
 }
 
@@ -132,7 +138,7 @@
 }
 
 .subContentRightHeader {
-    background-color: rgba(255, 255, 255, .5);
+    background-color: #0d79a8;
     padding: 16px;
 }
 
