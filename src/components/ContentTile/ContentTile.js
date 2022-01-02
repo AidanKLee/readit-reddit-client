@@ -69,7 +69,7 @@ const ContentTile = (props) => {
                     {
                         article.data.all_awardings.map(award => {
                             return (
-                                <div className="tileAward" key={award.name}>
+                                <div className="tileAward" key={award.id}>
                                     <img src={award.icon_url} alt={award.name}/>
                                     <p>
                                         {award.count > 1 ? award.count : undefined}

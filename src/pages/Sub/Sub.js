@@ -52,7 +52,7 @@ const Sub = (props) => {
         return () => window.removeEventListener('resize', getHeight());
     },[])
 
-    const backgroundColor = subreddit.data && subreddit.data.banner_background_color ? {backgroundColor: subreddit.data.banner_background_color} : {backgroundColor: '#f1f1f1'};
+    const backgroundColor = subreddit.data && subreddit.data.banner_background_color ? {backgroundColor: subreddit.data.banner_background_color} : {backgroundColor: 'rgb(13, 121, 168)'};
 
     const getTextColor = () => {
         let hexColor = backgroundColor.backgroundColor;
@@ -110,25 +110,30 @@ const Sub = (props) => {
     const renderRecommended = () => {      
         if (subreddit.recommended) {
             return (
-                <div className='subContentRightRecommendedLinks' style={height}>
-                    {
-                        subreddit.recommended.map(sub => {
-                            return (
-                                <div className='subContentRightRecommendedLink' key={sub.data.id}>
-                                    <div className='subContentRightRecommendedLinkLeft'>
-                                        <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}>
-                                            {reddit.getIconImg(sub)}
-                                        </Link>
-                                        <div className='subContentRightRecommendedLinkData'>
-                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.data.display_name_prefixed} {sub.data.over18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
-                                            <p className='subHeading'>{sub.data.subscribers} members</p>
+                <div className='subContentRightRecommended' style={backgroundColor}>
+                    <p className='bold subContentRightRecommendedHeading' style={getTextColor()}>
+                        Recommended
+                    </p>
+                    <div className='subContentRightRecommendedLinks' style={height}>
+                        {
+                            subreddit.recommended.map(sub => {
+                                return (
+                                    <div className='subContentRightRecommendedLink' key={sub.data.id}>
+                                        <div className='subContentRightRecommendedLinkLeft'>
+                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}>
+                                                {reddit.getIconImg(sub)}
+                                            </Link>
+                                            <div className='subContentRightRecommendedLinkData'>
+                                                <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.data.display_name_prefixed} {sub.data.over18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
+                                                <p className='subHeading'>{sub.data.subscribers} members</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button type='button'>Join</button>
-                                </div>                                    
-                            )
-                        })
-                    }
+                                        <button type='button'>Join</button>
+                                    </div>                                    
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             )   
         }
@@ -181,12 +186,7 @@ const Sub = (props) => {
                             </p>
                             {subreddit.data ? <div><p className='paragraph'>{subreddit.data.public_description}</p></div> : undefined}
                         </div>
-                        <div className='subContentRightRecommended' style={backgroundColor}>
-                            <p className='bold subContentRightRecommendedHeading' style={getTextColor()}>
-                                Recommended
-                            </p>
-                            {renderRecommended()}
-                        </div>
+                        {renderRecommended()}
                     </div>
                 </div>
             </div>

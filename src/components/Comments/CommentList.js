@@ -33,8 +33,8 @@ const CommentList = (props) => {
             </ul>
             {comments && commentsShowing !== comments.length ? <p className='commentsRemaining'>{comments.length - commentsShowing} {isReplies ? 'replies' : 'comments'} remaining</p> : undefined}
             <div className='commentsActions'>
-                {commentsShowing !== comments.length ? <p onClick={handleViewMoreClick}>VIEW MORE...</p> : undefined}
-                {commentsShowing !== 1 ? <p onClick={handleViewLessClick}>VIEW LESS...</p> : undefined}
+                {comments && commentsShowing !== comments.length ? <p onClick={handleViewMoreClick}>VIEW MORE...</p> : undefined}
+                {comments && commentsShowing !== 1 ? <p onClick={handleViewLessClick}>VIEW LESS...</p> : undefined}
             </div>
         </div>
     )  

@@ -41,7 +41,7 @@ const Communities = () => {
 
             return communitiesCopy.map(community => {
                 return (
-                    <li key={community.data.name} className="communitiesDropdownListItem" data-test='communitiesListItem'>
+                    <li key={community.data.id} className="communitiesDropdownListItem" data-test='communitiesListItem'>
                         {reddit.getIconImg(community)}
                         <p>
                             {community.data.display_name_prefixed}

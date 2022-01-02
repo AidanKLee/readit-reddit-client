@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
+import Categories from '../../components/Categories/Categories';
 
 const User = () => {
 
@@ -11,6 +12,10 @@ const User = () => {
     
     return (
         <div className='user'>
+            <div className='content'>
+                <Categories page={'/u/' + userUrl}/>
+                <Outlet/>
+            </div>
             User
         </div>
     )

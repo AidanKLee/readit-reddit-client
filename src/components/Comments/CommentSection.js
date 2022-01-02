@@ -8,7 +8,10 @@ const CommentSection = (props) => {
     let { comments, getTimePosted } = props;
 
     if (comments) {
-        comments = comments.slice(0).reverse().slice(1)
+        comments = comments.slice(0).reverse();
+        if (!comments[0].data.subreddit_id) {
+            comments = comments.slice(1);
+        }
     }
     
     const renderComments = (comment) => {
