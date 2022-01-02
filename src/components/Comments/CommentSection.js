@@ -10,7 +10,7 @@ const CommentSection = (props) => {
     if (comments) {
         comments = comments.slice(0).reverse();
         if (!comments[0].data.subreddit_id) {
-            comments = comments.slice(1);
+            comments = comments.slice(1).reverse();
         }
     }
     

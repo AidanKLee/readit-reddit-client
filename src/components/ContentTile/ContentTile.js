@@ -52,14 +52,16 @@ const ContentTile = (props) => {
     }
 
     const isImage = (string) => {
-        let isImage = false;
-        const imageExt = ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.jp2', '.j2k', '.jpf', '.jpx', '.jpm', '.mj2', '.png', '.gif', '.webp', '.tiff', '.tif', '.bmp', '.dib',  '.svg', '.svgz', '.ai', '.eps']
-        imageExt.forEach(ext => {
-            if (string.includes(ext)) {
-                isImage = true;
-            }
-        });
-        return isImage;
+        if (typeof(string) === 'string') {
+            let isImage = false;
+            const imageExt = ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.jp2', '.j2k', '.jpf', '.jpx', '.jpm', '.mj2', '.png', '.gif', '.webp', '.tiff', '.tif', '.bmp', '.dib',  '.svg', '.svgz', '.ai', '.eps']
+            imageExt.forEach(ext => {
+                if (string.includes(ext)) {
+                    isImage = true;
+                }
+            });
+            return isImage;
+        } 
     }
 
     const renderAwards = () => {

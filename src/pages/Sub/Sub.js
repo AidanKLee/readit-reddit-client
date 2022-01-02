@@ -16,7 +16,7 @@ const Sub = (props) => {
     dispatch(setSelectedSubreddit(subredditUrl));
 
     const [ subreddit, setSubreddit ] = useState({});
-    const [ height, setHeight ] = useState({})
+    const [ height, setHeight ] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,8 +26,8 @@ const Sub = (props) => {
             }
             setSubreddit(subreddit);
         }
-        fetchData()
-    }, [subredditUrl])
+        fetchData();
+    }, [subredditUrl]);
 
     useEffect(() => {
         if (!subreddit.recommended && subreddit.data) {
