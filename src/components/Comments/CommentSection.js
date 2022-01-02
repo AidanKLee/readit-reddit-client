@@ -18,7 +18,7 @@ const CommentSection = (props) => {
                 replies = replies.slice(1)
             }
             return (
-                <CommentItem key={comment.data.id} comment={comment} getTimePosted={getTimePosted}>
+                <CommentItem style={{padding: '8px 8px 0'}} key={comment.data.id} comment={comment} getTimePosted={getTimePosted}>
                     <CommentList isReplies={true} comments={replies}>
                         {replies.map(reply => renderComments(reply))}
                     </CommentList>
@@ -30,7 +30,7 @@ const CommentSection = (props) => {
     }
 
     return (
-        <CommentList comments={comments} style={{padding: '0 8px 8px 8px'}}>
+        <CommentList comments={comments} style={{padding: '0 8px'}}>
             {comments ? comments.map(comment => renderComments(comment)) : undefined}
         </CommentList>
     )
