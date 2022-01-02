@@ -1,0 +1,45 @@
+/* .comments {
+    padding: 8px;
+} */
+
+.commentsList {
+    list-style: none;
+}
+
+.commentsRemaining {
+    font-size: .6rem !important;
+    font-weight: bold !important;
+    margin: 0 8px 8px 8px !important;
+}
+
+.commentsActions {
+    display: flex;
+}
+
+.commentsActions p {
+    font-size: .7rem !important;
+    font-weight: bold !important;
+    margin: 0 8px !important;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.commentsActions p:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+.commentsItem {
+    margin-bottom: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.commentsItem p {
+    word-wrap: break-word;
+    font-size: .8rem;
+}
+
+.commentsItem p:nth-of-type(1) {
+    margin-bottom: 4px;
+}

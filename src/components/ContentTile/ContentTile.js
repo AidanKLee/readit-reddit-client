@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import './contentTIle.css';
 import { useSelector } from "react-redux";
 import { selectMain } from "../../containers/Main/mainSlice";
+import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
 import { Link } from "react-router-dom";
 import reddit from "../../utilities/redditAPI";
@@ -12,8 +13,6 @@ const ContentTile = (props) => {
     const i = props.i;
     const main = useSelector(selectMain);
     const login = useSelector(selectLogin);
-
-    const [ commentsShowing, setCommentsShowing ] = useState(1);
 
     const getTimePosted = (t) => {
         const date = new Date(t * 1000);
@@ -61,63 +60,6 @@ const ContentTile = (props) => {
             }
         });
         return isImage;
-    }
-
-    const renderComments = () => {
-        const commentsArray = main.page.comments[i].slice(0).reverse().slice(1, commentsShowing + 1)
-        return (
-            commentsArray.map((comment, x) => {
-                return (
-                    <li key={comment.data.id} className="tileComment">
-                        <p>{comment.data.body}</p>
-                        <span><strong>Posted {getTimePosted(main.page.comments[i][main.page.comments[i].length - 2].data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${comment.data.author}`.toLowerCase()}>{'u/' + comment.data.author}</Link></span>
-                        {renderSubComments(comment)}
-                    </li>
-                )
-            })            
-        )  
-    }
-
-    const renderSubComments = (comment) => {
-        return (
-            <ul>
-                {
-                    comment && comment.data && comment.data.replies && comment.data.replies.data ?
-                        comment.data.replies.data.children.map(subComment => {
-                            if (subComment && subComment.data && subComment.data.body ) {
-                                return (
-                                    <li key={subComment.data.id} className="tileComment">
-                                        <p>{subComment.data.body}</p>
-                                        <span><strong>Posted {getTimePosted(subComment.data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${subComment.data.author}`.toLowerCase()}>{'u/' + subComment.data.author}</Link></span>
-                                    </li>
-                                )
-                            }
-                            else {
-                                return undefined
-                            }
-                        })
-                        : undefined
-                }
-            </ul>
-        )
-        
-    }
-
-    const handleViewMoreClick = () => {
-        if (commentsShowing <= main.page.comments[i].length - 3) {
-            setCommentsShowing(commentsShowing + 2)
-        } else if (commentsShowing > main.page.comments[i].length - 3) {
-            setCommentsShowing(commentsShowing + 1)
-        }
-        
-    }
-
-    const handeViewLessClick = () => {
-        if (commentsShowing > 2) {
-            setCommentsShowing(commentsShowing - 2)
-        } else if (commentsShowing <= 2) {
-            setCommentsShowing(commentsShowing - 1)
-        }
     }
 
     const renderAwards = () => {
@@ -188,18 +130,7 @@ const ContentTile = (props) => {
                             </div>
                         </div> : undefined
                 }
-                <ul className="tileComments">
-                    {main.page.comments && main.page.comments[i] ? renderComments() : undefined}
-                </ul>
-                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 1 && main.page.comments[i].length - 1 - commentsShowing !== 0 ? <p className="tileCommentsRemaining">{main.page.comments[i].length - 1 - commentsShowing} comments remaining</p> : undefined}
-                <div className="tileCommentsView">
-                    {
-                        main.page.comments[i] && main.page.comments[i].length - 1 > commentsShowing ? <p className="tileCommentsViewMore" onClick={handleViewMoreClick}>VIEW MORE...</p> : undefined
-                    }
-                    {
-                        main.page.comments[i] && commentsShowing > 1 ? <p className="tileCommentsViewMore" onClick={handeViewLessClick}>VIEW LESS...</p> : undefined
-                    }
-                </div>
+                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0 ? <CommentSection comments={main.page.comments[i]} getTimePosted={getTimePosted}/> : undefined}
             </div>
         </article>
     )

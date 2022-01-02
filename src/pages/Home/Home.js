@@ -6,10 +6,10 @@ import Categories from '../../components/Categories/Categories';
 const Home = () => {
     return (
         <div className='home'>
-        <div className='content'>
-            <Categories page={''}/>
-            <Outlet/>
-        </div>
+            <div className='content'>
+                <Categories page={''}/>
+                <Outlet/>
+            </div>
         </div>
     )
 }
