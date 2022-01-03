@@ -5,6 +5,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
 import reddit from '../../utilities/redditAPI';
 import { selectMain, setSelectedSubreddit } from '../../containers/Main/mainSlice';
+import { getTimePosted } from '../../utilities/functions';
 
 const User = () => {
 
@@ -60,6 +61,7 @@ const User = () => {
                         <p>
                             {subreddit.data && subreddit.data.subreddit.title ? subreddit.data.subreddit.title : undefined}
                         </p>
+                        
                     </div>
                 </div>
             </div>
@@ -78,7 +80,19 @@ const User = () => {
                 <div className='subContentRight'>
                     <div className='userContentRightSticky'>
                         <div className='subContentRightHeader'>
-                            
+                            {subreddit.data ? <p className='bold'>{subreddit.data.name}</p> : undefined}
+                            {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
+                            {subreddit.data && subreddit.data.subreddit.title ? <p>{subreddit.data.subreddit.title}</p> : undefined}
+                            <div className='subContentRightHeaderStats'>
+                                <div>
+                                    {subreddit.data ? <p className='heading bold'>{subreddit.data.total_karma}</p> : undefined}
+                                    <p className='subHeading'>Total Karma</p>
+                                </div>
+                                <div>
+                                    {subreddit.data ? <p className='heading bold'>{getTimePosted(subreddit.data.created)}</p> : undefined}
+                                    <p className='subHeading'>Joined</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

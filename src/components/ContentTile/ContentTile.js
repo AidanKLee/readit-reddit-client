@@ -1,6 +1,7 @@
 import React from "react";
 import './contentTIle.css';
 import { useSelector } from "react-redux";
+import { getTimePosted, returnToTop } from "../../utilities/functions";
 import { selectMain } from "../../containers/Main/mainSlice";
 import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
@@ -13,28 +14,6 @@ const ContentTile = (props) => {
     const i = props.i;
     const main = useSelector(selectMain);
     const login = useSelector(selectLogin);
-
-    const getTimePosted = (t) => {
-        const date = new Date(t * 1000);
-        const dateNow = new Date();
-        let posted = new Date(dateNow - date);
-
-        const hours = posted.getHours() - 1;
-        const minutes = posted.getMinutes();
-        const seconds = posted.getSeconds();
-
-        if (hours === 0 && minutes === 0) {
-            return seconds.toString() + ' seconds ago';
-        } else if (hours === 0) {
-            return minutes.toString() + ' minutes ago';
-        } else if (hours < 2 && hours > 0) {
-            return hours + ' hour ago';
-        } else if (hours < 24 && hours > 1) {
-            return hours + ' hours ago';
-        } else {
-            return Math.round(hours / 24).toString() + ' days ago';
-        }
-    }
 
     const getUpVotes = (votes) => {
         votes = votes.toString()
@@ -85,13 +64,6 @@ const ContentTile = (props) => {
         }
     }
 
-    const returnToTop = () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }
 
     return (
         <article className="tile" key={article.data.id}>
@@ -132,7 +104,7 @@ const ContentTile = (props) => {
                             </div>
                         </div> : undefined
                 }
-                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0 ? <CommentSection comments={main.page.comments[i]} getTimePosted={getTimePosted}/> : undefined}
+                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0 ? <CommentSection comments={main.page.comments[i]}/> : undefined}
             </div>
         </article>
     )

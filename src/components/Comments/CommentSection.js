@@ -5,7 +5,7 @@ import CommentItem from './CommentItem';
 
 const CommentSection = (props) => {
 
-    let { comments, getTimePosted } = props;
+    let { comments } = props;
 
     if (comments) {
         comments = comments.slice(0).reverse();
@@ -21,19 +21,19 @@ const CommentSection = (props) => {
                 replies = replies.slice(1)
             }
             return (
-                <CommentItem style={{padding: '8px 8px 0'}} key={comment.data.id} comment={comment} getTimePosted={getTimePosted}>
-                    <CommentList isReplies={true} comments={replies}>
+                <CommentItem style={{padding: '8px 8px 0'}} key={comment.data.id} comment={comment}>
+                    <CommentList isReplies={true} comments={replies} showing={0} minShowing={0}>
                         {replies.map(reply => renderComments(reply))}
                     </CommentList>
                 </CommentItem>
             )
         } else {
-            return <CommentItem key={comment.data.id} comment={comment} getTimePosted={getTimePosted}/>
+            return <CommentItem key={comment.data.id} comment={comment}/>
         }
     }
 
     return (
-        <CommentList comments={comments} style={{padding: '0 8px'}}>
+        <CommentList comments={comments} style={{padding: '0 8px'} } showing={1} minShowing={1}>
             {comments ? comments.map(comment => renderComments(comment)) : undefined}
         </CommentList>
     )

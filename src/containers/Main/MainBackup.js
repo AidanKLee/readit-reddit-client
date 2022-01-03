@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import './main.css';
+import { getTimePosted } from "../../utilities/functions";
 import { useSelector, useDispatch } from 'react-redux';
 import { selectMenu } from "../Menu/menuSlice";
 import { selectMain, fetchContent } from "./mainSlice";
@@ -11,26 +12,6 @@ const Main = () => {
 
     const menu = useSelector(selectMenu);
     const main = useSelector(selectMain);
-
-    const getTimePosted = (t) => {
-        const date = new Date(t * 1000);
-        const dateNow = new Date();
-        let posted = new Date(dateNow - date);
-
-        const hours = posted.getHours();
-        const minutes = '0' + posted.getMinutes();
-        const seconds = '0' + posted.getSeconds();
-
-        if (!hours && !minutes) {
-            return seconds.toString() + ' seconds ago';
-        } else if (!hours) {
-            return minutes.toString() + ' minutes ago';
-        } else if (hours < 24) {
-            return hours + ' hours ago';
-        } else {
-            return Math.round(hours / 24).toString() + ' days ago';
-        }
-    }
 
     const getUpVotes = (votes) => {
         votes = votes.toString()

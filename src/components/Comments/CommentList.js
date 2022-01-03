@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 const CommentList = (props) => {
 
-    const { comments, children, style, isReplies } = props;
-    const [ commentsShowing, setCommentsShowing ] = useState(1);
+    const { comments, children, style, isReplies, showing, minShowing } = props;
+    const [ commentsShowing, setCommentsShowing ] = useState(showing);
 
     const handleViewMoreClick = () => {
         if (commentsShowing <= comments.length - 2) {
@@ -14,9 +14,9 @@ const CommentList = (props) => {
     }
 
     const handleViewLessClick = () => {
-        if (commentsShowing > 2) {
+        if (commentsShowing > minShowing + 1) {
             setCommentsShowing(commentsShowing - 2)
-        } else if (commentsShowing === 2) {
+        } else if (commentsShowing === minShowing + 1) {
             setCommentsShowing(commentsShowing - 1)
         }
     }
@@ -31,10 +31,10 @@ const CommentList = (props) => {
                     else return undefined
                 }) : undefined}
             </ul>
-            {comments && commentsShowing !== comments.length ? <p className='commentsRemaining'>{comments.length - commentsShowing} {isReplies ? 'replies' : 'comments'} remaining</p> : undefined}
+            {comments && commentsShowing !== comments.length ? <p className='commentsRemaining'>{comments.length - commentsShowing} {isReplies ? comments.length - commentsShowing === 1 ? 'reply' : 'replies' : comments.length - commentsShowing === 1 ? 'comment' : 'comments'} remaining</p> : undefined}
             <div className='commentsActions'>
                 {comments && commentsShowing !== comments.length ? <p onClick={handleViewMoreClick}>VIEW MORE...</p> : undefined}
-                {comments && commentsShowing !== 1 ? <p onClick={handleViewLessClick}>VIEW LESS...</p> : undefined}
+                {comments && commentsShowing !== minShowing ? <p onClick={handleViewLessClick}>VIEW LESS...</p> : undefined}
             </div>
         </div>
     )  

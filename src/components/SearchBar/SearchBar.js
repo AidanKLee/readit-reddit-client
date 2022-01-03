@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './searchBar.css';
+import { returnToTop } from '../../utilities/functions';
 import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -100,14 +101,6 @@ const SearchBar = () => {
             )
         }
         return;
-    }
-
-    const returnToTop = () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
     }
 
     return (

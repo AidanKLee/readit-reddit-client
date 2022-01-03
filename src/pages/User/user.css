@@ -59,3 +59,12 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
+
+.subContentRightHeader p {
+    color: #f1f1f1;
+}
+
+.subContentRightHeader p:nth-of-type(3) {
+    font-size: .9rem;
+    margin-top: 8px;
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getTimePosted, returnToTop } from '../../utilities/functions';
 
 const CommentItem = (props) => {
 
-    const { comment, getTimePosted, returnToTop, children, style } = props;
+    const { comment, children, style } = props;
 
     return (
         <li className='commentsItem' style={style} key={comment.data.id}>

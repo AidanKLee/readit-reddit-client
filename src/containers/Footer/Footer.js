@@ -1,5 +1,6 @@
 import React from "react";
 import './footer.css';
+import { returnToTop } from "../../utilities/functions";
 import { useSelector } from 'react-redux';
 import { selectMenu } from "../Menu/menuSlice";
 
@@ -11,7 +12,7 @@ const Footer = () => {
         <footer className={menu.menuOpen ? 'blur' : ''}>
             <div className='footerWrapper'>
                 <p>&copy; 2021 Readit - Reddit Client</p>
-                <p>Return To Top</p>
+                <p onClick={returnToTop}>Return To Top</p>
             </div>
         </footer>
     );
