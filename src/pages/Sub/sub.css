@@ -129,7 +129,8 @@
 .subContentRightSticky {
     position: sticky;
     top: 80px;
-    height: calc(100vh - 128px);
+    height: fit-content;
+    max-height: calc(100vh - 128px);
     background-color: #f1f1f1;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -177,6 +178,8 @@
 
 .subContentRightRecommendedHeading {
     padding: 16px;
+    background-color: #0d79a8;
+    color: #f1f1f1
 }
 
 .subContentRightRecommendedLinks {

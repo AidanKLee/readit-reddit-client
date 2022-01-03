@@ -52,7 +52,8 @@
 .userContentRightSticky {
     position: sticky;
     top: 116px;
-    height: calc(100vh - 164px);
+    height: fit-content;
+    max-height: calc(100vh - 164px);
     background-color: #f1f1f1;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;

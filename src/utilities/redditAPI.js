@@ -239,6 +239,15 @@ export class redditAPI {
         return jsonData;
     }
 
+    fetchModeratorOf = async (link) => {
+        const endpoint = `https://www.reddit.com${link}moderated_subreddits.json`;
+
+        const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
     getIconImg = (community) => {
         if (community && !community.data) {
             if (community) {

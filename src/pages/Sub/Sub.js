@@ -18,6 +18,8 @@ const Sub = (props) => {
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
 
+    console.log(subreddit)
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await reddit.fetchSubreddit(`r/${subredditUrl}`);
@@ -31,6 +33,7 @@ const Sub = (props) => {
 
     useEffect(() => {
         if (!subreddit.recommended && subreddit.data) {
+            console.log('test')
             const fetchRecommended = async (name) => {
                 const data = await reddit.fetchSubredditSearch(name, 11, null, subreddit.data.over18);
                 setSubreddit({
@@ -39,16 +42,21 @@ const Sub = (props) => {
                 })
             }
             fetchRecommended(subreddit.data.display_name)
+            setSubreddit({
+                ...subreddit,
+                initialFetchComplete: true
+            })
         }
-    },[subreddit])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[subreddit.data])
 
     useEffect(() => {
-        getHeight();
+        getHeight(setHeight);
     },[subreddit.recommended])
 
     useLayoutEffect(() => {
         window.addEventListener('resize', getHeight);
-        getHeight();
+        getHeight(setHeight);
         return () => window.removeEventListener('resize', getHeight());
     },[])
 
@@ -99,7 +107,10 @@ const Sub = (props) => {
 
     const getHeight = () => {
         const element = document.getElementsByClassName('subContentRightRecommendedLinks')[0];
-        const parent = document.getElementsByClassName('subContentRightSticky')[0];
+        let parent = document.getElementsByClassName('subContentRightSticky')[0];
+        if (!parent) {
+            parent = document.getElementsByClassName('userContentRightSticky')[0];
+        }
         if (element) {
             const position = element.offsetTop;
             let height = (parent.offsetHeight - position).toString() + 'px';

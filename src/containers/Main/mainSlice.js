@@ -39,7 +39,11 @@ export const fetchSubreddits = createAsyncThunk(
     'main/fetchSubreddits',
     async ({subreddits}) => {
         const data = await Promise.all(subreddits.map(async subreddit => {
-            const newSubreddit = await reddit.fetchSubreddit(subreddit.data.subreddit_name_prefixed);
+            let name = subreddit.data.subreddit_name_prefixed
+            if (subreddit.data.subreddit_name_prefixed.includes('u/')) {
+                name = name.replace('u/', 'user/')
+            }
+            const newSubreddit = await reddit.fetchSubreddit(name);
             return newSubreddit;
         }));
 

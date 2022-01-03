@@ -39,3 +39,16 @@ export const returnToTop = () => {
         behavior: 'smooth'
     });
 }
+
+export const getHeight = (setter) => {
+    const element = document.getElementsByClassName('subContentRightRecommendedLinks')[0];
+    let parent = document.getElementsByClassName('subContentRightSticky')[0];
+    if (!parent) {
+        parent = document.getElementsByClassName('userContentRightSticky')[0];
+    }
+    if (element) {
+        const position = element.offsetTop;
+        let height = (parent.offsetHeight - position).toString() + 'px';
+        setter({height: height});
+    }
+}
