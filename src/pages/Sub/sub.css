@@ -244,7 +244,7 @@
     margin-left: 8px;
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1130px) {
     .subContentRightSticky {
         height: fit-content;
     }
@@ -257,7 +257,7 @@
     }
 
     .subContentRightRecommendedLinks {
-        height: 130px !important;
+        max-height: 130px;
     }
 }
 

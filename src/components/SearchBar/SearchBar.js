@@ -87,7 +87,7 @@ const SearchBar = () => {
                     {
                         searchBar.users.data.children.map(user => {
                             return (
-                                <Link onClick={returnToTop} to={`u/${user.data.name}`.toLowerCase()} key={user.data.id}>
+                                <Link onClick={returnToTop} to={`u/${user.data.name}`} key={user.data.id}>
                                     <li className='searchBarSubredditsItem'>
                                         <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
                                         <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>

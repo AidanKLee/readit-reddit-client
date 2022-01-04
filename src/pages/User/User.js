@@ -1,32 +1,23 @@
 import React, { useEffect, useLayoutEffect, useState} from 'react';
 import './user.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
 import reddit from '../../utilities/redditAPI';
-import mainSlice, { selectMain, setSelectedSubreddit } from '../../containers/Main/mainSlice';
 import { getTimePosted, returnToTop } from '../../utilities/functions';
 import { Link } from 'react-router-dom';
 
 const User = () => {
 
-    const dispatch = useDispatch();
-
-    const main = useSelector(selectMain);
-
-    const params = useParams();
-    const userUrl = params.userId;
+    let selected = useLocation().pathname.split('/').slice(1);
+    const [prefix, user, content ] = selected;
 
     const [ subreddit, setSubreddit ] = useState({});
-    const [ userContent, setUserContent ] = useState('overview');
     const [ height, setHeight ] = useState({});
-
-    dispatch(setSelectedSubreddit(userUrl + '/' + userContent));
 
     useEffect(() => {
         const fetchData = async () => {
             // variable endpoints - about, overview, submitted, comments, https://www.reddit.com/user/[user]/moderated_subreddits.json
-            const data = await reddit.fetchSubreddit(`user/${userUrl}/about`);
+            const data = await reddit.fetchSubreddit(`user/${user}/about`);
             const subreddit = {
                 data: data.data,
             }
@@ -34,7 +25,7 @@ const User = () => {
         }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (!subreddit.moderatorOf && subreddit.data) {
@@ -53,13 +44,6 @@ const User = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[subreddit.data])
-
-    // useEffect(() => {
-    //     if (main.contentReady) {
-    //         dispatch(setSelectedSubreddit(''));
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[main.contentReady])
 
     useEffect(() => {
         getHeight(setHeight);
@@ -96,14 +80,9 @@ const User = () => {
         }
         if (element) {
             const position = element.offsetTop;
-            let height = (parent.offsetHeight - position).toString() + 'px';
+            let height = (parent.offsetHeight - position - 2).toString() + 'px';
             setHeight({height: height});
         }
-    }
-
-    const handleUserContentChange = (e) => {
-        setUserContent(e.target.value);
-        returnToTop();
     }
 
     const renderModeratorOf = () => {
@@ -119,11 +98,11 @@ const User = () => {
                                 return (
                                     <div className='subContentRightRecommendedLink' key={sub.name}>
                                         <div className='subContentRightRecommendedLinkLeft'>
-                                            <Link onClick={handleClick} to={`/${sub.display_name_prefixed.toLowerCase()}`}>
+                                            <Link onClick={handleClick} to={`/${sub.display_name_prefixed}`}>
                                                 {reddit.getIconImg(sub)}
                                             </Link>
                                             <div className='subContentRightRecommendedLinkData'>
-                                                <Link onClick={handleClick} to={`/${sub.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.display_name_prefixed} {sub.over_18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
+                                                <Link onClick={handleClick} to={`/${sub.display_name_prefixed}`}><p className='subHeading bold'>{sub.display_name_prefixed} {sub.over_18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
                                                 <p className='subHeading'>{sub.subscribers} members</p>
                                             </div>
                                         </div>
@@ -163,14 +142,14 @@ const User = () => {
             </div>
             <div className='userCategories'>
                 <div className='userCategoriesWrapper'>
-                    <button value='overview'onClick={handleUserContentChange}>Overview</button>
-                    <button value='submitted'onClick={handleUserContentChange}>Posts</button>
-                    <button value='comments'onClick={handleUserContentChange}>Comments</button>
+                    <Link to={`/${prefix}/${user}/overview`} onClick={returnToTop}><p>Overview</p></Link>
+                    <Link to={`/${prefix}/${user}/submitted`} onClick={returnToTop}><p>Posts</p></Link>
+                    <Link to={`/${prefix}/${user}/comments`} onClick={returnToTop}><p>Comments</p></Link>
                 </div>
             </div>
             <div className='subContent'>
                 <div className='content'>
-                    <Categories page={'/u/' + userUrl}/>
+                    <Categories page={`/${prefix}/${user}/${content}`}/>
                     <Outlet/>
                 </div>
                 <div className='subContentRight'>
@@ -180,6 +159,10 @@ const User = () => {
                             {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
                             {subreddit.data && subreddit.data.subreddit.title ? <p>{subreddit.data.subreddit.title}</p> : undefined}
                             <div className='subContentRightHeaderStats'>
+                                <div>
+                                    {subreddit.data ? <p className='heading bold'>{subreddit.data.subreddit.subscribers}</p> : undefined}
+                                    <p className='subHeading'>subscribers</p>
+                                </div>
                                 <div>
                                     {subreddit.data ? <p className='heading bold'>{subreddit.data.total_karma}</p> : undefined}
                                     <p className='subHeading'>Total Karma</p>

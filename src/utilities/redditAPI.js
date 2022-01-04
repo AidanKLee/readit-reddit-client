@@ -212,10 +212,16 @@ export class redditAPI {
     }
 
     fetchContent = async (limit = 25, url = 'best', after = null, before = null) => {
+        url = url.split('/');
+        if (url[url.length - 1] === url[url.length - 2]) {
+            url = url.slice(0, url.length - 1)
+        }
+        url = url.join('/');
         let endpoint = `https://www.reddit.com/${url}.json?limit=${limit}`;
-        if (url.includes('/comments/')) {
+        if (url.includes('user/')) {
             url = url.split('/');
-            endpoint = `https://www.reddit.com/${`${url[0]}/${url[1]}/${url[2]}/`}.json?sort=${url[3]}limit=${limit}`
+            endpoint = `https://www.reddit.com/${`${url[0]}/${url[1]}/${url[2]}/`}.json?sort=${url[3]}&limit=${limit}`
+
         }
         const beforeAfter = `&before=${before}&after=${after}`;
 

@@ -73,14 +73,16 @@ const ContentTile = (props) => {
             </div>
             <div className="tileContent">
                 <div className="tileHeader">
-                    <Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed.toLowerCase()}>                
+                    <Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}>                
                         {reddit.getIconImg(main.page.subreddits[i])}
                     </Link>
-                    <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed.toLowerCase()}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.author.toLowerCase()}`}>u/{article.data.author}</Link> {getTimePosted(article.data.created)}</p>
+                    <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    <Link onClick={returnToTop} to={'/' + article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>
+                    {<Link onClick={returnToTop} to={article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>}
+                    {article.data.link_permalink ? <div><p className="tileMainText"><Link onClick={returnToTop} to={'/u/' + article.data.author}><strong>{article.data.author}</strong></Link> posted a comment on <Link onClick={returnToTop} to={'/u/' + article.data.link_author}><strong>{article.data.link_author}</strong></Link>'s post:</p><Link onClick={returnToTop} to={'/u/' + article.data.link_permalink}><p className="tileMainTitle">{article.data.link_title}</p></Link></div> : undefined}
                     {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={400}/></p> : undefined}
+                    {article.data.url && article.data.url.length > 0 && (!article.data.url.includes('https://www.reddit.com') || (article.data.url.includes('https://www.reddit.com') && article.data.url.includes('gallery'))) && !isImage(article.data.url) && !article.data.url.includes('.gifv') && !article.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={article.data.url}>{article.data.url}</a></p> : undefined}
                     <div className="tileObjectContainer video">
                         {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}
                         {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
@@ -103,7 +105,7 @@ const ContentTile = (props) => {
                             </div>
                         </div> : undefined
                 }
-                {main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0 ? <CommentSection comments={main.page.comments[i]}/> : undefined}
+                {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection comments={main.page.comments[i]} article={article}/> : undefined}
             </div>
         </article>
     )
@@ -119,8 +121,10 @@ export const Text = (props) => {
     }
 
     const renderText = () => {
-        if (text.length > length) {
+        if (text && text.length > length) {
             return showMore ? <span>{text + ' '}<span className="readMore" onClick={toggleShowMore}>Show Less</span></span> : <span>{text.slice(0, length) + '... '}<span className="readMore" onClick={toggleShowMore}>Read More</span></span>
+        } else if (!text) {
+            return 'error'
         }
         return text;
     }

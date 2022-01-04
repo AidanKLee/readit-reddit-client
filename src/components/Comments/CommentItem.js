@@ -10,7 +10,7 @@ const CommentItem = (props) => {
     return (
         <li className='commentsItem' style={style} key={comment.data.id}>
             <p><Text text={comment.data.body} length={150}/></p>
-            <p><strong>Posted {getTimePosted(comment.data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${comment.data.author}`.toLowerCase()}>{'u/' + comment.data.author}</Link></p>
+            <p><strong>Posted {getTimePosted(comment.data.created)}</strong> by <Link onClick={returnToTop} to={`/u/${comment.data.author}`}>{'u/' + comment.data.author}</Link></p>
             {children}
         </li>
     )

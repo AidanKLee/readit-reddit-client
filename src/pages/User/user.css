@@ -41,24 +41,33 @@
     justify-content: center;
 }
 
-.userCategories button {
+.userCategories p {
+    display: block;
     color: white;
     font-size: .8rem;
     font-weight: bold;
-    width: 128px;
     text-align: center;
     background-color: transparent;
-    padding: 4px;
+    padding: 4px 8px;
     margin: 0 8px;
     border-radius: 8px;
 }
 
-.userCategories button:hover {
+.userCategories p:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.userCategories button:active {
+.userCategories p:active {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.userCategories a {
+    text-decoration: none;
+    flex: 0 1 200px;
+}
+
+.userCategories a:hover {
+    text-decoration: none;
 }
 
 .userContentRightSticky {
@@ -82,7 +91,7 @@
     margin-top: 8px;
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1130px) {
     .userContentRightSticky {
         height: fit-content;
     }

@@ -3,17 +3,11 @@ import './sub.css';
 import { useParams, Outlet, Link } from 'react-router-dom';
 import reddit from '../../utilities/redditAPI';
 import Categories from '../../components/Categories/Categories';
-import { useDispatch } from 'react-redux';
-import { setSelectedSubreddit } from '../../containers/Main/mainSlice';
 
 const Sub = (props) => {
-
-    const dispatch = useDispatch();
     
     const params = useParams();
     const subredditUrl = params.subredditId;
-
-    dispatch(setSelectedSubreddit(subredditUrl));
 
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
@@ -128,11 +122,11 @@ const Sub = (props) => {
                                 return (
                                     <div className='subContentRightRecommendedLink' key={sub.data.id}>
                                         <div className='subContentRightRecommendedLinkLeft'>
-                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}>
+                                            <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed}`}>
                                                 {reddit.getIconImg(sub)}
                                             </Link>
                                             <div className='subContentRightRecommendedLinkData'>
-                                                <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed.toLowerCase()}`}><p className='subHeading bold'>{sub.data.display_name_prefixed} {sub.data.over18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
+                                                <Link onClick={handleClick} to={`/${sub.data.display_name_prefixed}`}><p className='subHeading bold'>{sub.data.display_name_prefixed} {sub.data.over18 ? <span className='blue'>NSFW</span> : undefined}</p></Link>
                                                 <p className='subHeading'>{sub.data.subscribers} members</p>
                                             </div>
                                         </div>

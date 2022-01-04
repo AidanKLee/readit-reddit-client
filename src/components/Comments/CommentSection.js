@@ -5,7 +5,11 @@ import CommentItem from './CommentItem';
 
 const CommentSection = (props) => {
 
-    let { comments } = props;
+    let { comments, article } = props;
+
+    if (!comments || comments.length === 0) {
+        comments = [article];
+    }
 
     if (comments) {
         comments = comments.slice(0).reverse();

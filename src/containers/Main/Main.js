@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './main.css';
 import { useSelector } from 'react-redux';
 import { selectMenu } from "../Menu/menuSlice";
@@ -14,13 +14,37 @@ import Hot from '../../pages/categories/Hot/Hot';
 import New from '../../pages/categories/New/New';
 import Top from '../../pages/categories/Top/Top';
 import Rising from '../../pages/categories/Rising/Rising';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 const Main = () => {
 
     const menu = useSelector(selectMenu);
     const main = useSelector(selectMain);
 
+    const selected = useLocation().pathname.split('/').slice(2).join('/');
+    const redirect = useLocation().pathname.split('/')[2];
+
+    useEffect(() => {
+        let page = window.location.pathname;
+        const title = 'Readit';
+        if (page.length === 1) {
+            page = ': Home';
+        }  else {
+            page = page.split('/');
+            page = page.slice(1);
+            if (page[0] === 'u' || page[0] === 'r') {
+                page = page.slice(1);
+            }
+            page = page.map(word => {
+                let string = word.slice(0)
+                string = string.substring(0, 1).toUpperCase() + string.substring(1);
+                return string;
+            })
+            page.length > 1 ? page = ': ' + page.join(' - ') : page = ': ' + page.join('')
+        }
+        document.title = title + page
+    },[selected])
+        
     return (
         <main className={menu.menuOpen ? 'blur' : ''}>
             <div className="mainWrapper">
@@ -54,20 +78,21 @@ const Main = () => {
                     </Route>
                 
                     {/* <Search /> */}
-                    <Route path='/r/:subredditId' element={<Sub/>}> 
-                        {main.selectedSubreddit ? <Route path={''} element={<Best page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/r/:subredditId/hot'} element={<Hot page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/r/:subredditId/new'} element={<New page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/r/:subredditId/top'} element={<Top page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${main.selectedSubreddit}/`}/>}/> : undefined}        
+                    <Route path='/r' element={<Sub/>}> 
+                        <Route path={'/r/:subredditId'} element={<Best page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/hot'} element={<Hot page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/new'} element={<New page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/top'} element={<Top page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${selected}/`}/>}/>   
                     </Route>
                     
-                    <Route path='/u/:userId' element={<User/>}>
-                        {main.selectedSubreddit ? <Route path={''} element={<Best page={`user/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/u/:userId/hot'} element={<Hot page={`user/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/u/:userId/new'} element={<New page={`user/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/u/:userId/top'} element={<Top page={`user/${main.selectedSubreddit}/`}/>}/> : undefined}
-                        {main.selectedSubreddit ? <Route path={'/u/:userId/rising'} element={<Rising page={`user/${main.selectedSubreddit}/`}/>}/> : undefined} 
+                    <Route path='/u/' element={<User/>}>
+                        <Route path={'/u/:userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
+                        <Route path={'/u/:userId/:content'} element={<Best page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/hot'} element={<Hot page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/new'} element={<New page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/top'} element={<Top page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/rising'} element={<Rising page={`user/${selected}/`}/>}/> 
                     </Route>
                 </Routes>
                 {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}

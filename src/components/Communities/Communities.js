@@ -23,7 +23,7 @@ const Communities = () => {
         if (login.authorization) {
             let communitiesCopy = login.authorization.communities.data.children.slice();
 
-            communitiesCopy = communitiesCopy.filter(community => community.data.display_name.toLowerCase().includes(communities.search))
+            communitiesCopy = communitiesCopy.filter(community => community.data.display_name.toLowerCase().includes(communities.search.toLowerCase()))
                 
             communitiesCopy = communitiesCopy.sort((a, b) => {
                 let nameA = a.data.display_name.toUpperCase();
@@ -36,8 +36,6 @@ const Communities = () => {
                 }
                 return 0;
             });
-
-            console.log(communitiesCopy)
 
             return communitiesCopy.map(community => {
                 return (

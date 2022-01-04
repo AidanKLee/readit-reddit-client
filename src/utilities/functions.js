@@ -49,6 +49,7 @@ export const getHeight = (setter) => {
     if (element) {
         const position = element.offsetTop;
         let height = (parent.offsetHeight - position).toString() + 'px';
-        setter({height: height});
-    }
+        console.log(element, parent, height)
+        setter({maxHeight: height});
+    } 
 }

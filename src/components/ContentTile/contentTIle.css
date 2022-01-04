@@ -51,9 +51,13 @@
     max-width: 100%;
 }
 
+.tileMain div:nth-of-type(1) {
+    margin-top: 8px;
+}
+
 .tileMainTitle {
     font-weight: bold;
-    padding: 8px;
+    margin: 8px;
     white-space: normal;
 }
 

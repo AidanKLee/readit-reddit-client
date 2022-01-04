@@ -64,7 +64,6 @@ export const mainSlice = createSlice({
             subreddits: [],
             url: ''
         },
-        selectedSubreddit: '',
         isLoading: false,
         hasError: false,
         contentReady: false,
@@ -73,11 +72,7 @@ export const mainSlice = createSlice({
         subredditsAreLoading: false,
         subredditsHasError: false
     },
-    reducers: {
-        setSelectedSubreddit: (state, action) => {
-            state.selectedSubreddit = action.payload;
-        }
-    },
+    reducers: {},
     extraReducers: {
         [fetchContent.pending] : (state) => {
             state.isLoading = true;
