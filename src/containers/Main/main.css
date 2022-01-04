@@ -25,6 +25,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 16px;
 }
 
 .mainLoadMore {
@@ -34,6 +35,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 8px;
 }
 
 .content {
@@ -44,6 +46,17 @@ main {
 
 .bold {
     font-weight: bold;
+}
+
+.readMore {
+    font-weight: bold;
+    color: #0d79a8;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.readMore:hover {
+    text-decoration: underline;
 }
 
 @keyframes loading {

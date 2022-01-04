@@ -21,11 +21,11 @@
     font-weight: bold !important;
     margin: 0 8px 8px !important;
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .commentsActions p:hover {
-    color: rgba(0, 0, 0, 1);
+    color: rgba(0, 0, 0, 1) !important;
 }
 
 .commentsItem {

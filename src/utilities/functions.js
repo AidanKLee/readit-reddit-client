@@ -1,4 +1,4 @@
- export const getTimePosted = (t) => {
+export const getTimePosted = (t) => {
     const date = new Date(t * 1000);
     const dateNow = new Date();
 

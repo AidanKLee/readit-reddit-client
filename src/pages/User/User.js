@@ -1,26 +1,27 @@
 import React, { useEffect, useLayoutEffect, useState} from 'react';
 import './user.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useParams } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
 import reddit from '../../utilities/redditAPI';
-import { setSelectedSubreddit } from '../../containers/Main/mainSlice';
-import { getTimePosted } from '../../utilities/functions';
+import mainSlice, { selectMain, setSelectedSubreddit } from '../../containers/Main/mainSlice';
+import { getTimePosted, returnToTop } from '../../utilities/functions';
 import { Link } from 'react-router-dom';
 
 const User = () => {
 
     const dispatch = useDispatch();
 
+    const main = useSelector(selectMain);
+
     const params = useParams();
     const userUrl = params.userId;
 
-    dispatch(setSelectedSubreddit(userUrl + '/overview'));
-
     const [ subreddit, setSubreddit ] = useState({});
+    const [ userContent, setUserContent ] = useState('overview');
     const [ height, setHeight ] = useState({});
 
-    console.log(subreddit)
+    dispatch(setSelectedSubreddit(userUrl + '/' + userContent));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +33,8 @@ const User = () => {
             setSubreddit(subreddit);
         }
         fetchData();
-    }, [userUrl]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (!subreddit.moderatorOf && subreddit.data) {
@@ -52,6 +54,13 @@ const User = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[subreddit.data])
 
+    // useEffect(() => {
+    //     if (main.contentReady) {
+    //         dispatch(setSelectedSubreddit(''));
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[main.contentReady])
+
     useEffect(() => {
         getHeight(setHeight);
     },[subreddit.moderatorOf])
@@ -70,7 +79,7 @@ const User = () => {
         }
     }
 
-        const handleClick = () => {
+    const handleClick = () => {
         window.scrollTo({
             top: 0,
             left: 0,
@@ -90,6 +99,11 @@ const User = () => {
             let height = (parent.offsetHeight - position).toString() + 'px';
             setHeight({height: height});
         }
+    }
+
+    const handleUserContentChange = (e) => {
+        setUserContent(e.target.value);
+        returnToTop();
     }
 
     const renderModeratorOf = () => {
@@ -149,9 +163,9 @@ const User = () => {
             </div>
             <div className='userCategories'>
                 <div className='userCategoriesWrapper'>
-                    <p>Overview</p>
-                    <p>Posts</p>
-                    <p>Comments</p>
+                    <button value='overview'onClick={handleUserContentChange}>Overview</button>
+                    <button value='submitted'onClick={handleUserContentChange}>Posts</button>
+                    <button value='comments'onClick={handleUserContentChange}>Comments</button>
                 </div>
             </div>
             <div className='subContent'>

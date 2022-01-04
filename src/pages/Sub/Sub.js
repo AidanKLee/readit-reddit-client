@@ -18,8 +18,6 @@ const Sub = (props) => {
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
 
-    console.log(subreddit)
-
     useEffect(() => {
         const fetchData = async () => {
             const data = await reddit.fetchSubreddit(`r/${subredditUrl}`);
@@ -33,7 +31,6 @@ const Sub = (props) => {
 
     useEffect(() => {
         if (!subreddit.recommended && subreddit.data) {
-            console.log('test')
             const fetchRecommended = async (name) => {
                 const data = await reddit.fetchSubredditSearch(name, 11, null, subreddit.data.over18);
                 setSubreddit({
@@ -114,7 +111,7 @@ const Sub = (props) => {
         if (element) {
             const position = element.offsetTop;
             let height = (parent.offsetHeight - position).toString() + 'px';
-            setHeight({height: height});
+            setHeight({maxHeight: height});
         }
     }
 

@@ -70,7 +70,8 @@ const Main = () => {
                         {main.selectedSubreddit ? <Route path={'/u/:userId/rising'} element={<Rising page={`user/${main.selectedSubreddit}/`}/>}/> : undefined} 
                     </Route>
                 </Routes>
-                {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : <div className="mainLoadMore"><img className="loader" src={loader} alt='Loader' /><p>Loading More...</p></div>}
+                {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
+                {main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
             </div>
         </main>
     );

@@ -17,7 +17,7 @@ const Best = (props) => {
     },[dispatch, props.page])
 
     useEffect(() => {
-        if (main.contentReady) {
+        if (main.contentReady && main.page && main.page.content && main.page.content.data) {
             const content = main.page.content.data.children.slice(-25);
             dispatch(fetchComments({
                 comments: content
@@ -35,7 +35,7 @@ const Best = (props) => {
             const loadPosition = loadMore[0].offsetTop;
             const scrollPosition = window.scrollY + (window.innerHeight - 44)
             const after = Array.from(main.page.content.data.children.slice());
-            if (loadPosition <= scrollPosition) {
+            if (loadPosition <= scrollPosition && !main.page.allLoaded) {
                 dispatch(fetchContent({
                     limit: 25,
                     url: props.page + 'best',

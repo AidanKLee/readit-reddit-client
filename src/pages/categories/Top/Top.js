@@ -35,7 +35,7 @@ const Top = (props) => {
             const loadPosition = loadMore[0].offsetTop;
             const scrollPosition = window.scrollY + (window.innerHeight - 44)
             const after = Array.from(main.page.content.data.children.slice());
-            if (loadPosition <= scrollPosition) {
+            if (loadPosition <= scrollPosition && !main.page.allLoaded) {
                 dispatch(fetchContent({
                     limit: 25,
                     url: props.page + 'top',

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './contentTIle.css';
 import { useSelector } from "react-redux";
 import { getTimePosted, returnToTop } from "../../utilities/functions";
@@ -64,7 +64,6 @@ const ContentTile = (props) => {
         }
     }
 
-
     return (
         <article className="tile" key={article.data.id}>
             <div className="tileSide">
@@ -81,7 +80,7 @@ const ContentTile = (props) => {
                 </div>
                 <div className="tileMain">
                     <Link onClick={returnToTop} to={'/' + article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>
-                    {article.data.selftext ? <p className="tileMainText">{article.data.selftext}</p> : undefined}
+                    {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={400}/></p> : undefined}
                     <div className="tileObjectContainer video">
                         {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}
                         {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
@@ -108,6 +107,25 @@ const ContentTile = (props) => {
             </div>
         </article>
     )
+}
+
+export const Text = (props) => {
+
+    const { text, length } = props;
+    const [ showMore, setShowMore ] = useState(false);
+
+    const toggleShowMore = () => {
+        showMore ? setShowMore(false) : setShowMore(true);
+    }
+
+    const renderText = () => {
+        if (text.length > length) {
+            return showMore ? <span>{text + ' '}<span className="readMore" onClick={toggleShowMore}>Show Less</span></span> : <span>{text.slice(0, length) + '... '}<span className="readMore" onClick={toggleShowMore}>Read More</span></span>
+        }
+        return text;
+    }
+
+    return renderText();
 }
 
 export default ContentTile;

@@ -90,6 +90,9 @@ export const mainSlice = createSlice({
             if (state.page.url !== action.payload.url) {
                 state.page = action.payload;
             } else if (state.page.url === action.payload.url) {
+                if (action.payload.content.data.children.length < 25) {
+                    state.page.allLoaded = true;
+                }
                 action.payload.content.data.children.forEach(child => {
                     let match = false;
                     state.page.content.data.children.forEach(entry => {
