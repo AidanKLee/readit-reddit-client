@@ -84,7 +84,7 @@ const ContentTile = (props) => {
                     {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={400}/></p> : undefined}
                     {article.data.url && article.data.url.length > 0 && (!article.data.url.includes('https://www.reddit.com') || (article.data.url.includes('https://www.reddit.com') && article.data.url.includes('gallery'))) && !isImage(article.data.url) && !article.data.url.includes('.gifv') && !article.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={article.data.url}>{article.data.url}</a></p> : undefined}
                     <div className="tileObjectContainer video">
-                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <iframe title={article.data.url} src={article.data.url.slice(0, -5)} width="200" height="220" scrolling="no" style={{border: 'none'}}></iframe> : undefined}
+                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
                         {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
                     </div>
                     <div className="tileObjectContainer">

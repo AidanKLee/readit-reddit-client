@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import './main.css';
 import { useSelector } from 'react-redux';
 import { selectMenu } from "../Menu/menuSlice";
@@ -57,7 +57,7 @@ const Main = () => {
                         <Route path={'new'} element={<New page={''}/>}/>
                         <Route path={'top'} element={<Top page={''}/>}/>
                         <Route path={'rising'} element={<Rising page={''}/>}/>
-                        {/* <Route path={'*'} element={<Best page={''}/>}/> */}
+                        <Route path={'*'} element={<Navigate replace to={`/`}/>}/>
                     </Route>
 
                     <Route path={'/all'} element={<All />}>
@@ -66,7 +66,7 @@ const Main = () => {
                         <Route path={'/all/new'} element={<New page={'r/all/'}/>}/>
                         <Route path={'/all/top'} element={<Top page={'r/all/'}/>}/>
                         <Route path={'/all/rising'} element={<Rising page={'r/all/'}/>}/>
-                        {/* <Route path={'*'} element={<Best page={'r/all/'}/>}/> */}
+                        <Route path={'*'} element={<Navigate replace to={`/all`}/>}/>
                     </Route>
 
                     <Route path={'/popular'} element={<Popular />}>
@@ -75,6 +75,7 @@ const Main = () => {
                         <Route path={'/popular/new'} element={<New page={'r/popular/'}/>}/>
                         <Route path={'/popular/top'} element={<Top page={'r/popular/'}/>}/>
                         <Route path={'/popular/rising'} element={<Rising page={'r/popular/'}/>}/>
+                        <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
                 
                     {/* <Search /> */}
@@ -83,7 +84,8 @@ const Main = () => {
                         <Route path={'/r/:subredditId/hot'} element={<Hot page={`r/${selected}/`}/>}/>
                         <Route path={'/r/:subredditId/new'} element={<New page={`r/${selected}/`}/>}/>
                         <Route path={'/r/:subredditId/top'} element={<Top page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${selected}/`}/>}/>   
+                        <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/*'} element={<Navigate replace to={`/r/${redirect}`}/>}/>
                     </Route>
                     
                     <Route path='/u/' element={<User/>}>
@@ -92,7 +94,8 @@ const Main = () => {
                         <Route path={'/u/:userId/:content/hot'} element={<Hot page={`user/${selected}/`}/>}/>
                         <Route path={'/u/:userId/:content/new'} element={<New page={`user/${selected}/`}/>}/>
                         <Route path={'/u/:userId/:content/top'} element={<Top page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/rising'} element={<Rising page={`user/${selected}/`}/>}/> 
+                        <Route path={'/u/:userId/:content/rising'} element={<Rising page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/*'} element={<Navigate replace to={`/u/${redirect}`}/>}/>
                     </Route>
                 </Routes>
                 {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
