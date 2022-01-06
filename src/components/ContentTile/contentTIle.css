@@ -29,8 +29,14 @@
 .tileSideButton {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.tileSideButton svg {
+    height: 16px;
+    width: 16px;
 }
 
 .tileContent {
