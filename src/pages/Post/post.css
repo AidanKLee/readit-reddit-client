@@ -1,0 +1,104 @@
+.post h2 p {
+    margin: 0;
+}
+
+.postBy {
+    margin-bottom: 16px;
+    line-height: 1;
+    font-size: .8rem;
+}
+
+.post .tileMainVideo {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+}
+
+.post .tileMainImg {
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+}
+
+.post .tileAwards {
+    margin-top: 0;
+}
+
+.postBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postBar p {
+    font-size: .8rem;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.postActions {
+    display: flex;
+    align-items: center;
+}
+
+.postActions div {
+    display: flex;
+}
+
+.postVotes {
+    display: flex;
+}
+
+.postVotes .tileSide {
+    margin-right: 8px;
+    background-color: transparent;
+}
+
+.postVotes p {
+    margin: 0 8px 0 0;
+}
+
+.postBar .tileSide {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.postBar .tileSideButton {
+    width: 32px;
+    height: 40px;
+}
+
+.postAction {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.postAction:hover p {
+    color: #0d79a8;
+}
+
+.postAction:hover svg {
+    fill: #0d79a8;
+}
+
+.comments .markdown ol, .comments .markdown ul {
+    margin-left: 12px;
+}
+
+@media only screen and (max-width: 560px) {
+    .postAction p {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 345px) {
+    .postVotes p {
+        display: none;
+    }
+}

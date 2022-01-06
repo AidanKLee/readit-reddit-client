@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import './contentTIle.css';
 import { useSelector } from "react-redux";
-import { getTimePosted, returnToTop } from "../../utilities/functions";
+import { getTimePosted, returnToTop, isImage } from "../../utilities/functions";
 import { selectMain } from "../../containers/Main/mainSlice";
 import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
 import { Link } from "react-router-dom";
 import reddit from "../../utilities/redditAPI";
+import Awards from "../Awards/Awards";
+import Votes from "../Votes/Votes";
+
+import showdown from 'showdown';
 
 const ContentTile = (props) => {
 
@@ -15,62 +19,9 @@ const ContentTile = (props) => {
     const main = useSelector(selectMain);
     const login = useSelector(selectLogin);
 
-    const getUpVotes = (votes) => {
-        votes = votes.toString()
-        if (votes < 1000) {
-            return votes;
-        } else if (votes > 1000 && votes < 1000000) {
-            votes = votes / 100;
-            votes = Math.round(votes);
-            return (votes / 10) + 'k'
-        } else {
-            votes = votes / 100000;
-            votes = Math.round(votes);
-            return (votes / 10) + 'm'
-        }
-    }
-
-    const isImage = (string) => {
-        if (typeof(string) === 'string') {
-            let isImage = false;
-            const imageExt = ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.jp2', '.j2k', '.jpf', '.jpx', '.jpm', '.mj2', '.png', '.gif', '.webp', '.tiff', '.tif', '.bmp', '.dib',  '.svg', '.svgz', '.ai', '.eps']
-            imageExt.forEach(ext => {
-                if (string.includes(ext)) {
-                    isImage = true;
-                }
-            });
-            return isImage;
-        } 
-    }
-
-    const renderAwards = () => {
-        if (article.data.all_awardings.length > 0) {
-            return (
-                <div className="tileAwards">
-                    {
-                        article.data.all_awardings.map(award => {
-                            return (
-                                <div className="tileAward" key={award.id}>
-                                    <img src={award.icon_url} alt={award.name}/>
-                                    <p>
-                                        {award.count > 1 ? award.count : undefined}
-                                    </p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            )
-        }
-    }
-
     return (
         <article className="tile" key={article.data.id}>
-            <div className="tileSide">
-                <svg className="tileSideUp" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
-                <span>{getUpVotes(article.data.ups)}</span>
-                <svg className="tileSideDown" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
-            </div>
+            <Votes ups={article.data.ups}/>
             <div className="tileContent">
                 <div className="tileHeader">
                     <Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}>                
@@ -79,9 +30,28 @@ const ContentTile = (props) => {
                     <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    {<Link onClick={returnToTop} to={article.data.permalink}><p className="tileMainTitle">{article.data.title}</p></Link>}
-                    {article.data.link_permalink ? <div><p className="tileMainText"><Link onClick={returnToTop} to={'/u/' + article.data.author}><strong>{article.data.author}</strong></Link> posted a comment on <Link onClick={returnToTop} to={'/u/' + article.data.link_author}><strong>{article.data.link_author}</strong></Link>'s post:</p><Link onClick={returnToTop} to={'/u/' + article.data.link_permalink}><p className="tileMainTitle">{article.data.link_title}</p></Link></div> : undefined}
-                    {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={400}/></p> : undefined}
+                    <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link>
+                    {
+                        article.data.link_permalink ? 
+                        <div>
+                            <p className="tileMainText">
+                                <Link onClick={returnToTop} to={'/u/' + article.data.author}>
+                                    <strong>{article.data.author}</strong>
+                                </Link> 
+                                posted a comment on 
+                                <Link onClick={returnToTop} to={'/u/' + article.data.link_author}>
+                                    <strong>{article.data.link_author}</strong>
+                                </Link>
+                                's post:
+                            </p>
+                            <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5).split('/').slice(0, article.data.permalink.split('/').length - 4).join('/') : article.data.permalink.split('/').slice(0, article.data.permalink.split('/').length - 2).join('/')}>
+                                <p className="tileMainTitle">{<Text text={article.data.link_title} length={1000}/>}</p>
+                            </Link>
+                        </div> 
+                        : 
+                        undefined
+                    }
+                    {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={500}/></p> : undefined}
                     {article.data.url && article.data.url.length > 0 && (!article.data.url.includes('https://www.reddit.com') || (article.data.url.includes('https://www.reddit.com') && article.data.url.includes('gallery'))) && !isImage(article.data.url) && !article.data.url.includes('.gifv') && !article.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={article.data.url}>{article.data.url}</a></p> : undefined}
                     <div className="tileObjectContainer video">
                         {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
@@ -91,7 +61,7 @@ const ContentTile = (props) => {
                         {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
                     </div>
                 </div>
-                {renderAwards()}
+                {article.data.all_awardings.length > 0 ? <Awards article={article}/> : undefined}
                 {
                     login.authorization ?
                         <div className="tileActions">
@@ -113,8 +83,18 @@ const ContentTile = (props) => {
 
 export const Text = (props) => {
 
-    const { text, length } = props;
+    let { text, length } = props;
     const [ showMore, setShowMore ] = useState(false);
+    const converter = new showdown.Converter();
+
+    let html = converter.makeHtml(text);
+
+    if (html) {
+        html = html
+        .replaceAll('h6', 'strong').replaceAll('h5', 'strong')
+        .replaceAll('h4', 'h6').replaceAll('h3', 'h5')
+        .replaceAll('h2', 'h4').replaceAll('h1', 'h3');
+    }
 
     const toggleShowMore = () => {
         showMore ? setShowMore(false) : setShowMore(true);
@@ -122,11 +102,11 @@ export const Text = (props) => {
 
     const renderText = () => {
         if (text && text.length > length) {
-            return showMore ? <span>{text + ' '}<span className="readMore" onClick={toggleShowMore}>Show Less</span></span> : <span>{text.slice(0, length) + '... '}<span className="readMore" onClick={toggleShowMore}>Read More</span></span>
+            return showMore ? <span><span className="markdown" dangerouslySetInnerHTML={{__html: html + ' '}}/><span className="readMore" onClick={toggleShowMore}>Show Less</span></span> : <span><span className="markdown" dangerouslySetInnerHTML={{__html: html.slice(0, length) + '... '}}/><span className="readMore" onClick={toggleShowMore}>Read More</span></span>
         } else if (!text) {
-            return 'error'
+            return ''
         }
-        return text;
+        return <span className="markdown" dangerouslySetInnerHTML={{__html: html}}/>;
     }
 
     return renderText();

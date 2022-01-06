@@ -13,10 +13,11 @@
     object-position: center;
 }
 
-.subBannerUnderText p:nth-of-type(2) {
+.subBannerUnderText p:nth-of-type(2) p {
     font-size: .9rem;
     font-weight: normal;
     margin-top: 8px;
+    margin-left: 0;
 }
 
 .userCategories {

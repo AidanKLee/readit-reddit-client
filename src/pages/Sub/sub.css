@@ -65,8 +65,7 @@
     z-index: 30;
 }
 
-
-.subBannerUnderWrapper h1 {
+.subBannerUnderWrapper h1 p {
     font-size: 1.2rem;
     margin: 54px 16px 0 16px;
     word-wrap: break-word;
@@ -129,7 +128,6 @@
 .subContentRightSticky {
     position: sticky;
     top: 80px;
-    height: fit-content;
     max-height: calc(100vh - 128px);
     background-color: #f1f1f1;
     border-top-left-radius: 8px;
@@ -149,6 +147,7 @@
 
 .subHeading {
     font-size: .6rem;
+    word-wrap: break-word;
 }
 
 .blue {
@@ -170,6 +169,8 @@
 
 .subContentRightMain {
     padding: 16px;
+    max-height: 400px;
+    overflow: auto;
 }
 
 .subContentRightRecommended {
@@ -178,7 +179,7 @@
 
 .subContentRightRecommendedHeading {
     padding: 16px;
-    color: #f1f1f1;
+    color: white;
 }
 
 .subContentRightRecommendedLinks {
@@ -207,6 +208,7 @@
     color: #f1f1f1;
     padding: 4px;
     margin-right: 4px;
+    min-width: 80px;
     width: 80px;
     font-weight: bold;
     border-radius: 16px;
@@ -246,7 +248,7 @@
 
 @media only screen and (max-width: 1130px) {
     .subContentRightSticky {
-        height: fit-content;
+        max-height: fit-content;
     }
 
     .subContentRight {
@@ -272,7 +274,7 @@
         height: 128px;
     }
 
-    .subBannerUnderWrapper h1 {
+    .subBannerUnderWrapper h1 p {
         margin: 44px 16px 0 16px;
     }
 }

@@ -61,8 +61,8 @@ export class redditAPI {
             if (!this.authorize.error.isError) {
                 const searchParams = new URLSearchParams(queryString)
                 const { code, state } = Object.fromEntries(searchParams.entries());
+                console.log(state)
                 window.history.pushState("Token Recieved", "Reddit Client", reddit.authorize.redirectUri);
-                console.log(state, code)
                 return code;
             }
         }
@@ -101,17 +101,12 @@ export class redditAPI {
         this.authorize.access.refreshToken = jsonData.refresh_token;
 
         return accessToken;
-
-        // this.fetchUser();
-        // this.startTimer();
     }
 
     startTimer = () => {
         this.time = new Date().getTime()
         const timer = setInterval(() => {
             this.time += 1;
-            // console.log(this.time)
-            // console.log(this.authorize.access.expiresAt)
             if (this.authorize.access.expiresAt === this.time) {
                 const refreshToken = this.authorize.access.refreshToken;
                 clearInterval(timer)
@@ -141,7 +136,6 @@ export class redditAPI {
             return console.log(error)
         };
 
-        // console.log(jsonData)
         const accessToken = {
             accessToken: jsonData.access_token,
             expiresAt: jsonData.expires_in + new Date().getTime(),
@@ -217,6 +211,9 @@ export class redditAPI {
             url = url.slice(0, url.length - 1)
         }
         url = url.join('/');
+        if (url.includes('//')) {
+            url = url.replace('//', '/');
+        }
         let endpoint = `https://www.reddit.com/${url}.json?limit=${limit}`;
         if (url.includes('user/')) {
             url = url.split('/');

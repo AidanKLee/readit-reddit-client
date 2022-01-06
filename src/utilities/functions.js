@@ -49,7 +49,34 @@ export const getHeight = (setter) => {
     if (element) {
         const position = element.offsetTop;
         let height = (parent.offsetHeight - position).toString() + 'px';
-        console.log(element, parent, height)
         setter({maxHeight: height});
     } 
+}
+
+export const isImage = (string) => {
+    if (typeof(string) === 'string') {
+        let isImage = false;
+        const imageExt = ['.jpg', '.jpeg', '.jpe', '.jif', '.jfif', '.jfi', '.jp2', '.j2k', '.jpf', '.jpx', '.jpm', '.mj2', '.png', '.gif', '.webp', '.tiff', '.tif', '.bmp', '.dib',  '.svg', '.svgz', '.ai', '.eps']
+        imageExt.forEach(ext => {
+            if (string.includes(ext)) {
+                isImage = true;
+            }
+        });
+        return isImage;
+    } 
+}
+
+export const getUpVotes = (votes) => {
+    votes = votes.toString()
+    if (votes < 1000) {
+        return votes;
+    } else if (votes > 1000 && votes < 1000000) {
+        votes = votes / 100;
+        votes = Math.round(votes);
+        return (votes / 10) + 'k'
+    } else {
+        votes = votes / 100000;
+        votes = Math.round(votes);
+        return (votes / 10) + 'm'
+    }
 }

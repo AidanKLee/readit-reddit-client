@@ -15,6 +15,7 @@ import New from '../../pages/categories/New/New';
 import Top from '../../pages/categories/Top/Top';
 import Rising from '../../pages/categories/Rising/Rising';
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Post from "../../pages/Post/Post";
 
 const Main = () => {
 
@@ -23,6 +24,7 @@ const Main = () => {
 
     const selected = useLocation().pathname.split('/').slice(2).join('/');
     const redirect = useLocation().pathname.split('/')[2];
+    const location = useLocation().pathname;
 
     useEffect(() => {
         let page = window.location.pathname;
@@ -51,55 +53,56 @@ const Main = () => {
                 
                 <Routes>
                     <Route path={'/'} element={<Home />}>
-                        <Route path={''} element={<Best page={''}/>}/>
-                        <Route path={'callback'} element={<Best page={''}/>}/>
-                        <Route path={'hot'} element={<Hot page={''}/>}/>
-                        <Route path={'new'} element={<New page={''}/>}/>
-                        <Route path={'top'} element={<Top page={''}/>}/>
-                        <Route path={'rising'} element={<Rising page={''}/>}/>
+                        <Route path={''} element={<Best location={location} page={''}/>}/>
+                        <Route path={'callback'} element={<Best location={location} page={''}/>}/>
+                        <Route path={'hot'} element={<Hot location={location} page={''}/>}/>
+                        <Route path={'new'} element={<New location={location} page={''}/>}/>
+                        <Route path={'top'} element={<Top location={location} page={''}/>}/>
+                        <Route path={'rising'} element={<Rising location={location} page={''}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/`}/>}/>
                     </Route>
 
                     <Route path={'/all'} element={<All />}>
-                        <Route path={''} element={<Best page={'r/all/'}/>}/>
-                        <Route path={'/all/hot'} element={<Hot page={'r/all/'}/>}/>
-                        <Route path={'/all/new'} element={<New page={'r/all/'}/>}/>
-                        <Route path={'/all/top'} element={<Top page={'r/all/'}/>}/>
-                        <Route path={'/all/rising'} element={<Rising page={'r/all/'}/>}/>
+                        <Route path={''} element={<Best location={location} page={'r/all/'}/>}/>
+                        <Route path={'/all/hot'} element={<Hot location={location} page={'r/all/'}/>}/>
+                        <Route path={'/all/new'} element={<New location={location} page={'r/all/'}/>}/>
+                        <Route path={'/all/top'} element={<Top location={location} page={'r/all/'}/>}/>
+                        <Route path={'/all/rising'} element={<Rising location={location} page={'r/all/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/all`}/>}/>
                     </Route>
 
                     <Route path={'/popular'} element={<Popular />}>
-                        <Route path={''} element={<Best page={'r/popular/'}/>}/>
-                        <Route path={'/popular/hot'} element={<Hot page={'r/popular/'}/>}/>
-                        <Route path={'/popular/new'} element={<New page={'r/popular/'}/>}/>
-                        <Route path={'/popular/top'} element={<Top page={'r/popular/'}/>}/>
-                        <Route path={'/popular/rising'} element={<Rising page={'r/popular/'}/>}/>
+                        <Route path={''} element={<Best location={location} page={'r/popular/'}/>}/>
+                        <Route path={'/popular/hot'} element={<Hot location={location} page={'r/popular/'}/>}/>
+                        <Route path={'/popular/new'} element={<New location={location} page={'r/popular/'}/>}/>
+                        <Route path={'/popular/top'} element={<Top location={location} page={'r/popular/'}/>}/>
+                        <Route path={'/popular/rising'} element={<Rising location={location} page={'r/popular/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
                 
                     {/* <Search /> */}
                     <Route path='/r' element={<Sub/>}> 
-                        <Route path={'/r/:subredditId'} element={<Best page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/hot'} element={<Hot page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/new'} element={<New page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/top'} element={<Top page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/rising'} element={<Rising page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/*'} element={<Navigate replace to={`/r/${redirect}`}/>}/>
+                        <Route path={'/r/:subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/hot'} element={<Hot location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/new'} element={<New location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/top'} element={<Top location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={'/r/:subredditId/rising'} element={<Rising location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={'/r'} element={<Navigate replace to={`/`}/>}/>
+                        <Route path={'/r/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/${selected}`}/>}/>
                     </Route>
                     
                     <Route path='/u/' element={<User/>}>
                         <Route path={'/u/:userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
-                        <Route path={'/u/:userId/:content'} element={<Best page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/hot'} element={<Hot page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/new'} element={<New page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/top'} element={<Top page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/rising'} element={<Rising page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/*'} element={<Navigate replace to={`/u/${redirect}`}/>}/>
+                        <Route path={'/u/:userId/:content'} element={<Best location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/hot'} element={<Hot location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/new'} element={<New location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/top'} element={<Top location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:userId/:content/rising'} element={<Rising location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
                 </Routes>
-                {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-                {main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
+                {!location.includes('/comments/') && main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
+                {!location.includes('/comments/') && main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
             </div>
         </main>
     );

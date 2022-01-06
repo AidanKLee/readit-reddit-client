@@ -62,6 +62,7 @@ export const mainSlice = createSlice({
             content: [],
             comments: [],
             subreddits: [],
+            article: {},
             url: ''
         },
         isLoading: false,
@@ -72,7 +73,11 @@ export const mainSlice = createSlice({
         subredditsAreLoading: false,
         subredditsHasError: false
     },
-    reducers: {},
+    reducers: {
+        setArticle: (state, action) => {
+            state.page.article = action.payload;
+        }
+    },
     extraReducers: {
         [fetchContent.pending] : (state) => {
             state.isLoading = true;
@@ -151,7 +156,7 @@ export const mainSlice = createSlice({
     }
 });
 
-export const { setSelectedSubreddit } = mainSlice.actions;
+export const { setArticle } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 

@@ -48,6 +48,32 @@ main {
     font-weight: bold;
 }
 
+.markdown a {
+    text-decoration: underline;
+}
+
+.markdown p {
+    margin-bottom: 8px;
+}
+
+.markdown ul {
+    margin-left: 20px;
+    margin-bottom: 8px;
+}
+
+.markdown ul p {
+    margin-bottom: 0;
+}
+
+.markdown ol {
+    margin-left: 20px;
+    margin-bottom: 8px;
+}
+
+.markdown ol p {
+    margin-bottom: 0;
+}
+
 .readMore {
     font-weight: bold;
     color: #0d79a8;

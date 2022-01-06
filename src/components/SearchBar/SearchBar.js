@@ -16,19 +16,22 @@ const SearchBar = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchSearch({
-            search: searchBar.search,
-            limit: 10,
-        }));
-        dispatch(fetchSubredditSearch({
-            search: searchBar.search,
-            limit: 5,
-        }));
-        dispatch(fetchUsersSearch({
-            search: searchBar.search,
-            limit: 5,
-        }));
-    },[dispatch, searchBar.search])
+        if (searchBar.search.length > 0) {
+            dispatch(fetchSearch({
+                search: searchBar.search,
+                limit: 10,
+            }));
+            dispatch(fetchSubredditSearch({
+                search: searchBar.search,
+                limit: 5,
+            }));
+            dispatch(fetchUsersSearch({
+                search: searchBar.search,
+                limit: 5,
+            }));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[searchBar.search])
 
     const renderSearchResults = () => {
         if (searchBar.results && searchBar.results.data && searchBar.results.data.children.length > 0) {

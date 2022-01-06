@@ -5,6 +5,7 @@ import Categories from '../../components/Categories/Categories';
 import reddit from '../../utilities/redditAPI';
 import { getTimePosted, returnToTop } from '../../utilities/functions';
 import { Link } from 'react-router-dom';
+import { Text } from '../../components/ContentTile/ContentTile';
 
 const User = () => {
 
@@ -128,13 +129,13 @@ const User = () => {
                     {reddit.getIconImg(subreddit && subreddit.data ? subreddit.data.subreddit : undefined)}
                     <div className='subBannerUnderText'>
                         <h1>
-                            {subreddit.data ? subreddit.data.name : undefined}
+                            {subreddit.data ? <Text text={subreddit.data.name} length={1000}/> : undefined}
                         </h1>
                         <p>
                             {subreddit.data ? subreddit.data.subreddit.display_name_prefixed : undefined}
                         </p>
                         <p>
-                            {subreddit.data && subreddit.data.subreddit.title ? subreddit.data.subreddit.title : undefined}
+                            {subreddit.data && subreddit.data.subreddit.title ? <Text text={subreddit.data.subreddit.title} length={1000}/> : undefined}
                         </p>
                         
                     </div>
@@ -155,9 +156,9 @@ const User = () => {
                 <div className='subContentRight'>
                     <div className='userContentRightSticky'>
                         <div className='subContentRightHeader'>
-                            {subreddit.data ? <p className='bold'>{subreddit.data.name}</p> : undefined}
+                            {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
                             {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
-                            {subreddit.data && subreddit.data.subreddit.title ? <p>{subreddit.data.subreddit.title}</p> : undefined}
+                            {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}
                             <div className='subContentRightHeaderStats'>
                                 <div>
                                     {subreddit.data ? <p className='heading bold'>{subreddit.data.subreddit.subscribers}</p> : undefined}
@@ -179,8 +180,8 @@ const User = () => {
                                 <p className='bold'>
                                     About
                                 </p>
-                                {subreddit.data ? <div><p className='paragraph'>{subreddit.data.subreddit.public_description}</p></div> : undefined}
-                                {subreddit.data && subreddit.data.subreddit.public_description !== subreddit.data.subreddit.description ? <div><p className='paragraph'>{subreddit.data.subreddit.description}</p></div> : undefined}
+                                {subreddit.data ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.public_description} length={1000}/></p></div> : undefined}
+                                {subreddit.data && subreddit.data.subreddit.public_description !== subreddit.data.subreddit.description ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.description} length={1000}/></p></div> : undefined}
                             </div> : undefined
                         }
                         {renderModeratorOf()}

@@ -31,7 +31,7 @@
 .commentsItem {
     margin-bottom: 8px;
     background-color: rgba(0, 0, 0, 0.03);
-    padding: 8px 0 8px 8px;
+    padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 8px;
 }

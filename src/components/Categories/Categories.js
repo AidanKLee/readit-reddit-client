@@ -1,10 +1,14 @@
 import React from 'react';
 import './categories.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectMain } from '../../containers/Main/mainSlice';
 
 const Categories = (props) => {
 
     const page = props.page;
+    const location = useLocation().pathname;
+    const main = useSelector(selectMain);
 
     return (
         <div className="categories">
@@ -39,6 +43,16 @@ const Categories = (props) => {
                         <span>Rising</span>
                     </div>
                 </NavLink>
+                {
+                    main.page && main.page.article && main.page.article.data && location.includes('/comments/') ? 
+                    <div className='categoriesActive'>
+                        <div className="categoriesIconWrapper" >
+                            <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/><g><path d="M19,5v14H5V5H19 M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3L19,3z"/></g><path d="M14,17H7v-2h7V17z M17,13H7v-2h10V13z M17,9H7V7h10V9z"/></g></svg>
+                            <span>{main.page.article.data.title.slice(0,23) + '...'}</span>
+                        </div>
+                    </div> 
+                    : undefined
+                }
             </div>
             <div className='categoriesRight'>
                 <svg className="categoriesMore" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>

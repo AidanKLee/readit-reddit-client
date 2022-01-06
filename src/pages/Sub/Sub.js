@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import './sub.css';
 import { useParams, Outlet, Link } from 'react-router-dom';
+import { Text } from '../../components/ContentTile/ContentTile';
 import reddit from '../../utilities/redditAPI';
 import Categories from '../../components/Categories/Categories';
 
@@ -73,7 +74,7 @@ const Sub = (props) => {
         var g = parseInt(hexColor.substr(2,2),16);
         var b = parseInt(hexColor.substr(4,2),16);
         var yiq = ((r*299)+(g*587)+(b*114))/1000;
-        return (yiq >= 128) ? {color: '#1f1f1f'} : {color: '#f1f1f1'};
+        return (yiq >= 128) ? {color: '#000000'} : {color: '#ffffff'};
     }
 
     const getBannerImg = () => {
@@ -105,7 +106,7 @@ const Sub = (props) => {
         if (element) {
             const position = element.offsetTop;
             let height = (parent.offsetHeight - position).toString() + 'px';
-            setHeight({maxHeight: height});
+            setHeight({height: height});
         }
     }
 
@@ -152,7 +153,7 @@ const Sub = (props) => {
                     {reddit.getIconImg(subreddit)}
                     <div className='subBannerUnderText'>
                         <h1>
-                            {subreddit.data ? subreddit.data.title : undefined}
+                            {subreddit.data ? <Text text={subreddit.data.title} length={300}/> : undefined}
                         </h1>
                         <p>
                             {subreddit.data ? subreddit.data.url : undefined}
@@ -168,7 +169,7 @@ const Sub = (props) => {
                 <div className='subContentRight'>
                     <div className='subContentRightSticky'>
                         <div className='subContentRightHeader' style={backgroundColor}>
-                            {subreddit.data ? <p className='bold' style={getTextColor()}>{subreddit.data.title}</p> : undefined}
+                            {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
                             {subreddit.data ? <p className='subHeading' style={getTextColor()}>{subreddit.data.url}</p> : undefined}
 
                             <div className='subContentRightHeaderStats'>
@@ -186,7 +187,8 @@ const Sub = (props) => {
                             <p className='bold'>
                                 About
                             </p>
-                            {subreddit.data ? <div><p className='paragraph'>{subreddit.data.public_description}</p></div> : undefined}
+                            {subreddit.data && subreddit.data.public_description ? <div><p className='paragraph'>{<Text text={subreddit.data.public_description} length={500}/>}</p></div> : undefined}
+                            {subreddit.data && subreddit.data.description && (!subreddit.data.description.includes(subreddit.data.public_description) && !subreddit.data.public_description.includes(subreddit.data.description)) ? <div><p className='paragraph'>{<Text text={subreddit.data.description} length={500}/>}</p></div> : undefined}
                         </div>
                         {renderRecommended()}
                     </div>
