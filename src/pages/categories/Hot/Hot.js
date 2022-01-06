@@ -33,8 +33,8 @@ const Hot = (props) => {
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
         if (loadMore.length > 0 && main.page.url.includes(props.page + 'hot')) {
-            const loadPosition = loadMore[0].offsetTop;
-            const scrollPosition = window.scrollY + (window.innerHeight - 44)
+            const loadPosition = loadMore[0].offsetTop - 400;
+            const scrollPosition = window.scrollY + window.innerHeight;
             const after = Array.from(main.page.content.data.children.slice());
             if (loadPosition <= scrollPosition && !main.page.allLoaded) {
                 dispatch(fetchContent({
