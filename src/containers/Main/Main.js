@@ -16,6 +16,7 @@ import Top from '../../pages/categories/Top/Top';
 import Rising from '../../pages/categories/Rising/Rising';
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Post from "../../pages/Post/Post";
+import Search from "../../pages/Search/Search";
 
 const Main = () => {
 
@@ -80,7 +81,8 @@ const Main = () => {
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
                 
-                    {/* <Search /> */}
+                    <Route path={'/search/:searchType/:searchQuery'} element={<Search/>}/>
+
                     <Route path='/r' element={<Sub/>}> 
                         <Route path={'/r/:subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
                         <Route path={'/r/:subredditId/hot'} element={<Hot location={location} page={`r/${selected}/`}/>}/>

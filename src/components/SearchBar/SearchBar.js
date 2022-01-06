@@ -11,11 +11,7 @@ const SearchBar = () => {
 
     const searchBar = useSelector(selectSearchBar);
 
-    const handleChange = (e) => {
-        dispatch(search(e.target.value));
-    }
-
-    useEffect(() => {
+    const dispatchSearch = () => {
         if (searchBar.search.length > 0) {
             dispatch(fetchSearch({
                 search: searchBar.search,
@@ -30,7 +26,17 @@ const SearchBar = () => {
                 limit: 5,
             }));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+
+    const handleChange = (e) => {
+        dispatch(search(e.target.value));
+    }
+    useEffect(() => {
+        const searchTimeout = setTimeout(dispatchSearch, 1500);
+        return () => {
+            clearTimeout(searchTimeout);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchBar.search])
 
     const renderSearchResults = () => {
@@ -51,7 +57,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <p className='searchBarViewMore'>VIEW MORE...</p>
+                    <Link onClick={returnToTop} to={`search/posts/${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }
@@ -75,7 +81,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <p className='searchBarViewMore'>VIEW MORE...</p>
+                    <Link onClick={returnToTop} to={`search/subreddits/${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }
@@ -99,7 +105,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <p className='searchBarViewMore'>VIEW MORE...</p>
+                    <Link onClick={returnToTop} to={`search/users/${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }
