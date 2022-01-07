@@ -81,7 +81,9 @@ const Main = () => {
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
                 
-                    <Route path={'/search/:searchType/:searchQuery'} element={<Search/>}/>
+                    <Route path={'/search/:searchType'} element={<Search/>}>
+
+                    </Route>
 
                     <Route path='/r' element={<Sub/>}> 
                         <Route path={'/r/:subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
