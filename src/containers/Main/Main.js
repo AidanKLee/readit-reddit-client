@@ -47,6 +47,8 @@ const Main = () => {
         }
         document.title = title + page
     },[selected])
+
+    console.log(location)
         
     return (
         <main className={menu.menuOpen ? 'blur' : ''}>
@@ -105,8 +107,8 @@ const Main = () => {
                         <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
                 </Routes>
-                {!location.includes('/comments/') && main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-                {!location.includes('/comments/') && main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
+                {!location.includes('/comments/') && !location.includes('/search/') && main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
+                {!location.includes('/comments/') && !location.includes('/search/') && main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
             </div>
         </main>
     );

@@ -4,6 +4,9 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
+import ContentTile from '../../components/ContentTile/ContentTile';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchComments, fetchSubreddits, selectMain } from '../../containers/Main/mainSlice';
 
 const Search = () => {
 
@@ -25,15 +28,18 @@ const Search = () => {
     }
 
     const [ queryString, setQueryString ] = useState(getInitialQuery());
-
     const [ searchData, setSearchData ] = useState({});
+    const [ loadingData, setLoadingData ] = useState(false);
 
-    console.log(searchData)
+    console.log(loadingData)
+
+    // console.log(searchData)
 
     const location = useLocation().pathname + useLocation().search;
 
-    useEffect(() => {
-        console.log(type, query, sort, time)
+    const fetchData = async () => {
+        setLoadingData(true)
+        console.log('running')
         let t = '';
         if (type === 'posts') {
             t = '';
@@ -42,30 +48,46 @@ const Search = () => {
         } else if (type === 'users') {
             t = 'user';
         }
-        const fetchData = async () => {
-            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, searchData.after);
-            if (!data) {
-                setSearchData({
-                    ...searchData,
-                    noResults: true
-                })
-            } else if (data && (!searchData.after || searchData.location !== location)) {
-                setSearchData({
-                    results: data.data.children,
-                    after: data.data.children[data.data.children.length - 1].data.id,
-                    location: location
-                })   
-            } else if (data && searchData.after && searchData.location === location) {
-                setSearchData({
-                    ...searchData,
-                    results: searchData.results.concat(data.data.children),
-                    after: data.data.children[data.data.children.length - 1].data.id,
-                })
-            }
+        const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, searchData.after);
+        if (!data) {
+            setSearchData({
+                ...searchData,
+                noResults: true
+            })
+        } else if (data && (!searchData.after || searchData.location !== location)) {
+            setSearchData({
+                results: data.data.children,
+                after: data.data.children[data.data.children.length - 1].data.id,
+                location: location
+            })   
+        } else if (data && searchData.after && searchData.location === location) {
+            setSearchData({
+                ...searchData,
+                results: searchData.results.concat(data.data.children),
+                after: data.data.children[data.data.children.length - 1].data.id,
+            })
         }
-        fetchData();
+        setLoadingData(false)
+    }
+
+    useEffect(() => {
+        if (!loadingData) {
+            fetchData();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort, time, type, over18, query])
+
+    window.onscroll = () => {
+        const loadMore = document.getElementsByClassName('mainLoadMore');
+        if (loadMore.length > 0 && location.includes('/search/')) {
+            const loadPosition = loadMore[0].offsetTop - 400;
+            const scrollPosition = window.scrollY + window.innerHeight;
+            console.log(loadPosition, scrollPosition)
+            if (loadPosition <= scrollPosition && !loadingData) {
+                fetchData();
+            }
+        }
+    }
 
     const setQueryParams = param => {
         const [ key, value ] = param
@@ -193,12 +215,12 @@ const Search = () => {
                     </div>
                 </div>
             </div>
-            <p className='searchSearchingFor'>Searching for <strong>{type}</strong> including the term <strong>{query}</strong>.</p>
+            <p className='searchSearchingFor'>Searching for <strong>{type}</strong> related to <strong>{query}</strong>.</p>
             <div className='content'>
             
-                {type === 'posts' ? <SearchPosts searchData={searchData}/> : undefined}
-                {type === 'subreddits' ? <SearchSubreddits searchData={searchData}/> : undefined}
-                {type === 'users' ? <SearchUsers searchData={searchData}/> : undefined}
+                {type === 'posts' ? <SearchPosts setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
+                {type === 'subreddits' ? <SearchSubreddits setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
+                {type === 'users' ? <SearchUsers setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
             </div>
             
         </div>
@@ -223,9 +245,52 @@ const SearchSubreddits = (props) => {
 }
 
 const SearchPosts = (props) => {
+
+    const dispatch = useDispatch();
+
+    const { searchData, setLoadingData } = props;
+    const posts = searchData.results;
+
+    const [ contentReady, setContentReady ] = useState(false);
+
+    const main = useSelector(selectMain);
+
+    // console.log(main)
+
+    // useEffect(() => {
+    //     if (posts && contentReady) {
+    //         console.log('running other')
+    //         const content = posts.slice(-25);
+    //         dispatch(fetchComments({
+    //             comments: content
+    //         }));
+    //         dispatch(fetchSubreddits({
+    //             subreddits: content
+    //         }))
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[contentReady])
+
+    const renderPosts = () => {
+        if (posts) {
+            // setLoadingData(false);
+            // setContentReady(true);
+            return posts.map((article, index) => {
+                    return (
+                        <div key={article.data.id + index} className='searchPostsResult'>
+                            <ContentTile i={index} article={article}/>
+                        </div>
+                    )
+                }
+            )
+        }
+    }
+
     return (
         <div className='searchPosts'>
-            Posts
+            <div className='searchPostsResults'>
+                {renderPosts()}
+            </div>
         </div>
     )
 }

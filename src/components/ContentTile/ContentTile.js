@@ -20,7 +20,7 @@ const ContentTile = (props) => {
     const login = useSelector(selectLogin);
 
     return (
-        <article className="tile" key={article.data.id}>
+        <div className="tile" key={article.data.id}>
             <Votes ups={article.data.ups}/>
             <div className="tileContent">
                 <div className="tileHeader">
@@ -30,7 +30,7 @@ const ContentTile = (props) => {
                     <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link>
+                    {article.data.permalink ? <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link> : undefined}
                     {
                         article.data.link_permalink ? 
                         <div>
@@ -77,7 +77,7 @@ const ContentTile = (props) => {
                 }
                 {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection comments={main.page.comments[i]} article={article}/> : undefined}
             </div>
-        </article>
+        </div>
     )
 }
 

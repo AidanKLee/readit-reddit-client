@@ -8,7 +8,7 @@
     border-left: 1px solid rgb(0, 0, 0, .1);
     overflow: auto;
     right: -100%;
-    transition: 1s;
+    transition: .6s;
     z-index: 100;
 }
 
