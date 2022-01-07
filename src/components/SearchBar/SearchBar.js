@@ -116,7 +116,7 @@ const SearchBar = () => {
     }
 
     const handleKeyDown = (e) => {
-        if (e.code === 'Enter') {
+        if (e.keyCode === 13) {
             e.preventDefault();
             window.location.href = `/search/posts?q=${e.target.value}`
         }
