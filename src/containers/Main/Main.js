@@ -47,8 +47,6 @@ const Main = () => {
         }
         document.title = title + page
     },[selected])
-
-    console.log(location)
         
     return (
         <main className={menu.menuOpen ? 'blur' : ''}>

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import ContentTile from '../../components/ContentTile/ContentTile';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchComments, fetchSubreddits, selectMain } from '../../containers/Main/mainSlice';
+import { useDispatch } from 'react-redux';
+import { fetchComments, fetchSubreddits } from '../../containers/Main/mainSlice';
 
 const Search = () => {
 
@@ -30,10 +30,6 @@ const Search = () => {
     const [ queryString, setQueryString ] = useState(getInitialQuery());
     const [ searchData, setSearchData ] = useState({});
     const [ loadingData, setLoadingData ] = useState(false);
-
-    console.log(loadingData)
-
-    // console.log(searchData)
 
     const location = useLocation().pathname + useLocation().search;
 
@@ -82,7 +78,6 @@ const Search = () => {
         if (loadMore.length > 0 && location.includes('/search/')) {
             const loadPosition = loadMore[0].offsetTop - 400;
             const scrollPosition = window.scrollY + window.innerHeight;
-            console.log(loadPosition, scrollPosition)
             if (loadPosition <= scrollPosition && !loadingData) {
                 fetchData();
             }
@@ -100,6 +95,7 @@ const Search = () => {
     }
 
     const handleLinkClick = () => {
+        setSearchData({})
         returnToTop();
         setQueryString({
             q: query
@@ -248,28 +244,24 @@ const SearchPosts = (props) => {
 
     const dispatch = useDispatch();
 
-    const { searchData, setLoadingData } = props;
+    const { searchData, loadingData } = props;
     const posts = searchData.results;
-
-    const [ contentReady, setContentReady ] = useState(false);
-
-    const main = useSelector(selectMain);
 
     // console.log(main)
 
-    // useEffect(() => {
-    //     if (posts && contentReady) {
-    //         console.log('running other')
-    //         const content = posts.slice(-25);
-    //         dispatch(fetchComments({
-    //             comments: content
-    //         }));
-    //         dispatch(fetchSubreddits({
-    //             subreddits: content
-    //         }))
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[contentReady])
+    useEffect(() => {
+        if (posts && !loadingData) {
+            console.log('running other')
+            const content = posts.slice(-25);
+            dispatch(fetchComments({
+                comments: content
+            }));
+            dispatch(fetchSubreddits({
+                subreddits: content
+            }))
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[loadingData])
 
     const renderPosts = () => {
         if (posts) {
