@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import './main.css';
 import { useSelector } from 'react-redux';
 import { selectMenu } from "../Menu/menuSlice";
-import { selectMain } from "./mainSlice";
-import loader from '../../assets/loader.svg';
+// import { selectMain } from "./mainSlice";
+// import loader from '../../assets/loader.svg';
 import Home from "../../pages/Home/Home";
 import All from '../../pages/All/All';
 import Popular from '../../pages/Popular/Popular';
@@ -21,7 +21,6 @@ import Search from "../../pages/Search/Search";
 const Main = () => {
 
     const menu = useSelector(selectMenu);
-    const main = useSelector(selectMain);
 
     const selected = useLocation().pathname.split('/').slice(2).join('/');
     const redirect = useLocation().pathname.split('/')[2];
@@ -105,8 +104,6 @@ const Main = () => {
                         <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
                 </Routes>
-                {!location.includes('/comments/') && !location.includes('/search/') && main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-                {!location.includes('/comments/') && !location.includes('/search/') && main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
             </div>
         </main>
     );

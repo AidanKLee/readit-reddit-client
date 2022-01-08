@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContentTile from '../../../components/ContentTile/ContentTile';
 import { fetchComments, fetchSubreddits, fetchContent, selectMain } from "../../../containers/Main/mainSlice";
+import loader from '../../../assets/loader.svg';
 
 const Best = (props) => {
 
@@ -9,15 +10,19 @@ const Best = (props) => {
 
     const main = useSelector(selectMain);
 
+    const [ loadMore, setLoadMore ] = useState(false);
+
     useEffect(() => {
-        dispatch(fetchContent({
+            dispatch(fetchContent({
             limit: 25,
             url: props.page + 'best'
-        }))
-    },[dispatch, props.page])
+            }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     useEffect(() => {
         if (main.contentReady && main.page && main.page.content && main.page.content.data) {
+            setLoadMore(false);
             const content = main.page.content.data.children.slice(-25);
             dispatch(fetchComments({
                 comments: content
@@ -29,18 +34,26 @@ const Best = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[main.contentReady])
 
+    useEffect(() => {
+        if (loadMore) {
+            // console.log('loading more')
+            const after = Array.from(main.page.content.data.children.slice());
+            dispatch(fetchContent({
+                limit: 25,
+                url: props.page + 'best',
+                after: after[after.length - 1].data.name
+            }))
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadMore])
+
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
         if (loadMore.length > 0 && main.page.url.includes(props.page + 'best')) {
             const loadPosition = loadMore[0].offsetTop - 400;
             const scrollPosition = window.scrollY + window.innerHeight;
-            const after = Array.from(main.page.content.data.children.slice());
             if (loadPosition <= scrollPosition && !main.page.allLoaded) {
-                dispatch(fetchContent({
-                    limit: 25,
-                    url: props.page + 'best',
-                    after: after[after.length - 1].data.name
-                }))
+                setLoadMore(true);
             }
         }
     }
@@ -52,6 +65,8 @@ const Best = (props) => {
 
                 main.page.content.data.children.map((article, index) => <ContentTile key={article.data.id + index} i={index} article={article}/>) : undefined
             }
+            {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
+            {main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
         </div>
     )
 }

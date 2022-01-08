@@ -4,6 +4,7 @@ import { returnToTop } from '../../utilities/functions';
 import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { clearMainPageState } from '../../containers/Main/mainSlice';
 
 const SearchBar = () => {
 
@@ -32,6 +33,11 @@ const SearchBar = () => {
         dispatch(search(e.target.value));
     }
 
+    const handleLinkClick = () => {
+        // dispatch(clearMainPageState())
+        returnToTop();
+    }
+
     useEffect(() => {
         if (searchBar.search) {
             const searchTimeout = setTimeout(dispatchSearch, 1500);
@@ -50,7 +56,7 @@ const SearchBar = () => {
                     {
                         searchBar.results.data.children.map(result => {
                             return (
-                                <Link onClick={returnToTop} key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
+                                <Link onClick={handleLinkClick} key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
                                     <li className='searchBarResultsItem'>
                                         <p>
                                             <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
@@ -60,7 +66,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <Link onClick={returnToTop} to={`search/posts?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+                    <Link onClick={handleLinkClick} to={`search/posts?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }
@@ -75,7 +81,7 @@ const SearchBar = () => {
                     {
                         searchBar.subreddits.data.children.map(subreddit => {
                             return (
-                                <Link onClick={returnToTop} key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
+                                <Link onClick={handleLinkClick} key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
                                     <li className='searchBarSubredditsItem'>
                                         <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
                                         <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
@@ -84,7 +90,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <Link onClick={returnToTop} to={`search/subreddits?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+                    <Link onClick={handleLinkClick} to={`search/subreddits?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }
@@ -99,7 +105,7 @@ const SearchBar = () => {
                     {
                         searchBar.users.data.children.map(user => {
                             return (
-                                <Link onClick={returnToTop} to={`u/${user.data.name}`} key={user.data.id}>
+                                <Link onClick={handleLinkClick} to={`u/${user.data.name}`} key={user.data.id}>
                                     <li className='searchBarSubredditsItem'>
                                         <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
                                         <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
@@ -108,7 +114,7 @@ const SearchBar = () => {
                             )
                         })
                     }
-                    <Link onClick={returnToTop} to={`search/users?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+                    <Link onClick={handleLinkClick} to={`search/users?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
                 </div>
             )
         }

@@ -61,7 +61,7 @@ export class redditAPI {
             if (!this.authorize.error.isError) {
                 const searchParams = new URLSearchParams(queryString)
                 const { code, state } = Object.fromEntries(searchParams.entries());
-                console.log(state)
+                // console.log(state)
                 window.history.pushState("Token Recieved", "Reddit Client", reddit.authorize.redirectUri);
                 return code;
             }

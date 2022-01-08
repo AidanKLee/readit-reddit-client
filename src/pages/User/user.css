@@ -83,10 +83,6 @@
     overflow: hidden;
 }
 
-.subContentRightHeader p {
-    color: white;
-}
-
 .subContentRightHeader p:nth-of-type(3) {
     font-size: .9rem;
     margin-top: 8px;

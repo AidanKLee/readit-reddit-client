@@ -52,8 +52,13 @@ main {
     text-decoration: underline;
 }
 
+.markdown {
+    color: inherit
+}
+
 .markdown p {
     margin-bottom: 8px;
+    color: inherit !important;
 }
 
 .markdown ul {

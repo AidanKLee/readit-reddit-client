@@ -141,6 +141,10 @@
     padding: 16px;
 }
 
+.subContentRightHeader p {
+    color: white;
+}
+
 .heading {
     font-size: .8rem;
 }

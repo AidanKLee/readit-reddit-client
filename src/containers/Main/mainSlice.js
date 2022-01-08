@@ -76,6 +76,16 @@ export const mainSlice = createSlice({
     reducers: {
         setArticle: (state, action) => {
             state.page.article = action.payload;
+        },
+        clearState: (state) => {
+            state.page = {
+                ...state.page,
+                comments: [],
+                content: [],
+                subreddits: [],
+                article: {},
+                url: ''
+            }
         }
     },
     extraReducers: {
@@ -93,20 +103,21 @@ export const mainSlice = createSlice({
                 if (action.payload.content.data.children.length < 25) {
                     state.page.allLoaded = true;
                 }
-                action.payload.content.data.children.forEach(child => {
-                    let match = false;
-                    state.page.content.data.children.forEach(entry => {
-                        if (entry.data.name === child.data.name) {
-                            match = true;
-                        }
-                    })
-                    if (!match) {
-                        state.page.content.data.children = [
-                            ...state.page.content.data.children,
-                            child
-                        ];
-                    }
-                });
+                state.page.content.data.children = state.page.content.data.children.concat(action.payload.content.data.children);
+                // action.payload.content.data.children.forEach(child => {
+                //     let match = false;
+                //     state.page.content.data.children.forEach(entry => {
+                //         if (entry.data.name === child.data.name) {
+                //             match = true;
+                //         }
+                //     })
+                //     if (!match) {
+                //         state.page.content.data.children = [
+                //             ...state.page.content.data.children,
+                //             child
+                //         ];
+                //     }
+                // });
             };
             state.contentReady = true;
         },
@@ -156,7 +167,9 @@ export const mainSlice = createSlice({
     }
 });
 
-export const { setArticle } = mainSlice.actions;
+export const { getInitialState: mainInitialState }  = mainSlice;
+
+export const { setArticle, clearState: clearMainPageState } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 

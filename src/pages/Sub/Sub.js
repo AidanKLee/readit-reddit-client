@@ -4,8 +4,13 @@ import { useParams, Outlet, Link } from 'react-router-dom';
 import { Text } from '../../components/ContentTile/ContentTile';
 import reddit from '../../utilities/redditAPI';
 import Categories from '../../components/Categories/Categories';
+import { returnToTop } from '../../utilities/functions';
+import { useDispatch } from 'react-redux';
+import { clearMainPageState } from '../../containers/Main/mainSlice';
 
 const Sub = (props) => {
+
+    const dispatch = useDispatch();
     
     const params = useParams();
     const subredditUrl = params.subredditId;
@@ -89,12 +94,9 @@ const Sub = (props) => {
     };
 
     const handleClick = () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-        setSubreddit({})
+        // dispatch(clearMainPageState());
+        returnToTop();
+        setSubreddit({});
     }
 
     const getHeight = () => {

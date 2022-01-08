@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import './contentTIle.css';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTimePosted, returnToTop, isImage } from "../../utilities/functions";
-import { selectMain } from "../../containers/Main/mainSlice";
+import { clearMainPageState, selectMain } from "../../containers/Main/mainSlice";
 import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
 import { Link } from "react-router-dom";
@@ -14,37 +14,44 @@ import showdown from 'showdown';
 
 const ContentTile = (props) => {
 
+    const dispatch = useDispatch();
+
     const article = props.article;
     const i = props.i;
     const main = useSelector(selectMain);
     const login = useSelector(selectLogin);
+
+    const handleLinkClick = () => {
+        // dispatch(clearMainPageState());
+        returnToTop();
+    }
 
     return (
         <div className="tile" key={article.data.id}>
             <Votes ups={article.data.ups}/>
             <div className="tileContent">
                 <div className="tileHeader">
-                    <Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}>                
+                    <Link onClick={handleLinkClick} to={'/' + article.data.subreddit_name_prefixed}>                
                         {reddit.getIconImg(main.page.subreddits[i])}
                     </Link>
-                    <p className="tileHeaderText"><Link onClick={returnToTop} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={returnToTop} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
+                    <p className="tileHeaderText"><Link onClick={handleLinkClick} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={handleLinkClick} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    {article.data.permalink ? <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link> : undefined}
+                    {article.data.permalink ? <Link onClick={handleLinkClick} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link> : undefined}
                     {
                         article.data.link_permalink ? 
                         <div>
                             <p className="tileMainText">
-                                <Link onClick={returnToTop} to={'/u/' + article.data.author}>
-                                    <strong>{article.data.author}</strong>
+                                <Link onClick={handleLinkClick} to={'/u/' + article.data.author}>
+                                    <strong>{article.data.author + ' '}</strong>
                                 </Link> 
                                 posted a comment on 
-                                <Link onClick={returnToTop} to={'/u/' + article.data.link_author}>
-                                    <strong>{article.data.link_author}</strong>
+                                <Link onClick={handleLinkClick} to={'/u/' + article.data.link_author}>
+                                    <strong>{' ' + article.data.link_author}</strong>
                                 </Link>
                                 's post:
                             </p>
-                            <Link onClick={returnToTop} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5).split('/').slice(0, article.data.permalink.split('/').length - 4).join('/') : article.data.permalink.split('/').slice(0, article.data.permalink.split('/').length - 2).join('/')}>
+                            <Link onClick={handleLinkClick} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5).split('/').slice(0, article.data.permalink.split('/').length - 4).join('/') : article.data.permalink.split('/').slice(0, article.data.permalink.split('/').length - 2).join('/')}>
                                 <p className="tileMainTitle">{<Text text={article.data.link_title} length={1000}/>}</p>
                             </Link>
                         </div> 

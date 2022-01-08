@@ -3,17 +3,16 @@ import { NavLink } from 'react-router-dom';
 import './mainLinks.css';
 import { closeMenu } from '../../containers/Menu/menuSlice';
 import { useDispatch } from 'react-redux';
+import { returnToTop } from '../../utilities/functions';
+import { clearMainPageState } from '../../containers/Main/mainSlice';
 
 const MainLinks = () => {
 
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
+        // dispatch(clearMainPageState())
+        returnToTop();
         dispatch(closeMenu());
     }
 
