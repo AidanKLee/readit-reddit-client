@@ -77,16 +77,16 @@ const Search = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort, time, type, over18, query])
 
-    // window.onscroll = () => {
-    //     const loadMore = document.getElementsByClassName('mainLoadMore');
-    //     if (loadMore.length > 0 && location.includes('/search/')) {
-    //         const loadPosition = loadMore[0].offsetTop - 400;
-    //         const scrollPosition = window.scrollY + window.innerHeight;
-    //         if (loadPosition <= scrollPosition && !loadingData) {
-    //             fetchData(searchData.after);
-    //         }
-    //     }
-    // }
+    window.onscroll = () => {
+        const loadMore = document.getElementsByClassName('mainLoadMore');
+        if (loadMore.length > 0 && location.includes('/search/')) {
+            const loadPosition = loadMore[0].offsetTop - 400;
+            const scrollPosition = window.scrollY + window.innerHeight;
+            if (loadPosition <= scrollPosition && !loadingData) {
+                fetchData(searchData.after);
+            }
+        }
+    }
 
     const setQueryParams = param => {
         const [ key, value ] = param
@@ -232,7 +232,7 @@ const Search = () => {
                     <div className="mainLoadMore"></div>
                 </div>
                 <div className='searchContentRight'>
-                    
+
                 </div>
             </div>
         </div>
