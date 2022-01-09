@@ -318,42 +318,45 @@ const Search = () => {
                     {loadingData ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
                     <div className="mainLoadMore"></div>
                 </div>
-                <div className='searchContentRight'>
-                    <div className='searchContentRightSticky'>
-                        {
-                            stickyContent.subreddits ?
-                            <div>
-                                <div className='searchContentRightHeader'>
-                                    <p className='searchContentRightHeading'>
-                                        Communities
-                                    </p>
-                                    <Link to={`/search/subreddits?q=${query}`}>
-                                        View More
-                                    </Link>
-                                </div>
-                                <div className='searchContentRightMain'>
-                                    {stickyContent && stickyContent.subreddits ? renderCommunities() : undefined}
-                                </div>
-                            </div> : undefined
-                        }
-                        {
-                            stickyContent.users ?
-                            <div>
-                                <div className='searchContentRightHeader'>
-                                    <p className='searchContentRightHeading'>
-                                        Users
-                                    </p>
-                                    <Link to={`/search/users?q=${query}`}>
-                                        View More
-                                    </Link>
-                                </div>
-                                <div className='searchContentRightMain'>
-                                    {stickyContent && stickyContent.users ? renderUsers(): undefined}
-                                </div>
-                            </div> : undefined
-                        }
-                    </div>
-                </div>
+                {
+                    stickyContent && (stickyContent.subreddits && stickyContent.users) && (stickyContent.subreddits.length > 0 || stickyContent.users.length > 0) ?
+                    <div className='searchContentRight'>
+                        <div className='searchContentRightSticky'>
+                            {
+                                stickyContent.subreddits.length > 0 ?
+                                <div>
+                                    <div className='searchContentRightHeader'>
+                                        <p className='searchContentRightHeading'>
+                                            Communities
+                                        </p>
+                                        <Link to={`/search/subreddits?q=${query}`}>
+                                            View More
+                                        </Link>
+                                    </div>
+                                    <div className='searchContentRightMain'>
+                                        {stickyContent && stickyContent.subreddits ? renderCommunities() : undefined}
+                                    </div>
+                                </div> : undefined
+                            }
+                            {
+                                stickyContent.users.length > 0 ?
+                                <div>
+                                    <div className='searchContentRightHeader'>
+                                        <p className='searchContentRightHeading'>
+                                            Users
+                                        </p>
+                                        <Link to={`/search/users?q=${query}`}>
+                                            View More
+                                        </Link>
+                                    </div>
+                                    <div className='searchContentRightMain'>
+                                        {stickyContent && stickyContent.users ? renderUsers(): undefined}
+                                    </div>
+                                </div> : undefined
+                            }
+                        </div>
+                    </div> : undefined
+                }
             </div>
         </div>
         
