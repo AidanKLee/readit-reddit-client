@@ -32,6 +32,7 @@ const Search = () => {
 
     const [ queryString, setQueryString ] = useState(getInitialQuery());
     const [ searchData, setSearchData ] = useState({});
+    const [ stickyContent, setStickyContent ] = useState({});
     const [ loadingData, setLoadingData ] = useState(false);
 
     const location = useLocation().pathname + useLocation().search;
@@ -76,6 +77,23 @@ const Search = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort, time, type, over18, query])
+
+    useEffect(() => {
+        if (type === 'posts') {
+            const getStickyContent = async () => {
+                const subreddits = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'sr', over18);
+                const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', over18);
+                const content = {
+                    subreddits: subreddits.data.children,
+                    users: users.data.children
+                }
+                setStickyContent(content);
+            }
+            getStickyContent()
+        } else {
+            setStickyContent({});
+        }
+    },[over18])
 
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
@@ -131,6 +149,75 @@ const Search = () => {
         dispatch(clearMainPageState());
         returnToTop();
         setQueryParams(params);
+    }
+
+    // console.log(stickyContent)
+
+    const renderCommunities = () => {
+        return (
+            <div className='searchRightStickyCommunities'>
+                {
+                    stickyContent.subreddits.map(community => {
+                        return (
+                            <div key={community.data.id} className='searchRightStickyItem'>
+                                <div className='searchRightStickyItemLeft'>
+                                    <Link to={`/${community.data.display_name_prefixed}`}>
+                                        {reddit.getIconImg(community)}
+                                    </Link>
+                                    <div className='searchRightStickyItemText'>
+                                        <Link to={`/${community.data.display_name_prefixed}`}>
+                                            <p className='bold'>
+                                                {community.data.display_name_prefixed}
+                                                {community.data.over18 ? <span> NSFW</span> : undefined}
+                                            </p>
+                                        </Link>
+                                        <p>
+                                            {community.data.subscribers ? community.data.subscribers + ' subscribers' : '0 subscribers'}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button className='searchRightStickyButton' type='button'>Join</button>
+                            </div>
+                            
+                        )
+                    })
+                }
+            </div>
+        )
+    }
+
+    const renderUsers = () => {
+        return (
+            <div className='searchRightStickyCommunities'>
+                {
+                    stickyContent.users.map(user => {
+                        if (user.data.subreddit) {
+                            return (
+                            <div key={user.data.id} className='searchRightStickyItem'>
+                                <div className='searchRightStickyItemLeft'>
+                                    <Link to={`/${user.data.subreddit.display_name_prefixed}`}>
+                                        {reddit.getIconImg(user)}
+                                    </Link>
+                                    <div className='searchRightStickyItemText'>
+                                        <Link to={`/${user.data.subreddit.display_name_prefixed}`}>
+                                            <p className='bold'>
+                                                {user.data.subreddit.display_name_prefixed}
+                                            </p>
+                                        </Link>
+                                        <p>
+                                            {user.data.link_karma ? user.data.link_karma + ' karma' : '0 karma'}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button className='searchRightStickyButton' type='button'>Follow</button>
+                            </div>
+                            
+                        )
+                        }
+                    })
+                }
+            </div>
+        )
     }
 
     return (
@@ -232,7 +319,40 @@ const Search = () => {
                     <div className="mainLoadMore"></div>
                 </div>
                 <div className='searchContentRight'>
-
+                    <div className='searchContentRightSticky'>
+                        {
+                            stickyContent.subreddits ?
+                            <div>
+                                <div className='searchContentRightHeader'>
+                                    <p className='searchContentRightHeading'>
+                                        Communities
+                                    </p>
+                                    <Link to={`/search/subreddits?q=${query}`}>
+                                        View More
+                                    </Link>
+                                </div>
+                                <div className='searchContentRightMain'>
+                                    {stickyContent && stickyContent.subreddits ? renderCommunities() : undefined}
+                                </div>
+                            </div> : undefined
+                        }
+                        {
+                            stickyContent.users ?
+                            <div>
+                                <div className='searchContentRightHeader'>
+                                    <p className='searchContentRightHeading'>
+                                        Users
+                                    </p>
+                                    <Link to={`/search/users?q=${query}`}>
+                                        View More
+                                    </Link>
+                                </div>
+                                <div className='searchContentRightMain'>
+                                    {stickyContent && stickyContent.users ? renderUsers(): undefined}
+                                </div>
+                            </div> : undefined
+                        }
+                    </div>
                 </div>
             </div>
         </div>

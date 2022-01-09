@@ -177,6 +177,104 @@
     padding: 0 0 16px;
 }
 
+.searchContentRight {
+    flex: 1 1;
+    padding: 16px 16px 0 0;
+    max-width: 360px;
+}
+.searchContentRightSticky {
+    position: sticky;
+    top: 126px;
+    max-height: calc(100vh - 174px);
+    background-color: #f1f1f1;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.searchContentRightHeader {
+    background-color: #0d79a8;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchContentRightHeader a {
+    color: white;
+    font-size: .6rem;
+}
+
+.searchContentRightMain {
+    max-height: calc((100vh - 288px) / 2);
+    width: 100%;
+}
+
+.searchContentRightHeading {
+    color: white;
+    font-weight: bold;
+}
+
+.searchRightStickyItem {
+    height: 64px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+.searchRightStickyItem span {
+    color: #0d79a8;
+}
+
+.searchRightStickyItemLeft {
+    display: flex;
+    align-items: center;
+}
+
+.searchRightStickyItem img {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    margin: 8px;
+}
+
+.searchRightStickyItem {
+    font-size: .6rem;
+}
+
+.searchRightStickyButton {
+    background-color: #0d79a8;
+    border: 2px solid #f1f1f1;
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 4px;
+    margin-right: 4px;
+    min-width: 80px;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 16px;
+    box-shadow: 
+        inset 2px 2px 2px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 2px rgba(0, 0, 0, 0.0);
+        z-index: 31;
+}
+
+.searchRightStickyButton:hover {
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.searchRightStickyButton:active {
+    box-shadow: 
+        inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+}
+
 @media only screen and (max-width: 600px) {
     .searchParams {
         justify-content: flex-end;

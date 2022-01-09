@@ -258,31 +258,51 @@ export class redditAPI {
     }
 
     getIconImg = (community) => {
-        if (community && !community.data) {
-            if (community) {
-                if (community.icon_img) {
-                    if (community.icon_img.includes('?')) {
-                        return <img src={community.icon_img.split('?')[0]} alt={community.display_name}/>
-                    }
-                    return <img src={community.icon_img} alt={community.display_name}/>
-                } else if (community.community_icon) {
-                    let url = community.community_icon.split('?')[0]
-                    return <img src={url} alt={community.display_name}/>
-                } else {
-                    return <img src={redditLogo} alt={community.display_name}/>
+        if (community && community.data) {
+            community = community.data;
+        }
+        if (community) { 
+            if (community.icon_img) {
+                if (community.icon_img.includes('?')) {
+                    return <img src={community.icon_img.split('?')[0]} alt={community.display_name}/>
                 }
-            } 
-        } else if (community && community.data) {
-            if (community.data.icon_img) {
-                return <img src={community.data.icon_img} alt={community.data.display_name}/>
-            } else if (community.data.community_icon) {
-                let url = community.data.community_icon.split('?')[0]
-                return <img src={url} alt={community.data.display_name}/>
+                return <img src={community.icon_img} alt={community.display_name}/>
+            } else if (community.community_icon) {
+                let url = community.community_icon.split('?')[0]
+                return <img src={url} alt={community.display_name}/>
             } else {
-                return <img src={redditLogo} alt={community.data.display_name}/>
+                return <img src={redditLogo} alt={community.display_name}/>
             }
-        } 
+        }
+
     }
+
+    // getIconImg = (community) => {
+    //     if (community && !community.data) {
+    //         if (community) {
+    //             if (community.icon_img) {
+    //                 if (community.icon_img.includes('?')) {
+    //                     return <img src={community.icon_img.split('?')[0]} alt={community.display_name}/>
+    //                 }
+    //                 return <img src={community.icon_img} alt={community.display_name}/>
+    //             } else if (community.community_icon) {
+    //                 let url = community.community_icon.split('?')[0]
+    //                 return <img src={url} alt={community.display_name}/>
+    //             } else {
+    //                 return <img src={redditLogo} alt={community.display_name}/>
+    //             }
+    //         } 
+    //     } else if (community && community.data) {
+    //         if (community.data.icon_img) {
+    //             return <img src={community.data.icon_img} alt={community.data.display_name}/>
+    //         } else if (community.data.community_icon) {
+    //             let url = community.data.community_icon.split('?')[0]
+    //             return <img src={url} alt={community.data.display_name}/>
+    //         } else {
+    //             return <img src={redditLogo} alt={community.data.display_name}/>
+    //         }
+    //     } 
+    // }
 }
 
 const reddit = new redditAPI();
