@@ -86,7 +86,8 @@ const Search = () => {
     useEffect(() => {
         setAllDataLoaded(false)
         if (!loadingData) {
-            dispatch(clearMainPageState())
+            dispatch(clearMainPageState());
+            setSearchData({});
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
