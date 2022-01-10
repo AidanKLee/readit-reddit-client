@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import './searchBar.css';
 import { returnToTop } from '../../utilities/functions';
-import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch } from './searchBarSlice';
+import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch, setInitialSearchBarState } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { clearMainPageState } from '../../containers/Main/mainSlice';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const searchBar = useSelector(selectSearchBar);
 
@@ -40,7 +41,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         if (searchBar.search) {
-            const searchTimeout = setTimeout(dispatchSearch, 1500);
+            const searchTimeout = setTimeout(dispatchSearch, 1000);
             return () => {
                 clearTimeout(searchTimeout);
             }
@@ -124,7 +125,9 @@ const SearchBar = () => {
     const handleKeyDown = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            window.location.href = `/search/posts?q=${e.target.value}`
+            navigate(`/search/posts?q=${e.target.value}`, {replace: false});
+            e.target.value = '';
+            dispatch(setInitialSearchBarState())
         }
     }
 

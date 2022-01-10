@@ -62,7 +62,7 @@ export class redditAPI {
                 const searchParams = new URLSearchParams(queryString)
                 const { code, state } = Object.fromEntries(searchParams.entries());
                 // console.log(state)
-                window.history.pushState("Token Recieved", "Reddit Client", reddit.authorize.redirectUri);
+                window.history.replaceState(null, "Readit", window.location.origin);
                 return code;
             }
         }

@@ -4,10 +4,13 @@ import reddit from '../../utilities/redditAPI';
 export const handleLogin = createAsyncThunk(
     'login/handleLogin',
     async () => {
-        const code = reddit.handleCallback();
         let accessToken;
+        const prevRefreshToken = localStorage.getItem('refreshToken');
+        const code = reddit.handleCallback();
         if (code) {
             accessToken = await reddit.fetchToken(code);
+        } else if (prevRefreshToken) {
+            accessToken = await reddit.refreshAccessToken(prevRefreshToken);
         }
         if (accessToken) {
             const user = await reddit.fetchUser();
@@ -26,6 +29,7 @@ export const loginSlice = createSlice({
     initialState: {},
     reducers: {
         logout: state => {
+            localStorage.clear();
             return state = {
                 isLoading: state.isLoading,
                 hasError: state.hasError
@@ -41,6 +45,10 @@ export const loginSlice = createSlice({
             state.isLoading = false;
             state.hasError = false;
             state.authorization = action.payload;
+            if (action.payload !== undefined) {
+                localStorage.setItem('refreshToken', action.payload.accessToken.refreshToken)
+            }
+            
         },
         [handleLogin.rejected]: (state) => {
             state.isLoading = false;

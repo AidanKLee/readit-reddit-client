@@ -38,9 +38,13 @@ const Search = () => {
     const [ noData, setNoData ] = useState(false);
 
     const location = useLocation().pathname + useLocation().search;
+    const queryChange = useLocation().search.split('&')[0].slice(3);
 
     const fetchData = async (afterData) => {
         setLoadingData(true)
+        setQueryString({
+            q: query
+        });
         let t = '';
         if (type === 'posts') {
             t = '';
@@ -102,6 +106,7 @@ const Search = () => {
         } else {
             setStickyContent({});
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[over18])
 
     window.onscroll = () => {
@@ -142,8 +147,6 @@ const Search = () => {
     }
 
     const handleToggleSafe = () => {
-        // const button = document.getElementsByClassName('searchSafeToggleButton')[0];
-        // over18 === false ? button.style.left = '0px' : button.style.left = '6px';
         setSearchData({})
         if (over18) {
             setOver18(false);
@@ -159,6 +162,9 @@ const Search = () => {
     const handleSortClick = (params) => {
         dispatch(clearMainPageState());
         returnToTop();
+        setQueryString({
+            q: query
+        });
         setQueryParams(params);
     }
 

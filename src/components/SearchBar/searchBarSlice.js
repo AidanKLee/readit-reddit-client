@@ -46,6 +46,12 @@ export const searchBarSlice = createSlice({
         search: (state, action) => {
             state.search = action.payload;
         },
+        setInitialSearchBarState: (state) => {
+            state.search = ''
+            state.results = {}
+            state.subreddits = {}
+            state.users = {}
+        }
     },
     extraReducers: {
         [fetchSearch.pending] : (state) => {
@@ -90,7 +96,7 @@ export const searchBarSlice = createSlice({
     }
 });
 
-export const { search } = searchBarSlice.actions;
+export const { search, setInitialSearchBarState } = searchBarSlice.actions;
 
 export const selectSearchBar = state => {
     return state.searchBar;
