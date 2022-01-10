@@ -255,6 +255,7 @@
     margin-right: 4px;
     min-width: 80px;
     width: 80px;
+    height: fit-content;
     font-weight: bold;
     border-radius: 16px;
     box-shadow: 
@@ -275,12 +276,74 @@
         inset -2px -2px 4px rgba(255, 255, 255, 0.3);
 }
 
+.searchSubredditsResults {
+    margin-top: 16px;
+}
+
+.searchSubredditsResultsItem {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 8px 8px 0px;
+    background-color: #f1f1f1;
+    font-size: .8rem;
+}
+
+.searchSubredditsResultsData {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.searchSubredditsResultsDataLeft {
+    display: flex;
+    align-items: center;
+}
+
+.searchSubredditsResultsItem img {
+    width: 64px;
+    height: 64px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+
+.searchSubredditsResultsItemBottom {
+    display: block;
+    padding: 0 8px;
+}
+
+.searchSubredditsResultsItem .markdown {
+    display: block;
+    font-size: .7rem;
+    margin-top: 8px;
+}
+
+.searchSubredditsResultsItem .readMore {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.searchSubredditsResultsItem .bold span {
+    color: #0d79a8;
+}
+
+.searchSubredditsResultsItem .spacer {
+    height: 8px;
+}
+
 @media only screen and (max-width: 600px) {
     .searchParams {
         justify-content: flex-end;
     }
 
     .searchSafe p {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1140px) {
+    .searchContentRight {
         display: none;
     }
 }

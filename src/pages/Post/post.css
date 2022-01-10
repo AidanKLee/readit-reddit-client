@@ -11,7 +11,7 @@
 .post .tileMainVideo {
     width: 100%;
     height: 100%;
-    max-height: none;
+    max-height: calc(100vh - 136px);
     object-fit: contain;
 }
 
@@ -20,7 +20,7 @@
     object-position: center;
     width: 100%;
     height: 100%;
-    max-height: none;
+    max-height: calc(100vh - 136px);
 }
 
 .post .tileAwards {

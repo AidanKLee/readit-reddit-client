@@ -100,7 +100,8 @@ export const Text = (props) => {
         html = html
         .replaceAll('h6', 'strong').replaceAll('h5', 'strong')
         .replaceAll('h4', 'h6').replaceAll('h3', 'h5')
-        .replaceAll('h2', 'h4').replaceAll('h1', 'h3');
+        .replaceAll('h2', 'h4').replaceAll('h1', 'h3')
+        .replaceAll('<a ', '<a target="_blank" rel="noreferrer" ');
     }
 
     const toggleShowMore = () => {

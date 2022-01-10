@@ -25,6 +25,7 @@ header .userWrapper {
 
 header .userAvatar {
     height: 56px;
+    border-radius: 28px;
 }
 
 header .userSignedIn {
@@ -183,6 +184,7 @@ header .userDropdownItem:hover svg {
 #menu .userAvatar {
     height: 56px;
     margin: 8px 12px 8px 16px;
+    border-radius: 28px;
 }
 
 #menu .userSignedIn {

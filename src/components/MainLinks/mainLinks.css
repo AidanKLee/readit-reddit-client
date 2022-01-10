@@ -84,7 +84,7 @@ header .mainLinksItems p {
     color: #f1f1f1;
 }
 
-@media only screen and (min-width: 520px) {
+@media only screen and (min-width: 540px) {
     #menu .mainLinks {
         display: none;
     }

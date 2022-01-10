@@ -18,7 +18,7 @@ const User = () => {
     return (
         <div className='user' data-test='user'>
             <div className={login.isLoading ? 'userWrapper loading' : 'userWrapper'}>
-                {login.authorization ? <img className='userAvatar' src={login.authorization.user.snoovatar_img} alt='My Avatar' /> : undefined}
+                {login.authorization ? <img className='userAvatar' src={login.authorization.user.snoovatar_img ? login.authorization.user.snoovatar_img : login.authorization.user.icon_img} alt='My Avatar' /> : undefined}
                 {login.isLoading ? <img className="loader" src={loader} alt='Loader' /> : undefined}
                 {login.authorization ? <div className='userSignedIn'></div> : undefined}
                 {login.authorization ? <p className='userLink'>{login.authorization.user.subreddit.url}</p> : undefined}

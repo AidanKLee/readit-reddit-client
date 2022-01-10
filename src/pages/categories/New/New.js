@@ -66,7 +66,7 @@ const Best = (props) => {
                 main.page.content.data.children.map((article, index) => <ContentTile key={article.data.id + index} i={index} article={article}/>) : undefined
             }
             {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-            {main.page.allLoaded ? <p className="mainLoading">End Of Content</p> : <div className="mainLoadMore"></div>}
+            {main.page.allLoaded ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
         </div>
     )
 }

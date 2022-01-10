@@ -4,7 +4,7 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
-import ContentTile from '../../components/ContentTile/ContentTile';
+import ContentTile, { Text } from '../../components/ContentTile/ContentTile';
 import { useDispatch } from 'react-redux';
 import { clearMainPageState, fetchComments, fetchSubreddits } from '../../containers/Main/mainSlice';
 import loader from '../../assets/loader.svg';
@@ -19,7 +19,7 @@ const Search = () => {
     const sort = searchParams.get('sort');
     const time = searchParams.get('time');
     const type = useParams().searchType;
-    const [ over18, setOver18 ] = useState(searchParams.get('over18'));
+    const [ over18, setOver18 ] = useState(searchParams.get('over18') === 'true');
 
     const getInitialQuery = () => {
         let initialQueryString = {};
@@ -34,10 +34,10 @@ const Search = () => {
     const [ searchData, setSearchData ] = useState({});
     const [ stickyContent, setStickyContent ] = useState({});
     const [ loadingData, setLoadingData ] = useState(false);
+    const [ allDataLoaded, setAllDataLoaded ] = useState(false);
+    const [ noData, setNoData ] = useState(false);
 
     const location = useLocation().pathname + useLocation().search;
-
-    // console.log(searchData.after)
 
     const fetchData = async (afterData) => {
         setLoadingData(true)
@@ -49,29 +49,38 @@ const Search = () => {
         } else if (type === 'users') {
             t = 'user';
         }
-        const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, afterData);
-        if (!data) {
-            setSearchData({
-                ...searchData,
-                noResults: true
-            })
-        } else if (data && (!searchData.after || searchData.location !== location)) {
-            setSearchData({
-                results: data.data.children,
-                after: data.data.children[data.data.children.length - 1].data.name,
-                location: location
-            })   
-        } else if (data && searchData.after && searchData.location === location) {
-            setSearchData({
-                ...searchData,
-                results: searchData.results.concat(data.data.children),
-                after: data.data.children[data.data.children.length - 1].data.name,
-            })
+        try {
+            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, afterData);
+            if (!data) {
+                setSearchData({
+                    ...searchData,
+                    noResults: true
+                })
+            } else if (data && (!searchData.after || searchData.location !== location)) {
+                setSearchData({
+                    results: data.data.children,
+                    after: data.data.children[data.data.children.length - 1].data.name,
+                    location: location
+                })   
+            } else if (data && searchData.after && searchData.location === location) {
+                setSearchData({
+                    ...searchData,
+                    results: searchData.results.concat(data.data.children),
+                    after: data.data.children[data.data.children.length - 1].data.name,
+                })
+            }
+            if (data.data.children.length < 25) {
+                setAllDataLoaded(true);
+            }
+            setNoData(false)
+        } catch (e) {
+            setNoData(true);
         }
         setLoadingData(false)
     }
 
     useEffect(() => {
+        setAllDataLoaded(false)
         if (!loadingData) {
             fetchData();
         }
@@ -97,7 +106,7 @@ const Search = () => {
 
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
-        if (loadMore.length > 0 && location.includes('/search/')) {
+        if (loadMore.length > 0 && location.includes('/search/') && !allDataLoaded) {
             const loadPosition = loadMore[0].offsetTop - 400;
             const scrollPosition = window.scrollY + window.innerHeight;
             if (loadPosition <= scrollPosition && !loadingData) {
@@ -133,8 +142,8 @@ const Search = () => {
     }
 
     const handleToggleSafe = () => {
-        const button = document.getElementsByClassName('searchSafeToggleButton')[0];
-        button.style.left === '6px' ? button.style.left = '0px' : button.style.left = '6px';
+        // const button = document.getElementsByClassName('searchSafeToggleButton')[0];
+        // over18 === false ? button.style.left = '0px' : button.style.left = '6px';
         setSearchData({})
         if (over18) {
             setOver18(false);
@@ -144,6 +153,8 @@ const Search = () => {
             handleSortClick(['over18', 'true']);
         }
     }
+
+    const styleSafe = over18 ? {left: '6px'} : {left: '0px'};
 
     const handleSortClick = (params) => {
         dispatch(clearMainPageState());
@@ -305,21 +316,22 @@ const Search = () => {
                 <div className='searchSafe'>
                     <p>Safe Search</p>
                     <div className='searchSafeToggle' onClick={handleToggleSafe}>
-                        <div className='searchSafeToggleButton'></div>
+                        <div className='searchSafeToggleButton' style={styleSafe}></div>
                     </div>
                 </div>
             </div>
             <p className='searchSearchingFor'>Searching for <strong>{type}</strong> related to <strong>{query}</strong>.</p>
             <div className='searchContent'>
                 <div className='content'>
-                    {type === 'posts' ? <SearchPosts setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
+                    {type === 'posts' && searchData && searchData.results && searchData.location.includes('/posts?') ? <SearchPosts setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
                     {type === 'subreddits' ? <SearchSubreddits setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
                     {type === 'users' ? <SearchUsers setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
                     {loadingData ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-                    <div className="mainLoadMore"></div>
+                    {allDataLoaded ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
+                    {noData ? <p className="mainLoading">There are no results for your search.</p> : undefined}
                 </div>
                 {
-                    stickyContent && (stickyContent.subreddits && stickyContent.users) && (stickyContent.subreddits.length > 0 || stickyContent.users.length > 0) ?
+                    type === 'posts' && (stickyContent.subreddits && stickyContent.users) && (stickyContent.subreddits.length > 0 || stickyContent.users.length > 0) ?
                     <div className='searchContentRight'>
                         <div className='searchContentRightSticky'>
                             {
@@ -364,17 +376,90 @@ const Search = () => {
 }
 
 const SearchUsers = (props) => {
+
+    const { searchData } = props;
+    const users = searchData.results;
+
+    const renderUsers = () => {
+        return (
+            users.map(result => {
+                return (
+                    !result.data.is_suspended ?
+                    <div key={result.data.id} className='searchSubredditsResultsItem'>
+                        <div className='searchSubredditsResultsData'>
+                            <div className='searchSubredditsResultsDataLeft'>
+                                <Link to={`/${result.data.subreddit.display_name_prefixed}`}>
+                                    {reddit.getIconImg(result)}
+                                </Link>
+                                <div>
+                                    <Link to={`/${result.data.subreddit.display_name_prefixed}`}>
+                                        <p className='bold'>{result.data.name} {result.data.subreddit.over_18 ? <span>NSFW</span>: undefined}</p>
+                                    </Link>
+                                    <p style={{fontSize: '.6rem', lineHeight: '1'}}>{result.data.subreddit.display_name_prefixed}</p>
+                                    <p>{result.data.link_karma} karma</p>
+                                </div>
+                            </div>
+                            <button className='searchRightStickyButton' type='button'>Join</button>
+                        </div>
+                        <div className='searchSubredditsResultsItemBottom'>
+                            {result.data.subreddit.public_description ? <Text text={result.data.subreddit.public_description} length='125'/> : <div className='spacer'></div>}
+                        </div>
+                        
+                    </div> : undefined
+                )
+            })
+        )
+    }
+
     return (
-        <div className='searchUsers'>
-            Users
+        <div className='searchSubreddits'>
+            <div className='searchSubredditsResults'>
+                {users ? renderUsers() : undefined}
+            </div>
         </div>
     )
 }
 
 const SearchSubreddits = (props) => {
+    
+    const { searchData } = props;
+    const subreddits = searchData.results;
+
+    const renderSubreddits = () => {
+        return (
+            subreddits.map(result => {
+                return (
+                    <div key={result.data.id} className='searchSubredditsResultsItem'>
+                        <div className='searchSubredditsResultsData'>
+                            <div className='searchSubredditsResultsDataLeft'>
+                                <Link to={`/${result.data.display_name_prefixed}`}>
+                                    {reddit.getIconImg(result)}
+                                </Link>
+                                <div>
+                                    <Link to={`/${result.data.display_name_prefixed}`}>
+                                        <p className='bold'>{result.data.display_name} {result.data.over18 ? <span>NSFW</span>: undefined}</p>
+                                    </Link>
+                                    <p style={{fontSize: '.6rem', lineHeight: '1'}}>{result.data.display_name_prefixed}</p>
+                                    <p>{result.data.subscribers} subscribers</p>
+                                </div>
+                            </div>
+                            <button className='searchRightStickyButton' type='button'>Join</button>
+                        </div>
+                        <div className='searchSubredditsResultsItemBottom'>
+                        {result.data.public_description ? <Text text={result.data.public_description} length='125'/> : <div className='spacer'></div>}
+                        </div>
+                        
+                    </div>
+                )
+            })
+        )
+    }
+
     return (
         <div className='searchSubreddits'>
-            Subreddits
+            <div className='searchSubredditsResults'>
+                {subreddits ? renderSubreddits() : undefined}
+            </div>
         </div>
     )
 }
@@ -386,10 +471,8 @@ const SearchPosts = (props) => {
     const { searchData, loadingData } = props;
     const posts = searchData.results;
 
-
     useEffect(() => {
         if (posts && !loadingData) {
-            // console.log('running other')
             const content = posts.slice(-25);
             dispatch(fetchComments({
                 comments: content
@@ -419,7 +502,7 @@ const SearchPosts = (props) => {
     return (
         <div className='searchPosts'>
             <div className='searchPostsResults'>
-                {renderPosts()}
+                {posts ? renderPosts() : undefined}
             </div>
         </div>
     )
