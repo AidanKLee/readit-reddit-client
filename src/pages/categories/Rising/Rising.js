@@ -3,22 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import ContentTile from '../../../components/ContentTile/ContentTile';
 import { fetchComments, fetchSubreddits, fetchContent, selectMain } from "../../../containers/Main/mainSlice";
 import loader from '../../../assets/loader.svg';
+import { selectLogin } from '../../../components/LogIn/loginSlice';
 
 const Best = (props) => {
 
     const dispatch = useDispatch();
 
     const main = useSelector(selectMain);
+    const login = useSelector(selectLogin);
 
     const [ loadMore, setLoadMore ] = useState(false);
 
     useEffect(() => {
+        console.log('running')
+        if (login.initialLoginAttempt) {
             dispatch(fetchContent({
             limit: 25,
-            url: props.page + 'rising'
+            url: props.page + 'rising',
+            loggedIn: login && login.authorization && login.authorization.accessToken ? true : false
             }));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[props.page])
+    },[props.page, login.initialLoginAttempt])
 
     useEffect(() => {
         if (main.contentReady && main.page && main.page.content && main.page.content.data) {

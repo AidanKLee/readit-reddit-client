@@ -48,7 +48,7 @@ export const loginSlice = createSlice({
             if (action.payload !== undefined) {
                 localStorage.setItem('refreshToken', btoa(action.payload.accessToken.refreshToken))
             }
-            
+            state.initialLoginAttempt = true;
         },
         [handleLogin.rejected]: (state) => {
             state.isLoading = false;

@@ -16,13 +16,15 @@ const Best = (props) => {
 
     useEffect(() => {
         console.log('running')
+        if (login.initialLoginAttempt) {
             dispatch(fetchContent({
             limit: 25,
             url: props.page + 'best',
             loggedIn: login && login.authorization && login.authorization.accessToken ? true : false
             }));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[props.page])
+    },[props.page, login.initialLoginAttempt])
 
     useEffect(() => {
         if (main.contentReady && main.page && main.page.content && main.page.content.data) {
@@ -69,6 +71,7 @@ const Best = (props) => {
 
                 main.page.content.data.children.map((article, index) => <ContentTile key={article.data.id + index} i={index} article={article}/>) : undefined
             }
+            {console.log(main.page.allLoaded)}
             {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
             {main.page.allLoaded ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
         </div>

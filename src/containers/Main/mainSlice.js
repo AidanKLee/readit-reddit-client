@@ -68,7 +68,8 @@ export const mainSlice = createSlice({
             comments: [],
             subreddits: [],
             article: {},
-            url: ''
+            url: '',
+            allLoaded: false
         },
         isLoading: false,
         hasError: false,
@@ -102,6 +103,9 @@ export const mainSlice = createSlice({
         [fetchContent.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
+            if (action.payload.content.data.children.length < 25) {
+                state.page.allLoaded = true;
+            }
             if (state.page.url !== action.payload.url) {
                 state.page = action.payload;
             } else if (state.page.url === action.payload.url) {
