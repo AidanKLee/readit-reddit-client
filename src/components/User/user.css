@@ -97,46 +97,6 @@ header .userDropdownItem {
     justify-content: space-between;
 }
 
-header .userDropdownItemDark {
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
-header .userDropdownItemDarkToggleOut {
-    border: 2px solid var(--over2);
-    background-color: var(--darkToggle);
-    width: 64px;
-    height: 32px;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 2px;
-    transition: transform 1s;
-}
-
-header .userDropdownItemDarkToggleIn {
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    background: var(--bg2);
-    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg1) 100%);
-    box-shadow: 
-        inset 3px 3px 3px rgba(255, 255, 255, 0.5),
-        inset -3px -3px 3px rgba(0, 0, 0, 0.3);
-}
-
-header .userDropdownItem:hover .userDropdownItemDarkToggleOut {
-    border: 2px solid var(--prim1);
-    background-color: var(--prim4);
-    transform: scale(1.05);
-}
-
-header .userDropdownItem:hover .userDropdownItemDark {
-    color: var(--prim1);
-}
-
 header .userDropdownItem svg {
     height: 24px;
     width: 24px;
@@ -290,10 +250,4 @@ header .userDropdownItem:hover svg {
 #menu .userDropdownItem:hover svg {
     transform: translate(0, -2px);
     fill: var(--prim1);
-}
-
-@media only screen and (min-width: 420px) {
-    #menu .user {
-        display: none;
-    }
 }

@@ -13,3 +13,7 @@
 .mainLoading {
   color: var(--fg1);
 }
+
+.mainLoading a {
+  display: inline;
+}

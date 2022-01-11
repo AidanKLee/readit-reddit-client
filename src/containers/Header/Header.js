@@ -11,6 +11,7 @@ import Hamburger from "../../components/Hamburger/Hamburger";
 import { useSelector } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import { selectMenu } from "../Menu/menuSlice";
+import DarkMode from "../../components/DarkMode/DarkMode";
 
 const Header = (props) => {
 
@@ -34,6 +35,7 @@ const Header = (props) => {
                 <div id='headerWrapperRight'>
                     {login.authorization ? <NewPost /> : undefined}
                     <MainLinks />
+                    <DarkMode/>
                     {!login.authorization ? <Login /> : undefined}
                     {login.authorization || login.isLoading ? <User /> : undefined}
                     <Hamburger />

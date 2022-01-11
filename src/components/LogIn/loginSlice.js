@@ -29,7 +29,7 @@ export const loginSlice = createSlice({
     initialState: {},
     reducers: {
         logout: state => {
-            localStorage.clear();
+            localStorage.removeItem('refreshToken');
             return state = {
                 isLoading: state.isLoading,
                 hasError: state.hasError

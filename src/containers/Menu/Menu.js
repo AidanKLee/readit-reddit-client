@@ -8,6 +8,7 @@ import User from '../../components/User/User';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import { toggleMenu, selectMenu } from './menuSlice';
+import DarkMode from '../../components/DarkMode/DarkMode';
 
 const Menu = () => {
 
@@ -21,7 +22,7 @@ const Menu = () => {
     }
 
     window.onresize = () => {
-        if (window.innerWidth >= 720 && menu.menuOpen) {
+        if (window.innerWidth >= 880 && menu.menuOpen) {
             handleToggleMenu();
         }
     }
@@ -35,6 +36,7 @@ const Menu = () => {
             {login.authorization || login.isLoading? <User /> : undefined}
             {login.authorization ? <NewPost /> : undefined}
             <MainLinks />
+            <DarkMode />
             {login.authorization ? <Communities /> : undefined}
         </aside>
     );

@@ -40,6 +40,8 @@ const Search = () => {
     const location = useLocation().pathname + useLocation().search;
 
     const fetchData = async (afterData) => {
+        let over18User = over18
+        setQueryString(getInitialQuery())
         setLoadingData(true)
         let t = '';
         if (type === 'posts') {
@@ -48,9 +50,10 @@ const Search = () => {
             t = 'sr';
         } else if (type === 'users') {
             t = 'user';
+            over18User = true
         }
         try {
-            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, afterData);
+            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18User, afterData);
             if (!data) {
                 setSearchData({
                     ...searchData,
@@ -94,7 +97,7 @@ const Search = () => {
         if (type === 'posts' && searchData && searchData.results && searchData.results.length <= 25) {
             const getStickyContent = async () => {
                 const subreddits = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'sr', over18);
-                const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', over18);
+                const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', true);
                 const content = {
                     subreddits: subreddits.data.children,
                     users: users.data.children
@@ -164,6 +167,16 @@ const Search = () => {
         setQueryParams(params);
     }
 
+    const renderNoReultsMessage = () => {
+        if (type === 'posts') {
+            return <span><Link to={`/search/subreddits?q=${query}`}>Subreddits</Link> or <Link to={`/search/users?q=${query}`}>Users</Link></span>
+        } else if (type === 'subreddits') {
+            return <span><Link to={`/search/posts?q=${query}`}>Posts</Link> or <Link to={`/search/users?q=${query}`}>Users</Link></span>
+        } else {
+            return <span><Link to={`/search/posts?q=${query}`}>Posts</Link> or <Link to={`/search/subreddits?q=${query}`}>Subreddits</Link></span>
+        }
+    }
+
     // console.log(stickyContent)
 
     const renderCommunities = () => {
@@ -214,7 +227,7 @@ const Search = () => {
                                     <div className='searchRightStickyItemText'>
                                         <Link to={`/${user.data.subreddit.display_name_prefixed}`}>
                                             <p className='bold'>
-                                                {user.data.subreddit.display_name_prefixed}
+                                                {user.data.subreddit.display_name_prefixed} {user.data.subreddit.over_18 ? <span> 18+</span> : undefined}
                                             </p>
                                         </Link>
                                         <p>
@@ -331,7 +344,7 @@ const Search = () => {
                     {type === 'users' ? <SearchUsers setLoadingData={setLoadingData} searchData={searchData} loadingData={loadingData}/> : undefined}
                     {loadingData ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
                     {allDataLoaded ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
-                    {noData ? <p className="mainLoading">There are no results for your search.</p> : undefined}
+                    {noData ? <div className="mainLoading"><p>There are no results for your search. Look in {renderNoReultsMessage()}?</p></div> : undefined}
                 </div>
                 {
                     type === 'posts' && (stickyContent.subreddits && stickyContent.users) && (stickyContent.subreddits.length > 0 || stickyContent.users.length > 0) ?
@@ -396,7 +409,7 @@ const SearchUsers = (props) => {
                                 </Link>
                                 <div>
                                     <Link to={`/${result.data.subreddit.display_name_prefixed}`}>
-                                        <p className='bold'>{result.data.name} {result.data.subreddit.over_18 ? <span>NSFW</span>: undefined}</p>
+                                        <p className='bold'>{result.data.name} {result.data.subreddit.over_18 ? <span>18+</span>: undefined}</p>
                                     </Link>
                                     <p style={{fontSize: '.6rem', lineHeight: '1'}}>{result.data.subreddit.display_name_prefixed}</p>
                                     <p>{result.data.link_karma} karma</p>

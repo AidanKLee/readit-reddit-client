@@ -7,6 +7,7 @@ import Footer from '../containers/Footer/Footer';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from '../components/LogIn/loginSlice';
 
+
 function App() {
 
   const dispatch = useDispatch();

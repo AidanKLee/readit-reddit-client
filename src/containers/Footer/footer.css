@@ -11,6 +11,10 @@ footer {
     align-items: center;
 }
 
+footer p {
+    color: var(--fg2);
+}
+
 .footerWrapper {
     display: flex;
     justify-content: space-between;

@@ -13,7 +13,7 @@ header .communities {
     margin-right: 16px;
     justify-content: center;
     align-items: center;
-    border-left: 1px solid color var(--over3) !important;;
+    border-left: 1px solid var(--over3);
     border-right: 1px solid var(--over3);
     position: relative;
     transition: .5s;
@@ -174,10 +174,4 @@ header .communitiesDropdownListItem:hover {
 #menu .communitiesDropdownListItem:hover {
     background-color: var(--bg3);
     color: var(--prim1);
-}
-
-@media only screen and (min-width: 720px) {
-    #menu .communities {
-        display: none;
-    }
 }

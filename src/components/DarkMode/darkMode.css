@@ -1,0 +1,144 @@
+/* --------------------------------------------------------------- */
+/* Header Dark Mode */
+/* --------------------------------------------------------------- */
+
+header .darkWrapper {
+    margin-right: 16px;
+    transition: .3s;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--fg1)
+}
+
+header .dark {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+header .darkSvg {
+    fill: var(--fg1);
+    margin-right: 8px;
+}
+
+header .dark p {
+    display: none;
+}
+
+header .darkToggleOut {
+    border: 2px solid var(--over2);
+    background-color: var(--darkToggle);
+    width: 64px;
+    height: 32px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2px;
+    transition: transform 1s;
+}
+
+header .darkToggleIn {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: var(--bg2);
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg1) 100%);
+    box-shadow: 
+        inset 3px 3px 3px rgba(255, 255, 255, 0.5),
+        inset -3px -3px 3px rgba(0, 0, 0, 0.3);
+    transition: .5s;
+}
+
+header .darkWrapper:hover .darkToggleOut {
+    border: 2px solid var(--prim1);
+    background-color: var(--prim4);
+    transform: scale(1.05);
+}
+
+header .darkWrapper:hover .darkSvg {
+    fill: var(--prim1)
+}
+
+header .darkWrapper:hover .dark {
+    color: var(--prim1);
+}
+
+@media only screen and (max-width: 880px) {
+    header .darkWrapper {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu Dark Mode */
+/* --------------------------------------------------------------- */
+
+#menu .darkWrapper {
+    padding: 8px 16px;
+    transition: .3s;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--fg1)
+}
+
+#menu .dark {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+#menu .darkSvg {
+    fill: var(--fg1);
+    margin-right: 16px;
+}
+
+#menu .darkToggleOut {
+    border: 2px solid var(--over2);
+    background-color: var(--darkToggle);
+    width: 64px;
+    height: 32px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 2px;
+    transition: transform 1s;
+}
+
+#menu .darkToggleIn {
+    position: relative;
+    left: 0;
+    left: 32px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: var(--bg2);
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg1) 100%);
+    box-shadow: 
+        inset 3px 3px 3px rgba(255, 255, 255, 0.5),
+        inset -3px -3px 3px rgba(0, 0, 0, 0.3);
+}
+
+#menu .darkWrapper:hover {
+    background-color: var(--over4);
+}
+
+#menu .darkWrapper:hover .darkToggleOut {
+    border: 2px solid var(--prim1);
+    background-color: var(--prim4);
+    transform: scale(1.05);
+}
+
+#menu .darkWrapper:hover .darkSvg {
+    fill: var(--prim1)
+}
+
+#menu .darkWrapper:hover .dark {
+    color: var(--prim1);
+}

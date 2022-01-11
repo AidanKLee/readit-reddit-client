@@ -45,7 +45,7 @@ header .mainLinksItems p {
     display: none;
 }
 
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 580px) {
     header .mainLinks {
         display: none;
     }
@@ -83,10 +83,4 @@ header .mainLinksItems p {
 
 #menu .mainLinksItems:hover p {
     color: var(--bg1);
-}
-
-@media only screen and (min-width: 540px) {
-    #menu .mainLinks {
-        display: none;
-    }
 }
