@@ -14,8 +14,6 @@ import { selectMenu } from "../Menu/menuSlice";
 
 const Header = (props) => {
 
-    // console.log(props)
-
     const login = useSelector(selectLogin);
     const menu = useSelector(selectMenu);
 

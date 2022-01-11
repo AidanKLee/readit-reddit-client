@@ -4,8 +4,8 @@
     width: 100%;
     max-width: 320px;
     height: 100%;
-    background-color: rgb(245, 245, 245);
-    border-left: 1px solid rgb(0, 0, 0, .1);
+    background-color: var(--bg1);
+    border-left: 1px solid var(--over3);
     overflow: auto;
     right: -100%;
     transition: .6s;
@@ -31,6 +31,7 @@
     width: 24px;
     margin: 8px;
     transition: .3s;
+    fill:var(--fg1)
 }
 
 #menuClose:hover {

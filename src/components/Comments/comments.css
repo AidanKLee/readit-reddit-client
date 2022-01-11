@@ -10,6 +10,7 @@
     font-size: .6rem !important;
     font-weight: bold !important;
     margin: 0 8px 8px 8px !important;
+    color: var(--fg2) !important;
 }
 
 .commentsActions {
@@ -21,33 +22,34 @@
     font-weight: bold !important;
     margin: 0 8px 8px !important;
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.5) !important;
+    color: var(--over2) !important;
 }
 
 .commentsActions p:hover {
-    color: rgba(0, 0, 0, 1) !important;
+    color: var(--fg2) !important;
 }
 
 .commentsItem {
     margin-bottom: 8px;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: var(--over4);
     padding: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--over3);
     border-radius: 8px;
+    transition: .5s;
 }
 
 .commentsItem:hover {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over2);
 }
 
 .commentsItem p {
     word-wrap: break-word;
     font-size: .8rem;
-    color: black;
+    color: var(--fg2);
 }
 
 .commentsItem a, strong {
-    color: black;
+    color: var(--fg2);
 }
 
 .commentsItem p:nth-of-type(1) {

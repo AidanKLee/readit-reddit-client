@@ -20,7 +20,7 @@
     position: absolute;
     height: 2px;
     width: 24px;
-    background-color: #1f1f1f;
+    background-color: var(--fg1);
     border-radius: 1px;
 }
 

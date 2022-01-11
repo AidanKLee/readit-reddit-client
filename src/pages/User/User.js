@@ -69,9 +69,9 @@ const User = () => {
     }
 
     const handleClick = () => {
-        // dispatch(clearMainPageState())
+        dispatch(clearMainPageState())
         returnToTop();
-        setSubreddit({});
+        // setSubreddit({});
     }
 
     const getHeight = () => {

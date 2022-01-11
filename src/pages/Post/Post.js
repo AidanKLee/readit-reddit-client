@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './post.css';
 import { Link } from 'react-router-dom';
-import { isImage } from '../../utilities/functions';
+import { getTimePosted, isImage } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import { Text } from '../../components/ContentTile/ContentTile';
 import Awards from '../../components/Awards/Awards';
@@ -37,13 +37,13 @@ const Post = (props) => {
 
     return (
         <div className='post'>
-            <h2>
+            <h2 className='postTitle'>
                 {post && post.data ? <Text text={post.data.title} length={500}/> : undefined}
             </h2>
             <p className='postBy'>
-                Posted by {post && post.data ? <Link to={`/u/${post.data.author}`}><strong>{post.data.author}</strong></Link> : undefined}
+                Posted by {post && post.data ? <Link to={`/u/${post.data.author}`}><strong>{post.data.author}</strong></Link> : undefined} {getTimePosted(post && post.data ? post.data.created: undefined)}
             </p>
-            {post && post.data && post.data.selftext ? <p className=""><Text text={post.data.selftext} length={1500}/></p> : undefined}
+            {post && post.data && post.data.selftext ? <p className="postSelf"><Text text={post.data.selftext} length={1500}/></p> : undefined}
             {post && post.data && post.data.url && post.data.url.length > 0 && (!post.data.url.includes('https://www.reddit.com') || (post.data.url.includes('https://www.reddit.com') && post.data.url.includes('gallery'))) && !isImage(post.data.url) && !post.data.url.includes('.gifv') && !post.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={post.data.url}>{post.data.url}</a></p> : undefined}
             <div className="tileObjectContainer video">
                 {post && post.data && isImage(post.data.url) && post.data.url.includes('.gifv') ? <video className="tileMainVideo" autoPlay muted loop><source src={post.data.url.replace('.gifv', '.mp4')}/></video> : undefined}

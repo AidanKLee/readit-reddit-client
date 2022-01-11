@@ -38,13 +38,9 @@ const Search = () => {
     const [ noData, setNoData ] = useState(false);
 
     const location = useLocation().pathname + useLocation().search;
-    const queryChange = useLocation().search.split('&')[0].slice(3);
 
     const fetchData = async (afterData) => {
         setLoadingData(true)
-        setQueryString({
-            q: query
-        });
         let t = '';
         if (type === 'posts') {
             t = '';
@@ -87,6 +83,7 @@ const Search = () => {
         setAllDataLoaded(false)
         if (!loadingData) {
             dispatch(clearMainPageState());
+            returnToTop();
             setSearchData({});
             fetchData();
         }
@@ -94,7 +91,7 @@ const Search = () => {
     }, [sort, time, type, over18, query])
 
     useEffect(() => {
-        if (type === 'posts') {
+        if (type === 'posts' && searchData && searchData.results && searchData.results.length <= 25) {
             const getStickyContent = async () => {
                 const subreddits = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'sr', over18);
                 const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', over18);
@@ -109,7 +106,7 @@ const Search = () => {
             setStickyContent({});
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[over18])
+    },[over18, searchData])
 
     window.onscroll = () => {
         const loadMore = document.getElementsByClassName('mainLoadMore');
@@ -122,8 +119,8 @@ const Search = () => {
         }
     }
 
-    const setQueryParams = param => {
-        const [ key, value ] = param
+    const setQueryParams = params => {
+        const [ key, value ] = params
         const newQueryString = {
             ...queryString,
             [key]: value
@@ -164,9 +161,6 @@ const Search = () => {
     const handleSortClick = (params) => {
         dispatch(clearMainPageState());
         returnToTop();
-        setQueryString({
-            q: query
-        });
         setQueryParams(params);
     }
 
@@ -231,8 +225,9 @@ const Search = () => {
                                 <button className='searchRightStickyButton' type='button'>Follow</button>
                             </div>
                             
-                        )
+                            )
                         }
+                        return undefined
                     })
                 }
             </div>

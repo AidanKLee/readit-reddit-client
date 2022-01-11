@@ -5,7 +5,6 @@
   box-sizing: border-box;
   font-family: 'Poppins', 'Barlow', 'Roboto', 'Josefin Sans', 'Lato', 'Montserrat', 'Source Sans Pro', sans-serif;
   text-align: left;
-  color: #1f1f1f;
 }
 
 html {
@@ -13,7 +12,6 @@ html {
 }
 
 body {
-  background-color: #f1f1f1;
   width: 100%;
 }
 
@@ -23,6 +21,7 @@ code {
 
 a {
   text-decoration: none;
+  color: var(--fg2) !important;
 }
 
 a:hover {
@@ -35,7 +34,7 @@ a img {
 }
 
 a:hover img {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--over2);
 }
 
 p {
@@ -46,4 +45,94 @@ p {
   html {
     font-size: 14px;
   }
+}
+
+/* .day1 {
+  background-color: #fafafa;
+  color: #141414;
+}
+
+.day2 {
+  background-color: #ebebeb;
+  color: #0f0f0f;
+}
+
+.night1 {
+  background-color: #0f0f0f;
+  color: #ebebeb
+}
+
+.night2 {
+  background-color: #141414;
+  color: #fafafa;
+}
+
+@media (prefers-color-scheme: light) {
+
+} */
+
+/* @media (prefers-color-scheme: dark) {
+  .dark1I {
+    background-color: #1e1e1e !important;
+    color: #ebebeb !important;
+    fill: #ebebeb !important;
+  }
+
+  .mainWrapper {
+    background-color: #282828;
+  }
+  
+  .dark2I {
+    background-color: #282828 !important;
+    color: #f5f5f5 !important;
+    fill: #f5f5f5 !important;
+  }
+
+  .dark1 {
+    background-color: #1e1e1e;
+    color: #ebebeb;
+    fill: #ebebeb;
+  }
+  
+  .dark2 {
+    background-color: #282828;
+    color: #f5f5f5;
+    fill: #f5f5f5;
+  }
+} */
+
+:root {
+  --bg1: #f5f5f5;
+  --bg2: #ebebeb;
+  --bg3: #fafafa;
+  --fg1: #282828;
+  --fg2: #1e1e1e;
+  --prim1: #106b9c;
+  --prim2: rgba(16, 107, 156, .1);
+  --prim3: rgba(16, 107, 156, .2);
+  --prim4: rgba(16, 107, 156, .3);
+  --sec1: #cb3700;
+  --over1: rgba(0, 0, 0, 0.5);
+  --over2: rgba(0, 0, 0, 0.3);
+  --over3: rgba(0, 0, 0, 0.1);
+  --over4: rgba(0, 0, 0, 0.03);
+  --darkToggle: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] {
+  --bg1: #1e1e1e;
+  --bg2: #282828;
+  --bg3: #323232;
+  --fg1: #ebebeb;
+  --fg2: #f5f5f5;
+  --prim1: #1eaad0;
+  --prim2: rgba(30, 169, 208, .1);
+  --prim3: rgba(30, 169, 208, .2);
+  --prim4: rgba(30, 169, 208, .3);
+  --sec1: #ff4500;
+  --over1: rgba(255, 255, 255, 0.5);
+  --over2: rgba(255, 255, 255, 0.3);
+  --over3: rgba(255, 255, 255, 0.1);
+  --over4: rgba(255, 255, 255, 0.03);
+  --darkToggle: #1eaad0;
 }

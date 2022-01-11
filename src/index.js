@@ -9,6 +9,13 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router} from 'react-router-dom';
 
 
+// console.log(window.matchMedia('(prefers-color-scheme: dark)').onchange)
+if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  document.documentElement.setAttribute("data-theme", 'dark')
+}
+
+console.log(document.documentElement.getAttribute('data-theme'))
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

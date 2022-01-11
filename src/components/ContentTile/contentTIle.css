@@ -2,15 +2,15 @@
     width: 100%;
     max-width: 800px;
     display: flex;
-    background-color: #f1f1f1;
+    background-color: var(--bg2);
     margin-top: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over3);
     border-radius: 8px;
     overflow: hidden;
 }
 
 .tile:hover {
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--over2);
 }
 
 .tileSide {
@@ -18,12 +18,13 @@
     flex-direction: column;
     align-items: center;
     min-width: 32px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--bg3);
     padding: 8px 0;
 }
 
 .tileSide span {
     font-size: .6rem;
+    color: var(--fg1)
 }
 
 .tileSideButton {
@@ -37,6 +38,7 @@
 .tileSideButton svg {
     height: 16px;
     width: 16px;
+    fill: var(--fg1)
 }
 
 .tileContent {
@@ -51,6 +53,7 @@
 
 .tileHeaderText {
     font-size: .7rem;
+    color: var(--fg1);
 }
 
 .tileHeader img {
@@ -80,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .video {
@@ -91,6 +94,7 @@
     word-wrap: break-word;
     font-size: .8rem;
     margin: 0 8px 8px;
+    color: var(--fg1)
 }
 
 .tileMainVideo {
@@ -145,25 +149,25 @@
 }
 
 .tileActionsAward:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--over3);
 }
 
 .tileActionsAward svg {
     margin: 0 8px;
-    fill: rgba(0, 0, 0, 0.5);
+    fill: var(--over2);
 }
 
 .tileActionsAward:hover svg {
-    fill: rgba(0, 0, 0, 0.8);
+    fill: var(--prim1);
 }
 
 .tileActionsAward p {
     margin-right: 8px;
     font-weight: bold;
     font-size: .8rem;
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--over2);;
 }
 
 .tileActionsAward:hover p {
-    color: rgba(0, 0, 0, 0.8);
+    color: var(--prim1);;
 }

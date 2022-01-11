@@ -2,10 +2,23 @@
     margin: 0;
 }
 
+.postTitle {
+    color: var(--fg1);
+}
+
+.post h3 {
+    color: var(--fg1);
+}
+
 .postBy {
     margin-bottom: 16px;
-    line-height: 1;
+    line-height: 1.2;
     font-size: .8rem;
+    color: var(--fg1);
+}
+
+.postSelf {
+    color: var(--fg1);
 }
 
 .post .tileMainVideo {
@@ -27,6 +40,10 @@
     margin-top: 0;
 }
 
+.tileAward p {
+    color: var(--fg1);
+}
+
 .postBar {
     display: flex;
     justify-content: space-between;
@@ -39,6 +56,7 @@
     display: flex;
     align-items: center;
     font-weight: bold;
+    color: var(--fg1);
 }
 
 .postActions {
@@ -48,6 +66,14 @@
 
 .postActions div {
     display: flex;
+}
+
+.postAction p {
+    color: var(--fg1);
+}
+
+.postAction svg {
+    fill: var(--fg1);
 }
 
 .postVotes {
@@ -80,11 +106,11 @@
 }
 
 .postAction:hover p {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 .postAction:hover svg {
-    fill: #0d79a8;
+    fill: var(--prim1);
 }
 
 .comments .markdown ol, .comments .markdown ul {

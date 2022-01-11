@@ -9,21 +9,19 @@ header .newPost {
     border-radius: 8px;
     margin-right: 16px;
     border: 1px solid rgba(0, 0, 0, 0);
+    background-color: var(--over4);
     transition: transform .3s;
 }
 
 header .newPost:hover {
-    background-color: rgba(31, 31, 31, .1);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: var(--over3);
+    border: 1px solid var(--bg1);
 }
 
 header .newPost:active {
     transform: scale(.9);
-}
-
-header .newPost:active {
-    background-color: rgba(31, 31, 31, .3);
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: var(--bg2);
+    border: 1px solid var(--over3);
 }
 
 header .newPostSvg {
@@ -31,7 +29,7 @@ header .newPostSvg {
     height: 40px;
     width: 40px;
     padding: 4px;
-    fill: #1f1f1f;
+    fill: var(--fg2);
     transition: transform .5s;
 }
 
@@ -57,15 +55,16 @@ header .newPostText {
     display: flex;
     align-items: center;
     width: 100%;
-    border-radius: 8px;
     margin-right: 16px;
     transition: transform .3s;
     font-weight: bold;
     padding: 12px 0;
+    background-color: var(--bg2);
+    color: var(--fg2)
 }
 
 #menu .newPost:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg3);
 }
 
 #menu .newPostSvg {
@@ -73,15 +72,15 @@ header .newPostText {
     height: 40px;
     width: 40px;
     padding: 4px;
-    fill: #1f1f1f;
+    fill: var(--fg2);
     transition: transform .5s;
     margin: 0 8px;
 }
 
 #menu .newPost:hover .newPostSvg {
-    fill: #0d79a8;
+    fill: var(--prim1);
 }
 
 #menu .newPost:hover .newPostText {
-    color: #0d79a8;
+    color: var(--prim1);
 }

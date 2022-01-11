@@ -15,17 +15,17 @@ header .mainLinks {
 header .mainLinks a {
     margin-right: 16px;
     border-radius: 50%;
-    background-color: rgba(13, 121, 168, 0.1);
-    transition: transform .5s;
+    background-color: var(--prim2);
+    transition: transform .3s;
 }
 
 header .mainLinks a:hover {
-    background-color: rgba(13, 121, 168, 0.2);
+    background-color: var(--prim3);
     transform: scale(1.2);
 }
 
 header .mainLinks a:active {
-    background-color: rgba(13, 121, 168, 0.3);
+    background-color: var(--prim4);
     transform: scale(.9);
 }
 
@@ -38,7 +38,7 @@ header .mainLinksItems {
 }
 
 header .mainLinksItems svg {
-    fill: #0d7aa8;
+    fill: var(--prim1);
 }
 
 header .mainLinksItems p {
@@ -59,14 +59,14 @@ header .mainLinksItems p {
     display: flex;
     align-items: center;
     padding: 8px 0;
-    background-color: rgba(13, 121, 168, 0.1);
+    background-color: var(--prim2);
     font-weight: bold;
-    transition: transform .5s;
+    transition: transform .3s;
     font-size: .9rem;
 }
 
 #menu .mainLinksItems:hover {
-    background-color: rgba(13, 121, 168, 1);
+    background-color: var(--prim1);
 }
 
 #menu .mainLinksItems svg {
@@ -74,14 +74,15 @@ header .mainLinksItems p {
     margin: 0 8px;
     height: 40px;
     width: 40px;
+    fill: var(--fg2)
 }
 
 #menu .mainLinksItems:hover svg {
-    fill: #f1f1f1;
+    fill: var(--bg1);
 }
 
 #menu .mainLinksItems:hover p {
-    color: #f1f1f1;
+    color: var(--bg1);
 }
 
 @media only screen and (min-width: 540px) {

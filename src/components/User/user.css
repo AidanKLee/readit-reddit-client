@@ -8,8 +8,8 @@ header .user {
     margin-right: 16px;
     padding: 0 8px;
     height: 64px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid var(--over3);
+    border-right: 1px solid var(--over3);
     transition: .5s;
     position: relative;
 }
@@ -31,7 +31,7 @@ header .userAvatar {
 
 header .userSignedIn {
     position: absolute;
-    background-color: #c97200;
+    background-color: var(--sec1);
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -53,10 +53,11 @@ header .userLink {
 
 header .user:hover {
     border-left: 1px solid rgba(0, 0, 0, 0.0);
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: 1px solid var(--over2);
 }
 
 header .userExpand {
+    fill: var(--fg1);
     transition: .5s;
 }
 
@@ -68,18 +69,18 @@ header .userDropdown {
     list-style: none;
     width: 240px;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: var(--bg2);
     right: -1px;
     top: 63px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--over2);
     border-top: 0 none transparent;
     display: none;
 }
 
 header .user:hover .userDropdown {
     display: block;
-    border-left: 1px solid rgba(0, 0, 0, 0.3);
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    border-left: 1px solid var(--over2);
+    border-right: 1px solid var(--over2);
 }
 
 header .userDropdownItem {
@@ -89,6 +90,7 @@ header .userDropdownItem {
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: var(--fg1)
 }
 
 .spaceBetween {
@@ -102,8 +104,8 @@ header .userDropdownItemDark {
 }
 
 header .userDropdownItemDarkToggleOut {
-    border: 2px solid #1f1f1f;
-    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--over2);
+    background-color: var(--darkToggle);
     width: 64px;
     height: 32px;
     border-radius: 18px;
@@ -118,39 +120,39 @@ header .userDropdownItemDarkToggleIn {
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    background: rgb(209,209,209);
-    background: linear-gradient(135deg, rgba(209,209,209,1) 0%, rgba(241,241,241,1) 100%);
+    background: var(--bg2);
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg1) 100%);
     box-shadow: 
-        inset 3px 3px 3px rgba(255, 255, 255, 0.8),
-        inset -3px -3px 3px rgba(0, 0, 0, 0.1);
+        inset 3px 3px 3px rgba(255, 255, 255, 0.5),
+        inset -3px -3px 3px rgba(0, 0, 0, 0.3);
 }
 
 header .userDropdownItem:hover .userDropdownItemDarkToggleOut {
-    border: 2px solid #0d79a8;
-    background-color: rgba(13, 121, 168, 0.5);
+    border: 2px solid var(--prim1);
+    background-color: var(--prim4);
     transform: scale(1.05);
 }
 
 header .userDropdownItem:hover .userDropdownItemDark {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 header .userDropdownItem svg {
     height: 24px;
     width: 24px;
     margin-right: 8px;
-    fill: #1f1f1f;
+    fill: var(--fg1);
     transition: transform .5s;
 }
 
 header .userDropdownItem:hover {
-    background-color: #f9f9f9;
-    color: #0d79a8;
+    background-color: var(--bg1);
+    color: var(--prim1);
 }
 
 header .userDropdownItem:hover svg {
     transform: translate(0, -2px);
-    fill: #0d79a8;
+    fill: var(--prim1);
 }
 
 @media only screen and (max-width: 420px) {
@@ -169,8 +171,8 @@ header .userDropdownItem:hover svg {
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid var(--over3);
+    border-right: 1px solid var(--over3);
     transition: .5s;
 }
 
@@ -191,7 +193,7 @@ header .userDropdownItem:hover svg {
 
 #menu .userSignedIn {
     position: absolute;
-    background-color: #c97200;
+    background-color: var(--sec1);
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -203,10 +205,12 @@ header .userDropdownItem:hover svg {
 
 #menu .userLink {
     font-weight: bold;
+    color: var(--fg1)
 }
 
 #menu .userExpand {
     display: none;
+    fill: var(--fg1);
 }
 
 #menu .userDropdown {
@@ -227,6 +231,7 @@ header .userDropdownItem:hover svg {
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: var(--fg1)
 }
 
 #menu .userDropdownItemDark {
@@ -236,8 +241,8 @@ header .userDropdownItem:hover svg {
 }
 
 #menu .userDropdownItemDarkToggleOut {
-    border: 2px solid #1f1f1f;
-    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--over1);
+    background-color: var(--darkToggle);
     width: 64px;
     height: 32px;
     border-radius: 18px;
@@ -252,39 +257,39 @@ header .userDropdownItem:hover svg {
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    background: rgb(209,209,209);
-    background: linear-gradient(135deg, rgba(209,209,209,1) 0%, rgba(241,241,241,1) 100%);
+    background: var(--bg1);
+    background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
     box-shadow: 
-        inset 3px 3px 3px rgba(255, 255, 255, 0.8),
-        inset -3px -3px 3px rgba(0, 0, 0, 0.1);
+        inset 3px 3px 3px rgba(255, 255, 255, 0.5),
+        inset -3px -3px 3px rgba(0, 0, 0, 0.3);
 }
 
 #menu .userDropdownItem:hover .userDropdownItemDarkToggleOut {
-    border: 2px solid #0d79a8;
-    background-color: rgba(13, 121, 168, 0.5);
+    border: 2px solid var(--prim1);
+    background-color: var(--prim4);
     transform: scale(1.05);
 }
 
 #menu .userDropdownItem:hover .userDropdownItemDark {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 #menu .userDropdownItem svg {
     height: 24px;
     width: 24px;
     margin: 0 16px 0 8px;
-    fill: #1f1f1f;
+    fill: var(--fg1);
     transition: transform .5s;
 }
 
 #menu .userDropdownItem:hover {
-    background-color: rgba(0, 0, 0, .1);
-    color: #0d79a8;
+    background-color: var(--over3);
+    color: var(--prim1);
 }
 
 #menu .userDropdownItem:hover svg {
     transform: translate(0, -2px);
-    fill: #0d79a8;
+    fill: var(--prim1);
 }
 
 @media only screen and (min-width: 420px) {

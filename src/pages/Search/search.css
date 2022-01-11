@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over3);
     border-top: 0 none transparent;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -20,11 +20,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: #f1f1f1;
+    background-color: var(--bg3);
     padding: 4px 0;
     position: sticky;
     top: 64px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--over3);
     z-index: 40;
     width: 100%;
 }
@@ -38,6 +38,7 @@
     font-size: .8rem;
     font-weight: bold;
     margin-right: 8px;
+    color: var(--fg1);
 }
 
 .searchParams ul {
@@ -60,8 +61,9 @@
     display: none;
     position: absolute;
     width: 100%;
-    background-color: #f1f1f1;
-    border-radius: 16px;
+    background-color: var(--bg3);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
 .searchParamsSelectHidden {
@@ -76,6 +78,7 @@
 
 .searchParamsSelect svg {
     transition: transform .5s;
+    fill: var(--fg1);
 }
 
 .searchParamsSelect:hover svg {
@@ -97,7 +100,7 @@
     align-items: center;
     margin: 4px;
     padding: 6px 20px;
-    background-color: rgba(13, 122, 168, .2);
+    background-color: var(--prim4);
     border-radius: 16px;
     cursor: pointer;
 }
@@ -114,11 +117,11 @@
 
 .dropdown:hover {
     text-decoration: none;
-    background-color: rgba(13, 122, 168, 1);
+    background-color: var(--prim1);
 }
 
 .dropdown:hover p {
-    color: #f1f1f1;
+    color: var(--bg2);
 }
 
 .isActive p {
@@ -142,12 +145,13 @@
     font-size: .6rem;
     text-align: center;
     margin: 0 8px 0 0;
+    color: var(--fg2);
 }
 
 .searchSafeToggle {
     width: 22px;
     height: 16px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--over2);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -158,7 +162,7 @@
 .searchSafeToggleButton {
     height: 8px;
     width: 8px;
-    background-color: rgba(13, 122, 168, 1);
+    background-color: var(--prim1);
     border-radius: 50%;
     margin: 2px;
     position: absolute;
@@ -170,6 +174,7 @@
     font-size: .8rem;
     padding: 20px 16px 4px;
     width: 100%;
+    color: var(--fg1)
 }
 
 .searchPosts {
@@ -186,24 +191,30 @@
     position: sticky;
     top: 126px;
     max-height: calc(100vh - 174px);
-    background-color: #f1f1f1;
+    background-color: var(--bg2);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over3);
     overflow: hidden;
 }
 
 .searchContentRightHeader {
-    background-color: #0d79a8;
+    background-color: var(--prim1);
     padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.searchContentRightHeading {
+    color: var(--bg1);
+    font-weight: bold;
+}
+
 .searchContentRightHeader a {
-    color: white;
+    color: var(--bg1) !important;
     font-size: .6rem;
+    font-weight: bold;
 }
 
 .searchContentRightMain {
@@ -211,22 +222,19 @@
     width: 100%;
 }
 
-.searchContentRightHeading {
-    color: white;
-    font-weight: bold;
-}
-
 .searchRightStickyItem {
     height: 64px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--over3);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
+    font-size: .6rem;
+    color: var(--fg2)
 }
 
 .searchRightStickyItem span {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 .searchRightStickyItemLeft {
@@ -239,18 +247,14 @@
     width: 48px;
     border-radius: 50%;
     margin: 8px;
-}
-
-.searchRightStickyItem {
-    font-size: .6rem;
-}
+}    
 
 .searchRightStickyButton {
-    background-color: #0d79a8;
-    border: 2px solid #f1f1f1;
+    background-color: var(--prim1);
+    border: 2px solid var(--bg1);
     display: flex;
     justify-content: center;
-    color: white;
+    color: var(--bg2);
     padding: 4px;
     margin-right: 4px;
     min-width: 80px;
@@ -281,11 +285,11 @@
 }
 
 .searchSubredditsResultsItem {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over3);
     border-radius: 8px;
     margin-bottom: 8px;
     padding: 8px 8px 0px;
-    background-color: #f1f1f1;
+    background-color: var(--bg2);
     font-size: .8rem;
 }
 
@@ -299,6 +303,7 @@
 .searchSubredditsResultsDataLeft {
     display: flex;
     align-items: center;
+    color: var(--fg2);
 }
 
 .searchSubredditsResultsItem img {
@@ -311,6 +316,7 @@
 .searchSubredditsResultsItemBottom {
     display: block;
     padding: 0 8px;
+    color: var(--fg2)
 }
 
 .searchSubredditsResultsItem .markdown {
@@ -325,7 +331,7 @@
 }
 
 .searchSubredditsResultsItem .bold span {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 .searchSubredditsResultsItem .spacer {

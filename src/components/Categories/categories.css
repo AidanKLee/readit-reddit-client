@@ -5,9 +5,9 @@
     width: 100%;
     max-width: 800px;
     margin: 16px 0;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--over3);
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--bg3);
     padding: 8px;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .categories a:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--bg2);
 }
 
 .categoriesLeft {
@@ -39,13 +39,13 @@
     height: 24px;
     width: 24px;
     margin-right: 8px;
-    fill: rgba(0, 0, 0, 0.5);
+    fill: var(--over1);
 }
 
 .categoriesIconWrapper span {
     font-size: .8rem;    
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--over1);
 }
 
 .categoriesRight {
@@ -58,19 +58,21 @@
     padding: 4px;
     margin-left: 8px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--bg2);
     display: none;
+    fill: var(--fg1)
 }
 
 .categoriesRightLinks {
     position: absolute;
     right: 0;
     top: 32px;
-    background-color: #f1f1f1;
+    background-color: var(--bg1);
     padding: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--over3);
     border-radius: 8px;
     display: none;
+    z-index: 45;
 }
 
 .categoriesRightLinks a {
@@ -83,7 +85,7 @@
 }
 
 .categoriesLeft .categoriesActive {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--bg2);
     border-radius: 16px;
     display: block !important;
 }
@@ -93,11 +95,11 @@
 }
 
 .categoriesLeft .categoriesActive svg {
-    fill: #0d79a8;
+    fill: var(--prim1);
 }
 
 .categoriesLeft .categoriesActive span {
-    color: #0d79a8;
+    color: var(--prim1);
 }
 
 @media only screen and (max-width: 800px) {

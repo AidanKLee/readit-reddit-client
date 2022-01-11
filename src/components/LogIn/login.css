@@ -9,11 +9,11 @@ header .login {
 }
 
 header .loginButton {
-    border: 2px solid #ff4500;
+    border: 2px solid var(--sec1);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--over4);
     padding: 4px 8px;
     border-radius: 32px;
     margin: 0 16px 0 0;
@@ -26,19 +26,19 @@ header .loginButton {
 }
 
 header .loginButton:hover {
-    box-shadow: 2px 2px 3px #1f1f1f3f;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 header .loginButton:active {
     box-shadow: 
         2px 2px 3px transparent,
-        inset 2px 2px 3px #1f1f1f3f;
+        inset 2px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 header .red {
-    background-color: #0d79a8;
-    color: #ffffff !important;
-    border: 2px solid #0d79a8;
+    background-color: var(--prim1);
+    color: var(--bg1) !important;
+    border: 2px solid var(--prim1);
 }
 
 header .loginButtonImg {
@@ -47,7 +47,7 @@ header .loginButtonImg {
 }
 
 header .loginButtonText {
-    color: #cc3600;
+    color: var(--sec1);
     margin: 0 16px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -73,7 +73,7 @@ header .loginButtonText {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--over4);
     padding: 4px 8px;
     width: 50%;
     cursor: pointer;
@@ -85,9 +85,9 @@ header .loginButtonText {
 }
 
 #menu .red {
-    background-color: #0d79a8;
-    color: #ffffff !important;
-    border: 2px solid #0d79a8;
+    background-color: var(--prim1);
+    color: var(--bg1) !important;
+    border: 2px solid var(--prim1);
 }
 
 #menu .loginButtonImg {
@@ -96,7 +96,7 @@ header .loginButtonText {
 }
 
 #menu .loginButtonText {
-    color: #cc3600;
+    color: var(--sec1);
     margin: 0 16px;
     font-size: 1.1rem;
     font-weight: bold;

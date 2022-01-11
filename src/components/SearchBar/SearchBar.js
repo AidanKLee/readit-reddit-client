@@ -4,7 +4,6 @@ import { returnToTop } from '../../utilities/functions';
 import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch, setInitialSearchBarState } from './searchBarSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { clearMainPageState } from '../../containers/Main/mainSlice';
 
 const SearchBar = (props) => {
 
@@ -33,10 +32,12 @@ const SearchBar = (props) => {
     const handleChange = (e) => {
         dispatch(search(e.target.value));
     }
-
+    const searchBarElement = document.getElementsByClassName('searchBarInput')[0];
     const handleLinkClick = () => {
         // dispatch(clearMainPageState())
         returnToTop();
+        searchBarElement.value = '';
+        dispatch(setInitialSearchBarState())
     }
 
     useEffect(() => {

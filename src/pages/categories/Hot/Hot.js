@@ -18,7 +18,7 @@ const Best = (props) => {
             url: props.page + 'hot'
             }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[props.page])
 
     useEffect(() => {
         if (main.contentReady && main.page && main.page.content && main.page.content.data) {

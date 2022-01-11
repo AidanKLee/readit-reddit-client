@@ -1,5 +1,5 @@
 header .searchBar {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--bg3);
     display: flex;
     align-items: center;
     border-radius: 32px;
@@ -10,13 +10,13 @@ header .searchBar {
 }
 
 header .searchBar:hover {
-    border: 1px solid rgba(0, 0, 0, .1)
+    border: 1px solid var(--over3);
 }
 
 header .searchBarSvg {
     display: flex;
     margin-left: 20px;
-    fill: rgba(0, 0, 0, 0.5);
+    fill: var(--over2);
 }
 
 header .searchBarInput {
@@ -25,6 +25,7 @@ header .searchBarInput {
     padding: 16px;
     background-color: transparent;
     width: calc(100% - 32px);
+    color: var(--fg2);
 }
 
 header .searchBarInput:focus {
@@ -39,8 +40,8 @@ header .searchBarResults {
     position: absolute;
     top: 55px;
     left: 0;
-    background-color: #f1f1f1;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--bg2);
+    border: 1px solid var(--over3);
     border-top: 0 none transparent;
     width: 800px;
     max-height: calc(100vh - 94px);
@@ -63,8 +64,9 @@ header .searchBarTitle {
     font-weight: bold;
     font-size: .8rem;
     padding: 8px 4px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--over3);
     width: 100%;
+    color: var(--fg2);
 }
 
 header .searchBarResultsItem, .searchBarSubredditsItem {
@@ -74,12 +76,12 @@ header .searchBarResultsItem, .searchBarSubredditsItem {
 header .searchBarResultsItem {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--over4);
     cursor: pointer;
 }
 
 header .searchBarResultsItem:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--bg1);
 }
 
 header .searchBarResultsItemSubredditName {
@@ -90,6 +92,7 @@ header .searchBarResultsItem p {
     font-size: .7rem;
     white-space: nowrap;
     overflow: hidden;
+    color: var(--fg1);
 }
 
 header .searchBarSubreddits {
@@ -99,32 +102,33 @@ header .searchBarSubreddits {
 
 header .searchBarSubredditsItem {
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--over4);
     cursor: pointer;
 }
 
 header .searchBarSubredditsItem:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--bg1);
 }
 
 header .searchBarSubredditsItemTitle span {
-    color: #0d79a8;
+    color: var(--prim1);
     font-size: .5rem;
 }
 
 header .searchBarSubredditsItem p {
     font-size: .7rem;
+    color: var(--fg1);
 }
 
 header .searchBarViewMore {
     font-size: .7rem;
     font-weight: bold;
     padding: 4px;
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: var(--over3);
 }
 
 header .searchBarViewMore:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: var(--bg1);
     cursor: pointer;
 }
 

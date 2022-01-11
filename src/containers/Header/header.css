@@ -2,14 +2,14 @@ header {
     position: sticky;
     top: 0;
     height: 64px;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--bg2);
+    border-bottom: 1px solid var(--over3);
     transition: .5s;
     z-index: 90;
 }
 
 header:hover {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--over2 );
 }
 
 #headerWrapper {
@@ -48,6 +48,7 @@ header:hover {
     font-weight: bold;
     font-size: 1.5rem;
     margin-left: 8px;
+    color: var(--fg1);
 }
 
 @media only screen and (max-width: 920px) {
