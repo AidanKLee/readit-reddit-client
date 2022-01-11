@@ -10,7 +10,7 @@ export const handleLogin = createAsyncThunk(
         if (code) {
             accessToken = await reddit.fetchToken(code);
         } else if (prevRefreshToken) {
-            accessToken = await reddit.refreshAccessToken(prevRefreshToken);
+            accessToken = await reddit.refreshAccessToken(atob(prevRefreshToken));
         }
         if (accessToken) {
             const user = await reddit.fetchUser();
@@ -46,7 +46,7 @@ export const loginSlice = createSlice({
             state.hasError = false;
             state.authorization = action.payload;
             if (action.payload !== undefined) {
-                localStorage.setItem('refreshToken', action.payload.accessToken.refreshToken)
+                localStorage.setItem('refreshToken', btoa(action.payload.accessToken.refreshToken))
             }
             
         },

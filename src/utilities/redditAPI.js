@@ -230,6 +230,21 @@ export class redditAPI {
         return jsonData;
     }
 
+    fetchUserHome = async (limit = 25, url = 'best', after = null, before = null) => {
+        let endpoint = `https://oauth.reddit.com/${url}.json?limit=${limit}`;
+        const beforeAfter = `&before=${before}&after=${after}`;
+
+        const data = await fetch(`${endpoint}${beforeAfter}`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
+
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
     fetchComment = async (link) => {
         const endpoint = `https://www.reddit.com${link}.json`;
 

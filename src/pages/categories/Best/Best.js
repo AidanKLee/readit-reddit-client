@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContentTile from '../../../components/ContentTile/ContentTile';
-import { fetchComments, fetchSubreddits, fetchContent, selectMain } from "../../../containers/Main/mainSlice";
+import { fetchComments, fetchSubreddits, fetchContent, selectMain, clearMainPageState } from "../../../containers/Main/mainSlice";
 import loader from '../../../assets/loader.svg';
+import { selectLogin } from '../../../components/LogIn/loginSlice';
 
 const Best = (props) => {
 
     const dispatch = useDispatch();
 
     const main = useSelector(selectMain);
+    const login = useSelector(selectLogin);
 
     const [ loadMore, setLoadMore ] = useState(false);
 
     useEffect(() => {
+        console.log('running')
             dispatch(fetchContent({
             limit: 25,
-            url: props.page + 'best'
+            url: props.page + 'best',
+            loggedIn: login && login.authorization && login.authorization.accessToken ? true : false
             }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.page])

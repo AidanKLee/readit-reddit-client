@@ -4,9 +4,14 @@ import reddit from '../../utilities/redditAPI';
 export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
-        const { limit, url = 'best', after, before } = params;
-
-        const data = await reddit.fetchContent(limit, url, after, before);
+        const { limit, url = 'best', after, before, loggedIn } = params;
+        let data;
+        console.log(loggedIn)
+        if (loggedIn) {
+            data = await reddit.fetchUserHome(limit, url, after, before);
+        } else {
+            data = await reddit.fetchContent(limit, url, after, before);
+        }
 
         const content = {
             url: url,

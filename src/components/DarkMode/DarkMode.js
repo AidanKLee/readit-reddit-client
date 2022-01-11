@@ -19,9 +19,12 @@ const DarkMode = () => {
     },[])
 
     useEffect(() => {
-        if ((time > 6 && time < 19) && !darkMode.dayMode) {
+        console.log()
+        if (time.getHours() > 6 && time.getHours() < 19 && !darkMode.dayMode) {
+            console.log('running')
             dispatch(setDayMode(true));
-        } else if ((time < 7 && time > 18) && darkMode.dayMode) {
+        } else if ((time.getHours() <= 6 || time.getHours() >= 19) && darkMode.dayMode) {
+            console.log('running')
             dispatch(setDayMode(false));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
