@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../LogIn/loginSlice';
 import { logout } from "../LogIn/loginSlice";
 import loader from '../../assets/loader.svg';
+import { Link } from "react-router-dom";
 
 const User = () => {
 
@@ -18,10 +19,10 @@ const User = () => {
     return (
         <div className='user' data-test='user'>
             <div className={login.isLoading ? 'userWrapper loading' : 'userWrapper'}>
-                {login.authorization ? <img className='userAvatar' src={login.authorization.user.snoovatar_img ? login.authorization.user.snoovatar_img : login.authorization.user.icon_img} alt='My Avatar' /> : undefined}
+                {login.authorization ? <Link to={login.authorization.user.subreddit.display_name_prefixed}><p className='userLink'></p><img className='userAvatar' src={login.authorization.user.snoovatar_img ? login.authorization.user.snoovatar_img : login.authorization.user.icon_img} alt='My Avatar' /></Link> : undefined}
                 {login.isLoading ? <img className="loader" src={loader} alt='Loader' /> : undefined}
                 {login.authorization ? <div className='userSignedIn'></div> : undefined}
-                {login.authorization ? <p className='userLink'>{login.authorization.user.subreddit.url}</p> : undefined}
+                {login.authorization ? <Link to={login.authorization.user.subreddit.display_name_prefixed}><p className='userLink'>{login.authorization.user.subreddit.display_name_prefixed}</p></Link> : undefined}
                 <svg className='userExpand' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
             </div>
             <ul className='userDropdown'>

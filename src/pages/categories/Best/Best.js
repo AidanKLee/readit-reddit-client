@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ContentTile from '../../../components/ContentTile/ContentTile';
-import { fetchComments, fetchSubreddits, fetchContent, selectMain, clearMainPageState } from "../../../containers/Main/mainSlice";
+import { fetchComments, fetchSubreddits, fetchContent, selectMain } from "../../../containers/Main/mainSlice";
 import loader from '../../../assets/loader.svg';
 import { selectLogin } from '../../../components/LogIn/loginSlice';
 
