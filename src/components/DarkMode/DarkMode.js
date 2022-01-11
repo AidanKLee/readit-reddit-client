@@ -24,7 +24,8 @@ const DarkMode = () => {
         } else if ((time < 7 && time > 18) && darkMode.dayMode) {
             dispatch(setDayMode(false));
         }
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [time])
 
     useEffect(() => {
         const localStorageDark = localStorage.getItem('darkMode')
