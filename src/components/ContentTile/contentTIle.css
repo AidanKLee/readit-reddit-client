@@ -84,6 +84,18 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.tileObjectContainer div {
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.tileObjectContainer div video {
+    display: flex;
 }
 
 .video {

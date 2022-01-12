@@ -6,20 +6,17 @@ export const fetchContent = createAsyncThunk(
     async (params) => {
         const { limit, url = 'best', after, before, loggedIn } = params;
         let data;
-        console.log(loggedIn)
         if (loggedIn) {
             data = await reddit.fetchUserHome(limit, url, after, before);
         } else {
             data = await reddit.fetchContent(limit, url, after, before);
         }
-
         const content = {
             url: url,
             content: data,
             comments: [],
             subreddits: []
         }
-
         return content;
     }
 )
@@ -69,7 +66,6 @@ export const mainSlice = createSlice({
             subreddits: [],
             article: {},
             url: '',
-            allLoaded: false
         },
         isLoading: false,
         hasError: false,
@@ -103,16 +99,18 @@ export const mainSlice = createSlice({
         [fetchContent.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.hasError = false;
-            if (action.payload.content.data.children.length < 25) {
-                state.page.allLoaded = true;
-            }
             if (state.page.url !== action.payload.url) {
                 state.page = action.payload;
-            } else if (state.page.url === action.payload.url) {
+                state.page.allLoaded = false;
                 if (action.payload.content.data.children.length < 25) {
                     state.page.allLoaded = true;
                 }
+            } else if (state.page.url === action.payload.url) {
                 state.page.content.data.children = state.page.content.data.children.concat(action.payload.content.data.children);
+                state.page.allLoaded = false;
+                if (action.payload.content.data.children.length < 25) {
+                    state.page.allLoaded = true;
+                }
                 // action.payload.content.data.children.forEach(child => {
                 //     let match = false;
                 //     state.page.content.data.children.forEach(entry => {

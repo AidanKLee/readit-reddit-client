@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import './contentTIle.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getTimePosted, returnToTop, isImage } from "../../utilities/functions";
-import { clearMainPageState, selectMain } from "../../containers/Main/mainSlice";
+import { selectMain } from "../../containers/Main/mainSlice";
 import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
 import { Link } from "react-router-dom";
@@ -14,8 +14,6 @@ import showdown from 'showdown';
 
 const ContentTile = (props) => {
 
-    const dispatch = useDispatch();
-
     const article = props.article;
     const i = props.i;
     const main = useSelector(selectMain);
@@ -24,6 +22,13 @@ const ContentTile = (props) => {
     const handleLinkClick = () => {
         // dispatch(clearMainPageState());
         returnToTop();
+    }
+
+    const over18Style = (article) => {
+        if (article.data.over_18 && (!login.authorization || (login.authorization && login.authorization.user && !login.authorization.user.over_18))) {
+            return {filter: 'blur(32px)'}
+        }
+        return {}
     }
 
     return (
@@ -61,11 +66,11 @@ const ContentTile = (props) => {
                     {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={500}/></p> : undefined}
                     {article.data.url && article.data.url.length > 0 && (!article.data.url.includes('https://www.reddit.com') || (article.data.url.includes('https://www.reddit.com') && article.data.url.includes('gallery'))) && !isImage(article.data.url) && !article.data.url.includes('.gifv') && !article.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={article.data.url}>{article.data.url}</a></p> : undefined}
                     <div className="tileObjectContainer video">
-                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
-                        {article.data.is_video && article.data.media ? <video className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
+                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video style={over18Style(article)} className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
+                        {article.data.is_video && article.data.media ? <video style={over18Style(article)} className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
                     </div>
                     <div className="tileObjectContainer">
-                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
+                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img style={over18Style(article)} className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
                     </div>
                 </div>
                 {article.data.all_awardings.length > 0 ? <Awards article={article}/> : undefined}

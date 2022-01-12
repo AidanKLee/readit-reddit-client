@@ -5,7 +5,7 @@ import { fetchComments, fetchSubreddits, fetchContent, selectMain } from "../../
 import loader from '../../../assets/loader.svg';
 import { selectLogin } from '../../../components/LogIn/loginSlice';
 
-const Best = (props) => {
+const Top = (props) => {
 
     const dispatch = useDispatch();
 
@@ -15,7 +15,6 @@ const Best = (props) => {
     const [ loadMore, setLoadMore ] = useState(false);
 
     useEffect(() => {
-        console.log('running')
         if (login.initialLoginAttempt) {
             dispatch(fetchContent({
             limit: 25,
@@ -42,7 +41,6 @@ const Best = (props) => {
 
     useEffect(() => {
         if (loadMore) {
-            // console.log('loading more')
             const after = Array.from(main.page.content.data.children.slice());
             dispatch(fetchContent({
                 limit: 25,
@@ -72,9 +70,9 @@ const Best = (props) => {
                 main.page.content.data.children.map((article, index) => <ContentTile key={article.data.id + index} i={index} article={article}/>) : undefined
             }
             {main.isLoading ? <div className="mainLoading"><img className="loader" src={loader} alt='Loader' /><p>Loading...</p></div> : undefined}
-            {main.page.allLoaded ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
+            {main.page.allLoaded && !main.isLoading ? <p className="mainLoading">No more results.</p> : <div className="mainLoadMore"></div>}
         </div>
     )
 }
 
-export default Best;
+export default Top;

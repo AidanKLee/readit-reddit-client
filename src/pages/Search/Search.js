@@ -5,13 +5,16 @@ import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import ContentTile, { Text } from '../../components/ContentTile/ContentTile';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearMainPageState, fetchComments, fetchSubreddits } from '../../containers/Main/mainSlice';
 import loader from '../../assets/loader.svg';
+import { selectLogin } from '../../components/LogIn/loginSlice';
 
 const Search = () => {
 
     const dispatch = useDispatch();
+
+    const login = useSelector(selectLogin);
 
     const [ searchParams, setSearchParams ] = useSearchParams();
 
@@ -19,7 +22,7 @@ const Search = () => {
     const sort = searchParams.get('sort');
     const time = searchParams.get('time');
     const type = useParams().searchType;
-    const [ over18, setOver18 ] = useState(searchParams.get('over18') === 'true');
+    const [ over18, setOver18 ] = useState(login.authorization && login.authorization.user && (login.authorization.user.over_18 || login.authorization.user.over_18 === false) ? login.authorization.user.over_18 : searchParams.get('over18') === 'true');
 
     const getInitialQuery = () => {
         let initialQueryString = {};

@@ -180,7 +180,7 @@ export class redditAPI {
 
     // other search parameters - sort = relevance / hot / top / new comments (most comments) : time - t = all / year / month / week / day / hour
 
-    fetchSearch = async (search, limit = 5, sort = 'relevance', time = 'all', type = '', over18 = true, after = null) => {
+    fetchSearch = async (search, limit = 5, sort = 'relevance', time = 'all', type = '', over18 = false, after = null) => {
         const endpoint = `https://www.reddit.com/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after=${after}&sort=${sort}&t=${time}&type=${type}`;
 
         const data = await fetch(endpoint);
@@ -189,7 +189,7 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchSubredditSearch = async (search, limit = 5, after = null, over18 = true, sort = null, time = 'all') => {
+    fetchSubredditSearch = async (search, limit = 5, after = null, over18 = false, sort = null, time = 'all') => {
         const endpoint = `https://www.reddit.com/subreddits/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}&sort=${sort}&t=${time}`
 
         const data = await fetch(endpoint);
@@ -198,7 +198,7 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchUsersSearch = async (search, limit = 5, after = null, over18 = true, sort = null, time = 'all') => {
+    fetchUsersSearch = async (search, limit = 5, after = null, over18 = false, sort = null, time = 'all') => {
         const endpoint = `https://www.reddit.com/users/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}&sort=${sort}&t=${time}`
 
         const data = await fetch(endpoint);
