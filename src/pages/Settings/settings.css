@@ -1,0 +1,126 @@
+.settings {
+    width: 100%;
+    max-width: 1024px;
+    padding: 16px;
+    padding-bottom: 0;
+    color: var(--fg1)
+}
+
+.settingsTop {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.settingsTop svg {
+    fill: var(--fg1);
+    height: 32px;
+    width: 32px;
+    margin-right: 16px;
+}
+
+.settingsHeading {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.settingsSelect {
+    width: 100%;
+}
+
+.settingsSubHeading {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--over3);
+    border-bottom: 1px solid var(--over3);
+    height: 56px;
+    font-size: 1rem !important;
+    margin-top: 16px;
+}
+
+.settingsItemToggle {
+    padding: 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .8rem;
+    border-bottom: 1px solid var(--over4);
+}
+
+.settingsItemToggle input {
+    padding: 8px;
+    background-color: var(--bg2);
+    max-width: 60px;
+    border-radius: 4px;
+    border: 1px solid var(--over3);
+    color: var(--fg2);
+}
+
+.settingsItemSelect {
+    padding: 24px 8px 16px;
+    font-size: .8rem;
+    border-bottom: 1px solid var(--over4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.settingsItemSelect select {
+    width: calc(100% - 16px);
+    /* max-width: 400px; */
+    margin: 8px;
+    padding: 4px;
+    background-color: var(--bg2);
+    color: var(--fg2);
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 32px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--over2);
+    transition: .5s;
+    border-radius: 16px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--bg1);
+    border-radius: 50%;
+    transition: .5s;
+}
+
+input:checked + .slider {
+    background-color: var(--prim1);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}

@@ -164,7 +164,6 @@ export class redditAPI {
         const jsonData = await data.json();
 
         return jsonData;
-        // this.me = jsonData;
     }
 
     fetchCommunities = async () => {
@@ -189,7 +188,7 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchSubredditSearch = async (search, limit = 5, after = null, over18 = false, sort = null, time = 'all') => {
+    fetchSubredditSearch = async (search, limit = 5, after = null, over18 = false, sort = 'relevance', time = 'all') => {
         const endpoint = `https://www.reddit.com/subreddits/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}&sort=${sort}&t=${time}`
 
         const data = await fetch(endpoint);
@@ -198,7 +197,7 @@ export class redditAPI {
         return jsonData;
     }
 
-    fetchUsersSearch = async (search, limit = 5, after = null, over18 = false, sort = null, time = 'all') => {
+    fetchUsersSearch = async (search, limit = 5, after = null, over18 = false, sort = 'relevance', time = 'all') => {
         const endpoint = `https://www.reddit.com/users/search.json?q=${search}&exact=false&include_over_18=${over18}&include_unadvertisable=false&limit=${limit}&after${after}&sort=${sort}&t=${time}`
 
         const data = await fetch(endpoint);
@@ -267,6 +266,17 @@ export class redditAPI {
         const endpoint = `https://www.reddit.com${link}moderated_subreddits.json`;
 
         const data = await fetch(endpoint);
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+    fetchAccountSettings = async () => {
+        const data = await fetch('https://oauth.reddit.com/api/v1/me/prefs', {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
         const jsonData = await data.json();
 
         return jsonData;

@@ -15,8 +15,6 @@
     position: relative;
     overflow: hidden;
     background-color: var(--prim1);
-    border-left: 1px solid var(--over3);
-    border-right: 1px solid var(--over3);
 }
 
 .subBanner img {
@@ -33,8 +31,7 @@
     align-items: center;
     background-color: var(--bg2);
     position: relative;
-    border: 1px solid var(--over3);
-    border-top: 0px none transparent;
+
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }

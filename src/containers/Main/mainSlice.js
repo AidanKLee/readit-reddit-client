@@ -6,7 +6,7 @@ export const fetchContent = createAsyncThunk(
     async (params) => {
         const { limit, url = 'best', after, before, loggedIn } = params;
         let data;
-        if (loggedIn) {
+        if (loggedIn && (url === 'best'|| url === 'hot' || url === 'new' || url === 'top' || url === 'rising')) {
             data = await reddit.fetchUserHome(limit, url, after, before);
         } else {
             data = await reddit.fetchContent(limit, url, after, before);

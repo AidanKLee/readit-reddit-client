@@ -17,6 +17,7 @@ import Rising from '../../pages/categories/Rising/Rising';
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Post from "../../pages/Post/Post";
 import Search from "../../pages/Search/Search";
+import Settings from "../../pages/Settings/Settings";
 
 const Main = () => {
 
@@ -103,6 +104,9 @@ const Main = () => {
                         <Route path={'/u/:userId/:content/rising'} element={<Rising location={location} page={`user/${selected}/`}/>}/>
                         <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
+
+                    <Route path={'/settings'} element={<Settings/>}/>
+
                 </Routes>
             </div>
         </main>

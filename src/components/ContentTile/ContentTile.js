@@ -26,7 +26,7 @@ const ContentTile = (props) => {
 
     const over18Style = (article) => {
         if (article.data.over_18 && (!login.authorization || (login.authorization && login.authorization.user && !login.authorization.user.over_18))) {
-            return {filter: 'blur(32px)'}
+            return {filter: 'blur(32px)', pointerEvents: 'none'}
         }
         return {}
     }

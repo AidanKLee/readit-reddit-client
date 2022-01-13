@@ -18,7 +18,8 @@ export const handleLogin = createAsyncThunk(
             return {
                 accessToken: accessToken,
                 user: user,
-                communities: communities
+                communities: communities,
+                settings: await reddit.fetchAccountSettings()
             }
         }
     }
@@ -32,7 +33,8 @@ export const loginSlice = createSlice({
             localStorage.removeItem('refreshToken');
             return state = {
                 isLoading: state.isLoading,
-                hasError: state.hasError
+                hasError: state.hasError,
+                initialLoginAttempt: true
             };
         }
     },
