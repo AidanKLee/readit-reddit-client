@@ -5,6 +5,7 @@ import communitiesReducer from '../components/Communities/communitiesSlice';
 import searchBarReducer from '../components/SearchBar/searchBarSlice';
 import mainReducer from '../containers/Main/mainSlice';
 import darkModeReducer from '../components/DarkMode/darkModeSlice';
+import newPostReducer from '../components/NewPost/newPostSlice';
 
 export default configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
         communities: communitiesReducer,
         searchBar: searchBarReducer,
         main: mainReducer,
-        darkMode: darkModeReducer
+        darkMode: darkModeReducer,
+        newPost: newPostReducer
     }
 });

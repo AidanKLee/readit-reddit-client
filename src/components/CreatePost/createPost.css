@@ -29,8 +29,7 @@
 }
 
 .createPostType button:hover {
-    background-color: var(--prim1);
-    color: var(--bg2);
+    background-color: var(--prim2);
 }
 
 .createPostType button:active {
@@ -42,10 +41,11 @@
     height: 24px;
     width: 24px;
     fill: var(--over1);
+    pointer-events: none;
 }
 
-.createPostType button:hover svg {
-    fill: var(--bg2);
+.createPostType button svg path {
+    pointer-events: none;
 }
 
 .createPostType button:active svg {
@@ -58,6 +58,7 @@
     border-bottom: 1px solid var(--over3);
     border-top: 1px solid var(--over3);
     height: 54px;
+    position: relative;
 }
 
 .createPostCommunity:hover {

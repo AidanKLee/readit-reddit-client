@@ -7,6 +7,7 @@ import Footer from '../containers/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleLogin, selectLogin } from '../components/LogIn/loginSlice';
 import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/darkModeSlice';
+import NewPost from '../components/NewPost/NewPost';
 
 
 function App() {
@@ -75,6 +76,9 @@ function App() {
       <Header time={time} />
       <Main />
       <Menu time={time} />
+      <div className='appButton'>
+        <NewPost />
+      </div>
       <Footer />
     </div>
   );

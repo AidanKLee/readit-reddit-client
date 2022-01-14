@@ -17,3 +17,43 @@
 .mainLoading a {
   display: inline;
 }
+
+.appButton {
+  position: fixed;
+  bottom: 40px;
+  left: 8px;
+  /* transform: translateX(-50%); */
+  display: none;
+  z-index: 80;
+}
+
+.appButton .newPost {
+  display: flex;
+  border-radius: 50%;
+  padding: 8px;
+  background: var(--over1);
+  background: linear-gradient(135deg, var(--over2) 0%, var(--over4) 100%);
+  border: 1px solid var(--over3);
+  transition: .2s;
+}
+
+.appButton .newPost:active {
+  background: var(--fg2);
+  background: linear-gradient(135deg, var(--over1) 0%, var(--over3) 100%);
+}
+
+.appButton .newPost svg {
+  height: 40px;
+  width: 40px;
+  fill: var(--fg1)
+}
+
+.appButton .newPost p {
+  display: none;
+}
+
+@media only screen and (max-width: 620px) {
+  .appButton {
+      display: block;
+  }
+}
