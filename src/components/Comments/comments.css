@@ -55,3 +55,28 @@
 .commentsItem p:nth-of-type(1) {
     margin-bottom: 4px;
 }
+
+.commentsItem .tileSide {
+    flex-direction: row;
+    background-color: transparent;
+    padding-bottom: 0;
+}
+
+.commentsItem .tileSideButton {
+    justify-content: flex-start;
+    margin-right: 8px;
+}
+
+.commentsItem .tileSideButton svg {
+    height: 20px;
+    width: 20px;
+}
+
+.commentsItemVotes {
+    display: flex;
+}
+
+.commentsItemVotes .tileAwards {
+    margin: 0 8px;
+    padding-top: 8px;
+}

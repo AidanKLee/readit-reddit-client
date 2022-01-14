@@ -13,9 +13,7 @@ export const darkModeSlice = createSlice({
             state.darkMode ? state.darkMode = false : state.darkMode = true;
         },
         setDarkMode: (state, action) => {
-            if (typeof(action.payload) === 'boolean') {
-                state.darkMode = action.payload;
-            }
+            state.darkMode = action.payload;
         },
         toggleDayMode: (state) => {
             state.dayMode ? state.dayMode = false : state.dayMode = true;

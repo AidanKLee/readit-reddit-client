@@ -28,7 +28,7 @@ const Main = () => {
     const location = useLocation().pathname;
 
     useEffect(() => {
-        let page = window.location.pathname;
+        let page = location;
         const title = 'Readit';
         if (page.length === 1) {
             page = ': Home';
@@ -43,10 +43,16 @@ const Main = () => {
                 string = string.substring(0, 1).toUpperCase() + string.substring(1);
                 return string;
             })
-            page.length > 1 ? page = ': ' + page.join(' - ') : page = ': ' + page.join('')
+            if (page.length > 3 && page[1] === 'Comments') {
+                page = `: ${page[0]} - ${page[3]}`
+            } else if (page[0] === 'Callback') {
+                page = `: Home`;
+            } else {
+                page.length > 1 ? page = ': ' + page.join(' - ') : page = ': ' + page.join('')
+            }
         }
         document.title = title + page
-    },[selected])
+    },[location])
         
     return (
         <main className={menu.menuOpen ? 'blur' : ''}>

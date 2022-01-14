@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './post.css';
 import { Link } from 'react-router-dom';
-import { getTimePosted, isImage } from '../../utilities/functions';
+import { getTimePosted, isImage, over18Style } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import { Text } from '../../components/ContentTile/ContentTile';
 import Awards from '../../components/Awards/Awards';
@@ -46,11 +46,11 @@ const Post = (props) => {
             {post && post.data && post.data.selftext ? <p className="postSelf"><Text text={post.data.selftext} length={1500}/></p> : undefined}
             {post && post.data && post.data.url && post.data.url.length > 0 && (!post.data.url.includes('https://www.reddit.com') || (post.data.url.includes('https://www.reddit.com') && post.data.url.includes('gallery'))) && !isImage(post.data.url) && !post.data.url.includes('.gifv') && !post.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={post.data.url}>{post.data.url}</a></p> : undefined}
             <div className="tileObjectContainer video">
-                {post && post.data && isImage(post.data.url) && post.data.url.includes('.gifv') ? <video className="tileMainVideo" autoPlay muted loop><source src={post.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
-                {post && post.data && post.data.is_video && post.data.media ? <video className="tileMainVideo" controls><source src={post.data.media.reddit_video.fallback_url} /></video> : undefined}
+                {post && post.data && isImage(post.data.url) && post.data.url.includes('.gifv') ? <video style={over18Style(post, login)} className="tileMainVideo" autoPlay muted loop><source src={post.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
+                {post && post.data && post.data.is_video && post.data.media ? <video style={over18Style(post, login)} className="tileMainVideo" controls><source src={post.data.media.reddit_video.fallback_url} /></video> : undefined}
             </div>
             <div className="tileObjectContainer">
-                {post && post.data && isImage(post.data.url) && !post.data.url.includes('.gifv') ? <a href={post.data.url} target='_blank' rel='noreferrer'><img className="tileMainImg" src={post.data.url} alt={post.data.id}/></a> : undefined}
+                {post && post.data && isImage(post.data.url) && !post.data.url.includes('.gifv') ? <a style={over18Style(post, login)} href={post.data.url} target='_blank' rel='noreferrer'><img className="tileMainImg" style={over18Style(post, login)} src={post.data.url} alt={post.data.id}/></a> : undefined}
             </div>
             <div className='postBar'>
                 <div className="postActions">
@@ -74,7 +74,7 @@ const Post = (props) => {
                     </div>
                 </div>
                 <div className='postVotes'>
-                    {post && post.data ? <Votes ups={post.data.ups} downs={post.data.downs}/>: undefined}
+                    {post && post.data ? <Votes ups={post.data.ups} downs={post.data.downs} article={post}/> : undefined}
                     {post && post.data ? <p>{Math.round((100 / (post.data.ups + post.data.downs)) * post.data.ups) + '% '}Upvoted</p> : undefined}
                 </div>
             </div>

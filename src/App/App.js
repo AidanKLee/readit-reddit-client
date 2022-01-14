@@ -1,16 +1,70 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../containers/Header/Header';
 import Main from '../containers/Main/Main';
 import Menu from '../containers/Menu/Menu';
 import Footer from '../containers/Footer/Footer';
-import { useDispatch } from 'react-redux';
-import { handleLogin } from '../components/LogIn/loginSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleLogin, selectLogin } from '../components/LogIn/loginSlice';
+import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/darkModeSlice';
 
 
 function App() {
 
   const dispatch = useDispatch();
+
+  const login = useSelector(selectLogin);
+  const darkMode = useSelector(selectDarkMode);
+  const [ time, setTime ] = useState(new Date());
+
+  // clock
+  useEffect(() => {
+      const timeout = setInterval(() => {
+        setTime(new Date())
+      },1000)
+  
+      return () => clearInterval(timeout)
+  },[])
+
+  useEffect(() => {
+    const localStorageDark = localStorage.getItem('darkMode');
+    if (localStorageDark) {
+        dispatch(setDarkMode(localStorageDark === 'true'));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  // dark mode functionality
+  useEffect(() => {
+    if (login.authorization && login.authorization.settings && login.authorization.settings.nightmode !== (localStorage.getItem('darkMode') === 'true')) {
+        dispatch(setDarkMode(login.authorization.settings.nightmode));
+        localStorage.setItem('darkMode', login.authorization.settings.nightmode)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[login.initialLoginAttempt])
+
+  // auto switch for daymode and nightmode
+  useEffect(() => {
+      if (time.getHours() > 6 && time.getHours() < 19 && !darkMode.dayMode) {
+          dispatch(setDayMode(true));
+      } else if ((time.getHours() <= 6 || time.getHours() >= 19) && darkMode.dayMode) {
+          dispatch(setDayMode(false));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time])
+
+  // theme setter
+  useEffect(() => {
+    if (darkMode.darkMode && darkMode.dayMode) {
+        document.documentElement.setAttribute("data-theme",'dark')
+    } else if (!darkMode.darkmode && darkMode.dayMode) {
+        document.documentElement.removeAttribute('data-theme')
+    } else if (darkMode.darkMode && !darkMode.dayMode) {
+        document.documentElement.setAttribute("data-theme",'darkNight')
+    } else if (!darkMode.darkMode && !darkMode.dayMode) {
+        document.documentElement.setAttribute("data-theme", 'night')
+    }
+},[darkMode])
 
   useEffect(() => {
     dispatch(handleLogin());
@@ -18,9 +72,9 @@ function App() {
 
   return (
     <div className="App" data-test='App'>
-      <Header />
+      <Header time={time} />
       <Main />
-      <Menu />
+      <Menu time={time} />
       <Footer />
     </div>
   );

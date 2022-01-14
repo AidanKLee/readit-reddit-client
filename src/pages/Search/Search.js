@@ -22,7 +22,7 @@ const Search = () => {
     const sort = searchParams.get('sort');
     const time = searchParams.get('time');
     const type = useParams().searchType;
-    const [ over18, setOver18 ] = useState(login.authorization && login.authorization.user && (login.authorization.user.over_18 || login.authorization.user.over_18 === false) ? login.authorization.user.over_18 : searchParams.get('over18') === 'true');
+    const [ over18, setOver18 ] = useState(login.authorization && login.authorization.settings && (login.authorization.settings.search_include_over_18 || login.authorization.settings.search_include_over_18 === false) ? login.authorization.settings.search_include_over_18 : searchParams.get('over18') === 'true');
 
     const getInitialQuery = () => {
         let initialQueryString = {};
@@ -43,7 +43,6 @@ const Search = () => {
     const location = useLocation().pathname + useLocation().search;
 
     const fetchData = async (afterData) => {
-        let over18User = over18
         setQueryString(getInitialQuery())
         setLoadingData(true)
         let t = '';
@@ -53,10 +52,9 @@ const Search = () => {
             t = 'sr';
         } else if (type === 'users') {
             t = 'user';
-            over18User = true
         }
         try {
-            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18User, afterData);
+            const data = await reddit.fetchSearch(query, 25, sort, time, t, over18, afterData);
             if (!data) {
                 setSearchData({
                     ...searchData,
@@ -100,7 +98,7 @@ const Search = () => {
         if (type === 'posts' && searchData && searchData.results && searchData.results.length <= 25) {
             const getStickyContent = async () => {
                 const subreddits = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'sr', over18);
-                const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', true);
+                const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', over18);
                 const content = {
                     subreddits: subreddits.data.children,
                     users: users.data.children
@@ -230,7 +228,7 @@ const Search = () => {
                                     <div className='searchRightStickyItemText'>
                                         <Link to={`/${user.data.subreddit.display_name_prefixed}`}>
                                             <p className='bold'>
-                                                {user.data.subreddit.display_name_prefixed} {user.data.subreddit.over_18 ? <span> 18+</span> : undefined}
+                                                {user.data.subreddit.display_name_prefixed} {user.data.subreddit.over_18 ? <span> NSFW</span> : undefined}
                                             </p>
                                         </Link>
                                         <p>
@@ -412,7 +410,7 @@ const SearchUsers = (props) => {
                                 </Link>
                                 <div>
                                     <Link to={`/${result.data.subreddit.display_name_prefixed}`}>
-                                        <p className='bold'>{result.data.name} {result.data.subreddit.over_18 ? <span>18+</span>: undefined}</p>
+                                        <p className='bold'>{result.data.name} {result.data.subreddit.over_18 ? <span> NSFW</span>: undefined}</p>
                                     </Link>
                                     <p style={{fontSize: '.6rem', lineHeight: '1'}}>{result.data.subreddit.display_name_prefixed}</p>
                                     <p>{result.data.link_karma} karma</p>

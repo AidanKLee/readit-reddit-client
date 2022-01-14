@@ -61,7 +61,7 @@ export class redditAPI {
             if (!this.authorize.error.isError) {
                 const searchParams = new URLSearchParams(queryString)
                 const { code, state } = Object.fromEntries(searchParams.entries());
-                // console.log(state)
+                console.log(state)
                 window.history.replaceState(null, "Readit", window.location.origin);
                 return code;
             }
@@ -224,8 +224,8 @@ export class redditAPI {
         const beforeAfter = `&before=${before}&after=${after}`;
 
         const data = await fetch(`${endpoint}${beforeAfter}`);
-        const jsonData = await data.json();
 
+        const jsonData = await data.json();
         return jsonData;
     }
 
@@ -245,6 +245,7 @@ export class redditAPI {
     }
 
     fetchComment = async (link) => {
+        link = link.slice(0, link.length - 1)
         const endpoint = `https://www.reddit.com${link}.json`;
 
         const data = await fetch(endpoint);
@@ -282,21 +283,71 @@ export class redditAPI {
         return jsonData;
     }
 
-    getIconImg = (community) => {
+    patchAccountSettings = async (setting) => {
+        const updatedSetting = JSON.stringify(setting);
+        const data = await fetch('https://oauth.reddit.com/api/v1/me/prefs', {
+            method: 'PATCH',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            body: updatedSetting,
+            completed: true
+        });
+        const jsonData = await data.json();
+
+        return jsonData;
+    }
+
+    fetchVotes = async (name) => {
+        const upVotes = await fetch(`https://oauth.reddit.com/user/${name}/upvoted`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
+        const jsonUp = await upVotes.json();
+        const downVotes = await fetch(`https://oauth.reddit.com/user/${name}/downvoted`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
+        const jsonDown = await downVotes.json();
+        
+        const data = {
+            upVotes: jsonUp,
+            downVotes: jsonDown
+        }
+        return data;
+    }
+
+    placeVote = async (dir, name) => {
+        const data = await fetch(`https://oauth.reddit.com/api/vote`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id=${name}&dir=${dir}&api_type=json`
+        })
+        const jsonData = await data.json();
+        return jsonData;
+    }
+
+    getIconImg = (community, style) => {
         if (community && community.data) {
             community = community.data;
         }
         if (community) { 
             if (community.icon_img) {
                 if (community.icon_img.includes('?')) {
-                    return <img src={community.icon_img.split('?')[0]} alt={community.display_name}/>
+                    return <img style={style ? style : {}} src={community.icon_img.split('?')[0]} alt={community.display_name}/>
                 }
-                return <img src={community.icon_img} alt={community.display_name}/>
+                return <img style={style ? style : {}} src={community.icon_img} alt={community.display_name}/>
             } else if (community.community_icon) {
                 let url = community.community_icon.split('?')[0]
-                return <img src={url} alt={community.display_name}/>
+                return <img style={style ? style : {}} src={url} alt={community.display_name}/>
             } else {
-                return <img src={redditLogo} alt={community.display_name}/>
+                return <img style={style ? style : {}} src={redditLogo} alt={community.display_name}/>
             }
         }
 

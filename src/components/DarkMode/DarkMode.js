@@ -1,59 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import reddit from '../../utilities/redditAPI';
+import { selectLogin, setSettings } from '../LogIn/loginSlice';
 import './darkMode.css';
-import { selectDarkMode, setDarkMode, setDayMode, toggleDarkMode } from './darkModeSlice';
+import { selectDarkMode, setDarkMode } from './darkModeSlice';
 
 const DarkMode = () => {
 
     const dispatch = useDispatch();
 
     const darkMode = useSelector(selectDarkMode);
-    const [ time, setTime ] = useState(new Date());
-
-    useEffect(() => {
-        const timeout = setInterval(() => {
-          setTime(new Date())
-        },1000)
-    
-        return () => clearInterval(timeout)
-    },[])
-
-    useEffect(() => {
-        console.log()
-        if (time.getHours() > 6 && time.getHours() < 19 && !darkMode.dayMode) {
-            console.log('running')
-            dispatch(setDayMode(true));
-        } else if ((time.getHours() <= 6 || time.getHours() >= 19) && darkMode.dayMode) {
-            console.log('running')
-            dispatch(setDayMode(false));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [time])
-
-    useEffect(() => {
-        const localStorageDark = localStorage.getItem('darkMode')
-        if (localStorageDark) {
-            dispatch(setDarkMode(localStorageDark === 'true'));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-    useEffect(() => {
-        if (darkMode.darkMode && darkMode.dayMode) {
-            document.documentElement.setAttribute("data-theme",'dark')
-        } else if (!darkMode.darkmode && darkMode.dayMode) {
-            document.documentElement.removeAttribute('data-theme')
-        } else if (darkMode.darkMode && !darkMode.dayMode) {
-            document.documentElement.setAttribute("data-theme",'darkNight')
-        } else if (!darkMode.darkMode && !darkMode.dayMode) {
-            document.documentElement.setAttribute("data-theme", 'night')
-        }
-    },[darkMode])
-    
+    const login = useSelector(selectLogin);    
       
-    const handleClick = () => {
-        dispatch(toggleDarkMode());
+    const handleClick = async () => {
+        dispatch(setDarkMode(!darkMode.darkMode));
         localStorage.setItem('darkMode', !darkMode.darkMode)
+
+        if (login.authorization) {
+            const settings = await reddit.patchAccountSettings({
+                nightmode: !darkMode.darkMode
+            });
+            dispatch(setSettings(settings))
+        }
     }
 
     const styleDarkMode = darkMode.darkMode ? { left: '32px' } : { left: '0'};

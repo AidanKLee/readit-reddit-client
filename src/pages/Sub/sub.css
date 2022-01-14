@@ -31,7 +31,6 @@
     align-items: center;
     background-color: var(--bg2);
     position: relative;
-
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
@@ -47,13 +46,20 @@
     height: 100%;
 }
 
-.subBannerUnderWrapper img {
-    height: 156px;
-    width: 156px;
+.iconImgWrapper {
     border: 4px solid var(--bg3);
     background-color: var(--bg3);
     border-radius: 50%;
     margin-left: 16px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subBannerUnderWrapper img {
+    height: 156px;
+    width: 156px;
 }
 
 .subBannerUnderText {

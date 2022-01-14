@@ -3,11 +3,12 @@ import './user.css';
 import { Outlet, useLocation } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
 import reddit from '../../utilities/redditAPI';
-import { getTimePosted, returnToTop } from '../../utilities/functions';
+import { getTimePosted, over18Style, returnToTop } from '../../utilities/functions';
 import { Link } from 'react-router-dom';
 import { Text } from '../../components/ContentTile/ContentTile';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearMainPageState } from '../../containers/Main/mainSlice';
+import { selectLogin } from '../../components/LogIn/loginSlice';
 
 const User = () => {
 
@@ -15,6 +16,7 @@ const User = () => {
 
     let selected = useLocation().pathname.split('/').slice(1);
     const [prefix, user, content ] = selected;
+    const login = useSelector(selectLogin);
 
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
@@ -123,11 +125,13 @@ const User = () => {
     return (
         <div className='user'>
             <div className='subBanner'>
-                {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
+                {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
-                    {reddit.getIconImg(subreddit && subreddit.data ? subreddit.data.subreddit : undefined)}
+                <div className='iconImgWrapper'>
+                    {subreddit && subreddit.data ? reddit.getIconImg(subreddit.data.subreddit, over18Style(subreddit, login)) : undefined}
+                </div>
                     <div className='subBannerUnderText'>
                         <h1>
                             {subreddit.data ? <Text text={subreddit.data.name} length={1000}/> : undefined}

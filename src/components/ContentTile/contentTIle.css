@@ -35,10 +35,27 @@
     text-align: center;
 }
 
+.tileSideButton button {
+    background-color: transparent;
+    display: flex;
+}
+
+.tileSideButton button:hover svg {
+    fill: var(--over1);
+}
+
+.tileSideButton button:active {
+    transform: scale(.8);
+}
+
 .tileSideButton svg {
-    height: 16px;
-    width: 16px;
-    fill: var(--fg1)
+    height: 24px;
+    width: 24px;
+    fill: var(--fg1);
+}
+
+.tileSideButton button svg path {
+    pointer-events: none;
 }
 
 .tileContent {

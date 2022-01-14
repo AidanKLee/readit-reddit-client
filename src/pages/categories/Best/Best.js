@@ -41,7 +41,7 @@ const Best = (props) => {
 
     useEffect(() => {
         if (loadMore) {
-            const after = Array.from(main.page.content.data.children.slice());
+            const after = Array.from(main.page.content.data.children.slice(-25));
             dispatch(fetchContent({
                 limit: 25,
                 url: props.page + 'best',

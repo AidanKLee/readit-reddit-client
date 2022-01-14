@@ -80,3 +80,25 @@ export const getUpVotes = (votes) => {
         return (votes / 10) + 'm'
     }
 }
+
+export const over18Style = (article, login) => {
+    if (article.data.over_18 === true) {
+        if (article.data.over_18 && (!login.authorization || (login.authorization && login.authorization.settings && !login.authorization.settings.over_18))) {
+            return {filter: 'blur(32px)', pointerEvents: 'none'}
+        }
+    } else if (article.data.over18 === true) {
+        if (article.data.over18 && (!login.authorization || (login.authorization && login.authorization.settings && !login.authorization.settings.over_18))) {
+            return {filter: 'blur(32px)', pointerEvents: 'none'}
+        }
+    } else if (article.data.subreddit && article.data.subreddit.over_18 === true) {
+        if (article.data.subreddit.over_18 && (!login.authorization || (login.authorization && login.authorization.settings && !login.authorization.settings.over_18))) {
+            return {filter: 'blur(32px)', pointerEvents: 'none'}
+        }
+    } else if (article.data.subreddit && article.data.subreddit.over18 === true) {
+        if (article.data.subreddit.over18 && (!login.authorization || (login.authorization && login.authorization.settings && !login.authorization.settings.over_18))) {
+            return {filter: 'blur(32px)', pointerEvents: 'none'}
+        }
+    }
+    
+    return {}
+}

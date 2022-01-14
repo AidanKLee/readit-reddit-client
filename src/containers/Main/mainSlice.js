@@ -11,6 +11,9 @@ export const fetchContent = createAsyncThunk(
         } else {
             data = await reddit.fetchContent(limit, url, after, before);
         }
+        if (data.data.children.length > 25) {
+            data.data.children = data.data.children.slice(0, 25)
+        }
         const content = {
             url: url,
             content: data,

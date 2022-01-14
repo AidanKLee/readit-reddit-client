@@ -15,9 +15,9 @@
 }
 
 .settingsTop svg {
-    fill: var(--fg1);
-    height: 32px;
-    width: 32px;
+    fill: var(--over1);
+    height: 40px;
+    width: 40px;
     margin-right: 16px;
 }
 
@@ -28,6 +28,11 @@
 
 .settingsSelect {
     width: 100%;
+}
+
+.settingsSelect label {
+    max-width: calc(100% - 60px);
+    padding-right: 8px;
 }
 
 .settingsSubHeading {
@@ -42,7 +47,7 @@
 }
 
 .settingsItemToggle {
-    padding: 24px 8px;
+    padding: 16px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,8 +64,12 @@
     color: var(--fg2);
 }
 
+.settingsItemToggle p:nth-of-type(2) {
+    font-size: .6rem;
+}
+
 .settingsItemSelect {
-    padding: 24px 8px 16px;
+    padding: 16px 8px 8px;
     font-size: .8rem;
     border-bottom: 1px solid var(--over4);
     display: flex;

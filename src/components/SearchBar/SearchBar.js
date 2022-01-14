@@ -19,17 +19,17 @@ const SearchBar = (props) => {
             dispatch(fetchSearch({
                 search: searchBar.search,
                 limit: 10,
-                over18: login.authorization && login.authorization.user && login.authorization.user.over_18 ? true : false
+                over18: login.authorization && login.authorization.settings ? login.authorization.settings.search_include_over_18 : false
             }));
             dispatch(fetchSubredditSearch({
                 search: searchBar.search,
                 limit: 5,
-                over18: login.authorization && login.authorization.user && login.authorization.user.over_18 ? true : false
+                over18: login.authorization && login.authorization.settings ? login.authorization.settings.search_include_over_18 : false
             }));
             dispatch(fetchUsersSearch({
                 search: searchBar.search,
                 limit: 5,
-                over18: login.authorization && login.authorization.user && login.authorization.user.over_18 ? true : false
+                over18: login.authorization && login.authorization.settings ? login.authorization.settings.search_include_over_18 : false
             }));
         }
     }
