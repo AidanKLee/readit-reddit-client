@@ -1,0 +1,233 @@
+.createPost {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--over3);
+}
+
+.createPost:hover {
+    border: 1px solid var(--over2);
+}
+
+.createPostType {
+    width: 100%;
+    display: flex;
+}
+
+.createPostType button {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: .8rem;
+    font-weight: bold;
+    padding: 8px;
+    background-color: var(--bg2);
+    color: var(--over1);
+}
+
+.createPostType button:hover {
+    background-color: var(--prim1);
+    color: var(--bg2);
+}
+
+.createPostType button:active {
+    color: var(--fg1);
+}
+
+.createPostType button svg {
+    margin-right: 8px;
+    height: 24px;
+    width: 24px;
+    fill: var(--over1);
+}
+
+.createPostType button:hover svg {
+    fill: var(--bg2);
+}
+
+.createPostType button:active svg {
+    fill: var(--fg1);
+}
+
+.createPostCommunity {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid var(--over3);
+    border-top: 1px solid var(--over3);
+    height: 54px;
+}
+
+.createPostCommunity:hover {
+    border-bottom: 1px solid var(--over2);
+    border-top: 1px solid var(--over2);
+}
+
+.createPostCommunity label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createPostCommunity svg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    fill: var(--over2);
+}
+
+.createPostCommunity input {
+    padding: 8px;
+    width: 100%;
+    background-color: transparent;
+    color: var(--fg2);
+}
+
+.createPostCommunity input:focus {
+    outline: 0 none transparent;
+}
+
+.createPostTitle {
+    width: 100%;
+    padding: 8px;
+}
+
+.createPostTitleInput {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg3);
+    border-radius: 4px;
+    border: 1px solid var(--over3);
+}
+
+.createPostTitleInput:hover {
+    border: 1px solid var(--over2);
+}
+
+.createPostTitleInput:focus {
+    outline: 1px solid var(--over2);
+}
+
+.createPostTitleInput p {
+    margin: 0 8px;
+    font-size: .6rem;
+    color: var(--over1);
+}
+
+.createPostTitle input {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--fg2) !important;
+}
+
+.createPostTitle input:focus {
+    outline: 0px none transparent;
+}
+
+.createPostBody {
+    padding: 0 8px 8px;
+    display: flex;
+}
+
+.createPostBody textarea {
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    height: 15rem;
+    border: 1px solid var(--over3);
+    resize: none;
+    background-color: var(--bg3);
+    color: var(--fg2);
+}
+
+.createPostBody textarea:hover {
+    border: 1px solid var(--over2);
+}
+
+.createPostBody textarea:focus {
+    outline: 0px none transparent;
+}
+
+.createPostTags {
+    display: flex;
+    margin: 0 8px 8px;
+    overflow: hidden;
+}
+
+.createPostTags button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--over1);
+    background-color: var(--over4);
+    height: 40px;
+    border-radius: 20px;
+    font-size: 1rem;
+    padding: 0 20px 0 12px;
+    margin-right: 12px;
+}
+
+.createPostTags button:hover {
+    background-color: var(--over3);
+}
+
+.createPostTags button:active {
+    color: var(--fg1);
+}
+
+.createPostTags button svg {
+    width: 32px;
+    height: 32px;
+    fill: var(--over1);
+    margin-right: 8px;
+}
+
+.createPostTags button:active svg {
+    fill: var(--fg1);
+}
+
+.createPostActions {
+    margin: 8px;
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--over4);
+}
+
+.createPostActions button {
+    padding: 8px 24px;
+    margin-right: 8px;
+    background-color: var(--prim2);
+    font-weight: bold;
+    color: var(--prim1);
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--prim1);
+    transition: .1s;
+}
+
+.createPostActions button:hover {
+    background-color: var(--prim1);
+    color: var(--bg1);
+}
+
+.createPostActions button:nth-of-type(2) {
+    background-color: var(--over4);
+    color: var(--fg1);
+    margin-right: 0;
+    border: 2px solid var(--fg1)
+}
+
+.createPostActions button:nth-of-type(2):hover {
+    border: 2px solid var(--sec1);
+    color: var(--sec1);
+    margin-right: 0;
+}
+
+.createPostActions button:active {
+    transform: scale(.9);
+}

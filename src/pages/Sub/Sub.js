@@ -7,6 +7,7 @@ import Categories from '../../components/Categories/Categories';
 import { over18Style, returnToTop } from '../../utilities/functions';
 import { useSelector } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
+import CreatePost from '../../components/CreatePost/CreatePost';
 
 const Sub = (props) => {
 
@@ -168,6 +169,7 @@ const Sub = (props) => {
             </div>
             <div className='subContent'>
                 <div className='content'>
+                    <CreatePost/>
                     <Categories page={'/r/' + subredditUrl}/>
                     <Outlet/>
                 </div>
