@@ -59,15 +59,17 @@ function App() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
 
+  // console.log(login.authorization.settings)
+
   // theme setter
   useEffect(() => {
-    if (darkMode.darkMode && darkMode.dayMode) {
+    if ((darkMode.darkMode && darkMode.dayMode && darkMode.dayModeEnabled) || (darkMode.darkMode && !darkMode.dayModeEnabled)) {
         document.documentElement.setAttribute("data-theme",'dark')
-    } else if (!darkMode.darkmode && darkMode.dayMode) {
+    } else if ((!darkMode.darkmode && darkMode.dayMode && darkMode.dayModeEnabled) || (!darkMode.darkMode && !darkMode.dayModeEnabled)) {
         document.documentElement.removeAttribute('data-theme')
-    } else if (darkMode.darkMode && !darkMode.dayMode) {
+    } else if (darkMode.darkMode && !darkMode.dayMode && darkMode.dayModeEnabled) {
         document.documentElement.setAttribute("data-theme",'darkNight')
-    } else if (!darkMode.darkMode && !darkMode.dayMode) {
+    } else if (!darkMode.darkMode && !darkMode.dayMode && darkMode.dayModeEnabled) {
         document.documentElement.setAttribute("data-theme", 'night')
     }
 },[darkMode])

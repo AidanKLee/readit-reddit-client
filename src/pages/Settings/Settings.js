@@ -4,7 +4,7 @@ import { selectLogin, setSettings } from "../../components/LogIn/loginSlice";
 import loader from '../../assets/loader.svg';
 import './settings.css';
 import reddit from "../../utilities/redditAPI";
-import { selectDarkMode, setDarkMode } from "../../components/DarkMode/darkModeSlice";
+import { selectDarkMode, setDarkMode, toggleDayModeEnabled } from "../../components/DarkMode/darkModeSlice";
 
 const Settings = () => {
 
@@ -33,6 +33,11 @@ const Settings = () => {
         if (name === 'nightmode') {
             dispatch(setDarkMode(value))
             localStorage.setItem('darkMode', value)
+        }
+
+        if (name === 'dayMode') {
+            localStorage.setItem('dayModeEnabled', !darkMode.dayModeEnabled)
+            return dispatch(toggleDayModeEnabled())
         }
 
         const settings = await reddit.patchAccountSettings({
@@ -154,7 +159,7 @@ const Settings = () => {
                             <p>Your theme changes depending on the time of day.</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='dayMode' id='dayMode'/>
+                            <input onChange={handleCheck} type='checkbox' name='dayMode' id='dayMode' defaultChecked={darkMode.dayModeEnabled}/>
                             <span className="slider"></span>
                         </label>
                     </div>
