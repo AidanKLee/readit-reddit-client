@@ -46,7 +46,7 @@ const SearchBar = (props) => {
     }
 
     useEffect(() => {
-        if (searchBar.search) {
+        if (searchBar.search.length > 0) {
             const searchTimeout = setTimeout(dispatchSearch, 1000);
             return () => {
                 clearTimeout(searchTimeout);

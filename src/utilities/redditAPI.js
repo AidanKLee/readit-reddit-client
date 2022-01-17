@@ -333,6 +333,20 @@ export class redditAPI {
         return jsonData;
     }
 
+    submitNewPost = async (params) => {
+        const { api_type, kind, nsfw, original_content, sendreplies, spoiler, sr, submit_type, text, title, url, validate_on_submit } = params
+        const data = await fetch(`https://oauth.reddit.com/api/submit?api_type=${api_type}&kind=${kind}&nsfw=${nsfw}&original_content=${original_content}&sendreplies=${sendreplies}&spoiler=${spoiler}&sr=${sr}&submit_type=${submit_type}&text=${text}&title=${title}&url=${url}&validate_on_submit=${validate_on_submit}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        const jsonData = await data.json();
+        return jsonData
+    }
+
+
     getIconImg = (community, style) => {
         if (community && community.data) {
             community = community.data;

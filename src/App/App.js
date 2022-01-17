@@ -8,13 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleLogin, selectLogin } from '../components/LogIn/loginSlice';
 import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/darkModeSlice';
 import NewPost from '../components/NewPost/NewPost';
+import { useLocation } from 'react-router-dom';
+import { closeNewPost, selectNewPost } from '../components/NewPost/newPostSlice';
 
 
 function App() {
 
   const dispatch = useDispatch();
 
+  const location = useLocation().pathname;
+
   const login = useSelector(selectLogin);
+  const newPost = useSelector(selectNewPost)
   const darkMode = useSelector(selectDarkMode);
   const [ time, setTime ] = useState(new Date());
 
@@ -67,6 +72,13 @@ function App() {
     }
 },[darkMode])
 
+useEffect(() => {
+  if (newPost.open) {
+      dispatch(closeNewPost())
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+},[location])
+
   useEffect(() => {
     dispatch(handleLogin());
   }, [dispatch]);
@@ -76,9 +88,12 @@ function App() {
       <Header time={time} />
       <Main />
       <Menu time={time} />
-      <div className='appButton'>
-        <NewPost />
-      </div>
+      {
+        login.authorization ?
+        <div className='appButton'>
+          <NewPost />
+        </div> : undefined
+      }
       <Footer />
     </div>
   );

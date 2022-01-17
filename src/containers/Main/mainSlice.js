@@ -91,6 +91,12 @@ export const mainSlice = createSlice({
                 article: {},
                 url: ''
             }
+        },
+        showNewPost: (state, action) => {
+            const { content, comment, subreddit } = action.payload;
+            state.content = {...state.content, content};
+            state.comments = {...state.comments, comment};
+            state.subreddits = {...state.subreddits, subreddit}
         }
     },
     extraReducers: {
@@ -179,7 +185,7 @@ export const mainSlice = createSlice({
 
 export const { getInitialState: mainInitialState }  = mainSlice;
 
-export const { setArticle, clearState: clearMainPageState } = mainSlice.actions;
+export const { setArticle, clearState: clearMainPageState, showNewPost } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 
