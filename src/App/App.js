@@ -9,7 +9,7 @@ import { handleLogin, selectLogin } from '../components/LogIn/loginSlice';
 import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/darkModeSlice';
 import NewPost from '../components/NewPost/NewPost';
 import { useLocation } from 'react-router-dom';
-import { closeNewPost, selectNewPost } from '../components/NewPost/newPostSlice';
+import { clearSelectedSubreddit, closeNewPost, handleCommunityChange, selectNewPost } from '../components/NewPost/newPostSlice';
 
 
 function App() {
@@ -75,6 +75,10 @@ function App() {
 useEffect(() => {
   if (newPost.open) {
       dispatch(closeNewPost())
+  }
+  if (newPost.community.selected) {
+      dispatch(clearSelectedSubreddit())
+      dispatch(handleCommunityChange(''))
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
 },[location])

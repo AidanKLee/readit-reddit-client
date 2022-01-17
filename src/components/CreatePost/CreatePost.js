@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import reddit from '../../utilities/redditAPI';
 import { selectLogin } from '../LogIn/loginSlice';
-import { selectNewPost, setPostKind, handleChange, toggleBooleanParams, handleCommunityChange, communitySearch, clearSearchResults, setSelectedSubreddit, clearSelectedSubreddit, submitPost, resetSubmit, toggleNewPost, clearLastPost } from '../NewPost/newPostSlice';
+import { selectNewPost, setPostKind, handleChange, toggleBooleanParams, handleCommunityChange, communitySearch, clearSearchResults, setSelectedSubreddit, clearSelectedSubreddit, submitPost, resetSubmit, clearLastPost } from '../NewPost/newPostSlice';
 import './createPost.css';
 
 const CreatePost = () => {
@@ -11,6 +11,7 @@ const CreatePost = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    let location = useLocation().pathname;
     const newPost = useSelector(selectNewPost);
     const login = useSelector(selectLogin);
 
@@ -142,12 +143,36 @@ const CreatePost = () => {
             if (post.includes('/r/u_')) {
                 post = post.replace('/r/u_', '/u/')
             }
-            console.log(post)
             navigate(post, {replace: false})
             dispatch(clearLastPost())
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[newPost.lastPost])
+
+    useEffect(() => {
+        if (location.slice(0, 3).includes('/r/') || location.slice(0, 3).includes('/u/')) {
+            let locationCheck = location;
+            const setSubreddit = async () => {
+                if (locationCheck.includes('/comments/')) {
+                    locationCheck = location.split('/').slice(0, 3).join('/');
+                }
+                if (locationCheck.includes('/u/' + login.authorization.user.name)) {
+                    locationCheck = locationCheck.replace('/u/', 'user/')
+                    locationCheck = locationCheck.split('/').slice(0,2).join('/');
+                }
+                const subreddit = await reddit.fetchSubreddit(locationCheck);
+                if (subreddit.data.subreddit) {
+                    dispatch(handleCommunityChange(subreddit.data.subreddit.display_name_prefixed))
+                    dispatch(setSelectedSubreddit(subreddit.data))
+                } else {
+                    dispatch(handleCommunityChange(subreddit.data.display_name_prefixed))
+                    dispatch(setSelectedSubreddit(subreddit))
+                }
+            }
+            setSubreddit();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[location, newPost.open])
 
     const renderSearchResults = () => {
         if (newPost.community.results.length > 0) {

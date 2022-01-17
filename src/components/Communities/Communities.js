@@ -7,6 +7,7 @@ import loader from '../../assets/loader.svg';
 import reddit from '../../utilities/redditAPI';
 import { search, selectCommunities } from './communitiesSlice';
 import { Link } from 'react-router-dom';
+import { returnToTop } from '../../utilities/functions';
 
 const Communities = () => {
 
@@ -40,7 +41,7 @@ const Communities = () => {
 
             return communitiesCopy.map(community => {
                 return (
-                    <Link key={community.data.id} to={community.data.display_name_prefixed}>
+                    <Link onClick={returnToTop} key={community.data.id} to={community.data.display_name_prefixed}>
                         <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
                             {reddit.getIconImg(community)}
                             <p>

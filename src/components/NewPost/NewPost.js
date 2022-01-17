@@ -1,27 +1,51 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import './newPost.css';
 import { selectNewPost, toggleNewPost } from "./newPostSlice";
 
 const NewPost = () => {
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const location = useLocation().pathname;
     const newPost = useSelector(selectNewPost);
 
     const handleClick = () => {
-        dispatch(toggleNewPost());
+        if (location.includes('/search') || location.includes('/settings')) {
+            navigate('/', {replace: false});
 
-        setTimeout(() => {
-            if (!newPost.open) {
-                const scrollTop = document.getElementsByClassName('createPost')[0].offsetTop;
-                window.scrollTo({
-                    top: scrollTop - 80,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }, 50)
+            setTimeout(() => {
+                dispatch(toggleNewPost());
+
+                setTimeout(() => {
+                    if (!newPost.open) {
+                        const scrollTop = document.getElementsByClassName('createPost')[0].offsetTop;
+                        window.scrollTo({
+                            top: location.slice(0, 3).includes('/u/') ? scrollTop - 116 : scrollTop - 80,
+                            left: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 50)
+            }, 50)
+        } else {
+            dispatch(toggleNewPost());
+
+            setTimeout(() => {
+                if (!newPost.open) {
+                    const scrollTop = document.getElementsByClassName('createPost')[0].offsetTop;
+                    window.scrollTo({
+                        top: location.slice(0, 3).includes('/u/') ? scrollTop - 116 : scrollTop - 80,
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 50)
+        }
+
+        
         
     }
 

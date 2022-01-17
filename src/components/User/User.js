@@ -5,6 +5,7 @@ import { selectLogin } from '../LogIn/loginSlice';
 import { logout } from "../LogIn/loginSlice";
 import loader from '../../assets/loader.svg';
 import { Link } from "react-router-dom";
+import { returnToTop } from "../../utilities/functions";
 
 const User = () => {
 
@@ -19,7 +20,7 @@ const User = () => {
     return (
         <div className='user' data-test='user'>
             <div className={login.isLoading ? 'userWrapper loading' : 'userWrapper'}>
-                {login.authorization ? <Link to={login.authorization.user.subreddit.display_name_prefixed}><p className='userLink'></p><img className='userAvatar' src={login.authorization.user.snoovatar_img ? login.authorization.user.snoovatar_img : login.authorization.user.icon_img} alt='My Avatar' /></Link> : undefined}
+                {login.authorization ? <Link onClick={returnToTop} to={login.authorization.user.subreddit.display_name_prefixed}><p className='userLink'></p><img className='userAvatar' src={login.authorization.user.snoovatar_img ? login.authorization.user.snoovatar_img : login.authorization.user.icon_img} alt='My Avatar' /></Link> : undefined}
                 {login.isLoading ? <img className="loader" src={loader} alt='Loader' /> : undefined}
                 {login.authorization ? <div className='userSignedIn'></div> : undefined}
                 {login.authorization ? <Link to={login.authorization.user.subreddit.display_name_prefixed}><p className='userLink'>{login.authorization.user.subreddit.display_name_prefixed}</p></Link> : undefined}

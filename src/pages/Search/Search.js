@@ -178,8 +178,6 @@ const Search = () => {
         }
     }
 
-    // console.log(stickyContent)
-
     const renderCommunities = () => {
         return (
             <div className='searchRightStickyCommunities'>

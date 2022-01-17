@@ -16,7 +16,6 @@ const Rising = (props) => {
 
     useEffect(() => {
         if (login.initialLoginAttempt) {
-            console.log('running')
             dispatch(fetchContent({
             limit: 25,
             url: props.page + 'rising',

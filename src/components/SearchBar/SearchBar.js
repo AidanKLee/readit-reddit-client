@@ -5,6 +5,7 @@ import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersS
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { selectLogin } from '../LogIn/loginSlice';
+import { clearSearchResults } from './searchBarSlice';
 
 const SearchBar = (props) => {
 
@@ -51,6 +52,8 @@ const SearchBar = (props) => {
             return () => {
                 clearTimeout(searchTimeout);
             }
+        } else if (searchBar.search.length === 0) {
+            dispatch(clearSearchResults());
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchBar.search])

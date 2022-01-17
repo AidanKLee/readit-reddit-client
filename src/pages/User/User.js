@@ -9,6 +9,8 @@ import { Text } from '../../components/ContentTile/ContentTile';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearMainPageState } from '../../containers/Main/mainSlice';
 import { selectLogin } from '../../components/LogIn/loginSlice';
+import CreatePost from '../../components/CreatePost/CreatePost';
+import { selectNewPost } from '../../components/NewPost/newPostSlice';
 
 const User = () => {
 
@@ -17,6 +19,7 @@ const User = () => {
     let selected = useLocation().pathname.split('/').slice(1);
     const [prefix, user, content ] = selected;
     const login = useSelector(selectLogin);
+    const newPost = useSelector(selectNewPost);
 
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
@@ -155,6 +158,7 @@ const User = () => {
             </div>
             <div className='subContent'>
                 <div className='content'>
+                    {newPost.open ? <CreatePost /> : undefined}
                     <Categories page={`/${prefix}/${user}/${content}`}/>
                     <Outlet/>
                 </div>

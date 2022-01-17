@@ -12,8 +12,6 @@ const Votes = (props) => {
 
     const { ups, downs, article } = props;
 
-    // console.log(article)
-
     const getUpVoted = (direction) => {
         let isVoted = false;
         let colour;
@@ -37,8 +35,6 @@ const Votes = (props) => {
     }
 
     const handleClick = async (e) => {
-        console.log(article.data.name)
-        console.log(login.authorization.votes.upVotes.data.children)
         const button = e.target.classList[0]
         let isVoted = false;
         if (button === 'tileSideUp') {

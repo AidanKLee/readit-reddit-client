@@ -46,6 +46,11 @@ export const searchBarSlice = createSlice({
         search: (state, action) => {
             state.search = action.payload;
         },
+        clearSearchResults: (state) => {
+            state.results = {};
+            state.subreddits = {};
+            state.users = {};
+        },
         setInitialSearchBarState: (state) => {
             state.search = ''
             state.results = {}
@@ -96,7 +101,7 @@ export const searchBarSlice = createSlice({
     }
 });
 
-export const { search, setInitialSearchBarState } = searchBarSlice.actions;
+export const { search, setInitialSearchBarState, clearSearchResults } = searchBarSlice.actions;
 
 export const selectSearchBar = state => {
     return state.searchBar;
