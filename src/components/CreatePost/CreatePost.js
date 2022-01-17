@@ -103,6 +103,7 @@ const CreatePost = () => {
 
     const handleSubredditSelect = async (e) => {
         const value = await JSON.parse(e.target.value);
+        console.log(value)
         dispatch(setSelectedSubreddit(value));
         value.data ? dispatch(handleCommunityChange(value.data.display_name_prefixed)) : dispatch(handleCommunityChange(value.subreddit.display_name_prefixed));
         dispatch(clearSearchResults());

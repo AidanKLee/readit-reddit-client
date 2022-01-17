@@ -68,6 +68,12 @@ export const newPostSlice = createSlice({
         setSelectedSubreddit: (state, action) => {
             state.community.selected = action.payload;
             action.payload.data ? state.params.sr = action.payload.data.display_name : state.params.sr = action.payload.subreddit.display_name;
+            if (action.payload.data && action.payload.data.original_content_tag_enabled === false) {
+                state.params.original_content = false;
+            }
+            if (action.payload.data && action.payload.data.spoilers_enabled === false) {
+                state.params.spoiler = false;
+            }
         },
         clearSelectedSubreddit: (state) => {
             state.community.selected = {};
