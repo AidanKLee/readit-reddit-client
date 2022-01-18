@@ -175,11 +175,13 @@
     justify-content: center;
     align-items: center;
     padding: 8px;
+    background-color: var(--bg3);
+    cursor: pointer;
 }
 
-.tileActionsAward:hover {
-    background-color: var(--over3);
-}
+/* .tileActionsAward:hover {
+    background-color: var(--bg1);
+} */
 
 .tileActionsAward svg {
     margin: 0 8px;

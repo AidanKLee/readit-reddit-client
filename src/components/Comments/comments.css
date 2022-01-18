@@ -70,13 +70,110 @@
 .commentsItem .tileSideButton svg {
     height: 20px;
     width: 20px;
+    fill: var(--over1);
+}
+
+.commentsItem .tileSideButton svg:hover {
+    fill: var(--fg1);
 }
 
 .commentsItemVotes {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.commentsItemVotes .tileAwards {
-    margin: 0 8px;
-    padding-top: 8px;
+.commentsItemVotes svg {
+    fill: var(--over3);
+    height: 28px;
+    width: 28px;
+    margin-top: 8px;
+}
+
+.commentsItemVotes svg:hover {
+    fill: var(--over1);
+}
+
+.commentsItemVotes svg:active {
+    fill: var(--prim1);
+}
+
+.commentsItem .tileAwards {
+    margin: 0;
+    padding: 0;
+    margin-top: 8px;
+}
+
+.commentsItem .commentSubmit {
+    margin: 8px 0 0 0;
+    width: 100%;
+}
+
+.commentSubmit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin: 8px;
+    width: calc(100% - 16px);
+    position: relative;
+}
+
+.commentSubmitTextWrapper {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 52px);
+    min-height: 44px;
+}
+
+.commentSubmit textarea {
+    background-color: var(--bg2);
+    color: var(--fg1);
+    padding: 8px 16px;
+    font-size: .9rem;
+    overflow: hidden;
+    resize: none;
+    flex-grow: 1;
+    border: 1px solid var(--over3);
+    border-radius: 24px;
+    height: 37px;
+}
+
+.commentSubmit textarea:focus {
+    outline: 0 none transparent;
+}
+
+.commentSubmitButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.commentSubmit svg {
+    margin: 4px;
+    fill: var(--fg1);
+    background-color: var(--over3);
+    border: 1px solid var(--over3);
+    border-radius: 50%;
+    padding: 6px;
+    height: 36px;
+    width: 36px;
+    transition: .1s;
+}
+
+.commentSubmit svg:hover {
+    background-color: var(--over2);
+}
+
+.commentSubmit svg:active {
+    /* fill: var(--prim1); */
+    background-color: var(--prim1);
+}
+
+.commentSubmitHelp p {
+    font-weight: bold;
+    font-size: .5rem;
+    margin-left: 12px;
+    margin-top: 8px;
 }

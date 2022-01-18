@@ -346,6 +346,19 @@ export class redditAPI {
         return jsonData
     }
 
+    submitNewComment = async (params) => {
+        const { text, thing_id } = params;
+        const data = await fetch(`https://oauth.reddit.com/api/comment?api_type=json&return_rtjson=true&text=${text}&thing_id=${thing_id}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        const jsonData = await data.json();
+        return jsonData;
+    }
+
 
     getIconImg = (community, style) => {
         if (community && community.data) {

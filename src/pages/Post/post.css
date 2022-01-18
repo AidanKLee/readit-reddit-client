@@ -113,6 +113,10 @@
     fill: var(--prim1);
 }
 
+.post .commentSubmit {
+    margin-top: 0px;
+}
+
 .comments .markdown ol, .comments .markdown ul {
     margin-left: 12px;
 }
