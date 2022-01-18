@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { showNewComment } from '../../containers/Main/mainSlice';
 import reddit from '../../utilities/redditAPI';
 
 const CommentSubmit = (props) => {
+
+    const dispatch = useDispatch();
 
     const { parentName, id, isReply } = props;
 
@@ -16,8 +20,9 @@ const CommentSubmit = (props) => {
     const submitComment = async () => {
         if (comment.length > 0) {
             const newComment = await reddit.submitNewComment({text: comment, thing_id: parentName});
-            console.log(newComment);
             setComment('');
+            dispatch(showNewComment(newComment));
+            console.log(newComment)
         }
     }
 

@@ -60,6 +60,7 @@
     flex-direction: row;
     background-color: transparent;
     padding-bottom: 0;
+    padding-top: 0;
 }
 
 .commentsItem .tileSideButton {
@@ -83,19 +84,34 @@
     justify-content: space-between;
 }
 
-.commentsItemVotes svg {
-    fill: var(--over3);
-    height: 28px;
-    width: 28px;
-    margin-top: 8px;
+.commentsItemVotes label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
-.commentsItemVotes svg:hover {
+.commentsItemVotes label:hover svg {
     fill: var(--over1);
 }
 
-.commentsItemVotes svg:active {
+.commentsItemVotes label:active svg {
     fill: var(--prim1);
+}
+
+.commentsItemVotes label:active p {
+    color: var(--prim1);
+}
+
+.commentsItemVotes label p {
+    margin-bottom: 0 !important;
+    font-size: .6rem;
+}
+
+.commentsItemVotes svg {
+    fill: var(--over2);
+    height: 20px;
+    width: 20px;
 }
 
 .commentsItem .tileAwards {
@@ -150,7 +166,7 @@
     flex-grow: 1;
 }
 
-.commentSubmit svg {
+.commentSubmitButtonWrapper svg {
     margin: 4px;
     fill: var(--fg1);
     background-color: var(--over3);
@@ -162,13 +178,13 @@
     transition: .1s;
 }
 
-.commentSubmit svg:hover {
+.commentSubmitButtonWrapper svg:hover {
     background-color: var(--over2);
 }
 
-.commentSubmit svg:active {
-    /* fill: var(--prim1); */
+.commentSubmitButtonWrapper svg:active {
     background-color: var(--prim1);
+    fill: var(--bg1);
 }
 
 .commentSubmitHelp p {
@@ -176,4 +192,5 @@
     font-size: .5rem;
     margin-left: 12px;
     margin-top: 8px;
+    color: var(--fg1);
 }

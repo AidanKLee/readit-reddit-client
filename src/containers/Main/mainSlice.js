@@ -69,6 +69,7 @@ export const mainSlice = createSlice({
             subreddits: [],
             article: {},
             url: '',
+            newComment: {}
         },
         isLoading: false,
         hasError: false,
@@ -97,6 +98,9 @@ export const mainSlice = createSlice({
             state.content = {...state.content, content};
             state.comments = {...state.comments, comment};
             state.subreddits = {...state.subreddits, subreddit}
+        },
+        showNewComment: (state, action) => {
+            state.page.newComment = action.payload
         }
     },
     extraReducers: {
@@ -185,7 +189,7 @@ export const mainSlice = createSlice({
 
 export const { getInitialState: mainInitialState }  = mainSlice;
 
-export const { setArticle, clearState: clearMainPageState, showNewPost } = mainSlice.actions;
+export const { setArticle, clearState: clearMainPageState, showNewPost, showNewComment } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 

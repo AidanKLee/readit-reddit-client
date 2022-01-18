@@ -7,6 +7,8 @@ const CommentSection = (props) => {
 
     let { comments, article, showing } = props;
 
+    console.log(comments)
+
     if (!comments || comments.length === 0) {
         comments = [article];
     }
