@@ -7,11 +7,34 @@
     border: 1px solid var(--over3);
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
 }
 
 .tile:hover {
     border: 1px solid var(--over2);
 }
+
+/* .tileDelete .deleteButton {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 32px;
+    height: 32px;
+    margin: 4px 0;
+} */
+
+/* .tileDelete .deleteButton p {
+    font-size: .6rem;
+}
+
+.tileDelete .deleteButton svg {
+    fill: var(--fg1);
+    background-color: var(--bg2);
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    padding: 4px;
+} */
 
 .tileSide {
     display: flex;
@@ -166,18 +189,24 @@
 
 .tileActions {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    background-color: var(--bg3);
+}
+
+.tileActionsLeft {
+    display: flex;
 }
 
 .tileActionsAward {
     display: flex;
-    flex: 1 1;
+    /* flex: 1 1; */
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background-color: var(--bg3);
     cursor: pointer;
 }
+
+
 
 /* .tileActionsAward:hover {
     background-color: var(--bg1);
@@ -201,4 +230,10 @@
 
 .tileActionsAward:hover p {
     color: var(--prim1);;
+}
+
+@media only screen and (max-width: 465px) {
+    .tileActionsAward p {
+        display: none;
+    }
 }

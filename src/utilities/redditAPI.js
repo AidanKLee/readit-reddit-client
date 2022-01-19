@@ -167,7 +167,7 @@ export class redditAPI {
     }
 
     fetchCommunities = async () => {
-        const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber', {
+        const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=100', {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
             }
@@ -357,6 +357,32 @@ export class redditAPI {
         })
         const jsonData = await data.json();
         return jsonData;
+    }
+
+    delete = async (fullname) => {
+        const data = await fetch(`https://oauth.reddit.com/api/del?id=${fullname}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        const jsonData = await data.json();
+        console.log(jsonData);
+    }
+
+    setSubscriptionStatus = async (params) => {
+        const {action, sr} = params
+        const data = await fetch(`https://oauth.reddit.com/api/subscribe?action=${action}&sr=${sr}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log(data)
+        const jsonData = await data.json();
+        console.log(jsonData);
     }
 
 

@@ -59,8 +59,6 @@ function App() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time])
 
-  // console.log(login.authorization.settings)
-
   // theme setter
   useEffect(() => {
     if ((darkMode.darkMode && darkMode.dayMode && darkMode.dayModeEnabled) || (darkMode.darkMode && !darkMode.dayModeEnabled)) {

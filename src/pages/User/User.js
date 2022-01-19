@@ -11,13 +11,14 @@ import { clearMainPageState } from '../../containers/Main/mainSlice';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import CreatePost from '../../components/CreatePost/CreatePost';
 import { selectNewPost } from '../../components/NewPost/newPostSlice';
+import Subscribe from '../../components/Subscribe/Subscribe';
 
 const User = () => {
 
     const dispatch = useDispatch();
 
     let selected = useLocation().pathname.split('/').slice(1);
-    const [prefix, user, content ] = selected;
+    const [ prefix, user, content ] = selected;
     const login = useSelector(selectLogin);
     const newPost = useSelector(selectNewPost);
 
@@ -113,7 +114,7 @@ const User = () => {
                                                 <p className='subHeading'>{sub.subscribers} members</p>
                                             </div>
                                         </div>
-                                        <button type='button'>Join</button>
+                                        {login.authorization ? <Subscribe name={sub ? sub.name : undefined} subreddit={sub} text='Join'/> : undefined}
                                     </div>                                    
                                 )
                             })
@@ -129,6 +130,7 @@ const User = () => {
         <div className='user'>
             <div className='subBanner'>
                 {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
+                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
@@ -165,7 +167,10 @@ const User = () => {
                 <div className='subContentRight'>
                     <div className='userContentRightSticky'>
                         <div className='subContentRightHeader'>
-                            {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
+                            <div className='subContentRightHeaderName'>
+                                {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
+                                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                            </div>
                             {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
                             {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}
                             <div className='subContentRightHeaderStats'>

@@ -22,7 +22,7 @@ const Communities = () => {
     }
 
     const renderCommunities = () => {
-        if (login.authorization) {
+        if (login.authorization && login.authorization.communities && login.authorization.communities.data && login.authorization.communities.data.children) {
             let communitiesCopy = login.authorization.communities.data.children.slice();
 
             communitiesCopy = communitiesCopy.filter(community => community.data.display_name.toLowerCase().includes(communities.search.toLowerCase()))

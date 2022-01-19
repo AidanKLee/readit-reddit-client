@@ -21,7 +21,6 @@
     font-size: .7rem !important;
     font-weight: bold !important;
     margin: 0 8px 8px !important;
-    cursor: pointer;
     color: var(--over2) !important;
 }
 
@@ -84,11 +83,28 @@
     justify-content: space-between;
 }
 
+.commentsItemVotesRight {
+    display: flex;
+    align-items: center;
+}
+
+.commentsItemVotesRight p {
+    margin-bottom: 0 !important;
+    font-size: .6rem;
+}
+
+.commentsItemVotesRight svg {
+    fill: var(--over2);
+    height: 20px;
+    width: 20px;
+}
+
 .commentsItemVotes label {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
+    margin-left: 8px;
 }
 
 .commentsItemVotes label:hover svg {
@@ -101,17 +117,6 @@
 
 .commentsItemVotes label:active p {
     color: var(--prim1);
-}
-
-.commentsItemVotes label p {
-    margin-bottom: 0 !important;
-    font-size: .6rem;
-}
-
-.commentsItemVotes svg {
-    fill: var(--over2);
-    height: 20px;
-    width: 20px;
 }
 
 .commentsItem .tileAwards {
@@ -193,4 +198,9 @@
     margin-left: 12px;
     margin-top: 8px;
     color: var(--fg1);
+}
+
+.commentsItem .deleteButton {
+    position: static;
+    margin-left: 8px;
 }

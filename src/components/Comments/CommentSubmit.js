@@ -22,7 +22,6 @@ const CommentSubmit = (props) => {
             const newComment = await reddit.submitNewComment({text: comment, thing_id: parentName});
             setComment('');
             dispatch(showNewComment(newComment));
-            console.log(newComment)
         }
     }
 

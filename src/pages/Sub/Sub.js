@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import CreatePost from '../../components/CreatePost/CreatePost';
 import { selectNewPost } from '../../components/NewPost/newPostSlice';
+import Subscribe from '../../components/Subscribe/Subscribe';
 
 const Sub = (props) => {
 
@@ -136,7 +137,7 @@ const Sub = (props) => {
                                                 <p className='subHeading'>{sub.data.subscribers} members</p>
                                             </div>
                                         </div>
-                                        <button type='button'>Join</button>
+                                        {login.authorization ? <Subscribe name={sub.data ? sub.data.name : undefined} subreddit={sub} text='Join'/> : undefined}
                                     </div>                                    
                                 )
                             })
@@ -151,7 +152,7 @@ const Sub = (props) => {
         <div className='sub'>
             <div className='subBanner' style={backgroundColor}>
                 {getBannerImg()}
-                <button type='button'>Join</button>
+                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
@@ -178,7 +179,10 @@ const Sub = (props) => {
                 <div className='subContentRight'>
                     <div className='subContentRightSticky'>
                         <div className='subContentRightHeader' style={backgroundColor}>
-                            {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
+                            <div className='subContentRightHeaderName'>
+                                {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
+                                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
+                            </div>
                             {subreddit.data ? <p className='subHeading' style={getTextColor()}>{subreddit.data.url}</p> : undefined}
 
                             <div className='subContentRightHeaderStats'>

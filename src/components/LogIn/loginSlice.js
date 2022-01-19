@@ -49,6 +49,9 @@ export const loginSlice = createSlice({
         },
         setSettings: (state, action) => {
             state.authorization.settings = action.payload;
+        },
+        setSubscribed: (state, action) => {
+            state.authorization.communities.data.children = action.payload
         }
     },
     extraReducers: {
@@ -85,7 +88,7 @@ export const loginSlice = createSlice({
     }
 });
 
-export const { logout, setSettings } = loginSlice.actions;
+export const { logout, setSettings, setSubscribed } = loginSlice.actions;
 
 export const selectLogin = state => {
     return state.login;

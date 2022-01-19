@@ -11,16 +11,19 @@ import { selectLogin } from '../../components/LogIn/loginSlice';
 import Votes from '../../components/Votes/Votes';
 import { setArticle } from '../../containers/Main/mainSlice';
 import CommentSubmit from '../../components/Comments/CommentSubmit';
+import DeleteButton from '../../components/DeleteButton/DeleteButton';
 
 const Post = (props) => {
 
     const dispatch = useDispatch();
 
     const login = useSelector(selectLogin);
+    const location = window.location.href;
 
     const { page } = props;
 
     const [ post, setPost ] = useState({});
+    const [ alert, setAlert] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,6 +38,21 @@ const Post = (props) => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[page])
+
+    useEffect(() => {
+        if (alert) {
+            const timeout = setTimeout(() => {
+                setAlert(false)
+            },5000)
+
+            return () => clearTimeout(timeout);
+        }
+    })
+
+    const handleShare = () => {
+        navigator.clipboard.writeText(location)
+        setAlert(true);
+    }
 
     return (
         <div className='post'>
@@ -71,10 +89,12 @@ const Post = (props) => {
                         </div> 
                         : undefined
                     }
-                    <div className='postAction'>
+                    <div onClick={handleShare} className='postAction share'>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92zM18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 7.02c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
                         <p>Share</p>
+                        {alert ? <div className='shareAlert'>Copied To Clipboard</div> : undefined}
                     </div>
+                    {login.authorization && post.data && post.data.author_fullname && login.authorization.user && 't2_' + login.authorization.user.id === post.data.author_fullname ? <div className="postAction"><DeleteButton name={post.data.name} type={'post'} text={true}/></div> : undefined}
                 </div>
                 <div className='postVotes'>
                     {post && post.data ? <Votes ups={post.data.ups} downs={post.data.downs} article={post}/> : undefined}
@@ -82,7 +102,14 @@ const Post = (props) => {
                 </div>
             </div>
             {post && post.data && post.data.all_awardings.length > 0 ? <Awards article={post}/> : undefined}
-            {post && post.data && post.comments ? <div><h3>Comments</h3>{login.authorization ? <CommentSubmit id='postComment' parentName={post.data.name} /> : undefined}<CommentSection showing='all' article={post} comments={post.comments}/></div> : undefined}
+            {
+                post && post.data ?
+                <div>
+                    <h3>{post.comments.length > 0 || login.authorization ? 'Comments' : ''}</h3>
+                    {login.authorization ? <CommentSubmit id='postComment' parentName={post.data.name} /> : undefined}
+                    {post.comments && post.comments.length > 0 ? <CommentSection showing='all' article={post} comments={post.comments}/> : undefined}
+                </div> : undefined
+            }
         </div>
     )
 }

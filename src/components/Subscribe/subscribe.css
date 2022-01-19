@@ -1,0 +1,29 @@
+.subscribe {
+    background-color: var(--prim1);
+    border: 2px solid var(--bg1);
+    display: flex;
+    justify-content: center;
+    color: var(--bg1);
+    padding: 4px;
+    margin-right: 4px;
+    min-width: 80px;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 16px;
+    box-shadow: 
+        inset 2px 2px 2px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 2px rgba(0, 0, 0, 0.0);
+        z-index: 31;
+}
+
+.subscribe:hover {
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subscribe:active {
+    box-shadow: 
+        inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+}
