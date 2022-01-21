@@ -44,6 +44,7 @@ header .red {
 header .loginButtonImg {
     height: 40px;
     width: 40px;
+    border-radius: 50%;
 }
 
 header .loginButtonText {
