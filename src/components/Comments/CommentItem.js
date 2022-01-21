@@ -14,7 +14,7 @@ const CommentItem = (props) => {
 
     const login = useSelector(selectLogin)
 
-    const { comment, children, style } = props;
+    const { comment, children, style, rootCommentList, prev, stateSetter, dispatcher, x } = props;
 
     const [ newComment, setNewComment ] = useState(false);
 
@@ -44,7 +44,7 @@ const CommentItem = (props) => {
                 </div>
                 
             </div>
-            {newComment ? <CommentSubmit id={'commentComment' + comment.data.id} isReply={true} parentName={comment.data.name}/> : undefined}
+            {newComment ? <CommentSubmit id={'commentComment' + comment.data.id} isReply={true} parentName={comment.data.name} rootCommentList={rootCommentList} prev={prev} stateSetter={stateSetter} dispatcher={dispatcher} x={x}/> : undefined}
             {comment.data && comment.data.all_awardings.length > 0 ? <Awards article={comment}/> : undefined}
             {children}
         </li>

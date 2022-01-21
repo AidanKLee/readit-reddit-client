@@ -30,8 +30,6 @@ const Subscribe = (props) => {
         
         subscribed ? action = 'unsub' : action = 'sub';
 
-        console.log(subscribed, action)
-
         if (subscribed) {
             const filtered = login.authorization.communities.data.children.filter(community => {
                 return name !== community.data.name
@@ -45,7 +43,7 @@ const Subscribe = (props) => {
         }
 
         const subscribe = await reddit.setSubscriptionStatus({action: action, sr: name});
-        console.log(subscribe);
+        console.log(subscribe)
     }
 
     const renderText = () => {

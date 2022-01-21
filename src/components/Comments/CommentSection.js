@@ -5,7 +5,7 @@ import CommentItem from './CommentItem';
 
 const CommentSection = (props) => {
 
-    let { comments, article, showing } = props;
+    let { comments, article, showing, rootCommentList, prev, stateSetter, dispatcher, x } = props;
 
     if (!comments || comments.length === 0) {
         comments = [article];
@@ -25,14 +25,14 @@ const CommentSection = (props) => {
                 replies = replies.slice(1)
             }
             return (
-                <CommentItem style={{padding: '8px 8px 0'}} key={comment.data.id} comment={comment}>
+                <CommentItem rootCommentList={rootCommentList} prev={prev} stateSetter={stateSetter} dispatcher={dispatcher} x={x} style={{padding: '8px 8px 0'}} key={comment.data.id} comment={comment}>
                     <CommentList isReplies={true} comments={replies} showing={showing === 'all' ? replies.length : 0} minShowing={0}>
                         {replies.map(reply => renderComments(reply))}
                     </CommentList>
                 </CommentItem>
             )
         } else {
-            return <CommentItem key={comment.data.id} comment={comment}/>
+            return <CommentItem rootCommentList={rootCommentList} prev={prev} stateSetter={stateSetter} dispatcher={dispatcher} key={comment.data.id} x={x} comment={comment}/>
         }
     }
 

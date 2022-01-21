@@ -25,8 +25,6 @@ const User = () => {
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
 
-    console.log(subreddit)
-
     useEffect(() => {
         const fetchData = async () => {
             // variable endpoints - about, overview, submitted, comments, https://www.reddit.com/user/[user]/moderated_subreddits.json
@@ -131,7 +129,6 @@ const User = () => {
     return (
         <div className='user'>
             <div className='subBanner'>
-            {console.log(subreddit)}
                 {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
                 {login.authorization && subreddit && subreddit.data ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
             </div>

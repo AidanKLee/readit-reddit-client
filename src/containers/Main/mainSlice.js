@@ -4,7 +4,6 @@ import reddit from '../../utilities/redditAPI';
 export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
-        console.log(params)
         const { limit, url = 'best', after, before, loggedIn } = params;
         let data;
         if (loggedIn && (url === 'best'|| url === 'hot' || url === 'new' || url === 'top' || url === 'rising')) {
@@ -70,7 +69,6 @@ export const mainSlice = createSlice({
             subreddits: [],
             article: {},
             url: '',
-            newComment: {}
         },
         isLoading: false,
         hasError: false,
@@ -100,8 +98,9 @@ export const mainSlice = createSlice({
             state.comments = {...state.comments, comment};
             state.subreddits = {...state.subreddits, subreddit}
         },
-        showNewComment: (state, action) => {
-            state.page.newComment = action.payload
+        addNewComment: (state, action) => {
+            const { commentList, i } = action.payload;
+            state.page.comments[i] = commentList
         }
     },
     extraReducers: {
@@ -190,7 +189,7 @@ export const mainSlice = createSlice({
 
 export const { getInitialState: mainInitialState }  = mainSlice;
 
-export const { setArticle, clearState: clearMainPageState, showNewPost, showNewComment } = mainSlice.actions;
+export const { setArticle, clearState: clearMainPageState, showNewPost, addNewComment } = mainSlice.actions;
 
 export const selectMain = state => state.main;
 

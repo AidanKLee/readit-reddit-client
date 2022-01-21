@@ -104,3 +104,77 @@ export const over18Style = (article, login) => {
     
     return {}
 }
+
+export const addComment = (parentId, newComment, commentList, dispatcher, stateSetter, prev, x) => {
+    let parentIsComment = parentId.slice(0, 2).includes('t1') ? true : false;
+    let newCommentList = [...commentList];
+    if (parentIsComment) {
+        let match;
+        const addCommentToList = (list) => {
+            let newList;
+            list.forEach((parent, i) => {
+                if (!match) {
+                    if (parent.data.name === parentId) {
+                        let newParent = {...parent}
+                        match = true
+                        if (newParent.data.replies && newParent.data.replies.data.children.length > 0) {
+                            newParent = {
+                                ...newParent, data: {
+                                    ...newParent.data, replies: {
+                                        ...newParent.data.replies, data: {
+                                            ...newParent.data.replies.data, children: [
+                                                ...newParent.data.replies.data.children,
+                                                {data: newComment, kind: 't1'},
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            newParent = {
+                                ...newParent, data: {
+                                    ...newParent.data,
+                                    replies: {
+                                        data: {children: [{data: newComment, kind: 't1'}]}
+                                    }
+                                }
+                            }
+                        }
+                        newList = [...list];
+                        newList[i] = newParent;
+                    } else if (!match && parent.data.replies && parent.data.replies.data.children.length > 0) {
+                        let newParent = {...parent};
+                        let newChildren = addCommentToList(newParent.data.replies.data.children);
+                        if (match) {
+                            newParent = {
+                                ...newParent, data: {
+                                    ...newParent.data, replies: {
+                                        ...newParent.data.replies,
+                                        data: {
+                                            ...newParent.data.replies.data, children: newChildren
+                                        }
+                                    }
+                                }
+                            }
+                            newList = [...list]
+                            newList[i] = newParent;
+                        }
+                    }
+                }
+            })
+            return newList;
+        }
+        newCommentList = addCommentToList(newCommentList);
+    }
+    if (!parentIsComment) {
+        newCommentList = [
+            ...newCommentList,
+            {data: newComment, kind: 't1'}
+        ]
+    }
+    if (dispatcher) {
+        dispatcher(stateSetter({commentList: newCommentList, i: x}));
+    } else {
+        stateSetter({...prev, comments: newCommentList});
+    }
+}

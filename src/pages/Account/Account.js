@@ -16,8 +16,6 @@ const Account = () => {
     const [ communitiesOpen, setCommunitiesOpen ] = useState(true);
     const [ firstLoad, setFirstLoad ] = useState(false);
 
-    // console.log(login.authorization.user)
-
     useEffect(() => {
         if (login.initialLoginAttempt && !login.isLoading) {
             const fetchAccount = async () => {
@@ -77,7 +75,6 @@ const Account = () => {
             })
         } else if (toggle) {
             value = e.target.checked
-            console.log(value)
             setAccount({
                 ...account,
                 [name]: value

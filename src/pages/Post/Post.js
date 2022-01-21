@@ -105,9 +105,9 @@ const Post = (props) => {
             {
                 post && post.data ?
                 <div>
-                    <h3>{post.comments.length > 0 || login.authorization ? 'Comments' : ''}</h3>
-                    {login.authorization ? <CommentSubmit id='postComment' parentName={post.data.name} /> : undefined}
-                    {post.comments && post.comments.length > 0 ? <CommentSection showing='all' article={post} comments={post.comments}/> : undefined}
+                    <h3>{post && post.comments && (post.comments.length > 0 || login.authorization) ? 'Comments' : ''}</h3>
+                    {login.authorization ? <CommentSubmit rootCommentList={post.comments} prev={post} stateSetter={setPost} id='postComment' parentName={post.data.name} /> : undefined}
+                    {post.comments && post.comments.length > 0 ? <CommentSection rootCommentList={post.comments} prev={post} stateSetter={setPost} showing='all' article={post} comments={post.comments}/> : undefined}
                 </div> : undefined
             }
         </div>

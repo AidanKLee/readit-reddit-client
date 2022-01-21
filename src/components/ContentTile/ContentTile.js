@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import './contentTIle.css';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTimePosted, returnToTop, isImage, over18Style } from "../../utilities/functions";
-import { selectMain } from "../../containers/Main/mainSlice";
+import { addNewComment, selectMain } from "../../containers/Main/mainSlice";
 import CommentSection from "../Comments/CommentSection";
 import { selectLogin } from '../LogIn/loginSlice';
 import { Link } from "react-router-dom";
@@ -15,12 +15,12 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 
 const ContentTile = (props) => {
 
+    const dispatch = useDispatch();
+
     const article = props.article;
     const i = props.i;
     const main = useSelector(selectMain);
     const login = useSelector(selectLogin);
-
-    // console.log(login)
 
     const [ newComment, setNewComment ] = useState(false);
 
@@ -94,8 +94,8 @@ const ContentTile = (props) => {
                             {login.authorization && login.authorization.user && article.data && article.data.author_fullname && 't2_' + login.authorization.user.id === article.data.author_fullname ? <div className="tileActionsAward"><DeleteButton name={article.data.name} type={'post'} text={false}/></div> : undefined}
                         </div> : undefined
                 }
-                {newComment ? <CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name}/> : undefined}
-                {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection comments={main.page.comments[i]} article={article}/> : undefined}
+                {newComment ? <CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name} rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i}/> : undefined}
+                {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i} article={article}/> : undefined}
             </div>
         </div>
     )

@@ -173,7 +173,6 @@ export class redditAPI {
             }
         });
         const jsonData = await data.json();
-        // console.log(jsonData)
         return jsonData;
     }
 
@@ -193,7 +192,6 @@ export class redditAPI {
             completed: true
         });
         const jsonData = await data.json();
-        // console.log(jsonData)
         return jsonData;
     }
 
@@ -411,9 +409,8 @@ export class redditAPI {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(data)
         const jsonData = await data.json();
-        console.log(jsonData);
+        console.log(jsonData)
     }
 
 
