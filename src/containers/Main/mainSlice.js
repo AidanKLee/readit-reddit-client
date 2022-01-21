@@ -4,6 +4,7 @@ import reddit from '../../utilities/redditAPI';
 export const fetchContent = createAsyncThunk(
     'main/fetchContent',
     async (params) => {
+        console.log(params)
         const { limit, url = 'best', after, before, loggedIn } = params;
         let data;
         if (loggedIn && (url === 'best'|| url === 'hot' || url === 'new' || url === 'top' || url === 'rising')) {

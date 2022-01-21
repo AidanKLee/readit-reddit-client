@@ -1,0 +1,264 @@
+accept_followers: true
+all_original_content: false
+allow_chat_post_creation: false
+allow_discovery: true
+allow_galleries: true
+allow_images: true
+allow_polls: true
+allow_post_crossposts: true
+allow_prediction_contributors: false
+allow_predictions: false
+allow_predictions_tournament: false
+allow_videos: true
+collapse_deleted_comments: true
+comment_score_hide_mins: 0
+content_options: "any"
+crowd_control_chat_level: 1
+crowd_control_filter: false
+crowd_control_level: 0
+crowd_control_mode: false
+crowd_control_post_level: 0
+default_set: true
+description: ""
+disable_contributor_requests: false
+domain: null
+exclude_banned_modqueue: false
+free_form_reports: true
+header_hover_text: ""
+hide_ads: false
+key_color: ""
+language: "en"
+new_pinned_post_pns_enabled: true
+original_content_tag_enabled: false
+over_18: false
+prediction_leaderboard_entry_type: 1
+public_description: ""
+public_traffic: false
+restrict_commenting: false
+restrict_posting: true
+should_archive_posts: false
+show_media: true
+show_media_preview: true
+spam_comments: "high"
+spam_links: "low"
+spam_selfposts: "low"
+spoilers_enabled: true
+submit_link_label: ""
+submit_text: ""
+submit_text_label: ""
+subreddit_id: "t5_5ib76n"
+subreddit_type: "user"
+suggested_comment_sort: "qa"
+title: ""
+toxicity_threshold_chat_level: 1
+user_flair_pns_enabled: true
+welcome_message_enabled: false
+welcome_message_text: null
+wiki_edit_age: 0
+wiki_edit_karma: 100
+wikimode: "disabled"
+
+
+
+
+
+
+
+
+
+
+accept_followers	
+boolean value
+
+admin_override_spam_comments	
+boolean value
+
+admin_override_spam_links	
+boolean value
+
+admin_override_spam_selfposts	
+boolean value
+
+all_original_content	
+boolean value
+
+allow_chat_post_creation	
+boolean value
+
+allow_discovery	
+boolean value
+
+allow_galleries	
+boolean value
+
+allow_images	
+boolean value
+
+allow_polls	
+boolean value
+
+allow_post_crossposts	
+boolean value
+
+allow_prediction_contributors	
+boolean value
+
+allow_predictions	
+boolean value
+
+allow_predictions_tournament	
+boolean value
+
+allow_top	
+boolean value
+
+allow_videos	
+boolean value
+
+api_type	
+the string json
+
+collapse_deleted_comments	
+boolean value
+
+comment_score_hide_mins	
+an integer between 0 and 1440 (default: 0)
+
+crowd_control_chat_level	
+an integer between 0 and 3
+
+crowd_control_filter	
+boolean value
+
+crowd_control_level	
+an integer between 0 and 3
+
+crowd_control_mode	
+boolean value
+
+crowd_control_post_level	
+an integer between 0 and 3
+
+description	
+raw markdown text
+
+disable_contributor_requests	
+boolean value
+
+exclude_banned_modqueue	
+boolean value
+
+free_form_reports	
+boolean value
+
+g-recaptcha-response	
+hateful_content_threshold_abuse	
+an integer between 0 and 3
+
+hateful_content_threshold_identity	
+an integer between 0 and 3
+
+header-title	
+a string no longer than 500 characters
+
+hide_ads	
+boolean value
+
+key_color	
+a 6-digit rgb hex color, e.g. #AABBCC
+
+lang	
+a valid IETF language tag (underscore separated)
+
+link_type	
+one of (any, link, self)
+
+name	
+subreddit name
+
+new_pinned_post_pns_enabled	
+boolean value
+
+original_content_tag_enabled	
+boolean value
+
+over_18	
+boolean value
+
+prediction_leaderboard_entry_type	
+an integer between 0 and 2
+
+public_description	
+raw markdown text
+
+restrict_commenting	
+boolean value
+
+restrict_posting	
+boolean value
+
+should_archive_posts	
+boolean value
+
+show_media	
+boolean value
+
+show_media_preview	
+boolean value
+
+spam_comments	
+one of (low, high, all)
+
+spam_links	
+one of (low, high, all)
+
+spam_selfposts	
+one of (low, high, all)
+
+spoilers_enabled	
+boolean value
+
+sr	
+fullname of a thing
+
+submit_link_label	
+a string no longer than 60 characters
+
+submit_text	
+raw markdown text
+
+submit_text_label	
+a string no longer than 60 characters
+
+suggested_comment_sort	
+one of (confidence, top, new, controversial, old, random, qa, live)
+
+title	
+a string no longer than 100 characters
+
+toxicity_threshold_chat_level	
+an integer between 0 and 1
+
+type	
+one of (gold_restricted, archived, restricted, private, employees_only, gold_only, public, user)
+
+uh / X-Modhash header	
+a modhash
+
+user_flair_pns_enabled	
+boolean value
+
+welcome_message_enabled	
+boolean value
+
+welcome_message_text	
+raw markdown text
+
+wiki_edit_age	
+an integer between 0 and 36600 (default: 0)
+
+wiki_edit_karma	
+an integer between 0 and 1000000000 (default: 0)
+
+wikimode	
+one of (disabled, modonly, anyone)

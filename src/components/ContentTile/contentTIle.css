@@ -117,6 +117,10 @@
     white-space: normal;
 }
 
+.tileMainTitle p {
+    display: inline;
+}
+
 .tileObjectContainer {
     width: 100%;
     overflow: hidden;

@@ -16,6 +16,7 @@ export const handleLogin = createAsyncThunk(
             const user = await reddit.fetchUser();
             
             const communities = await reddit.fetchCommunities();
+
             return {
                 accessToken: accessToken,
                 user: user,
@@ -64,7 +65,7 @@ export const loginSlice = createSlice({
             state.hasError = false;
             state.authorization = action.payload;
             if (action.payload !== undefined) {
-                localStorage.setItem('refreshToken', btoa(action.payload.accessToken.refreshToken))
+                localStorage.setItem('refreshToken', btoa(action.payload.accessToken.refreshToken));
             }
             state.initialLoginAttempt = true;
         },
@@ -88,7 +89,7 @@ export const loginSlice = createSlice({
     }
 });
 
-export const { logout, setSettings, setSubscribed } = loginSlice.actions;
+export const { logout, setSettings, setSubscribed, setAuthorization, setInitialLoginAttempt } = loginSlice.actions;
 
 export const selectLogin = state => {
     return state.login;

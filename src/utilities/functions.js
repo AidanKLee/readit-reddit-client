@@ -7,12 +7,12 @@ export const getTimePosted = (t) => {
 
     const secondsAgo = Math.floor(nowInSeconds - dateInSeconds);
     const minutesAgo = Math.floor(secondsAgo / 60);
-    const hoursAgo = Math.floor(minutesAgo / 60);
-    const daysAgo = Math.floor(hoursAgo / 24);
-    const weeksAgo = Math.floor(daysAgo / 7);
-    const monthsAgo = Math.floor(daysAgo / (365 / 12));
-    const yearsAgo = Math.floor(daysAgo / 365);
-    const decadesAgo = Math.floor(yearsAgo / 10);
+    const hoursAgo = Math.floor(secondsAgo / 60 / 60);
+    const daysAgo = Math.floor(secondsAgo / 60 / 60 / 24);
+    const weeksAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7);
+    const monthsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12));
+    const yearsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12) / 365);
+    const decadesAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12) / 365 / 10);
 
     if (secondsAgo < 60) {
         return secondsAgo === 1 ? secondsAgo.toString() + ' second ago' : secondsAgo.toString() + ' seconds ago';
@@ -32,12 +32,14 @@ export const getTimePosted = (t) => {
     return decadesAgo === 1 ? yearsAgo.toString() / 10 + ' decade ago' :  yearsAgo.toString() / 10 + ' decades ago';
 }
 
-export const returnToTop = () => {
-    window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    });
+export const returnToTop = (e) => {
+    if (!e || !e.ctrlKey) {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
 }
 
 export const getHeight = (setter) => {

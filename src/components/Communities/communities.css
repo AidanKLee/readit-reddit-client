@@ -55,7 +55,7 @@ header .communitiesDropdown {
     left: -1px;
     top: 63px;
     background-color: var(--bg2);
-    width: 280px;
+    width: 320px;
     border: 1px solid var(--over2);
     border-top: 0px none transparent;
     display: none;
@@ -88,6 +88,12 @@ header .communitiesDropdownList {
 header .communitiesDropdownListItem {
     padding: 8px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .communitiesDropdownListItemLeft {
+    display: flex;
     align-items: center;
 }
 
@@ -100,6 +106,13 @@ header .communitiesDropdownListItem img {
 
 header .communitiesDropdownListItem p {
     font-weight: bold;
+    font-size: .8rem;
+}
+
+header .communitiesDropdownListItemLeft p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: .6rem;
+    color: var(--over1);
 }
 
 header .communitiesDropdownListItem:hover {
@@ -157,6 +170,12 @@ header .communitiesDropdownListItem:hover {
 #menu .communitiesDropdownListItem {
     padding: 8px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu .communitiesDropdownListItemLeft {
+    display: flex;
     align-items: center;
 }
 
@@ -171,7 +190,91 @@ header .communitiesDropdownListItem:hover {
     font-weight: bold;
 }
 
+#menu .communitiesDropdownListItemLeft p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: .6rem;
+    color: var(--over1);
+}
+
 #menu .communitiesDropdownListItem:hover {
     background-color: var(--bg3);
     color: var(--prim1);
+}
+
+/* --------------------------------------------------------------- */
+/* Account Communities */
+/* --------------------------------------------------------------- */
+
+.account .communities {
+    width: 100%;
+    display: flex;
+    margin-right: 16px;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+.account .communitiesWrapper {
+    display: none;
+}
+
+.account .communitiesDropdown {
+    background-color: var(--bg2);
+    width: 100%;
+}
+
+.account .communitiesDropdown input {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--bg3);
+    color: var(--fg2);
+}
+
+.account .communitiesDropdown input:focus {
+    outline: 0 none transparent;
+}
+
+.account .communitiesDropdownList {
+    width: 100%;
+    list-style: none;
+    overflow: auto;
+    max-height: calc(100vh - 222px);
+}
+
+.account .communitiesDropdownListItem {
+    padding: 8px;
+    display: flex;justify-content: space-between;
+    align-items: center;
+}
+
+.account .communitiesDropdownListItemLeft {
+    display: flex;
+    align-items: center;
+}
+
+.account .communitiesDropdownListItem img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.account .communitiesDropdownListItem p {
+    font-weight: bold;
+    font-size: .7rem;
+}
+
+.account .communitiesDropdownListItemLeft p:nth-of-type(2) {
+    font-weight: normal;
+    font-size: .6rem;
+    color: var(--over1);
+}
+
+.account .communitiesDropdownListItem:hover {
+    background-color: var(--bg3);
+    color: var(--prim1);
+}
+
+.account .subscribe {
+    z-index: 0;
 }

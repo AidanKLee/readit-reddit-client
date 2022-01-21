@@ -18,6 +18,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Post from "../../pages/Post/Post";
 import Search from "../../pages/Search/Search";
 import Settings from "../../pages/Settings/Settings";
+import Account from "../../pages/Account/Account";
 
 const Main = () => {
 
@@ -87,9 +88,7 @@ const Main = () => {
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
                 
-                    <Route path={'/search/:searchType'} element={<Search/>}>
-
-                    </Route>
+                    <Route path={'/search/:searchType'} element={<Search/>}/>
 
                     <Route path='/r' element={<Sub/>}> 
                         <Route path={'/r/:subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
@@ -111,7 +110,9 @@ const Main = () => {
                         <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
 
-                    <Route path={'/settings'} element={<Settings/>}/>
+                    {localStorage.getItem('refreshToken') ? <Route path={'/account'} element={<Account/>}/> : undefined}
+
+                    {localStorage.getItem('refreshToken') ? <Route path={'/settings'} element={<Settings/>}/> : undefined}
 
                 </Routes>
             </div>

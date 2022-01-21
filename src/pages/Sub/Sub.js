@@ -97,9 +97,9 @@ const Sub = (props) => {
         };
     };
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         // dispatch(clearMainPageState());
-        returnToTop();
+        returnToTop(e);
         setSubreddit({});
     }
 
@@ -167,6 +167,8 @@ const Sub = (props) => {
                         <p>
                             {subreddit.data ? subreddit.data.url : undefined}
                         </p>
+                        {console.log(subreddit)}
+                        {subreddit.data && (subreddit.data.over_18 || subreddit.data.over18) ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
                     </div>
                 </div>
             </div>

@@ -25,6 +25,8 @@ const User = () => {
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
 
+    console.log(subreddit)
+
     useEffect(() => {
         const fetchData = async () => {
             // variable endpoints - about, overview, submitted, comments, https://www.reddit.com/user/[user]/moderated_subreddits.json
@@ -74,9 +76,9 @@ const User = () => {
         }
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         dispatch(clearMainPageState())
-        returnToTop();
+        returnToTop(e);
         // setSubreddit({});
     }
 
@@ -129,8 +131,9 @@ const User = () => {
     return (
         <div className='user'>
             <div className='subBanner'>
+            {console.log(subreddit)}
                 {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
-                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                {login.authorization && subreddit && subreddit.data ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
@@ -147,7 +150,7 @@ const User = () => {
                         <p>
                             {subreddit.data && subreddit.data.subreddit.title ? <Text text={subreddit.data.subreddit.title} length={1000}/> : undefined}
                         </p>
-                        
+                        {subreddit && subreddit.data && subreddit.data.subreddit.over_18 ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
                     </div>
                 </div>
             </div>
@@ -169,7 +172,7 @@ const User = () => {
                         <div className='subContentRightHeader'>
                             <div className='subContentRightHeaderName'>
                                 {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
-                                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                                {login.authorization && subreddit && subreddit.data ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
                             </div>
                             {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
                             {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}

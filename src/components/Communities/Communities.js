@@ -8,10 +8,13 @@ import reddit from '../../utilities/redditAPI';
 import { search, selectCommunities } from './communitiesSlice';
 import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
+import Subscribe from '../Subscribe/Subscribe';
 
-const Communities = () => {
+const Communities = (props) => {
 
     const dispatch = useDispatch();
+
+    const { hasButtons } = props;
 
     const login = useSelector(selectLogin);
     const menu = useSelector(selectMenu);
@@ -41,12 +44,21 @@ const Communities = () => {
 
             return communitiesCopy.map(community => {
                 return (
-                    <Link onClick={returnToTop} key={community.data.id} to={community.data.display_name_prefixed}>
+                    <Link onClick={(e) => returnToTop(e)} key={community.data.id} to={'/' + community.data.display_name_prefixed}>
                         <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
-                            {reddit.getIconImg(community)}
-                            <p>
-                                {community.data.display_name_prefixed}
-                            </p>
+                            <div className='communitiesDropdownListItemLeft'>
+                                {reddit.getIconImg(community)}
+                                <div>
+                                    <p>
+                                    {community.data.display_name_prefixed}
+                                    </p>
+                                    <p>
+                                        {community.data.subscribers} Subscribers
+                                    </p>
+                                </div>
+                                
+                            </div>
+                            {hasButtons ? <Subscribe text='Join' name={community.data.name} subreddit={community} /> : undefined}
                         </li>
                     </Link>
                     

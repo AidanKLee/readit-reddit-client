@@ -1,0 +1,272 @@
+.account {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    padding: 16px;
+}
+
+.accountLeft {
+    flex: 0 1;
+    max-width: 360px;
+    width: 100%;
+    margin-right: 16px;
+}
+
+.userDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--bg2);
+    color: var(--fg2);
+    border: 1px solid var(--over3);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-bottom: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    min-width: 327px;
+}
+
+.userDetails p {
+    text-align: center;
+}
+
+.userDetailsNsfw {
+    font-size: 1rem !important;
+    color: var(--prim1);
+    border: 2px solid var(--prim1);
+    width: fit-content;
+    padding: 0 16px;
+    margin-bottom: 8px;
+}
+
+.userDetails p:nth-of-type(1) {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.userDetails p:nth-of-type(2) {
+    font-size: .8rem;
+    line-height: 1;
+}
+
+.userDetailsBanner {
+    width: 100%;
+    display: flex;
+    min-height: 128px;
+    max-height: 128px;
+    background-color: var(--prim1);
+}
+
+.userDetailsBanner img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.userDetailsIcon {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: -96px 0 16px;
+    width: 100%;
+}
+
+.userDetailsIcon a {
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+.userDetailsIcon a svg {
+    fill: var(--over2);
+    height: 32px;
+    width: 32px;
+}
+
+.userDetailsIconBorder {
+    width: 80%;
+    padding-bottom: 80%;
+    border-radius: 50%;
+    overflow: hidden;
+    /* border: 1px solid var(--fg1); */
+    position: relative;
+}
+
+.userDetailsIconBorder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+}
+
+.userDetailsCoins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    font-weight: lighter;
+}
+
+.userDetailsCoins svg {
+    fill: var(--gold);
+    margin-right: 8px;
+}
+
+.accountHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 4px 0 16px;
+    height: 40px;
+    color: var(--fg2);
+    font-weight: bold;
+    background-color: var(--bg2);
+}
+
+.accountHeader svg {
+    fill: var(--over1);
+    height: 32px;
+    width: 32px;
+    border-radius: 8px;
+}
+
+.accountHeader svg:hover {
+    background-color: var(--bg3);
+}
+
+.accountHeader svg:active {
+    background-color: var(--over3);
+}
+
+.accountHeader path {
+    pointer-events: none;
+}
+
+.accountCommunitiesWrapper {
+    border: 1px solid var(--over3);
+    background-color: var(--bg2);
+}
+
+.accountAboutWrapper {
+    flex: 1 1;
+    color: var(--fg1);
+    background-color: var(--bg3);
+    max-height: calc(100vh - 128px);
+    position: sticky;
+    top: 80px;
+    border: 1px solid var(--over3);
+    min-width: 424px;
+}
+
+.accountAbout {
+    height: calc(100% - 40px);
+    overflow: auto;
+    padding: 0 16px;
+}
+
+.accountAboutItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content;
+    border-bottom: 1px solid var(--over4);
+    padding: 8px 0;
+}
+
+.accountAboutItem input {
+    background-color: var(--bg2);
+    padding: 8px;
+    width: 100%;
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--fg2);
+}
+
+.accountAboutItem input:focus {
+    outline: 2px solid var(--over3);
+}
+
+.accountAboutItem textarea {
+    background-color: var(--bg2);
+    padding: 8px;
+    width: 100%;
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--fg2);
+    resize: none;
+    min-height: 5.6rem;
+}
+
+.accountAboutItem textarea:focus {
+    outline: 2px solid var(--over3);
+}
+
+.accountAboutItemToggle {
+    min-height: 96px;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--over4);
+}
+
+.accountAboutSubheading {
+    font-weight: bold;
+    font-size: .8rem;
+}
+
+.accountAboutDesc {
+    font-size: .7rem;
+    color: var(--over1);
+}
+
+.accountAboutItemToggle .switch {
+    margin-left: 16px;
+}
+
+.accountAboutDesc:nth-of-type(1) {
+    font-size: .6rem;
+}
+
+@media only screen and (max-width: 817px) {
+    .accountLeft {
+        margin-right: 0;
+        max-width: none;
+        flex: none;
+    }
+
+    .userDetails {
+        min-width: 0;
+    }
+
+    .userDetailsBanner {
+        max-height: 156px;
+        min-height: 156px;
+    }
+
+    .accountAboutWrapper {
+        min-width: 0;
+    }
+
+    .accountCommunitiesWrapper {
+        flex: 1 1;
+        margin-bottom: 16px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    .communitiesDropdownListItem .subscribe {
+        display: none;
+    }
+}

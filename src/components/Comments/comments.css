@@ -22,6 +22,7 @@
     font-weight: bold !important;
     margin: 0 8px 8px !important;
     color: var(--over2) !important;
+    cursor: pointer;
 }
 
 .commentsActions p:hover {

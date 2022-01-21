@@ -133,10 +133,10 @@ const Search = () => {
         setQueryString(newQueryString)
     }
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (e) => {
         // dispatch(clearMainPageState());
         setSearchData({});
-        returnToTop();
+        returnToTop(e);
         setQueryString({
             q: query
         });
@@ -162,9 +162,9 @@ const Search = () => {
 
     const styleSafe = over18 ? {left: '6px'} : {left: '0px'};
 
-    const handleSortClick = (params) => {
+    const handleSortClick = (params, e) => {
         dispatch(clearMainPageState());
-        returnToTop();
+        returnToTop(e);
         setQueryParams(params);
     }
 

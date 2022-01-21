@@ -10,9 +10,9 @@ const MainLinks = () => {
 
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         // dispatch(clearMainPageState())
-        returnToTop();
+        returnToTop(e);
         dispatch(closeMenu());
     }
 

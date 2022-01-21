@@ -84,7 +84,7 @@ useEffect(() => {
 },[location])
 
   useEffect(() => {
-    dispatch(handleLogin());
+      dispatch(handleLogin());
   }, [dispatch]);
 
   return (

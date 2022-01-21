@@ -18,8 +18,8 @@ const CommentItem = (props) => {
 
     const [ newComment, setNewComment ] = useState(false);
 
-    const handleClick = () => {
-        returnToTop();
+    const handleClick = (e) => {
+        returnToTop(e);
     }
 
     const toggleNewComment = () => {

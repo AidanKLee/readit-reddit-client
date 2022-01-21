@@ -24,9 +24,9 @@ const ContentTile = (props) => {
 
     const [ newComment, setNewComment ] = useState(false);
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (e) => {
         // dispatch(clearMainPageState());
-        returnToTop();
+        returnToTop(e);
     }
 
     const toggleNewComment = () => {
@@ -45,7 +45,7 @@ const ContentTile = (props) => {
                     <p className="tileHeaderText"><Link onClick={handleLinkClick} to={'/' + article.data.subreddit_name_prefixed}><span className="bold">{article.data.subreddit_name_prefixed}</span></Link> - Posted by <Link onClick={handleLinkClick} to={`/u/${article.data.link_author ? article.data.link_author : article.data.author}`}>u/{article.data.link_author ? article.data.link_author : article.data.author}</Link> {getTimePosted(article.data.created)}</p>
                 </div>
                 <div className="tileMain">
-                    {article.data.permalink ? <Link onClick={handleLinkClick} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle"><Text text={article.data.title} length={1000}/></p></Link> : undefined}
+                    {article.data.permalink ? <Link onClick={handleLinkClick} to={article.data.permalink.slice(3, 5).includes('u_') ? '/u/' + article.data.permalink.slice(5) : article.data.permalink}><p className="tileMainTitle">{article.data.over_18 ? <span className="blue">NSFW </span> : undefined}<Text text={article.data.title} length={1000}/></p></Link> : undefined}
                     {
                         article.data.link_permalink ? 
                         <div>

@@ -42,7 +42,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: -48px;
-    margin-bottom: 16px;
+    min-height: 180px;
     height: 100%;
 }
 
@@ -80,6 +80,10 @@
     font-weight: bold;
     margin-left: 16px;
     word-wrap: break-word;
+}
+
+.subBannerUnderWrapper .userDetailsNsfw {
+    margin-top: 8px;
 }
 
 .subBanner button {
@@ -169,7 +173,11 @@
 .subContentRightHeaderName {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+}
+
+.subContentRightHeaderName p {
+    margin: 0;
 }
 
 .subContentRightHeaderStats {

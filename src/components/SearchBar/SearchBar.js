@@ -39,9 +39,9 @@ const SearchBar = (props) => {
         dispatch(search(e.target.value));
     }
     const searchBarElement = document.getElementsByClassName('searchBarInput')[0];
-    const handleLinkClick = () => {
+    const handleLinkClick = (e) => {
         // dispatch(clearMainPageState())
-        returnToTop();
+        returnToTop(e);
         searchBarElement.value = '';
         dispatch(setInitialSearchBarState())
     }

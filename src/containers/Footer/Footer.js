@@ -12,7 +12,7 @@ const Footer = () => {
         <footer className={menu.menuOpen ? 'blur' : ''}>
             <div className='footerWrapper'>
                 <p>&copy; 2021 Readit - Reddit Client</p>
-                <p onClick={returnToTop}>Return To Top</p>
+                <p onClick={(e) => returnToTop(e)}>Return To Top</p>
             </div>
         </footer>
     );

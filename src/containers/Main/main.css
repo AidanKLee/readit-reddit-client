@@ -80,10 +80,12 @@ main {
 }
 
 .readMore {
+    display: block;
     font-weight: bold;
     color: var(--prim1);
     cursor: pointer;
     white-space: nowrap;
+    padding-bottom: 4px;
 }
 
 .readMore:hover {

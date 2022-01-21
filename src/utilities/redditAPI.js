@@ -166,6 +166,37 @@ export class redditAPI {
         return jsonData;
     }
 
+    fetchAccountDetails = async (account) => {
+        const data = await fetch(`https://oauth.reddit.com/r/${account}/about/edit`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        });
+        const jsonData = await data.json();
+        // console.log(jsonData)
+        return jsonData;
+    }
+
+    changeAccountDetails = async (account) => {
+        let body = '';
+        for (const param in account) {
+            body = body + `${param}=${account[param]}&`
+        }
+        body = body.slice(0, body.length - 1);
+        const data = await fetch(`https://oauth.reddit.com/api/site_admin?raw_json=1&gilding_detail=1`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                "Content-type":  'application/x-www-form-urlencoded'
+            },
+            body: body,
+            completed: true
+        });
+        const jsonData = await data.json();
+        // console.log(jsonData)
+        return jsonData;
+    }
+
     fetchCommunities = async () => {
         const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=100', {
             headers: {

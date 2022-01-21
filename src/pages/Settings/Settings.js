@@ -86,7 +86,7 @@ const Settings = () => {
                             <p>Accept Private Messages</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='accept_pms' id='acceptPms' defaultChecked={login.authorization.settings.accept_pms}/>
+                            <input onClick={handleCheck} type='checkbox' name='accept_pms' id='acceptPms' defaultChecked={login.authorization.settings.accept_pms}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -118,7 +118,7 @@ const Settings = () => {
                             <p>Enable Followers</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='enable_followers' id='enableFollowers' defaultChecked={login.authorization.settings.enable_followers}/>
+                            <input onClick={handleCheck} type='checkbox' name='enable_followers' id='enableFollowers' defaultChecked={login.authorization.settings.enable_followers}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -127,7 +127,7 @@ const Settings = () => {
                                 <p>Enable Legacy Search</p>
                             </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='legacy_search' id='legacySearch' defaultChecked={login.authorization.settings.legacy_search}/>
+                            <input onClick={handleCheck} type='checkbox' name='legacy_search' id='legacySearch' defaultChecked={login.authorization.settings.legacy_search}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -149,7 +149,7 @@ const Settings = () => {
                             <p>Enables the alternate 'Dark Mode' colour scheme.</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='nightmode' id='darkMode' defaultChecked={login.authorization.settings.nightmode}/>
+                            <input onClick={handleCheck} type='checkbox' name='nightmode' id='darkMode' defaultChecked={login.authorization.settings.nightmode}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -159,17 +159,7 @@ const Settings = () => {
                             <p>Your theme changes depending on the time of day.</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='dayMode' id='dayMode' defaultChecked={darkMode.dayModeEnabled}/>
-                            <span className="slider"></span>
-                        </label>
-                    </div>
-                    <div className="settingsItemToggle">
-                        <label htmlFor="labelNsfw">
-                            <p>NSFW Profile</p>
-                            <p>The content on your profile is NSFW (may contain nudity, pornography, profanity or inappropriate content for those under 18)</p>
-                        </label>
-                        <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='label_nsfw' id='labelNsfw' defaultChecked={login.authorization.settings.label_nsfw}/>
+                            <input onClick={handleCheck} type='checkbox' name='dayMode' id='dayMode' defaultChecked={darkMode.dayModeEnabled}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -179,7 +169,7 @@ const Settings = () => {
                             <p>Allows you to view NSFW content with no restrictions.</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='over_18' id='over18' defaultChecked={login.authorization.settings.over_18}/>
+                            <input onClick={handleCheck} type='checkbox' name='over_18' id='over18' defaultChecked={login.authorization.settings.over_18}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -189,7 +179,7 @@ const Settings = () => {
                             <p>Enables NSFW search results to appear.</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='search_include_over_18' id='over18Search' defaultChecked={login.authorization.settings.search_include_over_18}/>
+                            <input onClick={handleCheck} type='checkbox' name='search_include_over_18' id='over18Search' defaultChecked={login.authorization.settings.search_include_over_18}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -198,7 +188,7 @@ const Settings = () => {
                             <p>Private Feeds</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='private_feeds' id='privateFeeds' defaultChecked={login.authorization.settings.private_feeds}/>
+                            <input onClick={handleCheck} type='checkbox' name='private_feeds' id='privateFeeds' defaultChecked={login.authorization.settings.private_feeds}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -207,7 +197,7 @@ const Settings = () => {
                             <p>Show Trending</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='show_trending' id='showTrending' defaultChecked={login.authorization.settings.show_trending}/>
+                            <input onClick={handleCheck} type='checkbox' name='show_trending' id='showTrending' defaultChecked={login.authorization.settings.show_trending}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -216,7 +206,7 @@ const Settings = () => {
                             <p>Video Autoplay</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='video_autoplay' id='videoAutoPlay' defaultChecked={login.authorization.settings.video_autoplay}/>
+                            <input onClick={handleCheck} type='checkbox' name='video_autoplay' id='videoAutoPlay' defaultChecked={login.authorization.settings.video_autoplay}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -228,7 +218,7 @@ const Settings = () => {
                             <p>Chat Requests</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_chat_request' id='chatRequests' defaultChecked={login.authorization.settings.email_chat_request}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_chat_request' id='chatRequests' defaultChecked={login.authorization.settings.email_chat_request}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -237,7 +227,7 @@ const Settings = () => {
                             <p>Comment Reply</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_comment_reply' id='commentReply' defaultChecked={login.authorization.settings.email_comment_reply}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_comment_reply' id='commentReply' defaultChecked={login.authorization.settings.email_comment_reply}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -246,7 +236,7 @@ const Settings = () => {
                             <p>Community Discovery</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_community_discovery' id='communityDiscovery' defaultChecked={login.authorization.settings.email_community_discovery}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_community_discovery' id='communityDiscovery' defaultChecked={login.authorization.settings.email_community_discovery}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -255,7 +245,7 @@ const Settings = () => {
                             <p>Digests</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_digests' id='digests' defaultChecked={login.authorization.settings.email_digests}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_digests' id='digests' defaultChecked={login.authorization.settings.email_digests}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -264,7 +254,7 @@ const Settings = () => {
                             <p>Messages</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_messages' id='messages' defaultChecked={login.authorization.settings.email_messages}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_messages' id='messages' defaultChecked={login.authorization.settings.email_messages}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -273,7 +263,7 @@ const Settings = () => {
                             <p>New Follower</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_user_new_follower' id='newFollower' defaultChecked={login.authorization.settings.email_user_new_follower}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_user_new_follower' id='newFollower' defaultChecked={login.authorization.settings.email_user_new_follower}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -282,7 +272,7 @@ const Settings = () => {
                             <p>New User Welcome</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_new_user_welcome' id='newUserWelcome' defaultChecked={login.authorization.settings.email_new_user_welcome}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_new_user_welcome' id='newUserWelcome' defaultChecked={login.authorization.settings.email_new_user_welcome}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -291,7 +281,7 @@ const Settings = () => {
                             <p>Post Reply</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_post_reply' id='postReply' defaultChecked={login.authorization.settings.email_post_reply}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_post_reply' id='postReply' defaultChecked={login.authorization.settings.email_post_reply}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -300,7 +290,7 @@ const Settings = () => {
                             <p>Private Message</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_private_message' id='privateMessage' defaultChecked={login.authorization.settings.email_private_message}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_private_message' id='privateMessage' defaultChecked={login.authorization.settings.email_private_message}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -309,7 +299,7 @@ const Settings = () => {
                             <p>Unsubscribe All</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_unsubscribe_all' id='unsubscribeAll' defaultChecked={login.authorization.settings.email_unsubscribe_all}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_unsubscribe_all' id='unsubscribeAll' defaultChecked={login.authorization.settings.email_unsubscribe_all}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -318,7 +308,7 @@ const Settings = () => {
                             <p>Upvote Post</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_upvote_post' id='upvotePost' defaultChecked={login.authorization.settings.email_upvote_post}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_upvote_post' id='upvotePost' defaultChecked={login.authorization.settings.email_upvote_post}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -327,7 +317,7 @@ const Settings = () => {
                             <p>Upvote Comment</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_upvote_comment' id='upvoteComment' defaultChecked={login.authorization.settings.email_upvote_comment}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_upvote_comment' id='upvoteComment' defaultChecked={login.authorization.settings.email_upvote_comment}/>
                             <span className="slider"></span>
                         </label>
                     </div>
@@ -336,7 +326,7 @@ const Settings = () => {
                             <p>Username Mention</p>
                         </label>
                         <label className="switch">
-                            <input onChange={handleCheck} type='checkbox' name='email_username_mention' id='usernameMention' defaultChecked={login.authorization.settings.email_username_mention}/>
+                            <input onClick={handleCheck} type='checkbox' name='email_username_mention' id='usernameMention' defaultChecked={login.authorization.settings.email_username_mention}/>
                             <span className="slider"></span>
                         </label>
                     </div>                    

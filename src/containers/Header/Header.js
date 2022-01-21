@@ -36,7 +36,7 @@ const Header = (props) => {
                     {login.authorization ? <NewPost /> : undefined}
                     <MainLinks />
                     <DarkMode/>
-                    {!login.authorization ? <Login /> : undefined}
+                    {!login.authorization && !localStorage.getItem('refreshToken') ? <Login /> : undefined}
                     {login.authorization || login.isLoading ? <User /> : undefined}
                     <Hamburger />
                 </div>
