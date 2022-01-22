@@ -1,0 +1,56 @@
+/* --------------------------------------------------------------- */
+/* Header Fullscreen */
+/* --------------------------------------------------------------- */
+
+
+header .fullscreen {
+    display: flex;
+    align-items: center;
+    height: 63px;
+    margin-right: 16px;
+}
+
+header .fullscreen svg {
+    height: 32px;
+    width: 32px;
+    fill: var(--fg1);
+}
+
+header .fullscreen:hover svg {
+    fill: var(--prim1);
+    transform: scale(1.2);
+}
+
+header .fullscreen:active svg {
+    transform: scale(.9);
+}
+
+@media only screen and (max-width: 880px) {
+    header .fullscreen {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------- */
+/* Menu Fullscreen */
+/* --------------------------------------------------------------- */
+
+#menu .fullscreen {
+    display: flex;
+}
+
+#menu .fullscreen svg {
+    height: 24px;
+    width: 24px;
+    fill: var(--fg1);
+    margin: 8px;
+}
+
+#menu .fullscreen:hover svg {
+    fill: var(--prim1);
+    transform: scale(1.2);
+}
+
+#menu .fullscreen:active svg {
+    transform: scale(.9);
+}

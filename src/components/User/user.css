@@ -13,13 +13,13 @@
 header .user {
     display: flex;
     align-items: center;
-    margin-right: 16px;
     padding: 0 8px;
     height: 64px;
     border-left: 1px solid var(--over3);
     border-right: 1px solid var(--over3);
     transition: .5s;
     position: relative;
+    margin-right: 16px;
 }
 
 header .userWrapper {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Header from '../containers/Header/Header';
 import Main from '../containers/Main/Main';
@@ -10,6 +10,8 @@ import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/
 import NewPost from '../components/NewPost/NewPost';
 import { useLocation } from 'react-router-dom';
 import { clearSelectedSubreddit, closeNewPost, handleCommunityChange, selectNewPost } from '../components/NewPost/newPostSlice';
+import { selectClock } from '../components/Clock/clockSlice';
+import Clock from '../components/Clock/Clock';
 
 
 function App() {
@@ -21,16 +23,7 @@ function App() {
   const login = useSelector(selectLogin);
   const newPost = useSelector(selectNewPost)
   const darkMode = useSelector(selectDarkMode);
-  const [ time, setTime ] = useState(new Date());
-
-  // clock
-  useEffect(() => {
-      const timeout = setInterval(() => {
-        setTime(new Date())
-      },1000)
-  
-      return () => clearInterval(timeout)
-  },[])
+  const clock = useSelector(selectClock);
 
   useEffect(() => {
     const localStorageDark = localStorage.getItem('darkMode');
@@ -51,13 +44,13 @@ function App() {
 
   // auto switch for daymode and nightmode
   useEffect(() => {
-      if (time.getHours() > 6 && time.getHours() < 19 && !darkMode.dayMode) {
+      if (clock.hour > 6 && clock.hour < 19 && !darkMode.dayMode) {
           dispatch(setDayMode(true));
-      } else if ((time.getHours() <= 6 || time.getHours() >= 19) && darkMode.dayMode) {
+      } else if ((clock.hour <= 6 || clock.hour >= 19) && darkMode.dayMode) {
           dispatch(setDayMode(false));
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [time])
+  }, [clock])
 
   // theme setter
   useEffect(() => {
@@ -89,9 +82,10 @@ useEffect(() => {
 
   return (
     <div className="App" data-test='App'>
-      <Header time={time} />
+      <Clock />
+      <Header />
       <Main />
-      <Menu time={time} />
+      <Menu />
       {
         login.authorization ?
         <div className='appButton'>

@@ -6,6 +6,7 @@ import searchBarReducer from '../components/SearchBar/searchBarSlice';
 import mainReducer from '../containers/Main/mainSlice';
 import darkModeReducer from '../components/DarkMode/darkModeSlice';
 import newPostReducer from '../components/NewPost/newPostSlice';
+import clockReducer from '../components/Clock/clockSlice';
 
 export default configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
         searchBar: searchBarReducer,
         main: mainReducer,
         darkMode: darkModeReducer,
-        newPost: newPostReducer
+        newPost: newPostReducer,
+        clock: clockReducer
     }
 });

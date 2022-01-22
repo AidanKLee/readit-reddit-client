@@ -12,8 +12,9 @@ import { useSelector } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import { selectMenu } from "../Menu/menuSlice";
 import DarkMode from "../../components/DarkMode/DarkMode";
+import Fullscreen from "../../components/Fullscreen/Fullscreen";
 
-const Header = (props) => {
+const Header = () => {
 
     const login = useSelector(selectLogin);
     const menu = useSelector(selectMenu);
@@ -38,6 +39,7 @@ const Header = (props) => {
                     <DarkMode/>
                     {!login.authorization && !localStorage.getItem('refreshToken') ? <Login /> : undefined}
                     {login.authorization || login.isLoading ? <User /> : undefined}
+                    <Fullscreen />
                     <Hamburger />
                 </div>
             </div>

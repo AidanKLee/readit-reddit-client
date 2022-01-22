@@ -1,4 +1,5 @@
 export const getTimePosted = (t) => {
+
     const date = new Date(t * 1000);
     const dateNow = new Date();
 
@@ -10,9 +11,9 @@ export const getTimePosted = (t) => {
     const hoursAgo = Math.floor(secondsAgo / 60 / 60);
     const daysAgo = Math.floor(secondsAgo / 60 / 60 / 24);
     const weeksAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7);
-    const monthsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12));
-    const yearsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12) / 365);
-    const decadesAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 7 / (365 / 12) / 365 / 10);
+    const monthsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / (365 / 12));
+    const yearsAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 365);
+    const decadesAgo = Math.floor(secondsAgo / 60 / 60 / 24 / 365 / 10);
 
     if (secondsAgo < 60) {
         return secondsAgo === 1 ? secondsAgo.toString() + ' second ago' : secondsAgo.toString() + ' seconds ago';
@@ -20,7 +21,7 @@ export const getTimePosted = (t) => {
         return minutesAgo === 1 ? minutesAgo.toString() + ' minute ago' : minutesAgo.toString() + ' minutes ago';
     } else if (secondsAgo < 60 * 60 * 24) {
         return hoursAgo === 1 ? hoursAgo.toString() + ' hour ago' : hoursAgo.toString() + ' hours ago';
-    } else if (secondsAgo < 60 * 60 * 24 * (364 / 52)) {
+    } else if (secondsAgo < 60 * 60 * 24 * 7) {
         return daysAgo === 1 ? daysAgo.toString() + ' day ago' : daysAgo.toString() + ' days ago';
     } else if (secondsAgo < 60 * 60 * 24 * (365 / 12)) {
         return weeksAgo === 1 ? weeksAgo.toString() + ' week ago' : weeksAgo.toString() + ' weeks ago';

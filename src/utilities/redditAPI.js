@@ -196,7 +196,7 @@ export class redditAPI {
     }
 
     fetchCommunities = async () => {
-        const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=100', {
+        const data = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=1000', {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
             }

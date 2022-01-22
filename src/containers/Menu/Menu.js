@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import { toggleMenu, selectMenu } from './menuSlice';
 import DarkMode from '../../components/DarkMode/DarkMode';
+import Fullscreen from '../../components/Fullscreen/Fullscreen';
 
 const Menu = () => {
 
@@ -31,6 +32,7 @@ const Menu = () => {
         <aside id='menu' className={menu.menuOpen ? 'openMenu' : ''}>
             <div id='menuWrapper'>
                 <svg id='menuClose' onClick={handleToggleMenu} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                <Fullscreen />
             </div>
             {!login.authorization ? <Login /> : undefined}
             {login.authorization || login.isLoading? <User /> : undefined}

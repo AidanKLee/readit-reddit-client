@@ -55,6 +55,12 @@
     line-height: 1;
 }
 
+.userDetails p:nth-of-type(4) {
+    font-size: .8rem;
+    line-height: 1.2;
+    font-weight: lighter;
+}
+
 .userDetailsBanner {
     width: 100%;
     display: flex;

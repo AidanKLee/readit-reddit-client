@@ -21,9 +21,9 @@
     100% {right: 0}
 }
 
-#menurWrapper {
+#menuWrapper {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
 #menuClose {
