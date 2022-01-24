@@ -5,7 +5,7 @@ const Fullscreen = () => {
 
     const handleClick = () => {
         if (!document.fullscreenElement) {
-            const app = document.getElementsByClassName('html')[0];
+            const app = document.documentElement;
             app.requestFullscreen().catch(e =>alert('Error Opening Fullscreen: ' + e))
         } else {
             document.exitFullscreen();

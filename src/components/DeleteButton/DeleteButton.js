@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { stopScroll } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import './deleteButton.css';
 
@@ -7,6 +8,7 @@ const DeleteButton = (props) => {
     const { name, text, type } = props;
 
     const [ warning, setWarning ] = useState(false);
+    const [ scrollPos, setScrollPos ] = useState(0);
 
     const handleDelete = () => {
         reddit.delete(name);
@@ -14,14 +16,33 @@ const DeleteButton = (props) => {
     }
 
     const handleWarning = () => {
-        setWarning(!warning)
+        setWarning(!warning);
+        setScrollPos(window.scrollY);
     }
 
-    if (warning) {
-        document.querySelector('body').style.overflow = 'hidden';
-    } else {
-        document.querySelector('body').style.overflow = 'auto';
+    const preventScroll = () => {
+        stopScroll(scrollPos);
     }
+
+    const prevent = (e) => {
+        e.preventDefault();
+    }
+
+    useEffect(() => {
+        if (warning) {
+            window.addEventListener('scroll', preventScroll, {passive: false});
+            window.addEventListener('mousewheel', prevent, {passive: false});
+            window.addEventListener('touchmove', prevent, {passive: false});
+        }
+        
+        
+        return () => {
+            window.removeEventListener('scroll', preventScroll);
+            window.removeEventListener('mousewheel', prevent);
+            window.addEventListener('touchmove', prevent, {passive: false});
+        }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[warning])
 
     return (
         <div className='delete'>

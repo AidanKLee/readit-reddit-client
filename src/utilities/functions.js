@@ -179,3 +179,11 @@ export const addComment = (parentId, newComment, commentList, dispatcher, stateS
         stateSetter({...prev, comments: newCommentList});
     }
 }
+
+export const stopScroll = (y) => {
+    window.scrollTo({
+        top: y,
+        left: 0,
+        behavior: 'auto'
+    });
+}

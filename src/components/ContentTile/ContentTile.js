@@ -12,6 +12,7 @@ import Votes from "../Votes/Votes";
 import showdown from 'showdown';
 import CommentSubmit from "../Comments/CommentSubmit";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import Media from "../Media/Media";
 
 const ContentTile = (props) => {
 
@@ -23,14 +24,40 @@ const ContentTile = (props) => {
     const login = useSelector(selectLogin);
 
     const [ newComment, setNewComment ] = useState(false);
+    const [ viewMedia, setViewMedia ] = useState({
+        mediaOpen: false,
+        src: '',
+        alt: '',
+        type: ''
+    });
+
+    const { mediaOpen } = viewMedia;
 
     const handleLinkClick = (e) => {
-        // dispatch(clearMainPageState());
         returnToTop(e);
     }
 
     const toggleNewComment = () => {
         setNewComment(!newComment);
+    }
+
+    const toggleViewMedia = (e, {src, alt, type}) => {
+        e.preventDefault();
+        if (!mediaOpen) {
+            setViewMedia({
+                mediaOpen: true,
+                type: type,
+                src: src,
+                alt: alt ? alt : undefined
+            })
+        } else {
+            setViewMedia({
+                mediaOpen: false,
+                src: '',
+                alt: '',
+                type: ''
+            })
+        }
     }
 
     return (
@@ -69,11 +96,11 @@ const ContentTile = (props) => {
                     {article.data.selftext ? <p className="tileMainText"><Text text={article.data.selftext} length={500}/></p> : undefined}
                     {article.data.url && article.data.url.length > 0 && (!article.data.url.includes('https://www.reddit.com') || (article.data.url.includes('https://www.reddit.com') && article.data.url.includes('gallery'))) && !isImage(article.data.url) && !article.data.url.includes('.gifv') && !article.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={article.data.url}>{article.data.url}</a></p> : undefined}
                     <div className="tileObjectContainer video">
-                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video style={over18Style(article, login)} className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
-                        {article.data.is_video && article.data.media ? <video style={over18Style(article, login)} className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
+                        {isImage(article.data.url) && article.data.url.includes('.gifv') ? <video onClick={(e) => toggleViewMedia(e, {src: article.data.url.replace('.gifv', '.mp4'), type:'video'})} style={over18Style(article, login)} className="tileMainVideo" autoPlay muted loop><source src={article.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
+                        {article.data.is_video && article.data.media ? <video onClick={(e) => toggleViewMedia(e, {src: article.data.media.reddit_video.fallback_url, type:'video'})} style={over18Style(article, login)} className="tileMainVideo" controls><source src={article.data.media.reddit_video.fallback_url} /></video> : undefined}
                     </div>
                     <div className="tileObjectContainer">
-                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img style={over18Style(article, login)} className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
+                        {isImage(article.data.url) && !article.data.url.includes('.gifv') ? <img onClick={(e) => toggleViewMedia(e, {src: article.data.url, alt:article.data.id, type:'image'})} style={over18Style(article, login)} className="tileMainImg" src={article.data.url} alt={article.data.id}/> : undefined}
                     </div>
                 </div>
                 {article.data.all_awardings.length > 0 ? <Awards article={article}/> : undefined}
@@ -97,6 +124,7 @@ const ContentTile = (props) => {
                 {newComment ? <CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name} rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i}/> : undefined}
                 {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i} article={article}/> : undefined}
             </div>
+            {mediaOpen ? <Media toggleViewMedia={toggleViewMedia} viewMedia={viewMedia}/> : undefined}
         </div>
     )
 }

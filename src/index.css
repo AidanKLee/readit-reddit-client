@@ -10,7 +10,7 @@
 html {
   font-size: 16px;
   scrollbar-color: var(--bg3) var(--bg1);
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 
 body {
