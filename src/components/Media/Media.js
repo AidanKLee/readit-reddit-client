@@ -168,7 +168,7 @@ const Media = (props) => {
         return () => {
             window.removeEventListener('scroll', preventScroll);
             window.removeEventListener('mousewheel', prevent);
-            window.addEventListener('touchmove', prevent, {passive: false});
+            window.removeEventListener('touchmove', prevent, {passive: false});
         }
             // eslint-disable-next-line react-hooks/exhaustive-deps
     },[scrollPos])
