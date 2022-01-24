@@ -1,0 +1,147 @@
+.videoPlayer {
+    margin: 0 !important;
+    width: 100%;
+    height: 100%;
+    max-height: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.videoPlayer video {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: 440px;
+    pointer-events: none;
+    object-fit: contain;
+}
+
+.videoPlayer .videoMedia {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.videoPlayerControls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    background: rgb(40,40,40);
+    background: linear-gradient(0deg, rgba(40,40,40,0.4) 10%, rgba(40,40,40,0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 0;
+    transition: .5s;
+}
+
+.videoPlayer:hover .videoPlayerControls {
+    opacity: 1;
+}
+
+.videoPlayerControls .playPosition {
+    margin: 0 !important;
+    /* height: 4px; */
+    width: 100%;
+    display: flex;
+    background-image: linear-gradient(rgba(235, 235, 235, 1), rgba(235, 235, 235, 1));
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+.videoPlayerControls .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 40px;
+}
+
+.videoPlayerControlsLeft {
+    margin: 0 !important;
+    display: flex;
+}
+
+.videoPlayerControls .buttons svg {
+    fill: rgba(235, 235, 235, .7);
+    width: 40px;
+}
+
+.videoPlayerControls .buttons .play {
+    margin: 0 !important;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.videoPlayerControls .buttons .play:hover svg {
+    fill: rgba(235, 235, 235, 1);
+}
+
+.videoPlayerControls .buttons .play:active svg {
+    fill: var(--sec1);
+    transform: scale(.8);
+}
+
+.videoPlayerControls .buttons .volume {
+    margin: 0 !important;
+    /* width: 40px; */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.videoPlayerControls .buttons .volume:hover svg {
+    fill: rgba(235, 235, 235, 1);
+}
+
+.videoPlayerControls .buttons .volume:active svg {
+    fill: var(--sec1);
+    transform: scale(.8);
+}
+
+.videoPlayerControls .buttons .volume .volumeSlider {
+    /* display: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0%, 100%);
+    transform-origin: left;
+    transition: .5s;
+}
+
+.videoPlayerControls .buttons .volume:hover .volumeSlider {
+    /* display: flex; */
+    transform: scale(100%);
+}
+
+.videoPlayerControlsRight {
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.videoPlayerControlsRight .videoPlayerFullscreen {
+    margin: 0 !important;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.videoPlayerFullscreen:hover svg {
+    fill: rgba(235, 235, 235, 1);  
+}
+
+.videoPlayerFullscreen:active svg {
+    fill: var(--sec1);
+    transform: scale(.8);
+}

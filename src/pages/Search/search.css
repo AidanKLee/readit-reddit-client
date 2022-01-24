@@ -198,6 +198,11 @@
     overflow: hidden;
 }
 
+.searchContentRightStickyCommunitiesWrapper {
+    max-height: 377px;
+    min-height: fit-content;
+}
+
 .searchContentRightHeader {
     background-color: var(--prim1);
     padding: 16px;
@@ -218,8 +223,10 @@
 }
 
 .searchContentRightMain {
+    height: fit-content;
     max-height: calc((100vh - 288px) / 2);
     width: 100%;
+    overflow: auto;
 }
 
 .searchRightStickyItem {
@@ -248,6 +255,14 @@
     border-radius: 50%;
     margin: 8px;
 }    
+/* 
+.searchRightStickyMain {
+    overflow: auto;
+} */
+
+.searchRightStickyCommunities {
+   height: fit-content;
+}
 
 .searchRightStickyButton {
     background-color: var(--prim1);

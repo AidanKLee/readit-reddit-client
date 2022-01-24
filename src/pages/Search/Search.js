@@ -351,7 +351,7 @@ const Search = () => {
                         <div className='searchContentRightSticky'>
                             {
                                 stickyContent.subreddits.length > 0 ?
-                                <div>
+                                <div className='searchContentRightStickyCommunitiesWrapper'>
                                     <div className='searchContentRightHeader'>
                                         <p className='searchContentRightHeading'>
                                             Communities
@@ -367,7 +367,7 @@ const Search = () => {
                             }
                             {
                                 stickyContent.users.length > 0 ?
-                                <div>
+                                <div className='searchContentRightStickyUsersWrapper'>
                                     <div className='searchContentRightHeader'>
                                         <p className='searchContentRightHeading'>
                                             Users

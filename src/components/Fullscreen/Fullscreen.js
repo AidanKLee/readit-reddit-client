@@ -4,8 +4,8 @@ import './fullscreen.css';
 const Fullscreen = () => {
 
     const handleClick = () => {
-        if (!document.fullscreenElement) {
-            const app = document.documentElement;
+        const app = document.documentElement;
+        if (document.fullscreenElement !== app) {
             app.requestFullscreen().catch(e =>alert('Error Opening Fullscreen: ' + e))
         } else {
             document.exitFullscreen();

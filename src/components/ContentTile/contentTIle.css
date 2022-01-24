@@ -131,7 +131,7 @@
     overflow: hidden;
 }
 
-.tileObjectContainer div {
+/* .tileObjectContainer div {
     overflow: hidden;
     display: flex;
     height: 100%;
@@ -140,7 +140,7 @@
 
 .tileObjectContainer div video {
     display: flex;
-}
+} */
 
 .video {
     background-color: black;
