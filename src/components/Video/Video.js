@@ -12,6 +12,7 @@ const Video = (props) => {
     const [ lastKnownVolume, setLastKnownVolume ] = useState(.8);
     const [ fullscreen, setFullscreen ] = useState(false);
     const [ wasPlaying, setWasPlaying ] = useState(false);
+    const [ time, setTime ] = useState(0);
 
     const audio = video ? video.split('_')[0] + '_audio.mp4' : undefined;
 
@@ -21,8 +22,6 @@ const Video = (props) => {
     const duration = toggleAud && toggleAud.duration ? toggleAud.duration : 1;
     let position = toggleAud && toggleAud.currentTime ? toggleAud.currentTime : 0;
     const buffered = toggleVid ? toggleVid.buffered.TimeRanges : 0;
-
-    // console.log(buffered)
 
     const togglePlay = () => {
         if (toggleVid.paused) {
@@ -87,8 +86,9 @@ const Video = (props) => {
     }
 
     const handlePlaybackPosition = (e) => {
-        toggleAud.currentTime = e.target.value
+        setTime(e.target.value)
         toggleVid.currentTime = e.target.value
+        toggleAud.currentTime = e.target.value
     }
 
     const playbackPositionDown = () => {
@@ -118,7 +118,6 @@ const Video = (props) => {
     }
 
     const handleCloseFS = (e) => {
-        console.log('handle')
         setFullscreen(false)
     }
 
@@ -139,14 +138,44 @@ const Video = (props) => {
 
     const maxHeightNone = fullscreen ? {maxHeight: 'none'} : {};
 
+    const formatTime = (time) => {
+        time = Math.round(time);
+        let hours = Math.floor(time / 60 / 60)
+        let minutes = Math.floor(time / 60);
+        let seconds = Math.floor(time % 60);
+
+        if (hours < 1) {
+            if (!seconds || seconds.toString().length === 1) {
+                seconds = '0' + seconds.toString()
+            }
+            time = minutes + ':' + seconds
+        } else {
+            if (!minutes || minutes.toString().length === 1) {
+                minutes = '0' + seconds.toString()
+            }
+            if (!seconds || seconds.toString().length === 1) {
+                seconds = '0' + seconds.toString()
+            }
+            time = hours + ':' + minutes + ':' + seconds
+        }
+        
+        return time;
+    }
+
+    const handleTime = (e) => {
+        setTime(e.target.currentTime)
+        toggleAud.currentTime = e.target.currentTime
+    }
+
     return (
         <div className={'videoPlayer videoPlayer' + id} style={maxHeightNone}>
             <div onClick={togglePlay} className='videoMedia' style={style}>
-                <video className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
+                <video onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
             </div>
             <audio className={id}><source src={audio ? audio : undefined}/></audio>
+            <div className='videoPlayerControlsOverlay'></div>
             <div className='videoPlayerControls'>
-                <div className='playPosition' style={playbackBufferedStyle()}><input onMouseDown={playbackPositionDown} onMouseUp={playbackPositionUp} onChange={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={position} step='1'/></div>
+                <div className='playPosition' style={playbackBufferedStyle()}><input onMouseDown={playbackPositionDown} onTouchStart={playbackPositionDown} onMouseUp={playbackPositionUp} onTouchEnd={playbackPositionUp} onInput={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={time} step='.01'/></div>
                 <div className='buttons'>
                     <div className='videoPlayerControlsLeft'>
                         <div onClick={togglePlay} className='play'>
@@ -157,6 +186,9 @@ const Video = (props) => {
                                 {renderAudioControl()}
                             </div>
                             <div className='volumeSlider'><input onChange={handleAudioLevel} style={volumeSliderStyle()} type='range' min='0' max='1' step='.01' value={volume}/></div>
+                        </div>
+                        <div className='timePlayed'>
+                            {formatTime(position) + ' / ' + formatTime(duration)}
                         </div>
                     </div>
                     <div className='videoPlayerControlsRight'>
