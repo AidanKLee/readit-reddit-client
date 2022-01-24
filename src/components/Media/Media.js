@@ -8,18 +8,12 @@ const Media = (props) => {
     const { src, alt, type, mediaOpen } = viewMedia;
 
     const [ scrollPos, setScrollPos] = useState(0);
-    const [ zoom, setZoom ] = useState(false);
-    // const [ dragStartPos, setDragStartPos ] = useState({x: 0, y: 0});
-
-    let x;
-    let y;
-    let dragPosition = {x: 0, y: 0}
 
     const renderMedia = () => {
         if (type === 'video') {
             return <video controls><source src={src}/></video>
         } else if (type === 'image') {
-            return <img onClick={handleImageClick} src={src} alt={alt}/>
+            return <img src={src} alt={alt}/>
         }
     }
 
@@ -29,118 +23,11 @@ const Media = (props) => {
         }
     }
 
-    const handleImageClick = (e) => {
-        console.log(e)
-        const media = document.querySelector('.media');
-        const img = document.querySelector('.media img');
-        if (e.target.naturalHeight > media.clientHeight || e.target.naturalWidth > media.clientWidth) {
-            !zoom ? setZoom(true) : setZoom(false);
-            img.style.cursor = 'zoom-in';
-        }
-        
-    }
-
-    const dragStart = (e) => {
-        // setDragStartPos({x: e.screenX, y:e.screenY})
-        x = e.screenX
-        y = e.screenY
-    }
-
-    const changePos = (e) => {
-        // const { x, y } = dragStartPos;
-        if (e.screenX > 0 && e.screenY > 0) {
-            const img = document.querySelector('.media img');
-            const media = document.querySelector('.media');
-            const moveX = e.screenX - x
-            const moveY = e.screenY - y
-
-            let totalX = moveX + dragPosition.x
-            let totalY = moveY + dragPosition.y
-
-            if (e.target.width > media.clientWidth && totalX > (e.target.width - media.clientWidth) / 2) {
-                totalX = (e.target.width - media.clientWidth) / 2;
-            } else if (e.target.width > media.clientWidth && totalX < - (e.target.width - media.clientWidth) / 2) {
-                totalX = - (e.target.width - media.clientWidth) / 2;
-            } else if (e.target.width < media.clientWidth) {
-                totalX = 0;
-            }
-
-            if (e.target.height > media.clientHeight && totalY > (e.target.height - media.clientHeight) / 2) {
-                totalY = (e.target.height - media.clientHeight) / 2;
-            } else if (e.target.height > media.clientHeight && totalY < - (e.target.height - media.clientHeight) / 2) {
-                totalY = - (e.target.height - media.clientHeight) / 2;
-            } else if (e.target.height < media.clientHeight) {
-                totalY = 0;
-            }
-
-            img.style.transform = `translate(calc(-50% + ${totalX}px), calc(-50% + ${totalY}px))`;
-        }
-    }
-
-    const dragEnd = (e) => {
-        const img = document.querySelector('.media img')
-        const media = document.querySelector('.media');
-
-        img.style.cursor = 'zoom-out';
-
-        const moveX = e.screenX - x
-        const moveY = e.screenY - y
-
-        let totalX = moveX + dragPosition.x
-        let totalY = moveY + dragPosition.y
-
-        if (e.target.width > media.clientWidth && totalX > (e.target.width - media.clientWidth) / 2) {
-            totalX = (e.target.width - media.clientWidth) / 2;
-        } else if (e.target.width > media.clientWidth && totalX < - (e.target.width - media.clientWidth) / 2) {
-            totalX = - (e.target.width - media.clientWidth) / 2;
-        } else if (e.target.width < media.clientWidth) {
-            totalX = 0;
-        }
-
-        if (e.target.height > media.clientHeight && totalY > (e.target.height - media.clientHeight) / 2) {
-            totalY = (e.target.height - media.clientHeight) / 2;
-        } else if (totalY < - (e.target.height > media.clientHeight && e.target.height - media.clientHeight) / 2) {
-            totalY = - (e.target.height - media.clientHeight) / 2;
-        } else if (e.target.height < media.clientHeight) {
-            totalY = 0;
-        }
-
-        dragPosition = {x: totalX, y: totalY}
-    }
-
-    useEffect(() => {
-        const img = document.querySelector('.media img')
-        if (zoom) {
-            img.style.maxHeight = 'none';
-            img.style.maxWidth = 'none';
-            img.style.cursor = 'zoom-out';
-            img.addEventListener('dragstart', dragStart);
-            img.addEventListener('drag', changePos);
-            img.addEventListener('dragend', dragEnd);
-
-            return () => {
-                img.style.maxHeight = '100%';
-                img.style.maxWidth = '100%';
-                img.style.transform = `translate(-50%, -50%)`;
-                img.style.cursor = 'zoom-in';
-                img.removeEventListener('drag', changePos);
-                img.removeEventListener('dragstart', dragStart);
-                img.removeEventListener('dragend', dragEnd);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[zoom])
-
     useEffect(() => {
         if (mediaOpen) {
             document.documentElement.addEventListener('keydown', toggleView)
-            const img = document.querySelector('.media img');
-            const media = document.querySelector('.media');
-
-            if (img.naturalHeight > media.clientHeight || img.naturalWidth > media.clientWidth) {
-                img.style.cursor = 'zoom-in';
-            }
         }
+
         return () => document.documentElement.removeEventListener('keydown', toggleView)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[mediaOpen])
