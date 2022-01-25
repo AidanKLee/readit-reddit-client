@@ -28,6 +28,14 @@
     object-fit: contain;
 }
 
+.post .videoPlayer {
+    max-height: calc(100vh - 128px);
+}
+
+.post .videoPlayer video {
+    max-height: none;
+}
+
 .post .tileMainImg {
     object-fit: contain;
     object-position: center;

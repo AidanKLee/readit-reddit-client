@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './video.css';
 import './slider.css';
+import { Link } from 'react-router-dom';
+import { returnToTop } from '../../utilities/functions';
 
 const Video = (props) => {
 
@@ -13,25 +15,34 @@ const Video = (props) => {
     const [ fullscreen, setFullscreen ] = useState(false);
     const [ wasPlaying, setWasPlaying ] = useState(false);
     const [ time, setTime ] = useState(0);
+    const [ ended, setEnded ] = useState(false);
+    const [ mouseIdle, setMouseIdle ] = useState(false);
+    const [ duration, setDuration ] = useState(0);
 
     const audio = video ? video.split('_')[0] + '_audio.mp4' : undefined;
 
-    const toggleVid = document.getElementsByClassName(id)[0];
-    const toggleAud = document.getElementsByClassName(id)[1];
+    let toggleVid = document.getElementsByClassName(id)[0]
+    let toggleAud = document.getElementsByClassName(id)[1]
 
-    const duration = toggleAud && toggleAud.duration ? toggleAud.duration : 1;
-    let position = toggleAud && toggleAud.currentTime ? toggleAud.currentTime : 0;
-    const buffered = toggleVid ? toggleVid.buffered.TimeRanges : 0;
+    useEffect(() => {
+        if (volume > 0 && muted) {
+            setMuted(false)
+        }
+    },[volume, muted])
 
     const togglePlay = () => {
-        if (toggleVid.paused) {
+        if (ended) {
+            setTime(0);
+            toggleVid.currentTime = 0;
+            toggleAud.currentTime = 0;
+            setEnded(false);
+            toggleVid.play();
+        } else if (paused) {
             setPaused(false);
             toggleVid.play();
-            toggleAud.play();
         } else {
             setPaused(true);
             toggleVid.pause();
-            toggleAud.pause();
         }
     }
 
@@ -78,11 +89,7 @@ const Video = (props) => {
     }
 
     const playbackSliderStyle = () => {
-        return {backgroundSize: ((position / duration) * 100) + '% 100%'}
-    }
-
-    const playbackBufferedStyle = () => {
-        return {backgroundSize: ((buffered / duration) * 100) + '% 100%'}
+        return {backgroundSize: ((time / duration) * 100) + '% 100%'}
     }
 
     const handlePlaybackPosition = (e) => {
@@ -126,7 +133,7 @@ const Video = (props) => {
         if (fullscreen) {
             const timeout = setTimeout(() => {
                 videoPlayer.addEventListener('fullscreenchange', handleCloseFS)
-            },50)
+            },100)
 
             return () => {
                 videoPlayer.removeEventListener('fullscreenchange', handleCloseFS)
@@ -135,6 +142,16 @@ const Video = (props) => {
         }
             
     },[fullscreen, id])
+
+    const timeRanges = toggleVid && toggleVid.buffered ? toggleVid.buffered : undefined
+    const bufferedSections = timeRanges ? timeRanges.length : undefined
+    let sectionsStart = []
+    let sectionsEnd = []
+
+    for (let i = 0; i < bufferedSections; i++) {
+        sectionsStart.push(timeRanges.start(i))
+        sectionsEnd.push(timeRanges.end(i))
+    }
 
     const maxHeightNone = fullscreen ? {maxHeight: 'none'} : {};
 
@@ -164,18 +181,68 @@ const Video = (props) => {
 
     const handleTime = (e) => {
         setTime(e.target.currentTime)
-        toggleAud.currentTime = e.target.currentTime
     }
 
+    const handleEnd = () => {
+        setEnded(true);
+    }
+
+    const handleRightClick = (e) => {
+        e.preventDefault();
+    }
+
+    let timer;
+
+    const handleMovingMouse = () => {
+        setMouseIdle(false)
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            setMouseIdle(true)           
+        }, 5000)
+    }
+    
+    useEffect(() => {
+        const videoPlayer = document.querySelector('.videoPlayer' + id);
+        const overlay = document.querySelector('.videoPlayerControlsOverlay' + id);
+        const controls = document.querySelector('.videoPlayerControls' + id);
+        const logo = document.querySelector('.videoPlayerLogo' + id);
+        if (mouseIdle && !paused) {
+            videoPlayer.style.cursor = 'none'
+            overlay.style.transform = 'translateY(100%)';
+            controls.style.transform = 'translateY(100%)';
+            logo.style.bottom = '2%';
+        } else {
+            videoPlayer.style.cursor = ''
+            overlay.style.transform = '';
+            controls.style.transform = '';
+            logo.style.bottom = '';
+        }
+    },[mouseIdle, paused, id])
+
     return (
-        <div className={'videoPlayer videoPlayer' + id} style={maxHeightNone}>
-            <div onClick={togglePlay} className='videoMedia' style={style}>
-                <video onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
+        <div onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
+            {ended && !paused ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/></g><g><g/><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg> : undefined}
+            {paused && !ended ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg> : undefined}            
+            <div onClick={togglePlay} className='videoMedia'>
+                <video onLoadedData={(e) => {
+                    setDuration(e.target.duration)
+                }
+                } onPlay={() => toggleAud.play()} onPause={() => toggleAud.pause()} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
+                
             </div>
             <audio className={id}><source src={audio ? audio : undefined}/></audio>
-            <div className='videoPlayerControlsOverlay'></div>
-            <div className='videoPlayerControls'>
-                <div className='playPosition' style={playbackBufferedStyle()}><input onMouseDown={playbackPositionDown} onTouchStart={playbackPositionDown} onMouseUp={playbackPositionUp} onTouchEnd={playbackPositionUp} onInput={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={time} step='.01'/></div>
+            <div className={'videoPlayerControls videoPlayerControls' + id}>
+                <div className='playPosition'>
+                    {sectionsStart.map((section, i) => {
+                        return (
+                            <div key={i} className='playPositionBuffered' style={{
+                                left: ((section / duration) * 100) + '%',
+                                width: (((sectionsEnd[i] - section) / duration) * 100) + '%'
+                            }}></div>
+                        )
+                    })}
+                    <input onMouseDown={playbackPositionDown} onTouchStart={playbackPositionDown} onMouseUp={playbackPositionUp} onTouchEnd={playbackPositionUp} onInput={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={time} step='.01'/>
+                </div>
                 <div className='buttons'>
                     <div className='videoPlayerControlsLeft'>
                         <div onClick={togglePlay} className='play'>
@@ -188,7 +255,7 @@ const Video = (props) => {
                             <div className='volumeSlider'><input onChange={handleAudioLevel} style={volumeSliderStyle()} type='range' min='0' max='1' step='.01' value={volume}/></div>
                         </div>
                         <div className='timePlayed'>
-                            {formatTime(position) + ' / ' + formatTime(duration)}
+                            {formatTime(time) + ' / ' + formatTime(duration)}
                         </div>
                     </div>
                     <div className='videoPlayerControlsRight'>
@@ -197,6 +264,10 @@ const Video = (props) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={'videoPlayerControlsOverlay videoPlayerControlsOverlay' + id}></div>
+            <div className={'videoPlayerLogo videoPlayerLogo' + id}>
+                <Link className='' onClick={(e) => returnToTop(e)} to='/'><p>READIT</p></Link>
             </div>
         </div>
     )
