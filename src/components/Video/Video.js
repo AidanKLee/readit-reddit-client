@@ -125,7 +125,7 @@ const Video = (props) => {
         const videoPlayer = document.querySelector('.videoPlayer' + id);
         if (document.fullscreenElement !== videoPlayer) {
             setFullscreen(true)
-            videoPlayer.requestFullscreen().catch(e => console.log('Error opening fullscreen player: ' + e.name))
+            videoPlayer.requestFullscreen({navigationUI: 'hide'}).catch(e => console.log('Error opening fullscreen player: ' + e.name))
         } else {
             setFullscreen(false)
             document.exitFullscreen();
@@ -254,7 +254,6 @@ const Video = (props) => {
         if (!hoveredPosition) {
             hoveredPosition = e.touches[0].clientX
         }
-        console.log(e)
         setCursor(hoveredPosition)
 
         const w = e.target.offsetWidth;
