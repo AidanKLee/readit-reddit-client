@@ -7,7 +7,7 @@ import loader from '../../assets/loader.svg';
 
 const Video = (props) => {
 
-    const { style, video, id } = props;
+    const { style, video, id, isPost } = props;
 
     const [ paused, setPaused ] = useState(true);
     const [ muted, setMuted ] = useState(false);
@@ -20,6 +20,10 @@ const Video = (props) => {
     const [ mouseIdle, setMouseIdle ] = useState(false);
     const [ duration, setDuration ] = useState(0);
     const [ buffering, setBuffering ] = useState(false);
+    const [ hoverPosition, setHoverPosition ] = useState(0);
+    const [ hoverTime, setHoverTime ] = useState(0);
+    const [ width, setWidth ] = useState(0);
+    const [ cursor, setCursor ] = useState(0);
 
     const audio = video ? video.split('_')[0] + '_audio.mp4' : undefined;
 
@@ -100,7 +104,8 @@ const Video = (props) => {
         toggleAud.currentTime = e.target.value
     }
 
-    const playbackPositionDown = () => {
+    const playbackPositionDown = (e) => {
+        showHoveredTime()
         if (!toggleVid.paused) {
             togglePlay();
             setWasPlaying(true);
@@ -110,6 +115,7 @@ const Video = (props) => {
     }
 
     const playbackPositionUp = () => {
+        hideHoveredTime()
         if (wasPlaying) {
             togglePlay();
         }
@@ -182,6 +188,9 @@ const Video = (props) => {
     }
 
     const handleTime = (e) => {
+        if (toggleVid.currentTime < toggleAud.currentTime + .015 || toggleVid.currentTime > toggleAud.currentTime + .045) {
+            toggleAud.currentTime = toggleVid.currentTime
+        }
         setTime(e.target.currentTime)
     }
 
@@ -197,11 +206,18 @@ const Video = (props) => {
 
     const handleMovingMouse = () => {
         setMouseIdle(false)
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-            setMouseIdle(true)           
-        }, 5000)
     }
+
+    useEffect(() => {
+        if (!mouseIdle) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            timer = setTimeout(() => {
+                setMouseIdle(true)           
+            }, 3000)
+
+            return () => clearTimeout(timer)
+        }
+    },[mouseIdle])
     
     useEffect(() => {
         const videoPlayer = document.querySelector('.videoPlayer' + id);
@@ -232,6 +248,57 @@ const Video = (props) => {
         toggleAud.pause();
     }
 
+    const getHoveredPositionOrTime = (e) => {
+        const { left } = e.target.getBoundingClientRect();
+        let hoveredPosition = e.clientX;
+        if (!hoveredPosition) {
+            hoveredPosition = e.touches[0].clientX
+        }
+        console.log(e)
+        setCursor(hoveredPosition)
+
+        const w = e.target.offsetWidth;
+        setWidth(w)
+        
+        hoveredPosition = hoveredPosition - left;
+
+        const hoveredDecimal = hoveredPosition / width;
+
+        let hoveredTime = duration * hoveredDecimal
+        hoveredTime = formatTime(hoveredTime)
+
+        setHoverPosition(hoveredDecimal)
+        setHoverTime(hoveredTime)
+
+        // hoveredTimeBoundaries()
+    }
+
+    const showHoveredTime = () => {
+        const showTime = document.querySelector('.videoPlayer' + id + ' .videoPlayerHoveredTimeWrapper');
+        showTime.style.display = 'block';
+    }
+
+    const hideHoveredTime = () => {
+        const showTime = document.querySelector('.videoPlayer' + id + ' .videoPlayerHoveredTimeWrapper');
+        showTime.style.display = '';
+    }
+
+    const hoveredTimeBoundaries = () => {
+        const timeWidth = document.querySelector('.videoPlayer' + id + ' .videoPlayerHoveredTimeWrapper') ? document.querySelector('.videoPlayer' + id + ' .videoPlayerHoveredTimeWrapper').offsetWidth / 2 : 0;
+        const { left: boundLeft, right: boundRight } = document.querySelector('.videoPlayer' + id) ? document.querySelector('.videoPlayer' + id).getBoundingClientRect() : {left: 0, right: 0};
+
+        const cursorLeft = cursor - timeWidth;
+        const cursorRight = cursor + timeWidth;
+
+        if (cursorLeft < boundLeft) {
+            return {transform: 'translate(calc(-50% + ' + (boundLeft - cursorLeft) + 'px))', left: (hoverPosition * width) + 'px'}
+        } else if (cursorRight > boundRight) {
+            return {transform: 'translate(calc(-50% - ' + (cursorRight - boundRight) + 'px))', left: (hoverPosition * width) + 'px'}
+        } else {
+            return {left: (hoverPosition * width) + 'px'}
+        }
+    }
+
     return (
         <div onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
             {ended && !paused ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/></g><g><g/><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg> : undefined}
@@ -241,12 +308,13 @@ const Video = (props) => {
                 <video onLoadedData={(e) => {
                     setDuration(e.target.duration)
                 }
-                } onPlaying={handlePlaying} onPause={() => toggleAud.pause()} onWaiting={handleBuffering} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
+                } onPlaying={handlePlaying} onPause={() => toggleAud.pause()} onWaiting={handleBuffering} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone} preload={isPost ? 'auto' : 'meta'}><source src={video ? video : undefined}/></video>
                 
             </div>
             <audio className={id}><source src={audio ? audio : undefined}/></audio>
+            <div className='videoPlayerHoveredTimeWrapper' style={hoveredTimeBoundaries()}>{hoverTime}</div>
             <div className={'videoPlayerControls videoPlayerControls' + id}>
-                <div className='playPosition'>
+                <div className='playPosition' onMouseOver={showHoveredTime} onMouseLeave={hideHoveredTime}>
                     {sectionsStart.map((section, i) => {
                         return (
                             <div key={i} className='playPositionBuffered' style={{
@@ -255,7 +323,11 @@ const Video = (props) => {
                             }}></div>
                         )
                     })}
-                    <input onMouseDown={playbackPositionDown} onTouchStart={playbackPositionDown} onMouseUp={playbackPositionUp} onTouchEnd={playbackPositionUp} onInput={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={time} step='.01'/>
+                    <div className='videoPlayerHoveredPosition' style={{width: 100 * hoverPosition + '%'}}></div>
+                    <input onTouchMove={(e) => {
+                        getHoveredPositionOrTime(e)
+                        playbackPositionDown()
+                        }} onMouseMove={getHoveredPositionOrTime} onMouseDown={playbackPositionDown} onTouchStart={playbackPositionDown} onMouseUp={playbackPositionUp} onTouchEnd={playbackPositionUp} onInput={handlePlaybackPosition} style={playbackSliderStyle()} type='range' min='0' max={duration} value={time} step='.01'/>
                 </div>
                 <div className='buttons'>
                     <div className='videoPlayerControlsLeft'>

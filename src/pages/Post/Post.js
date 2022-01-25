@@ -67,7 +67,7 @@ const Post = (props) => {
             {post && post.data && post.data.url && post.data.url.length > 0 && (!post.data.url.includes('https://www.reddit.com') || (post.data.url.includes('https://www.reddit.com') && post.data.url.includes('gallery'))) && !isImage(post.data.url) && !post.data.url.includes('.gifv') && !post.data.is_video ? <p className="tileMainText"><a target='_blank' rel='noreferrer' href={post.data.url}>{post.data.url}</a></p> : undefined}
             <div className="tileObjectContainer video">
                 {post && post.data && isImage(post.data.url) && post.data.url.includes('.gifv') ? <video style={over18Style(post, login)} className="tileMainVideo" autoPlay muted loop><source src={post.data.url.replace('.gifv', '.mp4')}/></video> : undefined}
-                {post && post.data && post.data.is_video && post.data.media ? <Video style={over18Style(post, login)} video={post.data.media.reddit_video.fallback_url} id={post.data.id} /> : undefined}
+                {post && post.data && post.data.is_video && post.data.media ? <Video style={over18Style(post, login)} video={post.data.media.reddit_video.fallback_url} isPost={true} id={post.data.id} /> : undefined}
             </div>
             <div className="tileObjectContainer">
                 {post && post.data && isImage(post.data.url) && !post.data.url.includes('.gifv') ? <a style={over18Style(post, login)} href={post.data.url} target='_blank' rel='noreferrer'><img className="tileMainImg" style={over18Style(post, login)} src={post.data.url} alt={post.data.id}/></a> : undefined}
