@@ -3,6 +3,7 @@ import './video.css';
 import './slider.css';
 import { Link } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
+import loader from '../../assets/loader.svg';
 
 const Video = (props) => {
 
@@ -18,6 +19,7 @@ const Video = (props) => {
     const [ ended, setEnded ] = useState(false);
     const [ mouseIdle, setMouseIdle ] = useState(false);
     const [ duration, setDuration ] = useState(0);
+    const [ buffering, setBuffering ] = useState(false);
 
     const audio = video ? video.split('_')[0] + '_audio.mp4' : undefined;
 
@@ -219,15 +221,27 @@ const Video = (props) => {
         }
     },[mouseIdle, paused, id])
 
+    const handlePlaying = () => {
+        toggleAud.currentTime = toggleVid.currentTime
+        setBuffering(false);
+        toggleAud.play();
+    }
+
+    const handleBuffering = () => {
+        setBuffering(true);
+        toggleAud.pause();
+    }
+
     return (
         <div onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
             {ended && !paused ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/></g><g><g/><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg> : undefined}
-            {paused && !ended ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg> : undefined}            
+            {paused && !ended ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg> : undefined}
+            {buffering ? <img className='videoPlayerReplay' src={loader} alt={'Video Loading'}/> : undefined}         
             <div onClick={togglePlay} className='videoMedia'>
                 <video onLoadedData={(e) => {
                     setDuration(e.target.duration)
                 }
-                } onPlay={() => toggleAud.play()} onPause={() => toggleAud.pause()} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
+                } onPlaying={handlePlaying} onPause={() => toggleAud.pause()} onWaiting={handleBuffering} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone}><source src={video ? video : undefined}/></video>
                 
             </div>
             <audio className={id}><source src={audio ? audio : undefined}/></audio>
