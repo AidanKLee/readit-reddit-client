@@ -141,14 +141,20 @@ const Video = (props) => {
     // console.log()
 
     useEffect(() => {
-        const videoPlayer = document.querySelector('.videoPlayer' + id);
-        const videoElement = document.querySelector('#videoMedia' + id + ' video');
+        const fSTimeout = setTimeout(() => {
+            const videoPlayer = document.querySelector('.videoPlayer' + id);
+            const videoElement = document.querySelector('#videoMedia' + id + ' video');
 
-        const vidElementHeight = videoElement.videoHeight;
-        const vidElementWidth = videoElement.videoWidth;
-        if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock && vidElementWidth > vidElementHeight) {
-            window.screen.orientation.lock('landscape')
-        }
+            const vidElementHeight = videoElement.videoHeight;
+            const vidElementWidth = videoElement.videoWidth;
+
+            console.log( vidElementWidth, vidElementHeight, document.fullscreenElement === videoPlayer)
+            if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock && vidElementWidth > vidElementHeight) {
+                window.screen.orientation.lock('landscape');
+            }
+        },100)
+
+        return () => clearTimeout(fSTimeout)
     },[fullscreen, id])
 
     const handleCloseFS = (e) => {

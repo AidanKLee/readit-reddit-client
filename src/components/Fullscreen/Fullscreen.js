@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './fullscreen.css';
 
 const Fullscreen = () => {
 
+    const [ fullscreen, setFullscreen ] = useState(false);
+
     const handleClick = () => {
         const app = document.documentElement;
         if (document.fullscreenElement !== app) {
+            setFullscreen(true)
             app.requestFullscreen({navigationUI: 'hide'}).catch(e =>alert('Error Opening Fullscreen: ' + e))
         } else {
+            setFullscreen(false)
             document.exitFullscreen();
         }
     }
+
+    useEffect(() => {
+        const fSTimeout = setTimeout(() => {
+            const app = document.documentElement
+            if (fullscreen && document.fullscreenElement === app && window.screen.orientation && window.screen.orientation.lock) {
+                window.screen.orientation.lock('portrait');
+            }
+        },100)
+        return () => clearTimeout(fSTimeout)
+    },[fullscreen])
+    
 
     return (
         <div onClick={handleClick} className='fullscreen'>            
