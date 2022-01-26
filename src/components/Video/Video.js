@@ -132,6 +132,13 @@ const Video = (props) => {
         }
     }
 
+    useEffect(() => {
+        const videoPlayer = document.querySelector('.videoPlayer' + id);
+        if (document.fullscreenElement === videoPlayer && Screen.orientation && Screen.orientation.lock) {
+            Screen.orientation.lock('landscape')
+        }
+    },[fullscreen])
+
     const handleCloseFS = (e) => {
         setFullscreen(false)
     }
@@ -297,6 +304,7 @@ const Video = (props) => {
             return {left: (hoverPosition * width) + 'px'}
         }
     }
+
 
     return (
         <div onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
