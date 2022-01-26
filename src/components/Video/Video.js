@@ -132,13 +132,13 @@ const Video = (props) => {
         }
     }
 
-    useEffect(() => {
-        const videoPlayer = document.querySelector('.videoPlayer' + id);
-        console.log(fullscreen)
-        if (fullscreen && Screen.orientation && Screen.orientation.lock) {
-            Screen.orientation.lock('landscape')
-        }
-    },[fullscreen])
+    // useEffect(() => {
+    //     const videoPlayer = document.querySelector('.videoPlayer' + id);
+    //     console.log(fullscreen)
+    //     if (fullscreen && Screen.orientation && Screen.orientation.lock) {
+    //         Screen.orientation.lock('landscape')
+    //     }
+    // },[fullscreen])
 
     const handleCloseFS = (e) => {
         setFullscreen(false)
