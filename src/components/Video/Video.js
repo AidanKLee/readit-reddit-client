@@ -135,6 +135,7 @@ const Video = (props) => {
         } else {
             setFullscreen(false)
             document.exitFullscreen();
+            window.screen.orientation.lock('portrait');
         }
     }
 
