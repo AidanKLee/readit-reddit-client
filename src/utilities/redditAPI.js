@@ -253,8 +253,8 @@ export class redditAPI {
         const beforeAfter = `&before=${before}&after=${after}`;
 
         const data = await fetch(`${endpoint}${beforeAfter}`);
-
         const jsonData = await data.json();
+
         return jsonData;
     }
 
@@ -284,7 +284,7 @@ export class redditAPI {
     }
 
     fetchSubreddit = async (link) => {
-        const endpoint = `https://www.reddit.com/${link}/about.json`;
+        let endpoint = `https://www.reddit.com/${link}/about.json`;
 
         const data = await fetch(endpoint);
         const jsonData = await data.json();
@@ -412,6 +412,43 @@ export class redditAPI {
         const jsonData = await data.json();
         console.log(jsonData)
     }
+
+    fetchInbox = async (count = 0, limit = 25, after) => {
+        let inbox = await fetch(`https://oauth.reddit.com/message/inbox`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            },
+            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        })
+        inbox = await inbox.json();
+
+        return inbox;
+    }
+
+    fetchUnread = async (count = 0, limit = 25, after) => {
+        let unread = await fetch(`https://oauth.reddit.com/message/unread`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            },
+            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        })
+        unread = await unread.json();
+
+        return unread;
+    }
+
+    fetchSent = async (count = 0, limit = 25, after) => {
+        let sent = await fetch(`https://oauth.reddit.com/message/sent`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            },
+            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        })
+        sent = await sent.json();
+
+        return sent;
+    }
+
 
 
     getIconImg = (community, style) => {

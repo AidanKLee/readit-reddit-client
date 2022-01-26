@@ -82,7 +82,7 @@ useEffect(() => {
 
   return (
     <div className="App" data-test='App'>
-      <Clock />
+      {/* <Clock /> */}
       <Header />
       <Main />
       <Menu />

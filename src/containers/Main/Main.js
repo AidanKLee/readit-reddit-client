@@ -19,6 +19,12 @@ import Post from "../../pages/Post/Post";
 import Search from "../../pages/Search/Search";
 import Settings from "../../pages/Settings/Settings";
 import Account from "../../pages/Account/Account";
+import Messages from "../../pages/Messages/Messages";
+import Mod from "../../pages/Mod/Mod";
+import Inbox from "../../pages/Messages/inbox";
+import Sent from "../../pages/Messages/Sent";
+import Unread from "../../pages/Messages/Unread";
+import Compose from "../../pages/Messages/Compose";
 
 const Main = () => {
 
@@ -87,6 +93,15 @@ const Main = () => {
                         <Route path={'/popular/rising'} element={<Rising location={location} page={'r/popular/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
+
+                    <Route path={'/mod'} element={<Mod />}>
+                        <Route path={''} element={<Best location={location} page={'r/mod/'}/>}/>
+                        <Route path={'/mod/hot'} element={<Hot location={location} page={'r/mod/'}/>}/>
+                        <Route path={'/mod/new'} element={<New location={location} page={'r/mod/'}/>}/>
+                        <Route path={'/mod/top'} element={<Top location={location} page={'r/mod/'}/>}/>
+                        <Route path={'/mod/rising'} element={<Rising location={location} page={'r/mod/'}/>}/>
+                        <Route path={'*'} element={<Navigate replace to={`/mod`}/>}/>
+                    </Route>
                 
                     <Route path={'/search/:searchType'} element={<Search/>}/>
 
@@ -100,7 +115,7 @@ const Main = () => {
                         <Route path={'/r/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/${selected}`}/>}/>
                     </Route>
                     
-                    <Route path='/u/' element={<User/>}>
+                    <Route path='/u' element={<User/>}>
                         <Route path={'/u/:userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
                         <Route path={'/u/:userId/:content'} element={<Best location={location} page={`user/${selected}/`}/>}/>
                         <Route path={'/u/:userId/:content/hot'} element={<Hot location={location} page={`user/${selected}/`}/>}/>
@@ -111,6 +126,17 @@ const Main = () => {
                     </Route>
 
                     {localStorage.getItem('refreshToken') ? <Route path={'/account'} element={<Account/>}/> : undefined}
+
+                    {localStorage.getItem('refreshToken') ? 
+                        <Route path={'/messages'} element={<Messages/>}>
+                            <Route exact path={'/messages'} element={<Navigate replace to={`/messages/inbox`}/>}/>
+                            <Route path={'/messages/inbox'} element={<Inbox/>}/>
+                            <Route path={'/messages/sent'} element={<Sent/>}/>
+                            <Route path={'/messages/unread'} element={<Unread/>}/>
+                            <Route path={'/messages/compose'} element={<Compose/>}/>
+                            <Route path={'*'} element={<Navigate replace to={`/messages/inbox`}/>}/>
+                        </Route> 
+                    : undefined}
 
                     {localStorage.getItem('refreshToken') ? <Route path={'/settings'} element={<Settings/>}/> : undefined}
 

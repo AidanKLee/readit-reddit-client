@@ -149,7 +149,6 @@ const Video = (props) => {
             const vidElementHeight = videoElement.videoHeight;
             const vidElementWidth = videoElement.videoWidth;
 
-            console.log( vidElementWidth, vidElementHeight, document.fullscreenElement === videoPlayer)
             if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock && vidElementWidth > vidElementHeight) {
                 window.screen.orientation.lock('landscape');
             }
