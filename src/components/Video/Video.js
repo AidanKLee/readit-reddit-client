@@ -128,6 +128,7 @@ const Video = (props) => {
 
     const toggleFullscreen = () => {
         const videoPlayer = document.querySelector('.videoPlayer' + id);
+
         if (document.fullscreenElement !== videoPlayer) {
             setFullscreen(true)
             videoPlayer.requestFullscreen({navigationUI: 'hide'}).catch(e => console.log('Error opening fullscreen player: ' + e.name))
@@ -141,7 +142,11 @@ const Video = (props) => {
 
     useEffect(() => {
         const videoPlayer = document.querySelector('.videoPlayer' + id);
-        if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock) {
+        const videoElement = document.querySelector('#videoMedia' + id + ' video');
+
+        const vidElementHeight = videoElement.videoHeight;
+        const vidElementWidth = videoElement.videoWidth;
+        if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock && vidElementWidth > vidElementHeight) {
             window.screen.orientation.lock('landscape')
         }
     },[fullscreen, id])
@@ -324,7 +329,6 @@ const Video = (props) => {
                     setDuration(e.target.duration)
                 }
                 } onPlaying={handlePlaying} onPause={() => toggleAud.pause()} onWaiting={handleBuffering} onEnded={handleEnd} onTimeUpdate={handleTime} className={id} style={maxHeightNone} preload={isPost ? 'auto' : 'meta'}><source src={video ? video : undefined}/></video>
-                
             </div>
             <audio className={id}><source src={audio ? audio : undefined}/></audio>
             <div className='videoPlayerHoveredTimeWrapper' style={hoveredTimeBoundaries()}>{hoverTime}</div>
