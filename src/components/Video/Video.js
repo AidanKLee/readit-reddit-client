@@ -24,6 +24,7 @@ const Video = (props) => {
     const [ hoverTime, setHoverTime ] = useState(0);
     const [ width, setWidth ] = useState(0);
     const [ cursor, setCursor ] = useState(0);
+    const [ menuOpen, setMenuOpen ] = useState(false);
 
     const audio = video ? video.split('_')[0] + '_audio.mp4' : undefined;
 
@@ -36,20 +37,24 @@ const Video = (props) => {
         }
     },[volume, muted])
 
-    const togglePlay = () => {
-        if (ended) {
-            setTime(0);
-            toggleVid.currentTime = 0;
-            toggleAud.currentTime = 0;
-            setEnded(false);
-            toggleVid.play();
-        } else if (paused) {
-            setPaused(false);
-            toggleVid.play();
-        } else {
-            setPaused(true);
-            toggleVid.pause();
+    const togglePlay = (e) => {
+        if ((e && e.nativeEvent.pointerType === 'mouse') || (e && e.nativeEvent.pointerType === 'touch' && menuOpen) ) {
+            if (ended) {
+                setTime(0);
+                toggleVid.currentTime = 0;
+                toggleAud.currentTime = 0;
+                setEnded(false);
+                toggleVid.play();
+            } else if (paused) {
+                setPaused(false);
+                toggleVid.play();
+            } else {
+                setPaused(true);
+                toggleVid.pause();
+            }
         }
+
+        setMenuOpen(true)
     }
 
     const renderAudioControl = () => {
@@ -138,7 +143,6 @@ const Video = (props) => {
         if (fullscreen && window.screen.orientation && window.screen.orientation.lock) {
             window.screen.orientation.lock('landscape')
         }
-        console.log(window.screen.orientation)
     },[fullscreen])
 
     const handleCloseFS = (e) => {
@@ -221,7 +225,7 @@ const Video = (props) => {
         if (!mouseIdle) {
             // eslint-disable-next-line react-hooks/exhaustive-deps
             timer = setTimeout(() => {
-                setMouseIdle(true)           
+                setMouseIdle(true)   
             }, 3000)
 
             return () => clearTimeout(timer)
@@ -238,6 +242,7 @@ const Video = (props) => {
             overlay.style.transform = 'translateY(100%)';
             controls.style.transform = 'translateY(100%)';
             logo.style.bottom = '2%';
+            setMenuOpen(false)
         } else {
             videoPlayer.style.cursor = ''
             overlay.style.transform = '';
@@ -309,11 +314,11 @@ const Video = (props) => {
 
 
     return (
-        <div onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
+        <div onTouchStart={(e) => handleMovingMouse(e)} onMouseMove={handleMovingMouse} onContextMenu={handleRightClick} className={'videoPlayer videoPlayer' + id} style={{...maxHeightNone, ...style}}>
             {ended && !paused ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/><rect fill="none" height="24" width="24"/></g><g><g/><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></g></svg> : undefined}
             {paused && !ended ? <svg onClick={togglePlay} className='videoPlayerReplay' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"/></svg> : undefined}
             {buffering ? <img className='videoPlayerReplay' src={loader} alt={'Video Loading'}/> : undefined}         
-            <div onClick={togglePlay} className='videoMedia'>
+            <div className='videoMedia' onClick={(e) => togglePlay(e)}>
                 <video onLoadedData={(e) => {
                     setDuration(e.target.duration)
                 }
