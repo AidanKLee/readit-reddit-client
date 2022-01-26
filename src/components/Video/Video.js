@@ -134,7 +134,8 @@ const Video = (props) => {
 
     useEffect(() => {
         const videoPlayer = document.querySelector('.videoPlayer' + id);
-        if (document.fullscreenElement === videoPlayer && Screen.orientation && Screen.orientation.lock) {
+        console.log(fullscreen)
+        if (fullscreen && Screen.orientation && Screen.orientation.lock) {
             Screen.orientation.lock('landscape')
         }
     },[fullscreen])
