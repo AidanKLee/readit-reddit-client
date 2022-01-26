@@ -140,10 +140,11 @@ const Video = (props) => {
     // console.log()
 
     useEffect(() => {
-        if (fullscreen && window.screen.orientation && window.screen.orientation.lock) {
+        const videoPlayer = document.querySelector('.videoPlayer' + id);
+        if (fullscreen && document.fullscreenElement === videoPlayer && window.screen.orientation && window.screen.orientation.lock) {
             window.screen.orientation.lock('landscape')
         }
-    },[fullscreen])
+    },[fullscreen, id])
 
     const handleCloseFS = (e) => {
         setFullscreen(false)
