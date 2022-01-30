@@ -5,7 +5,7 @@ import Main from '../containers/Main/Main';
 import Menu from '../containers/Menu/Menu';
 import Footer from '../containers/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleLogin, selectLogin } from '../components/LogIn/loginSlice';
+import { fetchModeratedSubreddits, handleLogin, selectLogin } from '../components/LogIn/loginSlice';
 import { selectDarkMode, setDarkMode, setDayMode } from '../components/DarkMode/darkModeSlice';
 import NewPost from '../components/NewPost/NewPost';
 import { useLocation } from 'react-router-dom';
@@ -78,7 +78,16 @@ useEffect(() => {
 
   useEffect(() => {
       dispatch(handleLogin());
-  }, [dispatch]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (login && login.authorization && login.authorization.user) {
+      dispatch(fetchModeratedSubreddits(login.authorization.user.name));
+    }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[login.initialLoginAttempt])
+
 
   return (
     <div className="App" data-test='App'>

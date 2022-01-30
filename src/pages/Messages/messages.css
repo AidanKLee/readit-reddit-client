@@ -12,7 +12,7 @@
     padding: 8px;
     background-color: var(--bg1);
     border-right: 1px solid var(--over3);
-    transition: .5s;
+    transition: border-right .5s, max-width .5s;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -40,10 +40,11 @@
     font-size: .8rem;
     padding: 4px;
     border-radius: 24px;
-    margin: 8px 0 16px;
-    box-shadow: 0 0 4px rgba(15, 15, 15, .5);
-    transition: .5s;
+    margin: 8px 0;
+    box-shadow: 2px 2px 4px rgba(15, 15, 15, .5);
+    transition: box-shadow .5s, background-color .5s;
     width: 100%;
+    cursor: pointer;
 }
 
 .messagesMenu:hover .messagesMenuNew {
@@ -52,7 +53,7 @@
 }
 
 .messagesMenuNew:hover {
-    box-shadow: 0 0 8px rgba(15, 15, 15, .7);
+    box-shadow: 4px 4px 8px rgba(15, 15, 15, .7);
     background-color: var(--over4);
 }
 
@@ -83,29 +84,32 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 16px;
 }
 
 .messagesMenuItem {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 42px;
     padding: 8px;
     background-color: var(--over4);
     border-radius: 20px;
     border: 1px solid var(--over3);
     margin-bottom: 8px;
-    transition: color 0s,background-color .2s, border-top-left-radius .5s, border-bottom-left-radius .5s;
+    transition: background-color .2s;
     color: var(--over1);
+    cursor: pointer;
 }
 
 .messagesMenu:hover .messagesMenuItem {
+    width: 100%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 1px solid transparent;
 }
 
 .messagesMenuItem:hover {
-    background-color: var(--over3);
+    background-color: var(--prim2);
     color: var(--prim1);
 }
 
@@ -150,6 +154,33 @@
     width: 30%;
     min-width: 360px;
     border-right: 1px solid var(--over3);
+    position: relative;
+}
+
+.messagesLeft .messagesLoading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg1);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--over3);
+}
+
+.messagesLoaded p {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.messagesNone {
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .messagesLeftHeader {
@@ -159,14 +190,21 @@
     font-size: 1.4rem;
     height: 50px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.messagesLeftHeader svg {
+    fill: var(--fg1);
+    opacity: 0;
+    transition: .3s;
 }
 
 .messagesList {
     height: calc(100% - 50px);
     overflow: auto;
     font-size: .8rem;
-    padding: 8px;
+    padding: 8px 8px 0;
     list-style: none;
 }
 
@@ -177,9 +215,14 @@
     margin-bottom: 8px;
     line-height: 1.2;
     border: 1px solid var(--over4);
-    transition: border .5s;
+    transition: border .5s, box-shadow .5s;
     display: flex;
     cursor: pointer;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .messagesListItemLeft {
@@ -192,6 +235,7 @@
     width: 40px;
     border-radius: 50%;
     margin-right: 8px;
+    background-color: var(--bg1);
 }
 
 .messagesListItemRight {
@@ -220,6 +264,7 @@
 
 .messagesListItemLineLeft .new {
     height: 90%;
+    min-width: 12px;
     background-color: var(--prim1);
     color: var(--bg1);
     font-size: .6rem;
@@ -240,16 +285,423 @@
 
 .bodyFade {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
-    height: 100%;
+    height: 200%;
     width: 16px;
     background: linear-gradient(90deg, rgba(40,40,40,0) 0%, var(--bg2) 100%);
 }
+
+.messagesRight {
+    width: 70%;
+    height: 100%;
+    overflow: auto;
+    transition: .5s;
+    opacity: 0;
+}
+
+.messagesSelectedMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1 !important;
+}
+
+.messagesSelectedMessageText p {
+    text-align: center;
+    color: var(--over1);
+    font-size: .8rem;
+}
+
+.messagesSelectedMessageTitle {
+    font-weight: bold;
+    font-size: 1.2rem !important;
+}
+
+.messagesSelectedMessageActions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.messagesSelectedMessageActions div {
+    height: 44px;
+    width: 44px;
+    background-color: var(--over4);
+    border-radius: 50%;
+    border: 1px solid var(--over3);
+    padding: 4px;
+    margin: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+}
+
+.messagesSelectedMessageActions div:hover {
+    background-color: var(--prim1);
+    transform: scale(1.1);
+    border: 1px solid var(--bg2);
+}
+
+.messagesSelectedMessageActions div:nth-of-type(1) svg {
+    height: 36px;
+    width: 36px;
+}
+
+.messagesSelectedMessageActions div:nth-of-type(2) svg {
+    height: 32px;
+    width: 32px;
+}
+
+.messagesSelectedMessageActions div:hover svg {
+    fill: var(--bg1);
+}
+
+.messagesSelectedMessageActions div svg {
+    height: 28px;
+    width: 28px;
+    fill: var(--over1);
+}
+
+.messagesRightHeader {
+    width: 100%;
+    height: 42px;
+    border-bottom: 1px solid var(--over4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.messagesRightHeaderRight {
+    display: flex;
+    /* align-items: center; */
+    padding-left: 8px;
+}
+
+.messagesRightHeaderLeft {
+    margin-left: 8px;
+    flex: 1 1;
+    font-size: .6rem;
+    color: var(--over1);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.messagesRightHeaderLeftBack {
+    height: 36px;
+    width: 36px;
+    fill: var(--over2);
+    transform: translateX(-4px);
+}
+
+.messagesRightHeaderLeftBack path {
+    pointer-events: none;
+}
+
+.messagesRightHeaderRight label {
+    display: flex;
+    height: fit-content;
+}
+
+.messagesRightHeaderActions {
+    background-color: var(--over4);
+    border-radius: 50%;
+    padding: 4px;
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+    transition: .2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.messagesRightHeaderActions:hover {
+    background-color: var(--prim1);
+}
+
+.messagesRightHeaderActions svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--over2);
+}
+
+.messagesRightHeaderActions:nth-child(4) svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.messagesRightHeaderActions:hover svg {
+    fill: var(--bg2)
+}
+
+.messagesRightHeaderActions:nth-of-type(4) svg {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.messageRightDetailsDate {
+    margin: 8px 16px 0;
+    font-size: .6rem;
+}
+
+.messageRightDetailsUsers {
+    color: var(--over1);
+    display: flex;
+    align-items: center;
+    margin: 8px 16px;
+    font-size: .7rem;
+}
+
+.messageRightDetailsUsers img {
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    background-color: var(--bg2);
+    margin: 0 8px;
+    border: 1px solid var(--over3);
+}
+
+.messageRightDetailsSubject {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 8px 16px;
+}
+
+.messagesRight .commentSubmit {
+    margin: 16px 8px;
+}
+
+.messagesRightBody {
+    margin: 8px 16px;
+}
+
+.messagesRightBody .markdown {
+    font-size: .9rem;
+}
+
+.messagesRightReplies {
+    margin-top: 16px;
+}
+
+.messageReplies .commentsItem {
+    list-style: none;
+    margin: 0 8px 8px;
+}
+
+.delete:hover {
+    background-color: var(--sec1) !important;
+}
+
+.compose {
+    height: 400px;
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg2);
+    position: absolute;
+    bottom: 0;
+    right: 64px;
+    z-index: 70;
+    border: 1px solid var(--over3);
+    border-bottom: 0 none transparent;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    transition: height .5s, max-width .5s;
+    overflow: hidden;
+}
+
+.composeBar {
+    background-color: var(--prim1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.composeBarLeft {
+    width: fit-content !important;
+    border-radius: 12px !important;
+    padding: 4px 12px !important;
+    cursor: pointer;
+}
+
+.composeBarLeft p {
+    color: var(--bg1);
+    font-weight: bold;
+    font-size: .6rem;
+    margin-left: 4px;
+}
+
+.composeBarRight {
+    display: flex;
+}
+
+.composeBarButton {
+    height: 24px;
+    width: 24px;
+    margin: 4px;
+    padding: 4px;
+    background-color: var(--prim2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.5),
+        inset -1px -1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.composeBarButton:hover {
+    background-color: var(--over3);
+}
+
+.composeBarButton:active {
+    box-shadow: 
+        inset 1px 1px 2px rgba(0, 0, 0 , 0.5),
+        inset -1px -1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.composeBarButton svg {
+    fill: var(--bg2);
+    height: 20px;
+    width: 20px;
+}
+
+.composeBodyWrapper {
+    height: calc(100% - 32px);
+}
+
+.composeBody {
+    transition: .5s;
+    height: 100%;
+}
+
+.composeBodyInput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 36px;
+    width: 100%;
+    font-size: .8rem;
+    padding: 0 8px;
+    background-color: var(--bg2);
+    border-bottom: 1px solid var(--over3);
+    color: var(--fg1);
+}
+
+.taller {
+    height: 44px;
+}
+
+.composeBodyInput img {
+    height: 28px;
+    width: 28px;
+    background-color: var(--bg1);
+    border-radius: 50%;
+}
+
+input.composeBodyInput:focus {
+    background-color: var(--bg3);
+}
+
+.composeBodyInput:focus {
+    outline: 0 none transparent;
+}
+
+.composeBodyText {
+    height: calc(100% - 116px);
+    width: 100%;
+    resize: none;
+    font-size: .8rem;
+    padding: 8px;
+    background-color: var(--bg2);
+    color: var(--fg1);
+}
+
+.composeBodyText:focus {
+    outline: 0 none transparent;
+    background-color: var(--bg3);
+}
+
+.composeSend {
+    position: absolute;
+    right: 8px;
+    top: 156px;
+    height: 36px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--prim2);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.composeSend:hover {
+    background-color: var(--prim1);
+}
+
+.composeSend svg {
+    fill: var(--over1);
+    height: 24px;
+    width: 24px;
+}
+
+.composeSend:hover svg {
+    fill: var(--bg1);
+}
+    
 
 @media only screen and (max-width: 880px) {
     .messagesLeft {
         width: 100%;
         min-width: 0;;
+    }
+
+    .messagesRight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg2);
+    }
+
+    .messageRightDetailsSubject {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width: 528px) {
+    .compose {
+        right: 50%;
+        transform: translateX(50%);
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .messagesList::-webkit-scrollbar {
+        display: none;
+    }
+      
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .messagesList {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    p.subject {
+        white-space: nowrap;
+    }
+}
+
+@media only screen and (max-width: 359px) {
+    .messagesListItemLineLeft .new {
+        display: none;
     }
 }

@@ -152,7 +152,7 @@ export const Text = (props) => {
     }
 
     const renderText = () => {
-        if (text && text.length > length) {
+        if (text && typeof length === 'number' && text.length > length) {
             return showMore ? <span><span className="markdown" dangerouslySetInnerHTML={{__html: html + ' '}}/><span className="readMore" onClick={toggleShowMore}>Show Less</span></span> : <span><span className="markdown" dangerouslySetInnerHTML={{__html: html.slice(0, length) + '... '}}/><span className="readMore" onClick={toggleShowMore}>Read More</span></span>
         } else if (!text) {
             return ''

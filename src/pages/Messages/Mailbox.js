@@ -1,36 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useOutletContext } from 'react-router-dom';
-import reddit from '../../utilities/redditAPI';
-import loader from '../../assets/loader.svg';
+import loader from '../../assets/redditLogo.svg';
 import MessageTile from './MessageTile';
 
-const Inbox = () => {
+const Mailbox = () => {
 
     const {
-        inbox: [ inbox, setInbox ], 
-        selected: [ selected, setSelected ]
+        mailbox: [ mailbox, setMailbox ], 
+        selected: [ selected, setSelected ],
+        selecting: [ selecting, setSelecting ],
+        userImages: [ userImages, setUserImages],
+        markSelectedUnread,
+        handleLoadMore,
+        loadingMore,
+        allLoaded
     } = useOutletContext();
-
-    const [ userImages, setUserImages ] = useState([])
-
-    console.log(inbox)
-
-    useEffect(() => {
-        const getImages = async () => {
-            setUserImages([])
-            let images = await Promise.all(inbox.data.children.map(async (message) => {
-                let userData;
-                let image;
-                if (message.data.author) {
-                    userData = await reddit.fetchSubreddit(`user/${message.data.author}`)
-                    image = reddit.getIconImg(userData)
-                }
-                return image
-            }))
-            setUserImages(images)
-        }
-        getImages();
-    },[inbox])
 
     const getTime = (t) => {
         t = new Date(t * 1000)
@@ -67,16 +51,21 @@ const Inbox = () => {
     }
 
     return (
-        <ul className='messagesList'>
+        <ul onScroll={handleLoadMore} className='messagesList'>
             <MessageTile 
-                messages={[ inbox, setInbox ]}
-                selected={[selected, setSelected]}
+                messages={[ mailbox, setMailbox ]}
+                selected={[ selected, setSelected ]}
+                selecting={[ selecting, setSelecting ]}
                 userImages={[ userImages, setUserImages ]}
                 loader={loader}
                 getTime={getTime}
+                markSelectedUnread={markSelectedUnread}
+                loadingMore={loadingMore}
+                allLoaded={allLoaded}
             />
+            <div className='messagesLoadMore'></div>
         </ul>
     )
 }
 
-export default Inbox;
+export default Mailbox;

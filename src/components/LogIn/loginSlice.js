@@ -36,6 +36,15 @@ export const updateVotes = createAsyncThunk(
     }
 )
 
+export const fetchModeratedSubreddits = createAsyncThunk(
+    'main/fetchModeratedSubreddits',
+    async (user) => {
+        user = `/user/${user}/`
+        const data = await reddit.fetchModeratorOf(user);
+        return data.data
+    }
+)
+
 export const loginSlice = createSlice({
     name: 'login',
     initialState: {},
@@ -85,6 +94,19 @@ export const loginSlice = createSlice({
         [updateVotes.rejected]: (state) => {
             state.votesAreLoading = false;
             state.votesHaveError = true;
+        },
+        [fetchModeratedSubreddits.pending]: (state) => {
+            state.moderatedIsLoading = true;
+            state.moderatedsHasError = false;
+        },
+        [fetchModeratedSubreddits.fulfilled]: (state, action) => {
+            state.moderatedIsLoading = false;
+            state.moderatedHasError = false;
+            state.authorization.moderated = action.payload;
+        },
+        [fetchModeratedSubreddits.rejected]: (state) => {
+            state.moderatedIsLoading = false;
+            state.moderatedHasError = true;
         },
     }
 });

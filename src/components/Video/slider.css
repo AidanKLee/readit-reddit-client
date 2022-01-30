@@ -98,7 +98,7 @@ input[type=”range”]::-ms-track {
     background: rgba(40 ,40 ,40, .4);
     border-radius: 1px;
     background-image: linear-gradient(var(--sec1), var(--sec1));
-    background-size: 50% 100%;
+    background-size: 0% 100%;
     background-repeat: no-repeat;
   }
 

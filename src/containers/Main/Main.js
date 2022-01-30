@@ -21,10 +21,7 @@ import Settings from "../../pages/Settings/Settings";
 import Account from "../../pages/Account/Account";
 import Messages from "../../pages/Messages/Messages";
 import Mod from "../../pages/Mod/Mod";
-import Inbox from "../../pages/Messages/inbox";
-import Sent from "../../pages/Messages/Sent";
-import Unread from "../../pages/Messages/Unread";
-import Compose from "../../pages/Messages/Compose";
+import Mailbox from "../../pages/Messages/Mailbox";
 
 const Main = () => {
 
@@ -76,64 +73,64 @@ const Main = () => {
                         <Route path={'*'} element={<Navigate replace to={`/`}/>}/>
                     </Route>
 
-                    <Route path={'/all'} element={<All />}>
+                    <Route path={'all'} element={<All />}>
                         <Route path={''} element={<Best location={location} page={'r/all/'}/>}/>
-                        <Route path={'/all/hot'} element={<Hot location={location} page={'r/all/'}/>}/>
-                        <Route path={'/all/new'} element={<New location={location} page={'r/all/'}/>}/>
-                        <Route path={'/all/top'} element={<Top location={location} page={'r/all/'}/>}/>
-                        <Route path={'/all/rising'} element={<Rising location={location} page={'r/all/'}/>}/>
+                        <Route path={'hot'} element={<Hot location={location} page={'r/all/'}/>}/>
+                        <Route path={'new'} element={<New location={location} page={'r/all/'}/>}/>
+                        <Route path={'top'} element={<Top location={location} page={'r/all/'}/>}/>
+                        <Route path={'rising'} element={<Rising location={location} page={'r/all/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/all`}/>}/>
                     </Route>
 
-                    <Route path={'/popular'} element={<Popular />}>
+                    <Route path={'popular'} element={<Popular />}>
                         <Route path={''} element={<Best location={location} page={'r/popular/'}/>}/>
-                        <Route path={'/popular/hot'} element={<Hot location={location} page={'r/popular/'}/>}/>
-                        <Route path={'/popular/new'} element={<New location={location} page={'r/popular/'}/>}/>
-                        <Route path={'/popular/top'} element={<Top location={location} page={'r/popular/'}/>}/>
-                        <Route path={'/popular/rising'} element={<Rising location={location} page={'r/popular/'}/>}/>
+                        <Route path={'hot'} element={<Hot location={location} page={'r/popular/'}/>}/>
+                        <Route path={'new'} element={<New location={location} page={'r/popular/'}/>}/>
+                        <Route path={'top'} element={<Top location={location} page={'r/popular/'}/>}/>
+                        <Route path={'rising'} element={<Rising location={location} page={'r/popular/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/popular`}/>}/>
                     </Route>
 
-                    <Route path={'/mod'} element={<Mod />}>
+                    <Route path={'mod'} element={<Mod />}>
                         <Route path={''} element={<Best location={location} page={'r/mod/'}/>}/>
-                        <Route path={'/mod/hot'} element={<Hot location={location} page={'r/mod/'}/>}/>
-                        <Route path={'/mod/new'} element={<New location={location} page={'r/mod/'}/>}/>
-                        <Route path={'/mod/top'} element={<Top location={location} page={'r/mod/'}/>}/>
-                        <Route path={'/mod/rising'} element={<Rising location={location} page={'r/mod/'}/>}/>
+                        <Route path={'hot'} element={<Hot location={location} page={'r/mod/'}/>}/>
+                        <Route path={'new'} element={<New location={location} page={'r/mod/'}/>}/>
+                        <Route path={'top'} element={<Top location={location} page={'r/mod/'}/>}/>
+                        <Route path={'rising'} element={<Rising location={location} page={'r/mod/'}/>}/>
                         <Route path={'*'} element={<Navigate replace to={`/mod`}/>}/>
                     </Route>
                 
                     <Route path={'/search/:searchType'} element={<Search/>}/>
 
-                    <Route path='/r' element={<Sub/>}> 
-                        <Route path={'/r/:subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/hot'} element={<Hot location={location} page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/new'} element={<New location={location} page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/top'} element={<Top location={location} page={`r/${selected}/`}/>}/>
-                        <Route path={'/r/:subredditId/rising'} element={<Rising location={location} page={`r/${selected}/`}/>}/>
-                        <Route path={'/r'} element={<Navigate replace to={`/`}/>}/>
-                        <Route path={'/r/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/${selected}`}/>}/>
+                    <Route path='r' element={<Sub/>}> 
+                        <Route path={':subredditId'} element={<Best location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={':subredditId/hot'} element={<Hot location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={':subredditId/new'} element={<New location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={':subredditId/top'} element={<Top location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={':subredditId/rising'} element={<Rising location={location} page={`r/${selected}/`}/>}/>
+                        <Route path={''} element={<Navigate replace to={`/`}/>}/>
+                        <Route path={':subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/${selected}`}/>}/>
                     </Route>
                     
-                    <Route path='/u' element={<User/>}>
-                        <Route path={'/u/:userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
-                        <Route path={'/u/:userId/:content'} element={<Best location={location} page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/hot'} element={<Hot location={location} page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/new'} element={<New location={location} page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/top'} element={<Top location={location} page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:userId/:content/rising'} element={<Rising location={location} page={`user/${selected}/`}/>}/>
-                        <Route path={'/u/:subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
+                    <Route path='u' element={<User/>}>
+                        <Route path={':userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
+                        <Route path={':userId/:content'} element={<Best location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':userId/:content/hot'} element={<Hot location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':userId/:content/new'} element={<New location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':userId/:content/top'} element={<Top location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':userId/:content/rising'} element={<Rising location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/u_${selected}`}/>}/>
                     </Route>
 
-                    {localStorage.getItem('refreshToken') ? <Route path={'/account'} element={<Account/>}/> : undefined}
+                    {localStorage.getItem('refreshToken') ? <Route path={'account'} element={<Account/>}/> : undefined}
 
                     {localStorage.getItem('refreshToken') ? 
-                        <Route path={'/messages'} element={<Messages/>}>
-                            <Route exact path={'/messages'} element={<Navigate replace to={`/messages/inbox`}/>}/>
-                            <Route path={'/messages/inbox'} element={<Inbox/>}/>
-                            <Route path={'/messages/sent'} element={<Sent/>}/>
-                            <Route path={'/messages/unread'} element={<Unread/>}/>
-                            <Route path={'/messages/compose'} element={<Compose/>}/>
+                        <Route path={'messages'} element={<Messages/>}>
+                            <Route exact path={''} element={<Navigate replace to={`/messages/inbox`}/>}/>
+                            <Route path={':mailbox'} element={<Mailbox/>}/>
+                            {/* <Route path={'/messages/sent'} element={<Sent/>}/>
+                            <Route path={'/messages/unread'} element={<Unread/>}/> */}
+                            {/* <Route path={'/messages/compose'} element={<Compose/>}/> */}
                             <Route path={'*'} element={<Navigate replace to={`/messages/inbox`}/>}/>
                         </Route> 
                     : undefined}

@@ -213,11 +213,20 @@ const Video = (props) => {
     }
 
     const handleTime = (e) => {
-        if (toggleVid.currentTime < toggleAud.currentTime + .015 || toggleVid.currentTime > toggleAud.currentTime + .045) {
-            toggleAud.currentTime = toggleVid.currentTime
-        }
         setTime(e.target.currentTime)
     }
+
+    useEffect(() => {
+        if (!paused) {
+            const sync = setInterval(() => {
+                if (toggleVid.currentTime + .045 > toggleAud.currentTime  || toggleVid.currentTime - .125 < toggleAud.currentTime) {
+                    toggleAud.currentTime = toggleVid.currentTime
+                }
+            },5000)
+            return () => clearInterval(sync)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[paused])
 
     const handleEnd = () => {
         setEnded(true);

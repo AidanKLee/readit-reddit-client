@@ -413,43 +413,128 @@ export class redditAPI {
         console.log(jsonData)
     }
 
-    fetchInbox = async (count = 0, limit = 25, after) => {
-        let inbox = await fetch(`https://oauth.reddit.com/message/inbox`, {
+    fetchInbox = async (after, count = 0, limit = 50) => {
+        const params = `?count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        let inbox = await fetch(`https://oauth.reddit.com/message/inbox${params}`, {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
-            },
-            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+            }
         })
         inbox = await inbox.json();
 
         return inbox;
     }
 
-    fetchUnread = async (count = 0, limit = 25, after) => {
-        let unread = await fetch(`https://oauth.reddit.com/message/unread`, {
+    fetchUnread = async (after, count = 0, limit = 50) => {
+        const params = `?count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        let unread = await fetch(`https://oauth.reddit.com/message/unread${params}`, {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
-            },
-            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+            }
         })
         unread = await unread.json();
 
         return unread;
     }
 
-    fetchSent = async (count = 0, limit = 25, after) => {
-        let sent = await fetch(`https://oauth.reddit.com/message/sent`, {
+    fetchSent = async (after, count = 0, limit = 50) => {
+        const params = `?count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+        let sent = await fetch(`https://oauth.reddit.com/message/sent${params}`, {
             headers: {
                 "Authorization": "Bearer " + this.authorize.access.token,
-            },
-            params: `count=${count}&limit=${limit}&mark=false${after ? '&after=' + after : ''}&show=all`
+            }
         })
         sent = await sent.json();
 
         return sent;
     }
 
+    fetchMessageReplies = async (id) => {
+        let replies = await fetch(`https://oauth.reddit.com/message/messages/${id}.json`, {
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        })
+        replies = await replies.json();
 
+        return replies;
+    }
+
+    deleteMessage = async (fullname) => {
+        let deleted = await fetch(`https://oauth.reddit.com/api/del_msg?id=${fullname}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        })
+        deleted = await deleted.json()
+
+        return deleted;
+    }
+
+    markAllRead = async () => {
+        let read = await fetch(`https://oauth.reddit.com/api/read_all_messages`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        })
+
+        console.log(read)
+        read = await read.json()
+
+        console.log(read)
+
+        return read;
+    }
+
+    markUnread = async (unread, fullnames) => {
+        unread ? unread = 'unread_message' : unread = 'read_message'
+        fullnames = fullnames.join(',')
+        let read = await fetch(`https://oauth.reddit.com/api/${unread}?id=${fullnames}`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+            }
+        })
+        read = await read.json()
+
+        return read;
+    }
+
+    composeMessage = async (params) => {
+        let { from_sr, subject, text, to } = params;
+        params = {
+            api_type: 'json',
+            from_sr: from_sr,
+            subject: subject,
+            text: text,
+            to: to
+        }
+        if (!params.from_sr) {
+            delete params.from_sr;
+        }
+        console.log(params)
+        // params = JSON.stringify(params)
+        let queryString = '';
+        for (let key in params) {
+            console.log(key, params[key])
+            queryString = queryString + `&${key}=${params[key]}`
+        }
+        queryString = queryString.slice(1)
+        console.log(queryString)
+        let compose = await fetch(`https://oauth.reddit.com/api/compose`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: queryString
+        })
+        compose = await compose.json()
+
+        return compose;
+    }
 
     getIconImg = (community, style) => {
         if (community && community.data) {
