@@ -1,0 +1,168 @@
+.admin {
+    color: var(--fg1);
+    padding-bottom: 8px;
+}
+
+.adminNote {
+    font-size: .6rem;
+}
+
+.adminOptionsList {
+    list-style: none;
+}
+
+.adminOptionsList input:focus {
+    outline: 2px solid var(--over3);
+}
+
+.optionsListItemBoolean {
+    min-height: 96px;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--over4);
+}
+
+.optionsListItemBoolean .switch {
+    margin-left: 16px;
+}
+
+.optionsListItemString {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content;
+    border-bottom: 1px solid var(--over4);
+    padding: 8px 0;
+}
+
+.optionsListItemString input {
+    background-color: var(--bg2);
+    padding: 8px;
+    width: 100%;
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--fg2);
+}
+
+.optionsListItemString textarea {
+    background-color: var(--bg2);
+    padding: 8px;
+    width: 100%;
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--fg2);
+    resize: none;
+    min-height: 5.6rem;
+}
+
+.optionsListItemString textarea:focus {
+    outline: 2px solid var(--over3);
+}
+
+.optionsListItemNumber {
+    padding: 16px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--over4);
+}
+
+.optionsListItemNumber input {
+    padding: 8px;
+    background-color: var(--bg2);
+    max-width: 128px;
+    border-radius: 4px;
+    border: 1px solid var(--over3);
+    color: var(--fg2);
+}
+
+.optionsListItemString input[type=color] {
+    background-color: transparent;
+    height: 36px;
+    width: 64px;
+    margin: 0;
+    padding: 0;
+    border: 0 none transparent;
+}
+
+.optionsListItemString input[type=color]:focus {
+    outline: 0 none transparent;
+}
+
+.colorPicker {
+    display: flex;
+}
+
+.colorPicker input[type=string] {
+    padding: 8px;
+    margin: 0 0 0 8px;
+    background-color: var(--bg2);
+    max-width: 84px;
+    border-radius: 4px;
+    border: 1px solid var(--over3);
+    color: var(--fg2);
+    text-align: center;
+}
+
+.optionsListItemObject {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--over4);
+}
+
+.optionsListItemString select, .optionsListItemObject select {
+    background-color: var(--bg2);
+    padding: 8px;
+    width: 100%;
+    border: 1px solid var(--over3);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--fg2);
+}
+
+.optionsListItemString select:focus, .optionsListItemObject select:focus {
+    outline: 2px solid var(--over3);
+}
+
+.optionsListItemNumber input[type="range"] {
+    max-width: none;
+    width: 100%;
+    background-image: none;
+    margin: 16px 0 8px;
+    padding: 0;
+}
+
+.optionsListItemNumber input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--prim1);
+    cursor: pointer;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background .3s ease-in-out;
+  }
+
+.optionsListItemName {
+    font-weight: bold;
+}
+
+.optionsListItemDescription {
+    font-size: .8rem;
+    color: var(--over1);
+}
+
+.adminOptionsList .lengthCounter {
+    font-size: .7rem;
+    color: var(--over1);
+}
+
+.adminOptionsListObject .lengthCounter, .inputWrapper .lengthCounter {
+    margin-top: 6px;
+}

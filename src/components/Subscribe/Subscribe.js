@@ -1,14 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { returnToTop } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import { selectLogin, setSubscribed } from '../LogIn/loginSlice';
 import './subscribe.css';
 
 const Subscribe = (props) => {
 
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
-    const { text, name, subreddit } = props;
+    const { text, name, subreddit, moderated } = props;
 
     const login = useSelector(selectLogin);
 
@@ -25,6 +29,20 @@ const Subscribe = (props) => {
     const handleClick = async () => {
         let subscribed;
         let action;
+
+        console.log(subreddit)
+
+        if (moderated) {
+            let url;
+            if (subreddit.data.display_name_prefixed.slice(0, 2).includes('u/')) {
+                url = '/account'
+            } else {
+                url = `/${subreddit.data.display_name_prefixed}/admin`
+            }
+
+            returnToTop();
+            return navigate(url, {replace: false})
+        }
 
         isSubscribed(name) ? subscribed = true : subscribed = false
         
@@ -48,7 +66,9 @@ const Subscribe = (props) => {
 
     const renderText = () => {
 
-        if (text === 'Join' && isSubscribed(name)) {
+        if (moderated) {
+            return 'Edit'
+        } else if (text === 'Join' && isSubscribed(name)) {
             return 'Leave'
         } else if (text === 'Join' && !isSubscribed(name)) {
             return 'Join'

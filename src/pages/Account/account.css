@@ -83,11 +83,17 @@
     width: 100%;
 }
 
-.userDetailsIcon a {
+.userDetailsIcon a:nth-of-type(1) {
     display: flex;
     position: absolute;
     bottom: 8px;
     right: 8px;
+}
+.userDetailsIcon a:nth-of-type(2) {
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
 }
 
 .userDetailsIcon a svg {
@@ -169,6 +175,35 @@
     top: 80px;
     border: 1px solid var(--over3);
     min-width: 424px;
+}
+
+.accountCommunitiesLeft {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.accountModerated {
+    margin-left: 8px;
+    border: 2px solid var(--over3);
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--over3);
+    cursor: pointer;
+}
+
+.accountModerated:hover {
+    border: 2px solid var(--over2);
+    color: var(--over2);
+}
+
+.accountModerated:active {
+    border: 2px solid var(--over1);
+    color: var(--over1);
 }
 
 .accountAbout {

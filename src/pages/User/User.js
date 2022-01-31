@@ -93,6 +93,16 @@ const User = () => {
         }
     }
 
+    const isUserPage = (subreddit) => {
+        const userName = login.authorization.user.name;
+        const subredditName = subreddit.data.name;
+
+        if (userName === subredditName) {
+            return true;
+        }
+    }
+console.log(subreddit)
+console.log(login.authorization.user)
     const renderModeratorOf = () => {
         if (subreddit.moderatorOf) {
             return (
@@ -130,7 +140,7 @@ const User = () => {
         <div className='user'>
             <div className='subBanner'>
                 {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
-                {login.authorization && subreddit && subreddit.data ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
@@ -169,7 +179,8 @@ const User = () => {
                         <div className='subContentRightHeader'>
                             <div className='subContentRightHeaderName'>
                                 {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
-                                {login.authorization && subreddit && subreddit.data ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                                {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                                {login.authorization && subreddit && subreddit.data && isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} moderated={true} text='Follow'/> : undefined}
                             </div>
                             {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
                             {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}

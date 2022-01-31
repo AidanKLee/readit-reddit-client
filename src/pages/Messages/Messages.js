@@ -293,11 +293,24 @@ const Messages = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[loadingMore])
 
+    const handleForward = (subject, body, originalSender, originalRecipient) => {
+        const forward = {
+            open: true,
+            minimized: false,
+            expanded: false,
+            from_sr: '',
+            subject: 'fw: ' + subject,
+            text: '--------------------\nOriginal Sender: ' + originalSender + '\nForwarded by: ' + originalRecipient + '\n--------------------\n' + body,
+            to: ''
+        }
+        setCompose(forward)
+    }
+
     const renderMessageReader = () => {
-        if ((!smallScreen || selected.length === 1) && !selecting) {
-            if (selected[0] && selected[0][0].data && selected.length === 1) {
-                return <MessageBody markSelectedUnread={markSelectedUnread} smallScreen={smallScreen} handleWarning={handleWarning} deleteMessage={deleteMessages} userImages={[ userImages, setUserImages ]} selected={[ selected, setSelected ]}/>
-            } else if (selected.length !== 1 ) {
+        // if ((selected.length === 1)) {
+            if (selected[0] && selected[0][0].data && selected.length === 1 && !selecting) {
+                return <MessageBody handleForward={handleForward} markSelectedUnread={markSelectedUnread} smallScreen={smallScreen} handleWarning={handleWarning} deleteMessage={deleteMessages} userImages={[ userImages, setUserImages ]} selected={[ selected, setSelected ]}/>
+            } else if (!smallScreen) {
                 return (
                     <div className='messagesRight messagesSelectedMessage'>
                         {
@@ -310,7 +323,7 @@ const Messages = () => {
                                 </div> 
                                 : 
                                 <div className='messagesSelectedMessageText'>
-                                    <p className='messagesSelectedMessageTitle'>Multiple messages selected...</p>
+                                    <p className='messagesSelectedMessageTitle'>Selecting multiple messages...</p>
                                     <div className='messagesSelectedMessageActions'>
                                         <div className='delete' onClick={handleWarning}>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
@@ -327,13 +340,19 @@ const Messages = () => {
                     </div>
                 )
             }
-        }
+        // }
     }
 
     return (
         <div className='messages'>
-            <div className='messagesMenu'>
-                    <div onClick={toggleCompose} className='messagesMenuNew'>
+            <div className='messagesMenu' onTouchStart={(e) => e.cancelable}>
+                    <div onClick={() => {
+                        if (compose.minimized) {
+                            setCompose({...compose, minimized: false})
+                        } else {
+                            toggleCompose()
+                        }
+                    }} className='messagesMenuNew'>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                         <p>Compose New Message</p>
                     </div>

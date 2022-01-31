@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './communities.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectLogin } from '../LogIn/loginSlice';
@@ -14,11 +14,13 @@ const Communities = (props) => {
 
     const dispatch = useDispatch();
 
-    const { hasButtons } = props;
+    const { hasButtons, moderated } = props;
 
     const login = useSelector(selectLogin);
     const menu = useSelector(selectMenu);
     const communities = useSelector(selectCommunities);
+
+    const moderatedNames = useMemo(() => login.authorization && login.authorization.moderated ? login.authorization.moderated.map(subreddit => subreddit.name) : [],[login])
 
     const handleChange = (e) => {
         dispatch(search(e.target.value));
@@ -27,6 +29,18 @@ const Communities = (props) => {
     const renderCommunities = () => {
         if (login.authorization && login.authorization.communities && login.authorization.communities.data && login.authorization.communities.data.children) {
             let communitiesCopy = login.authorization.communities.data.children.slice();
+
+            if (moderated) {
+                communitiesCopy = communitiesCopy.filter(community => {
+                    let match = false;
+                    moderatedNames.forEach(name => {
+                        if (community.data.name === name) {
+                            match = true;
+                        }
+                    })
+                    return match
+                })
+            }
 
             communitiesCopy = communitiesCopy.filter(community => community.data.display_name.toLowerCase().includes(communities.search.toLowerCase()))
                 
@@ -44,8 +58,9 @@ const Communities = (props) => {
 
             return communitiesCopy.map(community => {
                 return (
-                    <Link onClick={(e) => returnToTop(e)} key={community.data.id} to={'/' + community.data.display_name_prefixed}>
-                        <li className="communitiesDropdownListItem" data-test='communitiesListItem'>
+                    
+                    <li key={community.data.id} className="communitiesDropdownListItem" data-test='communitiesListItem'>
+                        <Link onClick={(e) => returnToTop(e)} to={'/' + community.data.display_name_prefixed}>
                             <div className='communitiesDropdownListItemLeft'>
                                 {reddit.getIconImg(community)}
                                 <div>
@@ -56,11 +71,11 @@ const Communities = (props) => {
                                         {community.data.subscribers} Subscribers
                                     </p>
                                 </div>
-                                
                             </div>
-                            {hasButtons ? <Subscribe text='Join' name={community.data.name} subreddit={community} /> : undefined}
-                        </li>
-                    </Link>
+                        </Link>
+                        {hasButtons ? <Subscribe moderated={moderated} text='Join' name={community.data.name} subreddit={community} /> : undefined}
+                    </li>
+
                     
                 )
             });

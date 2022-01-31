@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectLogin } from '../../components/LogIn/loginSlice';
 import reddit from '../../utilities/redditAPI';
@@ -9,7 +9,7 @@ const MessageCompose = (props) => {
     const { user, moderated } = login && login.authorization ? login.authorization : {}
 
     const { state: [ state, setState ], toggleCompose, handleSend } = props;
-    const { open, minimized, expanded, from_sr, subject, text, to } = state;
+    const { minimized, expanded, from_sr, subject, text } = state;
 
     // const [ selectedFrom, setSelectedFrom] = useState({});
 
@@ -82,15 +82,15 @@ const MessageCompose = (props) => {
                             {user ? <option value={user.name}>{user.name}</option> : undefined}
                             {
                                 moderated && moderated.length > 0 ?
-                                    moderated.map(subreddit => <option key={subreddit.id} value={subreddit.display_name}>{subreddit.display_name_prefixed}</option>)
+                                    moderated.map(subreddit => <option key={subreddit.name} value={subreddit.display_name}>{subreddit.display_name_prefixed}</option>)
                                 : undefined
                             }
                         </select>
                     </div>
                     
                     <input onKeyDown={selectAll} onChange={handleChange} name='to' placeholder='To... /r/SubredditName or UserName' className='composeBodyInput'/>
-                    <input onKeyDown={selectAll} onChange={handleChange} name='subject' placeholder='Subject...' className='composeBodyInput'/>
-                    <textarea onKeyDown={selectAll} onChange={handleChange} name='text' placeholder='Your Message...' className='composeBodyText'/>
+                    <input onKeyDown={selectAll} onChange={handleChange} name='subject' placeholder='Subject...' className='composeBodyInput' defaultValue={subject}/>
+                    <textarea onKeyDown={selectAll} onChange={handleChange} name='text' placeholder='Your Message...' className='composeBodyText' defaultValue={text}/>
                 </div>
             </div>
         </div>

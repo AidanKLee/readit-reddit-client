@@ -22,6 +22,7 @@ import Account from "../../pages/Account/Account";
 import Messages from "../../pages/Messages/Messages";
 import Mod from "../../pages/Mod/Mod";
 import Mailbox from "../../pages/Messages/Mailbox";
+import Admin from "../../pages/Admin/Admin";
 
 const Main = () => {
 
@@ -110,6 +111,7 @@ const Main = () => {
                         <Route path={':subredditId/rising'} element={<Rising location={location} page={`r/${selected}/`}/>}/>
                         <Route path={''} element={<Navigate replace to={`/`}/>}/>
                         <Route path={':subredditId/comments/:postName/:postTitle'} element={<Post location={location} page={`/r/${selected}`}/>}/>
+                        {localStorage.getItem('refreshToken') ? <Route path={':subredditId/admin'} element={<Admin/>}/> : undefined}
                     </Route>
                     
                     <Route path='u' element={<User/>}>
@@ -128,9 +130,6 @@ const Main = () => {
                         <Route path={'messages'} element={<Messages/>}>
                             <Route exact path={''} element={<Navigate replace to={`/messages/inbox`}/>}/>
                             <Route path={':mailbox'} element={<Mailbox/>}/>
-                            {/* <Route path={'/messages/sent'} element={<Sent/>}/>
-                            <Route path={'/messages/unread'} element={<Unread/>}/> */}
-                            {/* <Route path={'/messages/compose'} element={<Compose/>}/> */}
                             <Route path={'*'} element={<Navigate replace to={`/messages/inbox`}/>}/>
                         </Route> 
                     : undefined}

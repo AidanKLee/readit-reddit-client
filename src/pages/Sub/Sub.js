@@ -61,7 +61,7 @@ const Sub = (props) => {
         return () => window.removeEventListener('resize', getHeight());
     },[])
 
-    const backgroundColor = subreddit.data && subreddit.data.banner_background_color ? {backgroundColor: subreddit.data.banner_background_color} : {backgroundColor: 'rgb(13, 121, 168)'};
+    const backgroundColor = subreddit.data && subreddit.data.banner_background_color ? {backgroundColor: subreddit.data.banner_background_color} : subreddit.data && subreddit.data.key_color ? {backgroundColor: subreddit.data.key_color} : {backgroundColor: 'rgb(13, 121, 168)'};
 
     const getTextColor = () => {
         let hexColor = backgroundColor.backgroundColor;
@@ -114,6 +114,26 @@ const Sub = (props) => {
             let height = (parent.offsetHeight - position).toString() + 'px';
             setHeight({height: height});
         }
+    }
+
+    const isModeratedSubreddit = (subreddit) => {
+        if (subreddit.data) {
+            const name = subreddit.data.name;
+            const moderatedList = login.authorization.moderated;
+            let isModerated = false;
+
+            if (moderatedList) {
+                moderatedList.forEach(subreddit => {
+                    if (name === subreddit.name) {
+                        isModerated = true
+                    }
+                })
+
+                return isModerated;
+            }
+        }
+        
+        
     }
 
     const renderRecommended = () => {      
@@ -182,7 +202,8 @@ const Sub = (props) => {
                         <div className='subContentRightHeader' style={backgroundColor}>
                             <div className='subContentRightHeaderName'>
                                 {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
-                                {login.authorization ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
+                                {login.authorization && !isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
+                                {login.authorization && isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} moderated={true} subreddit={subreddit} text='Join'/> : undefined}
                             </div>
                             {subreddit.data ? <p className='subHeading' style={getTextColor()}>{subreddit.data.url}</p> : undefined}
 

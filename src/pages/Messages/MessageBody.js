@@ -14,7 +14,8 @@ const MessageBody = (props) => {
         userImages: [ userImages ],
         handleWarning,
         smallScreen,
-        markSelectedUnread
+        markSelectedUnread,
+        handleForward
     } = props
 
     const selectedId = useMemo(() => selected && selected.length > 0 ? selected[0][0].data.id : undefined,[selected]) 
@@ -61,10 +62,10 @@ const MessageBody = (props) => {
                     {!smallScreen ? <p>{new Date(selected[0][0].data.created * 1000).toDateString() + ', ' + new Date(selected[0][0].data.created * 1000).toLocaleTimeString().slice(0, 5) + ' (' + getTimePosted(selected[0][0].data.created) + ')'}</p> : undefined}
                 </div>
                 <div className='messagesRightHeaderRight'>
-                    <label className='messagesRightHeaderActions' htmlFor='messageRightReply'><svg onClick={handleReplyClick} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg></label>
-                    <div className='messagesRightHeaderActions'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 8.83L17.17 12 14 15.17V14H6v-4h8V8.83M12 4v4H4v8h8v4l8-8-8-8z"/></svg></div>
-                    <div className='messagesRightHeaderActions delete'><svg onClick={handleWarning} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg></div>
-                    <div className='messagesRightHeaderActions'><svg onClick={markSelectedUnread} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
+                    <label onClick={handleReplyClick} className='messagesRightHeaderActions' htmlFor='messageRightReply'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg></label>
+                    <div onClick={() => handleForward(selected[0][0].data.subject, selected[0][0].data.body, selected[0][0].data.author ? selected[0][0].data.author : selected[0][0].data.subreddit, selected[0][0].data.dest)} className='messagesRightHeaderActions'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14 8.83L17.17 12 14 15.17V14H6v-4h8V8.83M12 4v4H4v8h8v4l8-8-8-8z"/></svg></div>
+                    <div onClick={handleWarning} className='messagesRightHeaderActions delete'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg></div>
+                    <div onClick={markSelectedUnread} className='messagesRightHeaderActions'><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
                 </div>
             </div>
             <div className='messagesRightDetails'>
