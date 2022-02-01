@@ -34,10 +34,12 @@ const Subscribe = (props) => {
 
         if (moderated) {
             let url;
-            if (subreddit.data.display_name_prefixed.slice(0, 2).includes('u/')) {
+            if (subreddit.data && subreddit.data.display_name_prefixed.slice(0, 2).includes('u/')) {
                 url = '/account'
-            } else {
+            } else if (subreddit.data) {
                 url = `/${subreddit.data.display_name_prefixed}/admin`
+            } else {
+                url = `/${subreddit.sr_display_name_prefixed}/admin`
             }
 
             returnToTop();

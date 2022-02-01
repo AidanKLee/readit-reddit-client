@@ -95,14 +95,26 @@ const User = () => {
 
     const isUserPage = (subreddit) => {
         const userName = login.authorization.user.name;
-        const subredditName = subreddit.data.name;
+        let subredditName = subreddit.data.name;
 
         if (userName === subredditName) {
             return true;
         }
     }
-console.log(subreddit)
-console.log(login.authorization.user)
+
+    const isModeratorOf = (subreddit) => {
+        const subredditName = subreddit.name;
+        let isModerator = false;
+        if (login.authorization && login.authorization.moderated) {
+            login.authorization.moderated.forEach(sub => {
+                if (sub.name === subredditName) {
+                    isModerator = true;
+                }
+            })
+        }
+        return isModerator
+    }
+
     const renderModeratorOf = () => {
         if (subreddit.moderatorOf) {
             return (
@@ -124,7 +136,8 @@ console.log(login.authorization.user)
                                                 <p className='subHeading'>{sub.subscribers} members</p>
                                             </div>
                                         </div>
-                                        {login.authorization ? <Subscribe name={sub ? sub.name : undefined} subreddit={sub} text='Join'/> : undefined}
+                                        {login.authorization && !isModeratorOf(sub) ? <Subscribe name={sub ? sub.name : undefined} subreddit={sub} text='Join'/> : undefined}
+                                        {login.authorization && isModeratorOf(sub) ? <Subscribe name={sub ? sub.name : undefined} subreddit={sub} moderated={true} text='Join'/> : undefined}
                                     </div>                                    
                                 )
                             })

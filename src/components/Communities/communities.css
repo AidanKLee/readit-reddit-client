@@ -278,3 +278,25 @@ header .communitiesDropdownListItem:hover {
 .account .subscribe {
     z-index: 0;
 }
+
+
+
+.communitiesDropdownListItem {
+    cursor: pointer;
+    color: var(--fg1);
+}
+
+.communitiesDropdownListItem:hover svg {
+    fill: var(--prim1);
+}
+
+.communitiesDropdownListItem svg {
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    margin-right: 12px;
+    background-color: var(--over4);
+    border: 1px solid var(--over3);
+    padding: 2px;
+    fill: var(--fg1);
+}

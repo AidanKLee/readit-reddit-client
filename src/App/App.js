@@ -12,6 +12,9 @@ import { useLocation } from 'react-router-dom';
 import { clearSelectedSubreddit, closeNewPost, handleCommunityChange, selectNewPost } from '../components/NewPost/newPostSlice';
 import { selectClock } from '../components/Clock/clockSlice';
 import Clock from '../components/Clock/Clock';
+import { selectCommunities } from '../components/Communities/communitiesSlice';
+import Build from '../components/Build/Build';
+import FileUpload from '../components/FileUpload/FileUpload';
 
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
   const location = useLocation().pathname;
 
   const login = useSelector(selectLogin);
+  const communities = useSelector(selectCommunities);
   const newPost = useSelector(selectNewPost)
   const darkMode = useSelector(selectDarkMode);
   const clock = useSelector(selectClock);
@@ -88,7 +92,6 @@ useEffect(() => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[login.initialLoginAttempt])
 
-
   return (
     <div className="App" data-test='App'>
       {/* <Clock /> */}
@@ -101,9 +104,17 @@ useEffect(() => {
           <NewPost />
         </div> : undefined
       }
+      {
+        login.authorization && communities.build ? <Build/> : undefined
+      }
+      {
+        login.imageUpload.open ? <FileUpload/> : undefined
+      }
       <Footer />
     </div>
   );
 }
+
+//[/r/subreddit]/api/upload_sr_img
 
 export default App;

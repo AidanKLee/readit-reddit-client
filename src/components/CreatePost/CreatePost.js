@@ -160,6 +160,7 @@ const CreatePost = () => {
                     locationCheck = locationCheck.replace('/u/', 'user/')
                     locationCheck = locationCheck.split('/').slice(0,2).join('/');
                 }
+                locationCheck = locationCheck.split('/').slice(0, 3).join('/')
                 const subreddit = await reddit.fetchSubreddit(locationCheck);
                 if (subreddit.data.subreddit) {
                     dispatch(handleCommunityChange(subreddit.data.subreddit.display_name_prefixed))

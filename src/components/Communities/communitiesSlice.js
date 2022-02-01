@@ -4,15 +4,19 @@ export const communitiesSlice = createSlice({
     name: 'communities',
     initialState: {
         search: '',
+        build: false,
     },
     reducers: {
         search: (state, action) => {
             state.search = action.payload;
+        },
+        toggleBuild: (state) => {
+            state.build = !state.build
         }
     }
 });
 
-export const { search } = communitiesSlice.actions;
+export const { search, toggleBuild } = communitiesSlice.actions;
 
 export const selectCommunities = state => {
     return state.communities;

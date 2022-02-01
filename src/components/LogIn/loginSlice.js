@@ -47,14 +47,20 @@ export const fetchModeratedSubreddits = createAsyncThunk(
 
 export const loginSlice = createSlice({
     name: 'login',
-    initialState: {},
+    initialState: {
+        imageUpload: {
+            open: true,
+            upload_type: '',
+            subreddit: ''
+        }
+    },
     reducers: {
         logout: state => {
             localStorage.removeItem('refreshToken');
             return state = {
                 isLoading: state.isLoading,
                 hasError: state.hasError,
-                initialLoginAttempt: true
+                initialLoginAttempt: true,
             };
         },
         setSettings: (state, action) => {
@@ -62,6 +68,22 @@ export const loginSlice = createSlice({
         },
         setSubscribed: (state, action) => {
             state.authorization.communities.data.children = action.payload
+        },
+        toggleImageUpload: (state, action) => {
+            console.log(action.payload)
+            if (state.imageUpload.open) {
+                state.imageUpload = {
+                    open: false,
+                    upload_type: '',
+                    subreddit: ''
+                }
+            } else {
+                state.imageUpload = {
+                    open: true,
+                    upload_type: action.payload.upload_type,
+                    subreddit: action.payload.subreddit
+                }
+            }
         }
     },
     extraReducers: {
@@ -111,7 +133,7 @@ export const loginSlice = createSlice({
     }
 });
 
-export const { logout, setSettings, setSubscribed, setAuthorization, setInitialLoginAttempt } = loginSlice.actions;
+export const { logout, setSettings, setSubscribed, setAuthorization, setInitialLoginAttempt, toggleImageUpload } = loginSlice.actions;
 
 export const selectLogin = state => {
     return state.login;

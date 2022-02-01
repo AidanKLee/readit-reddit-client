@@ -67,6 +67,15 @@
     min-height: 128px;
     max-height: 128px;
     background-color: var(--prim1);
+    position: relative;
+}
+
+.userDetailsBanner .iconUpload {
+    bottom: 8px;
+    right: 0;
+    left: 100%;
+    transform: translateX(calc(-100% - 8px));
+    z-index: 10;
 }
 
 .userDetailsBanner img {
@@ -81,6 +90,20 @@
     position: relative;
     margin: -96px 0 16px;
     width: 100%;
+}
+
+.iconUpload {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 40px;
+    width: 40px;
+    fill: var(--over2);
+    background-color: var(--drag2);
+    padding: 4px;
+    border-radius: 50%;
+    border: 1px solid var(--over3);
+    transform: translateX(-50%);
 }
 
 .userDetailsIcon a:nth-of-type(1) {

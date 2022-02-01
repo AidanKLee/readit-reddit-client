@@ -88,6 +88,8 @@ p {
   --gold: rgb(230, 176, 0);
   --video1: rgba(240, 240, 240, .2);
   --video2: rgba(240, 240, 240, .5);
+  --drag1: rgba(240, 240, 240, .7);
+  --drag2: rgba(240, 240, 240, .9);
 }
 
 [data-theme='night'] {
@@ -109,6 +111,8 @@ p {
   --gold: rgb(230, 176, 0);
   --video1: rgba(235, 230, 220, .2);
   --video2: rgba(235, 230, 220, .5);
+  --drag1: rgba(235, 230, 220, .7);
+  --drag2: rgba(235, 230, 220, .9);
 }
 
 [data-theme='dark'] {
@@ -130,7 +134,10 @@ p {
   --gold: rgb(255, 196, 0);
   --video1: rgba(40, 40, 40, .2);
   --video2: rgba(40, 40, 40, .5);
+  --drag1: rgba(40, 40, 40, .7);
+  --drag2: rgba(40, 40, 40, .9);
 }
+
 
 [data-theme='darkNight'] {
   --bg1: #001414;
@@ -151,4 +158,6 @@ p {
   --gold: rgb(255, 196, 0);
   --video1: rgba(0, 30, 30, .2);
   --video2: rgba(0, 30, 30, .5);
+  --drag1: rgba(0, 30, 30, .2);
+  --drag2: rgba(0, 30, 30, .5);
 }

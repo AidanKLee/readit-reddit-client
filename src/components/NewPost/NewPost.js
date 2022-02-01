@@ -13,7 +13,7 @@ const NewPost = () => {
     const newPost = useSelector(selectNewPost);
 
     const handleClick = () => {
-        if (location.includes('/search') || location.includes('/settings') || location.includes('/account')) {
+        if (location.includes('/search') || location.includes('/settings') || location.includes('/account') || location.includes('/messages')) {
             navigate('/', {replace: false});
 
             setTimeout(() => {

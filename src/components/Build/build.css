@@ -1,0 +1,149 @@
+.build {
+    width: 100%;
+    height: calc(100% - 64px);
+    border: 1px solid var(--over4);
+    position: fixed;
+    z-index: 80;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: var(--fg1);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buildWrapper {
+    height: fit-content;
+    width: 100%;
+    max-width: 512px;
+    background-color: var(--video2);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.buildContent {
+    background-color: var(--bg1);
+    height: fit-content;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.buildHeader {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--over3);
+    padding: 16px;
+    margin: 0 8px;
+}
+
+.buildName {
+    margin: 16px;
+}
+
+.buildSubHeader {
+    font-weight: bold;
+}
+
+.buildHint {
+    font-size: .7rem;
+    color: var(--over1);
+}
+
+.buildNameInput {
+    position: relative;
+}
+
+.build input, .build select {
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    font-size: .8rem;
+    background-color: var(--bg2);
+    color: var(--fg2);
+    border-radius: 4px;
+    border: 1px solid var(--over3);
+}
+
+.build input {
+    padding: 8px 8px 8px 18px;
+}
+
+.buildNameInput input:focus {
+    outline: 2px solid var(--over3);
+}
+
+.buildNameInputR {
+    position: absolute;
+    top: 17px;
+    left: 8px;
+    font-size: .8rem;
+}
+
+.buildCount {
+    font-size: .6rem;
+    color: var(--over1);
+}
+
+.buildWarning {
+    font-weight: bold;
+    font-size: .7rem;
+    color: var(--sec1);
+}
+
+.build .blue {
+    color: var(--prim1);
+}
+
+.build .spaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.build .switch {
+    margin-left: 8px;
+}
+
+.buildActions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buildActions button {
+    width: 96px;
+    padding: 8px;
+    text-align: center;
+    margin: 8px;
+    color: var(--fg1);
+    background-color: var(--bg2);
+    font-weight: bold;
+    border: 2px solid var(--over3);
+    border-radius: 20px;
+    transition: transform .2s;
+}
+
+.buildActions button:hover {
+    border: 2px solid var(--prim2);
+    box-shadow: 0 0 8px var(--prim1);
+    color: var(--prim1);
+}
+
+.buildActions button:active {
+    background-color: var(--prim1);
+    color: var(--bg1);
+    transform: scale(.95);
+}
+
+.buildActions .red {
+    background-color: var(--sec1);
+    color: var(--bg1);
+}
+
+.buildActions .red:hover {
+    background-color: var(--sec1);
+    color: var(--bg1);
+    box-shadow: 0 0 8px var(--sec1);
+}

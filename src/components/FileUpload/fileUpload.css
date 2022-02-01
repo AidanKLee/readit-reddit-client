@@ -1,0 +1,85 @@
+.fileUpload {
+    position: fixed;
+    background-color: var(--drag2);
+    height: calc(100% - 96px);
+    top: 64px;
+    left: 0;
+    width: 100%;
+    color: var(--fg1);
+    z-index: 90;
+}
+
+.fileUpload svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px;
+    height: 40px;
+    width: 40px;
+    fill: var(--over2);
+}
+
+.fileUpload svg:hover {
+    fill: var(--fg1);
+}
+
+.fileUpload input {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+.fileUpload input:hover .fileUploadUnder {
+    text-decoration: underline;
+}
+
+.fileUploadUnder {
+    height: 100%;
+    width: 100%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.fileUploadUnder p {
+    text-align: center;
+    margin: 0 16px;
+}
+
+.fileUploadUnder p:nth-of-type(2) {
+    text-align: center;
+    margin: 0 16px;
+    font-size: .7rem;
+    font-weight: normal;
+}
+
+.fileUploadOver {
+    height: 100%;
+    width: 100%;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.fileUploadOver p {
+    margin-top: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.fileUploadOver img {
+    height: fit-content;
+    max-height: 440px;
+    width: 100%;
+    object-fit: contain;
+}
