@@ -49,10 +49,11 @@ export const loginSlice = createSlice({
     name: 'login',
     initialState: {
         imageUpload: {
-            open: true,
+            open: false,
             upload_type: '',
             subreddit: ''
-        }
+        },
+        update: false
     },
     reducers: {
         logout: state => {
@@ -70,7 +71,6 @@ export const loginSlice = createSlice({
             state.authorization.communities.data.children = action.payload
         },
         toggleImageUpload: (state, action) => {
-            console.log(action.payload)
             if (state.imageUpload.open) {
                 state.imageUpload = {
                     open: false,
@@ -84,6 +84,9 @@ export const loginSlice = createSlice({
                     subreddit: action.payload.subreddit
                 }
             }
+        },
+        setUpdate: (state) => {
+            state.update = !state.update
         }
     },
     extraReducers: {
@@ -133,7 +136,7 @@ export const loginSlice = createSlice({
     }
 });
 
-export const { logout, setSettings, setSubscribed, setAuthorization, setInitialLoginAttempt, toggleImageUpload } = loginSlice.actions;
+export const { logout, setSettings, setSubscribed, setAuthorization, setInitialLoginAttempt, toggleImageUpload, setUpdate } = loginSlice.actions;
 
 export const selectLogin = state => {
     return state.login;

@@ -139,8 +139,6 @@ const Video = (props) => {
         }
     }
 
-    // console.log()
-
     useEffect(() => {
         const fSTimeout = setTimeout(() => {
             const videoPlayer = document.querySelector('.videoPlayer' + id);

@@ -30,8 +30,6 @@ const Subscribe = (props) => {
         let subscribed;
         let action;
 
-        console.log(subreddit)
-
         if (moderated) {
             let url;
             if (subreddit.data && subreddit.data.display_name_prefixed.slice(0, 2).includes('u/')) {

@@ -87,14 +87,11 @@ const MessageTile = (props) => {
             } else {
                 selectedGroup = [[ message, i ]]
             }
-            // console.log(selectedGroup)
             setSelected(selectedGroup)
         } else if (!isSelected(i)) {
             setSelected([[ message, i ]])
         }
     }
-
-    // console.log(messages)
 
     const isSelected = (i) => {
         let isSelected = false;

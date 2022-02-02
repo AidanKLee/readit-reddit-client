@@ -30,11 +30,6 @@
     width: 100%;
 }
 
-.settingsSelect label {
-    max-width: calc(100% - 60px);
-    margin-left: 16px;
-}
-
 .settingsSubHeading {
     font-weight: bold;
     display: flex;
@@ -53,6 +48,11 @@
     align-items: center;
     font-size: .8rem;
     border-bottom: 1px solid var(--over4);
+}
+
+.settingsItemToggle label:nth-of-type(2) {
+    max-width: calc(100% - 60px);
+    margin-left: 16px;
 }
 
 .settingsItemToggle input {

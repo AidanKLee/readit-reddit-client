@@ -98,11 +98,11 @@
     left: 50%;
     height: 40px;
     width: 40px;
-    fill: var(--over2);
+    fill: var(--over1);
     background-color: var(--drag2);
     padding: 4px;
     border-radius: 50%;
-    border: 1px solid var(--over3);
+    border: 2px solid var(--over3);
     transform: translateX(-50%);
 }
 

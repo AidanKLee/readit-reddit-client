@@ -53,11 +53,12 @@
     margin: 0 16px;
 }
 
-.fileUploadUnder p:nth-of-type(2) {
+.fileUploadUnder li {
     text-align: center;
     margin: 0 16px;
     font-size: .7rem;
     font-weight: normal;
+    list-style: none;
 }
 
 .fileUploadOver {

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState} from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState} from 'react';
 import './user.css';
 import { Outlet, useLocation } from 'react-router-dom';
 import Categories from '../../components/Categories/Categories';
@@ -7,8 +7,7 @@ import { getTimePosted, over18Style, returnToTop } from '../../utilities/functio
 import { Link } from 'react-router-dom';
 import { Text } from '../../components/ContentTile/ContentTile';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMainPageState } from '../../containers/Main/mainSlice';
-import { selectLogin } from '../../components/LogIn/loginSlice';
+import { selectLogin, setUpdate, toggleImageUpload } from '../../components/LogIn/loginSlice';
 import CreatePost from '../../components/CreatePost/CreatePost';
 import { selectNewPost } from '../../components/NewPost/newPostSlice';
 import Subscribe from '../../components/Subscribe/Subscribe';
@@ -18,25 +17,48 @@ const User = () => {
     const dispatch = useDispatch();
 
     let selected = useLocation().pathname.split('/').slice(1);
-    const [ prefix, user, content ] = selected;
+    const [ prefix, user, content ] = useMemo(() => selected,[selected]);
     const login = useSelector(selectLogin);
+    const update = useMemo(() => login.update,[login]);
     const newPost = useSelector(selectNewPost);
 
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
+    const [ updated, setUpdated ] = useState(false)
+
+    const fetchData = async () => {
+        const data = await reddit.fetchSubreddit(`user/${user}/about`);
+        const subData = {
+            data: data.data,
+        }
+        setSubreddit({
+            ...subreddit,
+            data: subData.data
+        });
+    }
 
     useEffect(() => {
-        const fetchData = async () => {
-            // variable endpoints - about, overview, submitted, comments, https://www.reddit.com/user/[user]/moderated_subreddits.json
-            const data = await reddit.fetchSubreddit(`user/${user}/about`);
-            const subreddit = {
-                data: data.data,
-            }
-            setSubreddit(subreddit);
-        }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
+
+    useEffect(() => {
+        if (update) {
+            fetchData();
+            dispatch(setUpdate());
+            setUpdated(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [update]);
+
+    useEffect(() => {
+        if (updated) {
+            const timer = setTimeout(() => {
+                setUpdated(false)
+            },[3000])
+            return () => clearTimeout(timer)
+        }
+    },[updated])
 
     useEffect(() => {
         if (!subreddit.moderatorOf && subreddit.data) {
@@ -75,9 +97,7 @@ const User = () => {
     }
 
     const handleClick = (e) => {
-        dispatch(clearMainPageState())
         returnToTop(e);
-        // setSubreddit({});
     }
 
     const getHeight = () => {
@@ -94,12 +114,18 @@ const User = () => {
     }
 
     const isUserPage = (subreddit) => {
-        const userName = login.authorization.user.name;
-        let subredditName = subreddit.data.name;
+        if (subreddit.data) {
+            const userName = login.authorization.user.name;
+            let subredditName = subreddit.data.name;
 
-        if (userName === subredditName) {
-            return true;
+            if (userName === subredditName) {
+                return true;
+            }
         }
+    }
+
+    const toggleUpload = (upload_type) => {
+        dispatch(toggleImageUpload({upload_type: upload_type, subreddit: login.authorization.user.subreddit.display_name}))
     }
 
     const isModeratorOf = (subreddit) => {
@@ -154,12 +180,17 @@ const User = () => {
             <div className='subBanner'>
                 {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
                 {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('banner')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
             </div>
             <div className='subBannerUnder'>
                 <div className='subBannerUnderWrapper'>
-                <div className='iconImgWrapper'>
-                    {subreddit && subreddit.data ? reddit.getIconImg(subreddit.data.subreddit, over18Style(subreddit, login)) : undefined}
+                <div className='subBannerIconWrapper'>
+                    <div className='iconImgWrapper'>
+                        {subreddit && subreddit.data ? reddit.getIconImg(subreddit.data.subreddit, over18Style(subreddit, login)) : undefined}
+                    </div>
+                    {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('icon')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
                 </div>
+                
                     <div className='subBannerUnderText'>
                         <h1>
                             {subreddit.data ? <Text text={subreddit.data.name} length={1000}/> : undefined}
@@ -225,6 +256,10 @@ const User = () => {
                         {renderModeratorOf()}
                     </div>
                 </div>
+            </div>
+            <div className='updateWarning' style={updated ? {bottom: '32px'} : {}}>
+                <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M11,8v5l4.25,2.52l0.77-1.28l-3.52-2.09V8H11z M21,10V3l-2.64,2.64C16.74,4.01,14.49,3,12,3c-4.97,0-9,4.03-9,9 s4.03,9,9,9s9-4.03,9-9h-2c0,3.86-3.14,7-7,7s-7-3.14-7-7s3.14-7,7-7c1.93,0,3.68,0.79,4.95,2.05L14,10H21z"/></g></g></svg>
+                <p>Changes Saved</p>
             </div>
         </div>
     )

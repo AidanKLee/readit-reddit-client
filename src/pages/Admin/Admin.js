@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { selectLogin } from '../../components/LogIn/loginSlice';
+import { selectLogin, setUpdate } from '../../components/LogIn/loginSlice';
 import reddit from '../../utilities/redditAPI';
 import './admin.css';
 import Option from './Option';
 
 const Admin = () => {
+
+    const dispatch = useDispatch();
 
     const location = useLocation().pathname;
     const subredditName = useMemo(() => location.split('/')[2],[location]);
@@ -17,6 +19,8 @@ const Admin = () => {
 
     const [ firstLoad, setFirstLoad ] = useState(false);
     const [ account, setAccount ] = useState();
+    const [ change, setChange ] = useState(false);
+    const [ settingsType, setSettingsType ] = useState();
 
     const accountOptions = useMemo(() => {
         let optionsList = [];
@@ -91,9 +95,6 @@ const Admin = () => {
             } else if (key === 'welcome_message_enabled') {
                 keyArray = [ ...keyArray, { description: 'Send a message to a new user on subscription.' }]
             }
-            // else if (key === 'content_options') {
-            //     keyArray = [ ...keyArray, { type: 'select', description: 'The types of posts allowed on your subreddit.' }]
-            // }
             optionsList = [...optionsList, keyArray]
         }
         optionsList.sort((a, b) => {
@@ -125,13 +126,12 @@ const Admin = () => {
         }
     },[login, subredditName, navigate])
 
-    // console.log(account)
-
     useEffect(() => {
         if (!firstLoad && account && account.wikimode) {
             setFirstLoad(!firstLoad)
         }
-        if (firstLoad) {
+        if (firstLoad && change) {
+            setChange(false)
             const timeout = setTimeout(() => {
                 submitNewSettings();
             },1000)
@@ -155,15 +155,33 @@ const Admin = () => {
             link_type: 'any',
             name: subredditName,
             sr: account.subreddit_id,
+            type: account.subreddit_type
         }
         delete newAccount.language;
         delete newAccount.default_set;
         delete newAccount.domain;
         delete newAccount.header_hover_text;
         delete newAccount.subreddit_id;
+        delete newAccount.subreddit_type;
 
-        const newSettings = await reddit.changeSubredditDetails(newAccount);
+        let newSettings;
+
+        if (settingsType === 2) {
+            newSettings = await reddit.changeSubredditDetails(newAccount).then((r) => {
+                dispatch(setUpdate())
+                setSettingsType()
+                return r
+            });
+        } else if (settingsType === 1) {
+            newSettings = await reddit.changeAccountDetails(newAccount).then((r) => {
+                dispatch(setUpdate())
+                setSettingsType()
+                return r
+            });
+        }
+        
         console.log(newSettings)
+        
     }
 
     const handleChange = (e) => {
@@ -172,6 +190,12 @@ const Admin = () => {
         const toggle = value === 'on';
         const min = e.target.min;
         const max = e.target.max
+
+        if(name === 'description' || name === 'subreddit_type' || name === 'public_traffic'  || name === 'spam_comments'  || name === 'spam_links'  || name === 'spam_selfposts' || name === 'hide_ads') {
+            setSettingsType(1)
+        } else {
+            setSettingsType(2)
+        }
 
         if (e.target.type === 'number') {
             if (Number(value) > max) {
@@ -198,6 +222,7 @@ const Admin = () => {
                 [name]: value
             })
         }
+        setChange(true)
     }
 
     const renderOptions = () => {

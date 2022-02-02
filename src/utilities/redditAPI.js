@@ -9,7 +9,7 @@ export class redditAPI {
             clientSecret: '6492zUIQrshhKresh1k-pKiUCWzkbA',
             responseType: 'code',
             state: this.generateState(),
-            redirectUri: 'http://localhost:3000/callback',
+            redirectUri: 'https://readitreddit.netlify.app/callback',
             duration: 'permanent',
             scope: 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modmail modothers modposts modself modwiki mysubreddits privatemessages read report save structuredstyles submit subscribe vote wikiedit wikiread',
             grantType: 'authorization_code',
@@ -495,10 +495,8 @@ export class redditAPI {
             }
         })
 
-        console.log(read)
         read = await read.json()
 
-        console.log(read)
 
         return read;
     }
@@ -529,8 +527,6 @@ export class redditAPI {
         if (!params.from_sr) {
             delete params.from_sr;
         }
-        console.log(params)
-        // params = JSON.stringify(params)
         let queryString = '';
         for (let key in params) {
             console.log(key, params[key])
@@ -549,6 +545,28 @@ export class redditAPI {
         compose = await compose.json()
 
         return compose;
+    }
+
+    uploadImage = async (params) => {
+        const { file, header, img_type, name, subreddit, upload_type } = params;
+        const body = new FormData()
+        body.append('file', file, name)
+        body.append('header', header)
+        body.append('img_type', img_type)
+        body.append('name', name)
+        body.append('upload_type', upload_type)
+
+        let upload = await fetch(`https://oauth.reddit.com/r/${subreddit}/api/upload_sr_img`, {
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + this.authorize.access.token
+            },
+            body: body
+        })
+
+        upload = await upload.json()
+
+        return upload;
     }
 
     getIconImg = (community, style) => {

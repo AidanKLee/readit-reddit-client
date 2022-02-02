@@ -55,6 +55,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .subBannerUnderWrapper img {
@@ -221,6 +222,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 100%;
 }
 
 .subContentRightRecommendedLink button {
@@ -256,7 +258,8 @@
 .subContentRightRecommendedLinkLeft {
     display: flex;
     align-items: center;
-    color: var(--fg2)
+    color: var(--fg2);
+    max-width: calc(100% - 80px);
 }
 
 .subContentRightRecommendedLink img {
@@ -267,7 +270,38 @@
 }
 
 .subContentRightRecommendedLinkData {
-    margin-left: 8px;
+    margin: 0 8px;
+    max-width: calc(100% - 64px);
+}
+
+.updateWarning {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg3);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--over3);
+    border-bottom: 0 none transparent;
+    transition: bottom .5s;
+}
+
+.updateWarning svg {
+    height: 44px;
+    width: 44px;
+    background-color: var(--prim1);
+    padding: 4px;
+}
+
+.updateWarning p {
+    margin: 0 16px;
+    color: var(--fg2);
+    font-weight: bold;
+    font-size: .8rem;
 }
 
 @media only screen and (max-width: 1130px) {

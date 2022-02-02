@@ -78,8 +78,6 @@ const Build = () => {
     const [ warning, setWarning ] = useState();
     const [ failed, setFailed ] = useState(false);
 
-    console.log(warning)
-
     useEffect(() => {
         if (settings.name.length === 0) {
             setWarning('A community name is required.')
@@ -134,7 +132,6 @@ const Build = () => {
             const errorMessage = newSubreddit.json.errors[0][1]
             setWarning(errorMessage.slice(0, 1).toUpperCase() + errorMessage.slice(1) + '.')
         }
-        console.log(newSubreddit);
     }
 
     return (

@@ -493,7 +493,7 @@
     margin: 0 8px 8px;
 }
 
-.delete:hover {
+.messages .delete:hover {
     background-color: var(--sec1) !important;
 }
 

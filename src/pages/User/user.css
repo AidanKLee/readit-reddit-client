@@ -87,6 +87,22 @@
     margin-top: 8px;
 }
 
+.subBanner .iconUpload {
+    left: 100%;
+    transform: translate(calc(-100% - 8px), -8px);
+    z-index: 80;
+}
+
+.subBannerIconWrapper {
+    display: flex;
+    position: relative;
+}
+
+.subBannerIconWrapper .iconUpload {
+    left: 100%;
+    transform: translate(-100%);
+}
+
 @media only screen and (max-width: 1130px) {
     .userContentRightSticky {
         height: fit-content;

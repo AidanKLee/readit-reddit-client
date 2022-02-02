@@ -117,6 +117,7 @@ const Main = () => {
                     <Route path='u' element={<User/>}>
                         <Route path={':userId'} element={<Navigate replace to={`/u/${redirect}/overview`}/>}/>
                         <Route path={':userId/:content'} element={<Best location={location} page={`user/${selected}/`}/>}/>
+                        <Route path={':userId/:content/admin'} element={<Navigate replace to={`/account`}/>}/>
                         <Route path={':userId/:content/hot'} element={<Hot location={location} page={`user/${selected}/`}/>}/>
                         <Route path={':userId/:content/new'} element={<New location={location} page={`user/${selected}/`}/>}/>
                         <Route path={':userId/:content/top'} element={<Top location={location} page={`user/${selected}/`}/>}/>
