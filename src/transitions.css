@@ -1,0 +1,95 @@
+.tran1-appear {
+    opacity: 0;
+}
+
+.tran1-appear-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in-out;
+}
+
+.tran1-enter {
+    opacity: 0;
+}
+
+.tran1-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in-out;
+}
+
+.tran1-exit {
+    opacity: 1;
+}
+
+.tran1-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+}
+
+
+
+
+.tran2-appear {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.tran2-appear-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran2-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.tran2-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran2-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tran2-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran3-appear {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.tran3-appear-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran3-enter {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.tran3-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran3-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tran3-exit-active {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}

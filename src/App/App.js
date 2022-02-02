@@ -15,6 +15,7 @@ import Clock from '../components/Clock/Clock';
 import { selectCommunities } from '../components/Communities/communitiesSlice';
 import Build from '../components/Build/Build';
 import FileUpload from '../components/FileUpload/FileUpload';
+import { CSSTransition } from 'react-transition-group';
 
 
 function App() {
@@ -94,23 +95,30 @@ useEffect(() => {
 
   return (
     <div className="App" data-test='App'>
-      <Clock />
-      <Header />
-      <Main />
-      <Menu />
-      {
-        login.authorization ?
-        <div className='appButton'>
-          <NewPost />
-        </div> : undefined
-      }
-      {
-        login.authorization && communities.build ? <Build/> : undefined
-      }
-      {
-        login.imageUpload.open ? <FileUpload/> : undefined
-      }
-      <Footer />
+        <Header />
+        <CSSTransition
+          in={true}
+          appear={true}
+          timeout={2000}
+          classNames='tran2'
+        >      
+        <Main />
+        </CSSTransition>
+        <Menu />
+        {
+          login.authorization ?
+          <div className='appButton'>
+            <NewPost />
+          </div> : undefined
+        }
+        {
+          login.authorization && communities.build ? <Build/> : undefined
+        }
+        {
+          login.authorization && login.imageUpload && login.imageUpload.open ? <FileUpload/> : undefined
+        }
+        <Footer />
+        <Clock />
     </div>
   );
 }

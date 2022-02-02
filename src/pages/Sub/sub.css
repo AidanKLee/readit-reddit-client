@@ -295,6 +295,7 @@
     width: 44px;
     background-color: var(--prim1);
     padding: 4px;
+    fill: var(--bg1);
 }
 
 .updateWarning p {
