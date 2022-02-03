@@ -36,7 +36,7 @@
 .tran2-appear-active {
     opacity: 1;
     transform: translateX(0);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+    transition: opacity 500ms ease-in-out 1000ms, transform 500ms ease-in 1000ms;
 }
 
 .tran2-enter {
@@ -47,7 +47,7 @@
 .tran2-enter-active {
     opacity: 1;
     transform: translateX(0);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+    transition: opacity 500ms ease-in-out 1000ms, transform 500ms ease-in 1000ms;
 }
 
 .tran2-exit {
@@ -58,38 +58,231 @@
 .tran2-exit-active {
     opacity: 0;
     transform: translateX(-100%);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+    transition: opacity 500ms ease-in-out 1000ms, transform 500ms ease-in 1000ms;
 }
 
+
+
+
+
 .tran3-appear {
-    opacity: 0;
-    transform: translateY(-100%);
+    transform: translate(0, -100vh);
 }
 
 .tran3-appear-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+    transform: translate(0, 0);
+    transition: transform 500ms ease-in-out;
 }
 
 .tran3-enter {
-    opacity: 0;
-    transform: translateY(-100%);
+    transform: translate(0, -100vh);
 }
 
 .tran3-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+    transform: translate(0, 0);
+    transition: transform 500ms ease-in-out;
 }
 
 .tran3-exit {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translate(0, 0);
 }
 
 .tran3-exit-active {
+    transform: translate(0, 100vh);
+    transition: transform 500ms ease-in-out;
+}
+
+
+
+
+
+.tran4-appear {
     opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 1000ms ease-in-out 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.tran4-appear-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+}
+
+.tran4-enter {
+    opacity: 0;
+}
+
+.tran4-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+}
+
+.tran4-exit {
+    opacity: 1;
+}
+
+.tran4-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+
+
+
+.tran5-appear {
+    opacity: 0;
+    transform: scale(.5, .5) translateY(100%);
+}
+
+.tran5-appear-active {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+    transition: opacity 300ms ease-in-out, transform 300ms linear;
+}
+
+.tran5-enter {
+    opacity: 0;
+    transform: scale(.5, .5) translateY(100%);
+}
+
+.tran5-enter-active {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+    transition: opacity 300ms ease-in-out, transform 300ms linear;
+}
+
+.tran5-exit {
+    opacity: 1;
+    transform: scale(1, 1) translateY(0);
+}
+
+.tran5-exit-active {
+    opacity: 0;
+    transform: scale(0, 0) translateY(100%);
+    transition: opacity 300ms ease-in-out, transform 300ms linear;
+}
+
+
+
+
+.tran6-appear {
+    height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran6-appear-active {
+    height: 44px;
+    transform: scaleY(1);
+    transition: height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran6-enter {
+    height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran6-enter-active {
+    height: 44px;
+    transform: scaleY(1);
+    transition: height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran6-exit {
+    height: 44px;
+    transform: scaleY(1);
+    transform-origin: top center;
+}
+
+.tran6-exit-active {
+    height: 0;
+    transform: scaleY(0);
+    transition: height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+
+
+
+
+.tran7-appear {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran7-appear-active {
+    max-height: 230px;
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran7-enter {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran7-enter-active {
+    max-height: 230px;
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran7-exit {
+    max-height: 230px;
+    transform: scaleY(1);
+    transform-origin: top center;
+}
+
+.tran7-exit-active {
+    max-height: 0;
+    transform: scaleY(0);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+
+
+
+
+.tran8-appear {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran8-appear-active {
+    max-height: 440px;
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran8-enter {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran8-enter-active {
+    max-height: 440px;
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran8-exit {
+    max-height: 440px;
+    transform: scaleY(1);
+    transform-origin: top center;
+}
+
+.tran8-exit-active {
+    max-height: 0;
+    transform: scaleY(0);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
 }

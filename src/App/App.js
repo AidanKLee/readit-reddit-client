@@ -96,13 +96,8 @@ useEffect(() => {
   return (
     <div className="App" data-test='App'>
         <Header />
-        <CSSTransition
-          in={true}
-          appear={true}
-          timeout={2000}
-          classNames='tran2'
-        >      
-        <Main />
+        <CSSTransition in={true} appear={true} timeout={1500} classNames='tran2'>      
+          <Main />
         </CSSTransition>
         <Menu />
         {
@@ -112,17 +107,15 @@ useEffect(() => {
           </div> : undefined
         }
         {
-          login.authorization && communities.build ? <Build/> : undefined
+          login.authorization ? <Build/> : undefined
         }
         {
-          login.authorization && login.imageUpload && login.imageUpload.open ? <FileUpload/> : undefined
+          login.authorization && login.imageUpload ? <CSSTransition in={login.imageUpload.open} timeout={400} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true}><FileUpload/></CSSTransition> : undefined
         }
         <Footer />
-        <Clock />
+        {/* <Clock /> */}
     </div>
   );
 }
-
-//[/r/subreddit]/api/upload_sr_img
 
 export default App;

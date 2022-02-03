@@ -13,8 +13,10 @@ const Categories = (props) => {
     const login = useSelector(selectLogin);
     const moderated = useMemo(() => login.authorization && login.authorization.moderated ? login.authorization.moderated : [], [login])
 
+    console.log(moderated)
+
     const isAdmin = useMemo(() => {
-        let isModerated = location.split('/')[3];
+        let isModerated = false;
         if (moderated) {
             moderated.forEach(subreddit => {
                 if (subreddit.sr === location.split('/')[2]) {

@@ -14,6 +14,7 @@ import CommentSubmit from "../Comments/CommentSubmit";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import Media from "../Media/Media";
 import Video from "../Video/Video";
+import { CSSTransition } from "react-transition-group";
 
 const ContentTile = (props) => {
 
@@ -123,8 +124,8 @@ const ContentTile = (props) => {
                             {login.authorization && login.authorization.user && article.data && article.data.author_fullname && 't2_' + login.authorization.user.id === article.data.author_fullname ? <div className="tileActionsAward"><DeleteButton name={article.data.name} type={'post'} text={false}/></div> : undefined}
                         </div> : undefined
                 }
-                {newComment ? <CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name} rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i}/> : undefined}
-                {(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body ? <CommentSection rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i} article={article}/> : undefined}
+                <CSSTransition in={newComment} timeout={300} classNames={'tran6'} mountOnEnter={true} unmountOnExit={true}><CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name} rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i}/></CSSTransition>
+                <CSSTransition in={(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || article.data.body} timeout={300} classNames={'tran7'} mountOnEnter={true} unmountOnExit={true}><CommentSection rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i} article={article}/></CSSTransition>
             </div>
             {mediaOpen ? <Media toggleViewMedia={toggleViewMedia} viewMedia={viewMedia}/> : undefined}
         </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 import reddit from '../../utilities/redditAPI';
-import { toggleBuild } from '../Communities/communitiesSlice';
+import { selectCommunities, toggleBuild } from '../Communities/communitiesSlice';
 import './build.css';
 
 const Build = () => {
@@ -75,8 +76,11 @@ const Build = () => {
         wikimode: "disabled"
     })
 
+    const communities = useSelector(selectCommunities);
+
     const [ warning, setWarning ] = useState();
     const [ failed, setFailed ] = useState(false);
+    const [ after, setAfter ] = useState(false)
 
     useEffect(() => {
         if (settings.name.length === 0) {
@@ -118,7 +122,8 @@ const Build = () => {
     }
 
     const handleCancel = () => {
-        dispatch(toggleBuild());
+        // dispatch(toggleBuild());
+        setAfter(false)
     }
 
     const handleSubmit = async () => {
@@ -135,64 +140,68 @@ const Build = () => {
     }
 
     return (
-        <div className='build'>
-            <div className='buildWrapper'>
-                <div className='buildContent'>
-                    <p className='buildHeader'>
-                        Build a Community
-                    </p>
-                    <div className='buildName'>
-                        <label htmlFor='buildName'>
-                            <p className='buildSubHeader'>Name *</p>
-                            <p className='buildHint'>Community names cannot be changed after initial creation. Names cannot have spaces, must be 3 - 21 characters and the only allowed special character is an underscore "_". Do not use trademarked name.</p>
-                        </label>
-                        <div className='buildNameInput'>
-                            <input onChange={handleChange} type='text' id='buildName' minLength={3} maxLength={21} name='name' value={settings.name} style={failed && warning ? {outline: '2px solid var(--sec1)'} : {}}/>
-                            <p className='buildNameInputR'>r/</p>
-                        </div>
-                        <p className='buildCount'>{21 - settings.name.length} characters remaining.</p>
-                        {warning ? <p className='buildWarning'>{warning}</p> : undefined}
-                    </div>
-                    <div className='buildName'>
-                        <label htmlFor='buildName'>
-                            <p className='buildSubHeader'>Type</p>
-                            <p className='buildHint'>The visibility and interactivity of your community to other users.</p>
-                        </label>
-                        <select onChange={handleChange} name='type' id='type' value={settings.type}>
-                            <option value='public'>Public</option>
-                            <option value='restricted'>Restricted</option>
-                            <option value='private'>Private</option>
-                        </select>
-                        <p className='buildHint blue'>
-                            {settings.type === 'public' ? 'Anyone can view, post, and comment to this community.' : undefined}
-                            {settings.type === 'restricted' ? 'Anyone can view this community, but only approved users can post.' : undefined}
-                            {settings.type === 'private' ? 'Only approved users can view and submit to this community.' : undefined}
+        <CSSTransition in={communities.build} timeout={300} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setAfter(true)} onExit={() => setAfter(false)}>
+            <div className='build'>
+            <CSSTransition in={after} timeout={500} classNames={'tran3'} mountOnEnter={true} unmountOnExit={true} onExited={() => dispatch(toggleBuild())}>
+                <div className='buildWrapper'>
+                    <div className='buildContent'>
+                        <p className='buildHeader'>
+                            Build a Community
                         </p>
-                    </div>
-                    <div className='buildName spaceBetween'>
-                        <label htmlFor='buildName'>
-                            <p className='buildSubHeader'>NSFW Content (18+)</p>
-                            <p className='buildHint'>
-                                {
-                                    settings.over_18 ? 
-                                    <span>The content on your profile <strong>IS NSFW</strong> (may contain nudity, pornography, profanity or inappropriate content for those under 18).'</span>
-                                    :
-                                    <span>'The content on your profile <strong>IS NOT NSFW</strong> (does not contain nudity, pornography, profanity or inappropriate content for those under 18).</span>
-                                }
+                        <div className='buildName'>
+                            <label htmlFor='buildName'>
+                                <p className='buildSubHeader'>Name *</p>
+                                <p className='buildHint'>Community names cannot be changed after initial creation. Names cannot have spaces, must be 3 - 21 characters and the only allowed special character is an underscore "_". Do not use trademarked name.</p>
+                            </label>
+                            <div className='buildNameInput'>
+                                <input onChange={handleChange} type='text' id='buildName' minLength={3} maxLength={21} name='name' value={settings.name} style={failed && warning ? {outline: '2px solid var(--sec1)'} : {}}/>
+                                <p className='buildNameInputR'>r/</p>
+                            </div>
+                            <p className='buildCount'>{21 - settings.name.length} characters remaining.</p>
+                            {warning ? <p className='buildWarning'>{warning}</p> : undefined}
+                        </div>
+                        <div className='buildName'>
+                            <label htmlFor='buildName'>
+                                <p className='buildSubHeader'>Type</p>
+                                <p className='buildHint'>The visibility and interactivity of your community to other users.</p>
+                            </label>
+                            <select onChange={handleChange} name='type' id='type' value={settings.type}>
+                                <option value='public'>Public</option>
+                                <option value='restricted'>Restricted</option>
+                                <option value='private'>Private</option>
+                            </select>
+                            <p className='buildHint blue'>
+                                {settings.type === 'public' ? 'Anyone can view, post, and comment to this community.' : undefined}
+                                {settings.type === 'restricted' ? 'Anyone can view this community, but only approved users can post.' : undefined}
+                                {settings.type === 'private' ? 'Only approved users can view and submit to this community.' : undefined}
                             </p>
-                        </label>
-                        <label className="switch">
-                            <input onClick={handleChange} type='checkbox' name='over_18' id='over_18' defaultChecked={settings.over_18}/>
-                            <span className="slider"></span>
-                        </label>
-                    </div>
-                    <div className='buildActions'>
-                        <button onClick={handleSubmit}>Submit</button>
-                        <button onClick={handleCancel} className='red'>Cancel</button>
+                        </div>
+                        <div className='buildName spaceBetween'>
+                            <label htmlFor='buildName'>
+                                <p className='buildSubHeader'>NSFW Content (18+)</p>
+                                <p className='buildHint'>
+                                    {
+                                        settings.over_18 ? 
+                                        <span>The content on your profile <strong>IS NSFW</strong> (may contain nudity, pornography, profanity or inappropriate content for those under 18).'</span>
+                                        :
+                                        <span>'The content on your profile <strong>IS NOT NSFW</strong> (does not contain nudity, pornography, profanity or inappropriate content for those under 18).</span>
+                                    }
+                                </p>
+                            </label>
+                            <label className="switch">
+                                <input onClick={handleChange} type='checkbox' name='over_18' id='over_18' defaultChecked={settings.over_18}/>
+                                <span className="slider"></span>
+                            </label>
+                        </div>
+                        <div className='buildActions'>
+                            <button onClick={handleSubmit}>Submit</button>
+                            <button onClick={handleCancel} className='red'>Cancel</button>
+                        </div>
                     </div>
                 </div>
+                </CSSTransition>
             </div>
-        </div>
+        </CSSTransition>
     )
 }
 

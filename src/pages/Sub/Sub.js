@@ -10,6 +10,7 @@ import { selectLogin, setUpdate, toggleImageUpload } from '../../components/LogI
 import CreatePost from '../../components/CreatePost/CreatePost';
 import { selectNewPost } from '../../components/NewPost/newPostSlice';
 import Subscribe from '../../components/Subscribe/Subscribe';
+import { CSSTransition } from 'react-transition-group';
 
 const Sub = (props) => {
 
@@ -26,6 +27,11 @@ const Sub = (props) => {
     const [ subreddit, setSubreddit ] = useState({});
     const [ height, setHeight ] = useState({});
     const [ updated, setUpdated ] = useState(false)
+    const [ mountTop, setMountTop ] = useState(false)
+    const [ mountUnder, setMountUnder ] = useState(false);
+
+
+    const isReadyToMount = useMemo(() => subreddit && subreddit.data ? true : false,[subreddit]);
 
     const fetchData = async () => {
         const data = await reddit.fetchSubreddit(`r/${subredditUrl}`);
@@ -36,9 +42,44 @@ const Sub = (props) => {
     }
 
     useEffect(() => {
-        fetchData();
+        if (mountUnder) {
+            console.log('unsetting mount under')
+            setMountUnder(false);
+            const timer = setTimeout(() => {
+                console.log('fetchingData')
+                setSubreddit({})
+                fetchData()
+            },600)
+            return () => clearTimeout(timer)
+        } else if (!mountUnder) {
+            console.log('fetching data 2')
+            fetchData()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subredditUrl]);
+
+    console.log(subreddit)
+
+    // useEffect(() => {
+    //     if (!mountUnder && !isReadyToMount) {
+    //         const timer = setTimeout(() => {
+    //             console.log('fetchingData')
+    //             setSubreddit({})
+    //             fetchData()
+    //         },300)
+    //         clearTimeout(timer)
+    //     }
+    // },[mountTop, mountUnder, isReadyToMount])
+
+    useEffect(() => {
+        if (isReadyToMount) {
+            const timer = setTimeout(() => {
+                setMountTop(true)
+            },300)
+            return () => clearTimeout(timer)
+        }
+    },[isReadyToMount])
+    
 
     useEffect(() => {
         if (update) {
@@ -195,34 +236,41 @@ const Sub = (props) => {
         }
     }
 
+
+
     return (
         <div className='sub'>
-            <div className='subBanner' style={backgroundColor}>
-                {getBannerImg()}
-                {login.authorization && !isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
-                {login.authorization && isModeratedSubreddit(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('banner')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
-            </div>
-            <div className='subBannerUnder'>
-                <div className='subBannerUnderWrapper'>
-                <div className='subBannerIconWrapper'>
-                    <div className='iconImgWrapper'>
-                        {subreddit && subreddit.data ? reddit.getIconImg(subreddit, over18Style(subreddit, login)) : undefined}
-                    </div>
-                    {login.authorization && isModeratedSubreddit(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('icon')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
+            <CSSTransition in={mountTop} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setMountUnder(true)}>
+                <div className='subBanner' style={backgroundColor}>
+                    {getBannerImg()}
+                    {login.authorization && !isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
+                    {login.authorization && isModeratedSubreddit(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('banner')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
                 </div>
-                    
-                    
-                    <div className='subBannerUnderText'>
-                        <h1>
-                            {subreddit.data ? <Text text={subreddit.data.title} length={300}/> : undefined}
-                        </h1>
-                        <p>
-                            {subreddit.data ? subreddit.data.url : undefined}
-                        </p>
-                        {subreddit.data && (subreddit.data.over_18 || subreddit.data.over18) ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
+            </CSSTransition>
+            
+            <CSSTransition in={mountUnder} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onExited={() => setMountTop(false)}>
+                <div className='subBannerUnder'>
+                    <div className='subBannerUnderWrapper'>
+                    <div className='subBannerIconWrapper'>
+                        <div className='iconImgWrapper'>
+                            {subreddit && subreddit.data ? reddit.getIconImg(subreddit, over18Style(subreddit, login)) : undefined}
+                        </div>
+                        {login.authorization && isModeratedSubreddit(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('icon')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
+                    </div>
+                        
+                        
+                        <div className='subBannerUnderText'>
+                            <h1>
+                                {subreddit.data ? <Text text={subreddit.data.title} length={300}/> : undefined}
+                            </h1>
+                            <p>
+                                {subreddit.data ? subreddit.data.url : undefined}
+                            </p>
+                            {subreddit.data && (subreddit.data.over_18 || subreddit.data.over18) ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </CSSTransition>
             <div className='subContent'>
                 <div className='content'>
                     {newPost.open ? <CreatePost /> : undefined}

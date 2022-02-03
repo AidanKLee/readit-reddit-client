@@ -8,6 +8,7 @@ import CommentSubmit from './CommentSubmit';
 import { selectLogin } from '../LogIn/loginSlice';
 import { useSelector } from 'react-redux';
 import DeleteButton from '../DeleteButton/DeleteButton';
+import { CSSTransition } from 'react-transition-group';
 
 
 const CommentItem = (props) => {
@@ -44,7 +45,7 @@ const CommentItem = (props) => {
                 </div>
                 
             </div>
-            {!isMessage && newComment ? <CommentSubmit id={'commentComment' + comment.data.id} isReply={true} parentName={comment.data.name} rootCommentList={rootCommentList} prev={prev} stateSetter={stateSetter} dispatcher={dispatcher} x={x}/> : undefined}
+            {!isMessage ? <CSSTransition in={newComment} timeout={300} classNames={'tran6'} mountOnEnter={true} unmountOnExit={true}><CommentSubmit id={'commentComment' + comment.data.id} isReply={true} parentName={comment.data.name} rootCommentList={rootCommentList} prev={prev} stateSetter={stateSetter} dispatcher={dispatcher} x={x}/></CSSTransition> : undefined}
             {!isMessage && comment.data && comment.data.all_awardings.length > 0 ? <Awards article={comment}/> : undefined}
             {children}
         </li>
