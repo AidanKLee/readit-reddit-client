@@ -9,7 +9,7 @@ const DeleteButton = (props) => {
     const { name, text, type } = props;
 
     const [ warning, setWarning ] = useState(false);
-    const [ scrollPos, setScrollPos ] = useState(0);
+    // const [ scrollPos, setScrollPos ] = useState(0);
 
     const handleDelete = () => {
         reddit.delete(name);
@@ -18,32 +18,32 @@ const DeleteButton = (props) => {
 
     const handleWarning = () => {
         setWarning(!warning);
-        setScrollPos(window.scrollY);
+        // setScrollPos(window.scrollY);
     }
 
-    const preventScroll = () => {
-        stopScroll(scrollPos);
-    }
+    // const preventScroll = () => {
+    //     stopScroll(scrollPos);
+    // }
 
-    const prevent = (e) => {
-        e.preventDefault();
-    }
+    // const prevent = (e) => {
+    //     e.preventDefault();
+    // }
 
-    useEffect(() => {
-        if (warning) {
-            window.addEventListener('scroll', preventScroll, {passive: false});
-            window.addEventListener('mousewheel', prevent, {passive: false});
-            window.addEventListener('touchmove', prevent, {passive: false});
-        }
+    // useEffect(() => {
+    //     if (warning) {
+    //         window.addEventListener('scroll', preventScroll, {passive: false});
+    //         window.addEventListener('mousewheel', prevent, {passive: false});
+    //         window.addEventListener('touchmove', prevent, {passive: false});
+    //     }
         
         
-        return () => {
-            window.removeEventListener('scroll', preventScroll);
-            window.removeEventListener('mousewheel', prevent);
-            window.addEventListener('touchmove', prevent, {passive: false});
-        }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[warning])
+    //     return () => {
+    //         window.removeEventListener('scroll', preventScroll);
+    //         window.removeEventListener('mousewheel', prevent);
+    //         window.addEventListener('touchmove', prevent, {passive: false});
+    //     }
+    //         // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[warning])
 
     return (
         <div className='delete'>

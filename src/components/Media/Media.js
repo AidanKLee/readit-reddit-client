@@ -7,7 +7,7 @@ const Media = (props) => {
     const { viewMedia, toggleViewMedia } = props;
     const { src, alt, type, mediaOpen } = viewMedia;
 
-    const [ scrollPos, setScrollPos] = useState(0);
+    // const [ scrollPos, setScrollPos] = useState(0);
 
     const renderMedia = () => {
         if (type === 'video') {
@@ -32,33 +32,33 @@ const Media = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[mediaOpen])
     
-    useEffect(() => {
-        if (mediaOpen) {
-            setScrollPos(window.scrollY);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // useEffect(() => {
+    //     if (mediaOpen) {
+    //         setScrollPos(window.scrollY);
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[])
 
-    const preventScroll = () => {
-        stopScroll(scrollPos);
-    }
+    // const preventScroll = () => {
+    //     stopScroll(scrollPos);
+    // }
 
-    const prevent = (e) => {
-        e.preventDefault();
-    }
+    // const prevent = (e) => {
+    //     e.preventDefault();
+    // }
 
-    useEffect(() => {
-        window.addEventListener('scroll', preventScroll, {passive: false});
-        window.addEventListener('mousewheel', prevent, {passive: false});
-        window.addEventListener('touchmove', prevent, {passive: false});
+    // useEffect(() => {
+    //     window.addEventListener('scroll', preventScroll, {passive: false});
+    //     window.addEventListener('mousewheel', prevent, {passive: false});
+    //     window.addEventListener('touchmove', prevent, {passive: false});
         
-        return () => {
-            window.removeEventListener('scroll', preventScroll);
-            window.removeEventListener('mousewheel', prevent);
-            window.removeEventListener('touchmove', prevent, {passive: false});
-        }
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[scrollPos])
+    //     return () => {
+    //         window.removeEventListener('scroll', preventScroll);
+    //         window.removeEventListener('mousewheel', prevent);
+    //         window.removeEventListener('touchmove', prevent, {passive: false});
+    //     }
+    //         // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[scrollPos])
 
     return (
         <div className='media'>
