@@ -286,3 +286,45 @@
     transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
     transform-origin: top center;
 }
+
+
+
+
+.tran9-appear {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran9-appear-active {
+    max-height: calc(100vh - 128px);
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran9-enter {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+}
+
+.tran9-enter-active {
+    max-height: calc(100vh - 128px);
+    transform: scaleY(1);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}
+
+.tran9-exit {
+    max-height: calc(100vh - 128px);
+    transform: scaleY(1);
+    transform-origin: top center;
+}
+
+.tran9-exit-active {
+    max-height: 0;
+    transform: scaleY(0);
+    transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: top center;
+}

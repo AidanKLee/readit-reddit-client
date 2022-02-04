@@ -5,6 +5,7 @@ import Categories from '../../components/Categories/Categories';
 import { useSelector } from 'react-redux';
 import { selectNewPost } from '../../components/NewPost/newPostSlice';
 import CreatePost from '../../components/CreatePost/CreatePost';
+import { CSSTransition } from 'react-transition-group';
 
 const Popular = () => {
 
@@ -13,7 +14,7 @@ const Popular = () => {
     return (
         <div className='popular'>
             <div className='content'>
-                {newPost.open ? <CreatePost /> : undefined}
+                <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
                 <Categories page={'/popular'}/>
                 <Outlet page={'popular'}/>
             </div>

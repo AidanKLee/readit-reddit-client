@@ -25,7 +25,7 @@
     position: sticky;
     top: 64px;
     border-bottom: 1px solid var(--over3);
-    z-index: 40;
+    z-index: 70;
     width: 100%;
 }
 

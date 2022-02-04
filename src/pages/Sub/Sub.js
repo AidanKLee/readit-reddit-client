@@ -29,7 +29,7 @@ const Sub = (props) => {
     const [ updated, setUpdated ] = useState(false)
     const [ mountTop, setMountTop ] = useState(false)
     const [ mountUnder, setMountUnder ] = useState(false);
-
+    const [ mountSide, setMountSide] = useState(false);
 
     const isReadyToMount = useMemo(() => subreddit && subreddit.data ? true : false,[subreddit]);
 
@@ -43,7 +43,6 @@ const Sub = (props) => {
 
     useEffect(() => {
         if (mountUnder) {
-            console.log('unsetting mount under')
             setMountUnder(false);
             const timer = setTimeout(() => {
                 console.log('fetchingData')
@@ -52,24 +51,10 @@ const Sub = (props) => {
             },600)
             return () => clearTimeout(timer)
         } else if (!mountUnder) {
-            console.log('fetching data 2')
             fetchData()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subredditUrl]);
-
-    console.log(subreddit)
-
-    // useEffect(() => {
-    //     if (!mountUnder && !isReadyToMount) {
-    //         const timer = setTimeout(() => {
-    //             console.log('fetchingData')
-    //             setSubreddit({})
-    //             fetchData()
-    //         },300)
-    //         clearTimeout(timer)
-    //     }
-    // },[mountTop, mountUnder, isReadyToMount])
 
     useEffect(() => {
         if (isReadyToMount) {
@@ -248,7 +233,7 @@ const Sub = (props) => {
                 </div>
             </CSSTransition>
             
-            <CSSTransition in={mountUnder} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onExited={() => setMountTop(false)}>
+            <CSSTransition in={mountUnder} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onExit={() => setMountSide(false)} onExited={() => setMountTop(false)} onEntered={() => setMountSide(true)}>
                 <div className='subBannerUnder'>
                     <div className='subBannerUnderWrapper'>
                     <div className='subBannerIconWrapper'>
@@ -273,40 +258,42 @@ const Sub = (props) => {
             </CSSTransition>
             <div className='subContent'>
                 <div className='content'>
-                    {newPost.open ? <CreatePost /> : undefined}
+                    <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
                     <Categories page={'/r/' + subredditUrl}/>
                     <Outlet/>
                 </div>
                 <div className='subContentRight'>
-                    <div className='subContentRightSticky'>
-                        <div className='subContentRightHeader' style={backgroundColor}>
-                            <div className='subContentRightHeaderName'>
-                                {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
-                                {login.authorization && !isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
-                                {login.authorization && isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} moderated={true} subreddit={subreddit} text='Join'/> : undefined}
-                            </div>
-                            {subreddit.data ? <p className='subHeading' style={getTextColor()}>{subreddit.data.url}</p> : undefined}
+                    <CSSTransition in={mountSide} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true} >
+                        <div className='subContentRightSticky'>
+                            <div className='subContentRightHeader' style={backgroundColor}>
+                                <div className='subContentRightHeaderName'>
+                                    {subreddit.data ? <p className='bold' style={getTextColor()}>{<Text text={subreddit.data.title} length={300}/>}</p> : undefined}
+                                    {login.authorization && !isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} subreddit={subreddit} text='Join'/> : undefined}
+                                    {login.authorization && isModeratedSubreddit(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.name : undefined} moderated={true} subreddit={subreddit} text='Join'/> : undefined}
+                                </div>
+                                {subreddit.data ? <p className='subHeading' style={getTextColor()}>{subreddit.data.url}</p> : undefined}
 
-                            <div className='subContentRightHeaderStats'>
-                                <div>
-                                    {subreddit.data ? <p className='heading bold' style={getTextColor()}>{subreddit.data.subscribers}</p> : undefined}
-                                    <p className='subHeading' style={getTextColor()}>Followers</p>
-                                </div>
-                                <div>
-                                    {subreddit.data ? <p className='heading bold' style={getTextColor()}>{subreddit.data.accounts_active}</p> : undefined}
-                                    <p className='subHeading' style={getTextColor()}>Online</p>
+                                <div className='subContentRightHeaderStats'>
+                                    <div>
+                                        {subreddit.data ? <p className='heading bold' style={getTextColor()}>{subreddit.data.subscribers}</p> : undefined}
+                                        <p className='subHeading' style={getTextColor()}>Followers</p>
+                                    </div>
+                                    <div>
+                                        {subreddit.data ? <p className='heading bold' style={getTextColor()}>{subreddit.data.accounts_active}</p> : undefined}
+                                        <p className='subHeading' style={getTextColor()}>Online</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div className='subContentRightMain'>
+                                <p className='bold'>
+                                    About
+                                </p>
+                                {subreddit.data && subreddit.data.public_description ? <div><p className='paragraph'>{<Text text={subreddit.data.public_description} length={500}/>}</p></div> : undefined}
+                                {subreddit.data && subreddit.data.description && (!subreddit.data.description.includes(subreddit.data.public_description) && !subreddit.data.public_description.includes(subreddit.data.description)) ? <div><p className='paragraph'>{<Text text={subreddit.data.description} length={500}/>}</p></div> : undefined}
+                            </div>
+                            {renderRecommended()}
                         </div>
-                        <div className='subContentRightMain'>
-                            <p className='bold'>
-                                About
-                            </p>
-                            {subreddit.data && subreddit.data.public_description ? <div><p className='paragraph'>{<Text text={subreddit.data.public_description} length={500}/>}</p></div> : undefined}
-                            {subreddit.data && subreddit.data.description && (!subreddit.data.description.includes(subreddit.data.public_description) && !subreddit.data.public_description.includes(subreddit.data.description)) ? <div><p className='paragraph'>{<Text text={subreddit.data.description} length={500}/>}</p></div> : undefined}
-                        </div>
-                        {renderRecommended()}
-                    </div>
+                    </CSSTransition>
                 </div>
             </div>
             <div className='updateWarning' style={updated ? {bottom: '32px'} : {}}>

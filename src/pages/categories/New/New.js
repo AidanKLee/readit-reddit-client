@@ -21,6 +21,8 @@ const New = (props) => {
 
     const articles = useMemo(() => main.page.content && main.page.content.data && main.page.content.data.children ? main.page.content.data.children : [],[main])
 
+    const [ renderList, setRenderList ] = useState(new Array(25).fill(true));
+
     useEffect(() => {
         if (login.initialLoginAttempt) {
             dispatch(fetchContent({
@@ -49,20 +51,17 @@ const New = (props) => {
     // if location changes, unmount the tiles and start rendering the new ones when articles are ready
     useEffect(() => {
         if (mount) {
-            console.log('unmounting')
             setMount(false)
+            setRenderList([])
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[location])
 
     useEffect(() => {
         if (!mount && articles.length > 0) {
-            console.log('mounting')
-            const timer = setTimeout(() => {
-                setMount(true)
-            },300)
-            return () => clearTimeout(timer)
+            setMount(true);
         }
+        setRenderList(articles.map(() => true))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[articles])
 
@@ -96,7 +95,14 @@ const New = (props) => {
 
                 main.page.content.data.children.map((article, index) => {
                     return (
-                        <CSSTransition key={article.data.id + index} in={mount && main.page.content.data.children.length > 0 && !main.isLoading} timeout={300} classNames={'tran5'} mountOnEnter={true} unmountOnExit={true}>
+                        <CSSTransition 
+                            key={article.data.id + index} 
+                            in={mount && renderList[index] === true} 
+                            timeout={300} 
+                            classNames={'tran5'} 
+                            mountOnEnter={true} 
+                            unmountOnExit={true}
+                        >
                             <ContentTile i={index} article={article}/>
                         </CSSTransition>
                     )   
