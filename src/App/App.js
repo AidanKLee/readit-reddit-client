@@ -15,7 +15,7 @@ import Clock from '../components/Clock/Clock';
 import Build from '../components/Build/Build';
 import FileUpload from '../components/FileUpload/FileUpload';
 import { CSSTransition } from 'react-transition-group';
-import { toggleFullscreen } from '../components/Fullscreen/fullscreenSlice';
+import { selectFullscreen, toggleFullscreen } from '../components/Fullscreen/fullscreenSlice';
 
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
   const newPost = useSelector(selectNewPost)
   const darkMode = useSelector(selectDarkMode);
   const clock = useSelector(selectClock);
+  const fullscreen = useSelector(selectFullscreen);
 
   useEffect(() => {
     const localStorageDark = localStorage.getItem('darkMode');
@@ -110,7 +111,7 @@ useEffect(() => {
         </CSSTransition>
         <Menu />
         {
-          login.authorization && !document.fullscreenElement ?
+          login.authorization && !fullscreen ?
           <div className='appButton'>
             <NewPost />
           </div> : undefined

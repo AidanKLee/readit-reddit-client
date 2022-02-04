@@ -12,24 +12,38 @@
     padding: 8px;
     background-color: var(--bg1);
     border-right: 1px solid var(--over3);
-    transition: border-right .5s, max-width .5s;
+    transition: border-right .5s;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
     z-index: 60;
 }
 
+.messagesMenuMore {
+    fill: var(--over1);
+    height: 40px;
+    width: 40px;
+    padding: 4px;
+    margin: 0 4px;
+}
+
+.messagesMenuMore:hover {
+    fill: var(--fg1);
+}
+
+.messagesMenuMore:active {
+    fill: var(--prim1);
+}
+
 .messagesMenu:hover {
     border-right: 1px solid var(--over2);
-    max-width: 256px;
-    padding: 8px 8px 8px 0;
 }
 
 .messagesMenu:hover a {
     text-decoration: none;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .messagesMenuNew {
@@ -42,15 +56,15 @@
     border-radius: 24px;
     margin: 8px 0;
     box-shadow: 2px 2px 4px rgba(15, 15, 15, .5);
-    transition: box-shadow .5s, background-color .5s;
-    width: 100%;
+    transition: box-shadow .2s, background-color .2s;
+    width: 48px;
     cursor: pointer;
 }
 
-.messagesMenu:hover .messagesMenuNew {
+/* .messagesMenu:hover .messagesMenuNew {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-}
+} */
 
 .messagesMenuNew:hover {
     box-shadow: 4px 4px 8px rgba(15, 15, 15, .7);
@@ -62,15 +76,15 @@
     transform: scale(0%, 100%);
     white-space: nowrap;
     transform-origin: left;
-    transition: .5s;
+    /* transition: .5s; */
     margin-left: 0;
 }
 
-.messagesMenu:hover .messagesMenuNew p {
+/* .messagesMenu:hover .messagesMenuNew p {
     transform: scale(100%);
     width: 140px;
     margin-left: 16px;
-}
+} */
 
 .messagesMenuNew svg {
     fill: var(--prim1);
@@ -79,12 +93,18 @@
 }
 
 .messagesMenuList {
-    width: 100%;
+    width: 48px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-end;
     margin-top: 16px;
+}
+
+.messagesMenuList a {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .messagesMenuItem {
@@ -101,12 +121,12 @@
     cursor: pointer;
 }
 
-.messagesMenu:hover .messagesMenuItem {
+/* .messagesMenu:hover .messagesMenuItem {
     width: 100%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 1px solid transparent;
-}
+} */
 
 .messagesMenuItem:hover {
     background-color: var(--prim2);
@@ -127,18 +147,18 @@
     margin-left: 0;
     font-size: .7rem;
     font-weight: bold;
-    transition: .5s;
+    /* transition: .5s; */
     width: 0;
     transform: scale(0%, 100%);
     transform-origin: left;
     white-space: nowrap;
 }
 
-.messagesMenu:hover .messagesMenuItem p {
+/* .messagesMenu:hover .messagesMenuItem p {
     transform: scale(100%);
     width: 140px;
     margin-left: 16px;
-}
+} */
 
 .messagesContent {
     position: absolute;

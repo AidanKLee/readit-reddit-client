@@ -1,6 +1,6 @@
 .build {
     width: 100%;
-    height: calc(100% - 64px);
+    height: calc(100% - 96px);
     border: 1px solid var(--over4);
     position: fixed;
     z-index: 80;
@@ -9,7 +9,6 @@
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.4);
     color: var(--fg1);
-    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;

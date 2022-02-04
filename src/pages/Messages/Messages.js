@@ -318,40 +318,38 @@ const Messages = () => {
     }
 
     const renderMessageReader = () => {
-        // if ((selected.length === 1)) {
-            if (selected[0] && selected[0][0].data && selected.length === 1 && !selecting) {
-                return <MessageBody handleForward={handleForward} markSelectedUnread={markSelectedUnread} smallScreen={smallScreen} handleWarning={handleWarning} deleteMessage={deleteMessages} userImages={[ userImages, setUserImages ]} selected={[ selected, setSelected ]}/>
-            } else if (!smallScreen) {
-                return (
-                    <div className='messagesRight messagesSelectedMessage'>
-                        {
-                            selected.length === 0 ? 
-                                <div className='messagesSelectedMessageText'>
-                                    <p className='messagesSelectedMessageTitle'>You haven't selected a message yet.</p>
-                                    <p>Ctrl + Click to select multiple messages.</p>
-                                    <p>Shift + Click to select a group of messages</p>
-                                    {!composeOpen || composeMinimized ? <p>Ctrl + A to select all messages.</p> : undefined}
-                                </div> 
-                                : 
-                                <div className='messagesSelectedMessageText'>
-                                    <p className='messagesSelectedMessageTitle'>Selecting multiple messages...</p>
-                                    <div className='messagesSelectedMessageActions'>
-                                        <div className='delete' onClick={handleWarning}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
-                                        </div>
-                                        <div onClick={() => markSelectedUnread(false)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24" x="0"/><path d="M22,8.98V18c0,1.1-0.9,2-2,2H4c-1.1,0-2-0.9-2-2L2.01,6C2.01,4.9,2.9,4,4,4h10.1C14.04,4.32,14,4.66,14,5s0.04,0.68,0.1,1 H4l8,5l3.67-2.29c0.47,0.43,1.02,0.76,1.63,0.98L12,13L4,8v10h16V9.9C20.74,9.75,21.42,9.42,22,8.98z M16,5c0,1.66,1.34,3,3,3 s3-1.34,3-3s-1.34-3-3-3S16,3.34,16,5z"/></g></svg>
-                                        </div>
-                                        <div onClick={() => markSelectedUnread(true)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-                                        </div>
+        if (selected[0] && selected[0][0].data && selected.length === 1 && !selecting) {
+            return <MessageBody handleForward={handleForward} markSelectedUnread={markSelectedUnread} smallScreen={smallScreen} handleWarning={handleWarning} deleteMessage={deleteMessages} userImages={[ userImages, setUserImages ]} selected={[ selected, setSelected ]}/>
+        } else if (!smallScreen) {
+            return (
+                <div className='messagesRight messagesSelectedMessage'>
+                    {
+                        selected.length === 0 ? 
+                            <div className='messagesSelectedMessageText'>
+                                <p className='messagesSelectedMessageTitle'>You haven't selected a message yet.</p>
+                                <p>Ctrl + Click to select multiple messages.</p>
+                                <p>Shift + Click to select a group of messages</p>
+                                {!composeOpen || composeMinimized ? <p>Ctrl + A to select all messages.</p> : undefined}
+                            </div> 
+                            : 
+                            <div className='messagesSelectedMessageText'>
+                                <p className='messagesSelectedMessageTitle'>Selecting multiple messages...</p>
+                                <div className='messagesSelectedMessageActions'>
+                                    <div className='delete' onClick={handleWarning}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
+                                    </div>
+                                    <div onClick={() => markSelectedUnread(false)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24" x="0"/><path d="M22,8.98V18c0,1.1-0.9,2-2,2H4c-1.1,0-2-0.9-2-2L2.01,6C2.01,4.9,2.9,4,4,4h10.1C14.04,4.32,14,4.66,14,5s0.04,0.68,0.1,1 H4l8,5l3.67-2.29c0.47,0.43,1.02,0.76,1.63,0.98L12,13L4,8v10h16V9.9C20.74,9.75,21.42,9.42,22,8.98z M16,5c0,1.66,1.34,3,3,3 s3-1.34,3-3s-1.34-3-3-3S16,3.34,16,5z"/></g></svg>
+                                    </div>
+                                    <div onClick={() => markSelectedUnread(true)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
                                     </div>
                                 </div>
-                        }
-                    </div>
-                )
+                            </div>
+                    }
+                </div>
+            )
             }
-        // }
     }
 
     const handleClick = () => {
@@ -361,61 +359,129 @@ const Messages = () => {
         }
     }
 
+    const [ menuOpen, setMenuOpen ] = useState(false);
+    const [ menu2, setMenu2 ] = useState(false);
+
+    let timer;
+
+    const handleMenuOpen = (bool) => {
+        if (typeof bool === 'boolean') {
+            if (menuOpen) {
+                setMenu2(false)
+            } else {
+                setMenuOpen(true)
+            }
+        } else {
+            if (!menuOpen) {
+            setMenuOpen(true);
+            } else {
+                setMenu2(false)
+            }
+        }
+        
+    }
+
+    const handleMouseOver = (e) => {
+        if (!e.nativeEvent.sourceCapabilities.firesTouchEvents) {
+            mouseTimer(e.type);
+        }
+    }
+
+    const mouseTimer = (e) => {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            if (e === 'mouseleave' && menu2) {
+                handleMenuOpen()
+            } else if (e === 'mouseenter' && !menuOpen) {
+                handleMenuOpen()
+            }
+            
+        },1000)
+        return () => clearTimeout(timer)
+    }
+
     return (
         <CSSTransition in={mount} timeout={1000} classNames='tran1' mountOnEnter={true} unmountOnExit={true}>
             <div className='messages' style={fullscreen ? {height: 'calc(100vh - 120px)'} : {}}>
-                <div className='messagesMenu' onTouchStart={(e) => e.cancelable}>
-                        <div onClick={() => {
-                            if (compose.minimized) {
-                                setCompose({...compose, minimized: false})
-                            } else {
-                                toggleCompose()
-                            }
-                        }} className='messagesMenuNew'>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                            <p>Compose New Message</p>
-                        </div>
-                    
-                    <ul className='messagesMenuList'>
-                        <Link onClick={handleClick} to='/messages/inbox'>
-                            <li className='messagesMenuItem'>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-3h3.56c.69 1.19 1.97 2 3.45 2s2.75-.81 3.45-2H19v3zm0-5h-4.99c0 1.1-.9 2-2 2s-2-.9-2-2H5V5h14v9z"/></svg>
-                                <p>Inbox</p>
-                            </li>
-                        </Link>
-                        <Link onClick={handleClick} to='/messages/unread'>
-                            <li className='messagesMenuItem'>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-                                <p>Unread</p>
-                            </li>
-                        </Link>
-                        <Link onClick={handleClick} to='/messages/sent'>
-                            <li className='messagesMenuItem'>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4.01 6.03l7.51 3.22-7.52-1 .01-2.22m7.5 8.72L4 17.97v-2.22l7.51-1M2.01 3L2 10l15 2-15 2 .01 7L23 12 2.01 3z"/></svg>
-                                <p>Sent</p>
-                            </li>
-                        </Link>
-                    </ul>
+                <CSSTransition in={menuOpen} timeout={300} classNames='menu' onEntered={() => setMenu2(true)}>
+                    <div className='messagesMenu' onMouseEnter={handleMouseOver} onMouseLeave={handleMouseOver}>
+                        
+                        <svg onClick={handleMenuOpen} className='messagesMenuMore' xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
 
-                    <ul className='messagesMenuList messagesActions'>
-                        <li onClick={handleWarning} className='messagesMenuItem'>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
-                            <p>Delete</p>
-                        </li>
-                        <li onClick={markAllMessagesRead} className='messagesMenuItem'>
-                            <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><g><path d="M16.23,7h2.6c-0.06-0.47-0.36-0.94-0.79-1.17L10.5,2L2.8,5.83C2.32,6.09,2,6.64,2,7.17V15c0,1.1,0.9,2,2,2V7.4L10.5,4 L16.23,7z"/><path d="M20,8H7c-1.1,0-2,0.9-2,2v9c0,1.1,0.9,2,2,2h13c1.1,0,2-0.9,2-2v-9C22,8.9,21.1,8,20,8z M20,19H7v-7l6.5,3.33L20,12V19z M13.5,13.33L7,10h13L13.5,13.33z"/></g></g></svg>
-                            <p>Mark All Read</p>
-                        </li>
-                        <li onClick={() => markSelectedUnread(false)} className='messagesMenuItem'>
-                            <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24" x="0"/><path d="M22,8.98V18c0,1.1-0.9,2-2,2H4c-1.1,0-2-0.9-2-2L2.01,6C2.01,4.9,2.9,4,4,4h10.1C14.04,4.32,14,4.66,14,5s0.04,0.68,0.1,1 H4l8,5l3.67-2.29c0.47,0.43,1.02,0.76,1.63,0.98L12,13L4,8v10h16V9.9C20.74,9.75,21.42,9.42,22,8.98z M16,5c0,1.66,1.34,3,3,3 s3-1.34,3-3s-1.34-3-3-3S16,3.34,16,5z"/></g></svg>
-                            <p>Mark Read</p>
-                        </li>
-                        <li onClick={() => markSelectedUnread(true)} className='messagesMenuItem'>
-                            <svg onClick={() => markSelectedUnread(true)} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-                            <p>Mark Unread</p>
-                        </li>
-                    </ul>
-                </div>
+                        <CSSTransition in={menu2} timeout={300} classNames='menu2' onExited={() => setMenuOpen(false)}>
+                            <div className='messagesMenuNew' onClick={() => {
+                                if (compose.minimized) {
+                                    setCompose({...compose, minimized: false})
+                                } else {
+                                    toggleCompose()
+                                }
+                            }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Compose New Message</p></CSSTransition>
+                            </div>
+                        </CSSTransition>
+                        
+                        <CSSTransition in={menu2} timeout={300} classNames='menu2-2'>
+                            <ul className='messagesMenuList'>
+                                <Link onClick={handleClick} to='/messages/inbox'>
+                                    <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                        <li className='messagesMenuItem'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5v-3h3.56c.69 1.19 1.97 2 3.45 2s2.75-.81 3.45-2H19v3zm0-5h-4.99c0 1.1-.9 2-2 2s-2-.9-2-2H5V5h14v9z"/></svg>
+                                            <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Inbox</p></CSSTransition>
+                                        </li>
+                                    </CSSTransition>
+                                </Link>
+                                <Link onClick={handleClick} to='/messages/unread'>
+                                    <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                        <li className='messagesMenuItem'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+                                            <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Unread</p></CSSTransition>
+                                        </li>
+                                    </CSSTransition>
+                                </Link>
+                                <Link onClick={handleClick} to='/messages/sent'>
+                                    <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                        <li className='messagesMenuItem'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4.01 6.03l7.51 3.22-7.52-1 .01-2.22m7.5 8.72L4 17.97v-2.22l7.51-1M2.01 3L2 10l15 2-15 2 .01 7L23 12 2.01 3z"/></svg>
+                                            <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Sent</p></CSSTransition>
+                                        </li>
+                                    </CSSTransition>
+                                </Link>
+                            </ul>
+                        </CSSTransition>
+
+                        <CSSTransition in={menu2} timeout={300} classNames='menu2-2'>
+                            <ul className='messagesMenuList messagesActions'>
+                                <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                <li onClick={handleWarning} className='messagesMenuItem'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"/></svg>
+                                    <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Delete</p></CSSTransition>
+                                </li>
+                                </CSSTransition>
+                                <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                    <li onClick={markAllMessagesRead} className='messagesMenuItem'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><g><path d="M16.23,7h2.6c-0.06-0.47-0.36-0.94-0.79-1.17L10.5,2L2.8,5.83C2.32,6.09,2,6.64,2,7.17V15c0,1.1,0.9,2,2,2V7.4L10.5,4 L16.23,7z"/><path d="M20,8H7c-1.1,0-2,0.9-2,2v9c0,1.1,0.9,2,2,2h13c1.1,0,2-0.9,2-2v-9C22,8.9,21.1,8,20,8z M20,19H7v-7l6.5,3.33L20,12V19z M13.5,13.33L7,10h13L13.5,13.33z"/></g></g></svg>
+                                        <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Mark All Read</p></CSSTransition>
+                                    </li>
+                                </CSSTransition>
+                                <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                    <li onClick={() => markSelectedUnread(false)} className='messagesMenuItem'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24" x="0"/><path d="M22,8.98V18c0,1.1-0.9,2-2,2H4c-1.1,0-2-0.9-2-2L2.01,6C2.01,4.9,2.9,4,4,4h10.1C14.04,4.32,14,4.66,14,5s0.04,0.68,0.1,1 H4l8,5l3.67-2.29c0.47,0.43,1.02,0.76,1.63,0.98L12,13L4,8v10h16V9.9C20.74,9.75,21.42,9.42,22,8.98z M16,5c0,1.66,1.34,3,3,3 s3-1.34,3-3s-1.34-3-3-3S16,3.34,16,5z"/></g></svg>
+                                        <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Mark Read</p></CSSTransition>
+                                    </li>
+                                </CSSTransition>
+                                <CSSTransition in={menu2} timeout={300} classNames='menu2-3'>
+                                <li onClick={() => markSelectedUnread(true)} className='messagesMenuItem'>
+                                    <svg onClick={() => markSelectedUnread(true)} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6H10v2h10v12H4V8h2v4h2V4h6V0H6v6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+                                    <CSSTransition in={menu2} timeout={300} classNames='menu2-1'><p>Mark Unread</p></CSSTransition>
+                                </li>
+                                </CSSTransition>
+                            </ul>
+                        </CSSTransition>
+                    </div>
+                </CSSTransition>
                 <div className='messagesContent'>
                     <div className='messagesLeft'>
                         <div className='messagesLeftHeader'>
@@ -430,7 +496,7 @@ const Messages = () => {
                     {renderMessageReader()}      
                 </div>
                 {composeOpen ? <MessageCompose state={[compose, setCompose]} toggleCompose={toggleCompose} handleSend={handleSend}/> : undefined}
-                {warning && selected.length > 0 ? <div className='deleteWarning'>Delete {selected.length === 1 ? 'this message' : 'these ' + selected.length.toString() + ' messages'}?<div onClick={deleteMessages}>Yes</div><div onClick={handleWarning}>No</div></div> : undefined}
+                <CSSTransition in={warning && selected.length > 0} timeout={300} classNames='tran13' mountOnEnter={true} unmountOnExit={true}><div className='deleteWarning'>Delete {selected.length === 1 ? 'this message' : 'these ' + selected.length.toString() + ' messages'}?<div onClick={deleteMessages}>Yes</div><div onClick={handleWarning}>No</div></div></CSSTransition>
             </div>
         </CSSTransition>
     )

@@ -5,7 +5,6 @@ export const fullscreenSlice = createSlice({
     initialState: false,
     reducers: {
         toggleFullscreen: (state, action) => {
-            console.log(action.payload)
             if (typeof action.payload !== 'boolean') {
                 return !state
             } else {

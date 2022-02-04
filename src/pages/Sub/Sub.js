@@ -45,7 +45,6 @@ const Sub = (props) => {
         if (mountUnder) {
             setMountUnder(false);
             const timer = setTimeout(() => {
-                console.log('fetchingData')
                 setSubreddit({})
                 fetchData()
             },600)

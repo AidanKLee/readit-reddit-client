@@ -98,29 +98,35 @@
 
 .tran4-appear {
     opacity: 0;
+    overflow: hidden;
 }
 
 .tran4-appear-active {
     opacity: 1;
     transition: opacity 300ms ease-in-out;
+    overflow: hidden;
 }
 
 .tran4-enter {
     opacity: 0;
+    overflow: hidden;
 }
 
 .tran4-enter-active {
     opacity: 1;
     transition: opacity 300ms ease-in-out;
+    overflow: hidden;
 }
 
 .tran4-exit {
     opacity: 1;
+    overflow: hidden;
 }
 
 .tran4-exit-active {
     opacity: 0;
     transition: opacity 300ms ease-in-out;
+    overflow: hidden;
 }
 
 
@@ -377,14 +383,12 @@
 
 .tran11-appear {
     max-width: 0;
-    /* max-height: 0; */
     transform: scaleX(0);
     transform-origin: right center;
 }
 
 .tran11-appear-active {
     max-width: 344px;
-    /* max-height: calc(100vh - 128px); */
     transform: scaleX(1);
     transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
     transform-origin: right center;
@@ -392,14 +396,12 @@
 
 .tran11-enter {
     max-width: 0;
-    /* max-height: 0; */
     transform: scaleX(0);
     transform-origin: right center;
 }
 
 .tran11-enter-active {
     max-width: 344px;
-    /* max-height: calc(100vh - 128px); */
     transform: scaleX(1);
     transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
     transform-origin: right center;
@@ -407,15 +409,257 @@
 
 .tran11-exit {
     max-width: 344px;
-    /* max-height: calc(100vh - 128px); */
     transform: scaleX(1);
     transform-origin: right center;
 }
 
 .tran11-exit-active {
     max-width: 0;
-    /* max-height: 0; */
     transform: scaleX(0);
     transition: max-width 300ms ease-in-out, transform 300ms ease-in-out;
     transform-origin: right center;
+}
+
+
+
+
+.tran12-appear {
+    max-width: 0;
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.tran12-appear-active {
+    max-width: 44px;
+    transform: scaleX(1);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
+    transform-origin: right center;
+}
+
+.tran12-enter {
+    max-width: 0;
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.tran12-enter-active {
+    max-width: 44px;
+    transform: scaleX(1);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
+    transform-origin: right center;
+}
+
+.tran12-exit {
+    max-width: 44px;
+    transform: scaleX(1);
+    transform-origin: right center;
+}
+
+.tran12-exit-active {
+    max-width: 0;
+    transform: scaleX(0);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: right center;
+}
+
+
+
+
+
+
+.tran13-appear {
+    opacity: 0;
+    overflow: hidden;
+}
+
+.tran13-appear-active {
+    opacity: .9;
+    transition: opacity 300ms ease-in-out;
+    overflow: hidden;
+}
+
+.tran13-enter {
+    opacity: 0;
+    overflow: hidden;
+}
+
+.tran13-enter-active {
+    opacity: .9;
+    transition: opacity 300ms ease-in-out;
+    overflow: hidden;
+}
+
+.tran13-exit {
+    opacity: .9;
+    overflow: hidden;
+}
+
+.tran13-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+    overflow: hidden;
+}
+
+
+
+
+
+.menu-enter {
+    max-width: 64px;
+    padding: 8px;
+}
+
+.menu-enter-active {
+    max-width: 256px;
+    transition: max-width 300ms ease-in-out, padding 300ms ease-in-out;
+    padding: 8px 8px 8px 0;
+}
+
+.menu-enter-done {
+    max-width: 256px;
+    padding: 8px 8px 8px 0;
+}
+
+.menu-exit {
+    max-width: 256px;
+    padding: 8px 8px 8px 0;
+    transition: max-width 300ms ease-in-out, padding 300ms ease-in-out;
+}
+
+.menu-exit-active {
+    max-width: 64px;
+    padding: 8px;
+    transition: max-width 300ms ease-in-out;
+}
+
+
+
+
+
+.menu2-enter {
+    width: 48px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+}
+
+.menu2-enter-active {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    transition: width 300ms ease-in-out, border-top-left-radius 300ms ease-in-out, border-bottom-left-radius 300ms ease-in-out;
+}
+
+.menu2-enter-done {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.menu2-exit {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.menu2-exit-active {
+    width: 48px;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    transition: width 300ms ease-in-out, border-top-left-radius 300ms ease-in-out, border-bottom-left-radius 300ms ease-in-out;
+}
+
+
+
+.menu2-1-enter {
+    transform: scale(0%, 100%);
+    width: 0;
+    margin-left: 0;
+}
+
+.menu2-1-enter-active {
+    transform: scale(100%) !important;
+    width: 140px !important;
+    margin-left: 16px !important;
+    transition: transform 300ms ease-in-out, width 300ms ease-in-out, margin-left 300ms ease-in-out;
+}
+
+.menu2-1-enter-done {
+    transform: scale(100%) !important;
+    width: 140px !important;
+    margin-left: 16px !important;
+    transition: transform 300ms ease-in-out, width 300ms ease-in-out, margin-left 300ms ease-in-out;
+}
+
+.menu2-1-exit {
+    transform: scale(100%) !important;
+    width: 140px !important;
+    margin-left: 16px !important;
+}
+
+.menu2-1-exit-active {
+    transform: scale(0%, 100%) !important;
+    width: 0 !important;
+    margin-left: 0 !important;
+    transition: transform 300ms ease-in-out, width 300ms ease-in-out, margin-left 300ms ease-in-out;
+}
+
+
+
+.menu2-2-enter {
+    width: 48px;
+}
+
+.menu2-2-enter-active {
+    width: 100%;
+    transition: width 300ms ease-in-out;
+}
+
+.menu2-2-enter-done {
+    width: 100%;
+}
+
+.menu2-2-exit {
+    width: 100%;
+}
+
+.menu2-2-exit-active {
+    width: 48px;
+    transition: width 300ms ease-in-out;
+}
+
+
+
+
+.menu2-3-enter {
+    width: 42px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left: 1px solid var(--over3);
+}
+
+.menu2-3-enter-active {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid transparent;
+    transition: width 300ms ease-in-out, border-left 300ms ease-in-out, border-top-left-radius 300ms ease-in-out, border-bottom-left-radius 300ms ease-in-out;
+}
+
+.menu2-3-enter-done {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid transparent;
+}
+
+.menu2-3-exit {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid transparent;
+}
+
+.menu2-3-exit-active {
+    width: 42px;
+    transition: width 300ms ease-in-out, border-left 300ms ease-in-out, border-top-left-radius 300ms ease-in-out, border-bottom-left-radius 300ms ease-in-out;
 }

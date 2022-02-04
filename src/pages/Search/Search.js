@@ -99,7 +99,6 @@ const Search = () => {
         setMountSticky(false)
         setReadyToMount(false)
         if (type === 'posts') {
-            console.log('searching: ' + query + ' ' + over18)
             const getStickyContent = async () => {
                 const subreddits = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'sr', over18);
                 const users = await reddit.fetchSearch(query, 5, 'relevance', 'all', 'user', over18);

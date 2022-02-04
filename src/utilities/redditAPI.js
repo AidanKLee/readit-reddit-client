@@ -9,7 +9,7 @@ export class redditAPI {
             clientSecret: '6492zUIQrshhKresh1k-pKiUCWzkbA',
             responseType: 'code',
             state: this.generateState(),
-            redirectUri: 'http://localhost:3000//callback',
+            redirectUri: 'https://readitreaddit.netlify.app/callback',
             duration: 'permanent',
             scope: 'account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modmail modothers modposts modself modwiki mysubreddits privatemessages read report save structuredstyles submit subscribe vote wikiedit wikiread',
             grantType: 'authorization_code',
