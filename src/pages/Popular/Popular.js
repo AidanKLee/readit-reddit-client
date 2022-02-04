@@ -12,13 +12,15 @@ const Popular = () => {
     const newPost = useSelector(selectNewPost);
 
     return (
-        <div className='popular'>
-            <div className='content'>
-                <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
-                <Categories page={'/popular'}/>
-                <Outlet page={'popular'}/>
+        <CSSTransition in={true} appear={true} timeout={1000} classNames='tran1'>
+            <div className='popular'>
+                <div className='content'>
+                    <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
+                    <Categories page={'/popular'}/>
+                    <Outlet page={'popular'}/>
+                </div>
             </div>
-        </div>
+        </CSSTransition>
     )
 }
 

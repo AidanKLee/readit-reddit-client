@@ -203,99 +203,101 @@ const User = () => {
     }
 
     return (
-        <div className='user'>
-            <CSSTransition in={mountTop} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setMountUnder(true)}>
-                <div className='subBanner'>
-                    {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
-                    {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
-                    {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('banner')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
-                </div>
-            </CSSTransition>
+        <CSSTransition in={true} appear={true} timeout={1000} classNames='tran1'>
+            <div className='user'>
+                <CSSTransition in={mountTop} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setMountUnder(true)}>
+                    <div className='subBanner'>
+                        {subreddit && subreddit.data && subreddit.data.subreddit.banner_img ? <img style={over18Style(subreddit, login)} src={getUrl(subreddit.data.subreddit.banner_img)} alt={subreddit.data.name}/> : undefined}
+                        {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit && subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                        {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('banner')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
+                    </div>
+                </CSSTransition>
 
-            <CSSTransition in={mountUnder} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onExit={() => setMountSide(false)} onExited={() => setMountTop(false)} onEntered={() => setMountSide(true)}>
-                <div className='subBannerUnder'>
-                    <div className='subBannerUnderWrapper'>
-                    <div className='subBannerIconWrapper'>
-                        <div className='iconImgWrapper'>
-                            {subreddit && subreddit.data ? reddit.getIconImg(subreddit.data.subreddit, over18Style(subreddit, login)) : undefined}
-                        </div>
-                        {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('icon')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
-                    </div>
-                    
-                        <div className='subBannerUnderText'>
-                            <h1>
-                                {subreddit.data ? <Text text={subreddit.data.name} length={1000}/> : undefined}
-                            </h1>
-                            <p>
-                                {subreddit.data ? subreddit.data.subreddit.display_name_prefixed : undefined}
-                            </p>
-                            <p>
-                                {subreddit.data && subreddit.data.subreddit.title ? <Text text={subreddit.data.subreddit.title} length={1000}/> : undefined}
-                            </p>
-                            {subreddit && subreddit.data && subreddit.data.subreddit.over_18 ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
-                        </div>
-                    </div>
-                </div>
-            </CSSTransition>
-            <div className='userCategories'>
-                <div className='userCategoriesWrapper'>
-                    <Link to={`/${prefix}/${user}/overview`} onClick={returnToTop}><p>Overview</p></Link>
-                    <Link to={`/${prefix}/${user}/submitted`} onClick={returnToTop}><p>Posts</p></Link>
-                    <Link to={`/${prefix}/${user}/comments`} onClick={returnToTop}><p>Comments</p></Link>
-                </div>
-            </div>
-            <div className='subContent'>
-                <div className='content'>
-                    <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
-                    <Categories page={`/${prefix}/${user}/${content}`}/>
-                    <Outlet/>
-                </div>
-                <div className='subContentRight'>
-                    <CSSTransition in={mountSide} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true} >
-                        <div className='userContentRightSticky'>
-                            <div className='subContentRightHeader'>
-                                <div className='subContentRightHeaderName'>
-                                    {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
-                                    {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
-                                    {login.authorization && subreddit && subreddit.data && isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} moderated={true} text='Follow'/> : undefined}
-                                </div>
-                                {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
-                                {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}
-                                <div className='subContentRightHeaderStats'>
-                                    <div>
-                                        {subreddit.data ? <p className='heading bold'>{subreddit.data.subreddit.subscribers}</p> : undefined}
-                                        <p className='subHeading'>subscribers</p>
-                                    </div>
-                                    <div>
-                                        {subreddit.data ? <p className='heading bold'>{subreddit.data.total_karma}</p> : undefined}
-                                        <p className='subHeading'>Total Karma</p>
-                                    </div>
-                                    <div>
-                                        {subreddit.data ? <p className='heading bold'>{getTimePosted(subreddit.data.created)}</p> : undefined}
-                                        <p className='subHeading'>Joined</p>
-                                    </div>
-                                </div>
+                <CSSTransition in={mountUnder} timeout={300} classNames={'tran8'} mountOnEnter={true} unmountOnExit={true} onExit={() => setMountSide(false)} onExited={() => setMountTop(false)} onEntered={() => setMountSide(true)}>
+                    <div className='subBannerUnder'>
+                        <div className='subBannerUnderWrapper'>
+                        <div className='subBannerIconWrapper'>
+                            <div className='iconImgWrapper'>
+                                {subreddit && subreddit.data ? reddit.getIconImg(subreddit.data.subreddit, over18Style(subreddit, login)) : undefined}
                             </div>
-                            {
-                                subreddit.data && (subreddit.data.subreddit.public_description || subreddit.data.subreddit.description) ?
-                                <div className='subContentRightMain'>
-                                    <p className='bold'>
-                                        About
-                                    </p>
-                                    {subreddit.data ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.public_description} length={1000}/></p></div> : undefined}
-                                    {subreddit.data && subreddit.data.subreddit.public_description !== subreddit.data.subreddit.description ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.description} length={1000}/></p></div> : undefined}
-                                </div> : undefined
-                            }
-                            {renderModeratorOf()}
+                            {login.authorization && isUserPage(subreddit) ? <svg className='iconUpload' onClick={() => toggleUpload('icon')} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 4l1.83 2H20v12H4V6h4.05l1.83-2h4.24M15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm-3 7c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/></svg> : undefined}
                         </div>
-                    </CSSTransition>
+                        
+                            <div className='subBannerUnderText'>
+                                <h1>
+                                    {subreddit.data ? <Text text={subreddit.data.name} length={1000}/> : undefined}
+                                </h1>
+                                <p>
+                                    {subreddit.data ? subreddit.data.subreddit.display_name_prefixed : undefined}
+                                </p>
+                                <p>
+                                    {subreddit.data && subreddit.data.subreddit.title ? <Text text={subreddit.data.subreddit.title} length={1000}/> : undefined}
+                                </p>
+                                {subreddit && subreddit.data && subreddit.data.subreddit.over_18 ? <p className='userDetailsNsfw'>NSFW</p> : undefined}
+                            </div>
+                        </div>
+                    </div>
+                </CSSTransition>
+                <div className='userCategories'>
+                    <div className='userCategoriesWrapper'>
+                        <Link to={`/${prefix}/${user}/overview`} onClick={returnToTop}><p>Overview</p></Link>
+                        <Link to={`/${prefix}/${user}/submitted`} onClick={returnToTop}><p>Posts</p></Link>
+                        <Link to={`/${prefix}/${user}/comments`} onClick={returnToTop}><p>Comments</p></Link>
+                    </div>
+                </div>
+                <div className='subContent'>
+                    <div className='content'>
+                        <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
+                        <Categories page={`/${prefix}/${user}/${content}`}/>
+                        <Outlet/>
+                    </div>
+                    <div className='subContentRight'>
+                        <CSSTransition in={mountSide} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true} >
+                            <div className='userContentRightSticky'>
+                                <div className='subContentRightHeader'>
+                                    <div className='subContentRightHeaderName'>
+                                        {subreddit.data ? <p className='bold'>{<Text text={subreddit.data.name} length={1000}/>}</p> : undefined}
+                                        {login.authorization && subreddit && subreddit.data && !isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} text='Follow'/> : undefined}
+                                        {login.authorization && subreddit && subreddit.data && isUserPage(subreddit) ? <Subscribe name={subreddit.data ? subreddit.data.subreddit.name : undefined} subreddit={{data: subreddit.data.subreddit}} moderated={true} text='Follow'/> : undefined}
+                                    </div>
+                                    {subreddit.data ? <p className='subHeading'>{subreddit.data.subreddit.display_name_prefixed}</p> : undefined}
+                                    {subreddit.data && subreddit.data.subreddit.title ? <p>{<Text text={subreddit.data.subreddit.title} length={1000}/>}</p> : undefined}
+                                    <div className='subContentRightHeaderStats'>
+                                        <div>
+                                            {subreddit.data ? <p className='heading bold'>{subreddit.data.subreddit.subscribers}</p> : undefined}
+                                            <p className='subHeading'>subscribers</p>
+                                        </div>
+                                        <div>
+                                            {subreddit.data ? <p className='heading bold'>{subreddit.data.total_karma}</p> : undefined}
+                                            <p className='subHeading'>Total Karma</p>
+                                        </div>
+                                        <div>
+                                            {subreddit.data ? <p className='heading bold'>{getTimePosted(subreddit.data.created)}</p> : undefined}
+                                            <p className='subHeading'>Joined</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {
+                                    subreddit.data && (subreddit.data.subreddit.public_description || subreddit.data.subreddit.description) ?
+                                    <div className='subContentRightMain'>
+                                        <p className='bold'>
+                                            About
+                                        </p>
+                                        {subreddit.data ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.public_description} length={1000}/></p></div> : undefined}
+                                        {subreddit.data && subreddit.data.subreddit.public_description !== subreddit.data.subreddit.description ? <div><p className='paragraph'><Text text={subreddit.data.subreddit.description} length={1000}/></p></div> : undefined}
+                                    </div> : undefined
+                                }
+                                {renderModeratorOf()}
+                            </div>
+                        </CSSTransition>
+                    </div>
+                </div>
+                <div className='updateWarning' style={updated ? {bottom: '32px', opacity: 1} : {}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M11,8v5l4.25,2.52l0.77-1.28l-3.52-2.09V8H11z M21,10V3l-2.64,2.64C16.74,4.01,14.49,3,12,3c-4.97,0-9,4.03-9,9 s4.03,9,9,9s9-4.03,9-9h-2c0,3.86-3.14,7-7,7s-7-3.14-7-7s3.14-7,7-7c1.93,0,3.68,0.79,4.95,2.05L14,10H21z"/></g></g></svg>
+                    <p>Changes Saved</p>
                 </div>
             </div>
-            <div className='updateWarning' style={updated ? {bottom: '32px', opacity: 1} : {}}>
-                <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M11,8v5l4.25,2.52l0.77-1.28l-3.52-2.09V8H11z M21,10V3l-2.64,2.64C16.74,4.01,14.49,3,12,3c-4.97,0-9,4.03-9,9 s4.03,9,9,9s9-4.03,9-9h-2c0,3.86-3.14,7-7,7s-7-3.14-7-7s3.14-7,7-7c1.93,0,3.68,0.79,4.95,2.05L14,10H21z"/></g></g></svg>
-                <p>Changes Saved</p>
-            </div>
-        </div>
+        </CSSTransition>
     )
 }
 

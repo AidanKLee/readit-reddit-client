@@ -185,8 +185,10 @@
 .searchContentRight {
     flex: 1 1;
     padding: 16px 16px 0 0;
-    max-width: 360px;
+    /* max-width: 360px; */
+    max-width: fit-content;
 }
+
 .searchContentRightSticky {
     position: sticky;
     top: 126px;
@@ -196,6 +198,7 @@
     border-top-right-radius: 8px;
     border: 1px solid var(--over3);
     overflow: hidden;
+    width: 344px;
 }
 
 .searchContentRightStickyCommunitiesWrapper {
@@ -227,6 +230,7 @@
     max-height: calc((100vh - 288px) / 2);
     width: 100%;
     overflow: auto;
+    overflow-x: none;
 }
 
 .searchRightStickyItem {
@@ -280,7 +284,8 @@
     box-shadow: 
         inset 2px 2px 2px rgba(255, 255, 255, 0.2),
         inset -2px -2px 2px rgba(0, 0, 0, 0.0);
-        z-index: 31;
+    z-index: 31;
+    margin-left: 8px;
 }
 
 .searchRightStickyButton:hover {
@@ -363,7 +368,7 @@
     }
 }
 
-@media only screen and (max-width: 1140px) {
+@media only screen and (max-width: 1180px) {
     .searchContentRight {
         display: none;
     }

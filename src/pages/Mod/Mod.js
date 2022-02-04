@@ -12,13 +12,15 @@ const Mod = () => {
     const newPost = useSelector(selectNewPost);
 
     return (
-        <div className='mod'>
-            <div className='content'>
-                <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
-                <Categories page={'/mod'}/>
-                <Outlet/>
+        <CSSTransition in={true} appear={true} timeout={1000} classNames='tran1'>
+            <div className='mod'>
+                <div className='content'>
+                    <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
+                    <Categories page={'/mod'}/>
+                    <Outlet/>
+                </div>
             </div>
-        </div>
+        </CSSTransition>
     )
 }
 

@@ -12,13 +12,15 @@ const All = () => {
     const newPost = useSelector(selectNewPost);
 
     return (
-        <div className='all'>
-            <div className='content'>
-                <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
-                <Categories page={'/all'}/>
-                <Outlet/>
+        <CSSTransition in={true} appear={true} timeout={1000} classNames='tran1'>
+            <div className='all'>
+                <div className='content'>
+                    <CSSTransition in={newPost.open} timeout={300} classNames={'tran9'} mountOnEnter={true} unmountOnExit={true}><CreatePost /></CSSTransition>
+                    <Categories page={'/all'}/>
+                    <Outlet/>
+                </div>
             </div>
-        </div>
+        </CSSTransition>
     )
 }
 

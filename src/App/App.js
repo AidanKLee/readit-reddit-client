@@ -111,7 +111,7 @@ useEffect(() => {
           login.authorization && login.imageUpload ? <CSSTransition in={login.imageUpload.open} timeout={400} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true}><FileUpload/></CSSTransition> : undefined
         }
         <Footer />
-        {/* <Clock /> */}
+        <Clock />
     </div>
   );
 }

@@ -329,6 +329,10 @@
     transform-origin: top center;
 }
 
+
+
+
+
 .tran10-appear {
     /* transform: scale(0); */
     opacity: 0;
@@ -366,4 +370,52 @@
     /* transform: scale(0); */
     transition: opacity 300ms ease-in, transform 300ms ease-in-out;
     transform-origin: center;
+}
+
+
+
+
+.tran11-appear {
+    max-width: 0;
+    /* max-height: 0; */
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.tran11-appear-active {
+    max-width: 344px;
+    /* max-height: calc(100vh - 128px); */
+    transform: scaleX(1);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
+    transform-origin: right center;
+}
+
+.tran11-enter {
+    max-width: 0;
+    /* max-height: 0; */
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.tran11-enter-active {
+    max-width: 344px;
+    /* max-height: calc(100vh - 128px); */
+    transform: scaleX(1);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out ;
+    transform-origin: right center;
+}
+
+.tran11-exit {
+    max-width: 344px;
+    /* max-height: calc(100vh - 128px); */
+    transform: scaleX(1);
+    transform-origin: right center;
+}
+
+.tran11-exit-active {
+    max-width: 0;
+    /* max-height: 0; */
+    transform: scaleX(0);
+    transition: max-width 300ms ease-in-out, transform 300ms ease-in-out;
+    transform-origin: right center;
 }
