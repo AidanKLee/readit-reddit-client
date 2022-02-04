@@ -328,3 +328,42 @@
     transition: max-height 300ms ease-in-out, transform 300ms ease-in-out;
     transform-origin: top center;
 }
+
+.tran10-appear {
+    /* transform: scale(0); */
+    opacity: 0;
+    transform-origin: center;
+}
+
+.tran10-appear-active {
+    opacity: 1;
+    /* transform: scale(1); */
+    transition: opacity 300ms ease-in, transform 300ms ease-in-out;
+    transform-origin: center;
+}
+
+.tran10-enter {
+    opacity: 0;
+    /* transform: scale(0); */
+    transform-origin: center;
+}
+
+.tran10-enter-active {
+    opacity: 1;
+    /* transform: scale(1); */
+    transition: opacity 300ms ease-in, transform 300ms ease-in-out;
+    transform-origin: center;
+}
+
+.tran10-exit {
+    opacity: 1;
+    /* transform: scale(1); */
+    transform-origin: center;
+}
+
+.tran10-exit-active {
+    opacity: 0;
+    /* transform: scale(0); */
+    transition: opacity 300ms ease-in, transform 300ms ease-in-out;
+    transform-origin: center;
+}

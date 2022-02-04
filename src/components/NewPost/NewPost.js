@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { closeMenu, selectMenu } from "../../containers/Menu/menuSlice";
 import './newPost.css';
 import { selectNewPost, toggleNewPost } from "./newPostSlice";
 
@@ -11,6 +12,7 @@ const NewPost = () => {
 
     const location = useLocation().pathname;
     const newPost = useSelector(selectNewPost);
+    const menu = useSelector(selectMenu);
 
     const handleClick = () => {
         if (location.includes('/search') || location.includes('/settings') || location.includes('/account') || location.includes('/messages')) {
@@ -45,7 +47,9 @@ const NewPost = () => {
             }, 50)
         }
 
-        
+        if (menu.menuOpen) {
+            dispatch(closeMenu())
+        }
         
     }
 

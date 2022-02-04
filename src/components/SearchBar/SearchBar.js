@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import './searchBar.css';
 import { returnToTop } from '../../utilities/functions';
 import { selectSearchBar, search, fetchSearch, fetchSubredditSearch, fetchUsersSearch, setInitialSearchBarState } from './searchBarSlice';
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { selectLogin } from '../LogIn/loginSlice';
 import { clearSearchResults } from './searchBarSlice';
+import { CSSTransition } from 'react-transition-group';
 
 const SearchBar = (props) => {
 
@@ -58,79 +59,6 @@ const SearchBar = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchBar.search])
 
-    const renderSearchResults = () => {
-        if (searchBar.results && searchBar.results.data && searchBar.results.data.children.length > 0) {
-            return (
-                <div>
-                    <span className='searchBarTitle'>SEARCH RESULTS</span>
-                    {
-                        searchBar.results.data.children.map(result => {
-                            return (
-                                <Link onClick={handleLinkClick} key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
-                                    <li className='searchBarResultsItem'>
-                                        <p>
-                                            <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
-                                        </p>
-                                    </li>
-                                </Link>
-                            )
-                        })
-                    }
-                    <Link onClick={handleLinkClick} to={`search/posts?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
-                </div>
-            )
-        }
-        return;
-    }
-
-    const renderSubredditsResults = () => {
-        if (searchBar.subreddits && searchBar.subreddits.data && searchBar.subreddits.data.children.length > 0) {
-            return (
-                <div>
-                    <span className='searchBarTitle'>COMMUNITIES</span>
-                    {
-                        searchBar.subreddits.data.children.map(subreddit => {
-                            return (
-                                <Link onClick={handleLinkClick} key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
-                                    <li className='searchBarSubredditsItem'>
-                                        <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
-                                        <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
-                                    </li>
-                                </Link>
-                            )
-                        })
-                    }
-                    <Link onClick={handleLinkClick} to={`search/subreddits?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
-                </div>
-            )
-        }
-        return;
-    }
-
-    const renderUsersResults = () => {
-        if (searchBar.users && searchBar.users.data && searchBar.users.data.children.length > 0) {
-            return (
-                <div>
-                    <span className='searchBarTitle'>USERS</span>
-                    {
-                        searchBar.users.data.children.map(user => {
-                            return (
-                                <Link onClick={handleLinkClick} to={`u/${user.data.name}`} key={user.data.id}>
-                                    <li className='searchBarSubredditsItem'>
-                                        <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
-                                        <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
-                                    </li>
-                                </Link>
-                            )
-                        })
-                    }
-                    <Link onClick={handleLinkClick} to={`search/users?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
-                </div>
-            )
-        }
-        return;
-    }
-
     const handleKeyDown = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
@@ -140,6 +68,10 @@ const SearchBar = (props) => {
         }
     }
 
+    const mountSubredditResults = useMemo(() => searchBar.subreddits && searchBar.subreddits.data && searchBar.subreddits.data.children && searchBar.subreddits.data.children.length > 0 ? true : false, [searchBar])
+    const mountPostResults = useMemo(() => searchBar.subreddits && searchBar.results.data && searchBar.results.data.children && searchBar.results.data.children.length > 0 ? true : false, [searchBar])
+    const mountUserResults = useMemo(() => searchBar.users && searchBar.users.data && searchBar.users.data.children && searchBar.users.data.children.length > 0 ? true : false, [searchBar])
+
     return (
         <div className='searchBar'>
             <label htmlFor='searchBarInput'>
@@ -147,12 +79,91 @@ const SearchBar = (props) => {
             </label>
             <input onKeyDown={handleKeyDown} onChange={handleChange} className='searchBarInput searchInput' type='search' placeholder="Search..." data-test='searchBar' autoComplete='on'/>
             <ul className='searchBarResults'>
-                {renderSubredditsResults()}
-                {renderSearchResults()}
-                {renderUsersResults()}
+                <CSSTransition in={mountSubredditResults} timeout={300} classNames='tran9' mountOnEnter={true} unmountOnExit={true}><SubredditsResults searchBar={searchBar} handleLinkClick={handleLinkClick}/></CSSTransition>
+                <CSSTransition in={mountPostResults} timeout={300} classNames='tran9' mountOnEnter={true} unmountOnExit={true}><SearchResults searchBar={searchBar} handleLinkClick={handleLinkClick}/></CSSTransition>
+                <CSSTransition in={mountUserResults} timeout={300} classNames='tran9' mountOnEnter={true} unmountOnExit={true}><UsersResults searchBar={searchBar} handleLinkClick={handleLinkClick}/></CSSTransition>
             </ul>
         </div>
     );
 };
+
+const SearchResults = (props) => {
+
+    const { searchBar, handleLinkClick } = props;
+
+    return (
+        <div>
+            <span className='searchBarTitle'>SEARCH RESULTS</span>
+            {
+                searchBar.results && searchBar.results.data && searchBar.results.data.children ?
+                searchBar.results.data.children.map(result => {
+                    return (
+                        <Link onClick={handleLinkClick} key={result.data.id} to={result.data.permalink.slice(0, result.data.permalink.length - 1)}>
+                            <li className='searchBarResultsItem'>
+                                <p>
+                                    <span className='searchBarResultsItemSubredditName'>{result.data.subreddit_name_prefixed}: </span>{result.data.title}
+                                </p>
+                            </li>
+                        </Link>
+                    )
+                })
+                : undefined
+            }
+            <Link onClick={handleLinkClick} to={`search/posts?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+        </div>
+    )
+}
+
+const SubredditsResults = (props) => {
+
+    const { searchBar, handleLinkClick } = props;
+
+    return (
+        <div>
+            <span className='searchBarTitle'>COMMUNITIES</span>
+            {
+                searchBar.subreddits && searchBar.subreddits.data && searchBar.subreddits.data.children ?
+                searchBar.subreddits.data.children.map(subreddit => {
+                    return (
+                        <Link onClick={handleLinkClick} key={subreddit.data.id} to={subreddit.data.url.slice(0, subreddit.data.url.length - 1)}>
+                            <li className='searchBarSubredditsItem'>
+                                <p className='searchBarSubredditsItemTitle'>{subreddit.data.display_name} {subreddit.data.over18 ? <span>NSFW</span> : ''}</p>
+                                <p className='searchBarSubredditsItemCount'>Subscribers: {subreddit.data.subscribers}</p>
+                            </li>
+                        </Link>
+                    )
+                })
+                : undefined
+            }
+            <Link onClick={handleLinkClick} to={`search/subreddits?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+        </div>
+    )
+}
+
+const UsersResults = (props) => {
+
+    const { searchBar, handleLinkClick } = props;
+
+    return (
+        <div>
+            <span className='searchBarTitle'>USERS</span>
+            {
+                searchBar.users && searchBar.users.data && searchBar.users.data.children ?
+                searchBar.users.data.children.map(user => {
+                    return (
+                        <Link onClick={handleLinkClick} to={`u/${user.data.name}`} key={user.data.id}>
+                            <li className='searchBarSubredditsItem'>
+                                <p className='searchBarSubredditsItemTitle'>{user.data.name} {user.data.over18 ? <span>NSFW</span> : ''}</p>
+                                <p className='searchBarSubredditsItemCount'>Karma: {user.data.link_karma}</p>
+                            </li>
+                        </Link>
+                    )
+                })
+                : undefined
+            }
+            <Link onClick={handleLinkClick} to={`search/users?q=${searchBar.search}`}><p className='searchBarViewMore'>VIEW MORE...</p></Link>
+        </div>
+    )
+}
 
 export default SearchBar;

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import { selectLogin, setUpdate } from '../../components/LogIn/loginSlice';
 import reddit from '../../utilities/redditAPI';
 import './admin.css';
@@ -21,6 +22,22 @@ const Admin = () => {
     const [ account, setAccount ] = useState();
     const [ change, setChange ] = useState(false);
     const [ settingsType, setSettingsType ] = useState();
+
+    const [ mount, setMount ] = useState(true);
+
+    useEffect(() => {
+        if (mount) {
+            setMount(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[location])
+
+    useEffect(() => {
+        if (!mount && account) {
+            setMount(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[account])
 
     const accountOptions = useMemo(() => {
         let optionsList = [];
@@ -268,9 +285,11 @@ const Admin = () => {
     }
 
     return (
-        <div className='admin'>
-            {communitySettings && communitySettings[0] ? renderOptions() : undefined}
-        </div>
+        <CSSTransition in={mount} timeout={300} classNames='tran9' mountOnEnter={true} unmountOnExit={true}>
+            <div className='admin'>
+                {communitySettings && communitySettings[0] ? renderOptions() : undefined}
+            </div>
+        </CSSTransition>
     )
 }
 

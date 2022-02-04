@@ -8,13 +8,16 @@ const MessageReplies = (props) => {
     let repliesArray;
     let originalMessage;
 
-    if (replies.comments[0].data.replies.data) {
-        repliesArray = [...replies.comments[0].data.replies.data.children]
-        repliesArray = repliesArray.reverse().slice(1)
+    if (replies && replies.comments && replies.comments.length > 0) {
+        if (replies.comments[0].data.replies.data) {
+            repliesArray = [...replies.comments[0].data.replies.data.children]
+            repliesArray = repliesArray.reverse().slice(1)
 
-        originalMessage = replies.comments[0]
-        originalMessage = {...originalMessage, data: {...originalMessage.data, replies: ''}}
+            originalMessage = replies.comments[0]
+            originalMessage = {...originalMessage, data: {...originalMessage.data, replies: ''}}
+        }
     }
+    
 
     return (
         <div className='messageReplies'>

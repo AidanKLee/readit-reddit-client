@@ -127,7 +127,7 @@ const ContentTile = (props) => {
                 <CSSTransition in={newComment} timeout={300} classNames={'tran6'} mountOnEnter={true} unmountOnExit={true}><CommentSubmit id={'tileComment' + article.data.id} parentName={article.data.name} rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i}/></CSSTransition>
                 <CSSTransition in={(main.page.comments && main.page.comments[i] && main.page.comments[i].length > 0) || typeof article.data.body === 'string'} timeout={300} classNames={'tran7'} mountOnEnter={true} unmountOnExit={true}><CommentSection rootCommentList={main.page.comments[i]} stateSetter={addNewComment} dispatcher={dispatch} comments={main.page.comments[i]} x={i} article={article}/></CSSTransition>
             </div>
-            {mediaOpen ? <Media toggleViewMedia={toggleViewMedia} viewMedia={viewMedia}/> : undefined}
+            <CSSTransition in={mediaOpen} timeout={300} classNames='tran10' mountOnEnter={true} unmountOnExit={true}><Media toggleViewMedia={toggleViewMedia} viewMedia={viewMedia}/></CSSTransition>
         </div>
     )
 }

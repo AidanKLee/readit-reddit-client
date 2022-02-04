@@ -12,7 +12,6 @@ import { useLocation } from 'react-router-dom';
 import { clearSelectedSubreddit, closeNewPost, handleCommunityChange, selectNewPost } from '../components/NewPost/newPostSlice';
 import { selectClock } from '../components/Clock/clockSlice';
 import Clock from '../components/Clock/Clock';
-import { selectCommunities } from '../components/Communities/communitiesSlice';
 import Build from '../components/Build/Build';
 import FileUpload from '../components/FileUpload/FileUpload';
 import { CSSTransition } from 'react-transition-group';
@@ -25,7 +24,6 @@ function App() {
   const location = useLocation().pathname;
 
   const login = useSelector(selectLogin);
-  const communities = useSelector(selectCommunities);
   const newPost = useSelector(selectNewPost)
   const darkMode = useSelector(selectDarkMode);
   const clock = useSelector(selectClock);

@@ -287,7 +287,8 @@
     overflow: hidden;
     border: 1px solid var(--over3);
     border-bottom: 0 none transparent;
-    transition: bottom .5s;
+    transition: bottom .5s, opacity .2s;
+    opacity: 0;
 }
 
 .updateWarning svg {

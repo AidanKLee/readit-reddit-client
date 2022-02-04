@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import Communities from '../../components/Communities/Communities';
 import { selectLogin, setUpdate, toggleImageUpload } from '../../components/LogIn/loginSlice';
 import { getTimePosted } from '../../utilities/functions';
@@ -21,6 +22,7 @@ const Account = () => {
     const [ moderated, setModerated ] = useState(false);
     const [ updated, setUpdated ] = useState(false);
     const [ change, setChange ] = useState(false);
+    const [ mountDetails, setMountDetails ] = useState(false);
 
     const fetchAccount = async () => {
         const account = await reddit.fetchAccountDetails(login.authorization.user.subreddit.display_name);
@@ -42,6 +44,14 @@ const Account = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[update])
+
+    useEffect(() => {
+        if (login.authorization && account && !mountDetails) {
+            setMountDetails(true)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[account])
+
 
     useEffect(() => {
         if (updated) {
@@ -118,7 +128,10 @@ const Account = () => {
     return (
         <div className='account'>
             <div className='accountLeft'>
-                <UserDetails account={account}/>
+                <CSSTransition in={mountDetails} timeout={300} classNames='tran5' mountOnEnter={true} unmountOnExit={true}>
+                    <UserDetails account={account}/>
+                </CSSTransition>
+                <CSSTransition in={mountDetails} timeout={300} classNames='tran5' mountOnEnter={true} unmountOnExit={true}>
                 <div className='accountCommunitiesWrapper'>
                     <div className='accountHeader'>
                         <div className='accountCommunitiesLeft'>
@@ -136,15 +149,17 @@ const Account = () => {
                     </div>
                     {communitiesOpen ? <Communities moderated={moderated} hasButtons={true}/> : undefined}
                 </div>
+                </CSSTransition>
             </div>
-            
-            <div className='accountAboutWrapper'>
-                <div className='accountHeader'>
-                    <p>Account</p>
+            <CSSTransition in={mountDetails} timeout={300} classNames='tran5' mountOnEnter={true} unmountOnExit={true}>
+                <div className='accountAboutWrapper'>
+                    <div className='accountHeader'>
+                        <p>Account</p>
+                    </div>
+                    <AccountAbout handleChange={handleChange} account={account}/>
                 </div>
-                <AccountAbout handleChange={handleChange} account={account}/>
-            </div>
-            <div className='updateWarning' style={updated ? {bottom: '32px'} : {}}>
+            </CSSTransition>
+            <div className='updateWarning' style={updated ? {bottom: '32px', opacity: 1} : {}}>
                 <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M11,8v5l4.25,2.52l0.77-1.28l-3.52-2.09V8H11z M21,10V3l-2.64,2.64C16.74,4.01,14.49,3,12,3c-4.97,0-9,4.03-9,9 s4.03,9,9,9s9-4.03,9-9h-2c0,3.86-3.14,7-7,7s-7-3.14-7-7s3.14-7,7-7c1.93,0,3.68,0.79,4.95,2.05L14,10H21z"/></g></g></svg>
                 <p>Changes Saved</p>
             </div>                     
