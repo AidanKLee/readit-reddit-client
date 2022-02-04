@@ -23,10 +23,12 @@ import Messages from "../../pages/Messages/Messages";
 import Mod from "../../pages/Mod/Mod";
 import Mailbox from "../../pages/Messages/Mailbox";
 import Admin from "../../pages/Admin/Admin";
+import { selectFullscreen } from "../../components/Fullscreen/fullscreenSlice";
 
 const Main = () => {
 
     const menu = useSelector(selectMenu);
+    const fullscreen = useSelector(selectFullscreen);
 
     const selected = useLocation().pathname.split('/').slice(2).join('/');
     const redirect = useLocation().pathname.split('/')[2];
@@ -60,7 +62,7 @@ const Main = () => {
     },[location])
         
     return (
-        <main className={menu.menuOpen ? 'blur' : ''}>
+        <main className={menu.menuOpen ? 'blur' : ''} style={fullscreen ? {paddingBottom: '56px'} : {}}>
             <div className="mainWrapper">
                 
                 <Routes>

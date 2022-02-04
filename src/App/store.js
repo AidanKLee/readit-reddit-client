@@ -7,6 +7,7 @@ import mainReducer from '../containers/Main/mainSlice';
 import darkModeReducer from '../components/DarkMode/darkModeSlice';
 import newPostReducer from '../components/NewPost/newPostSlice';
 import clockReducer from '../components/Clock/clockSlice';
+import fullscreenReducer from '../components/Fullscreen/fullscreenSlice';
 
 export default configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
         main: mainReducer,
         darkMode: darkModeReducer,
         newPost: newPostReducer,
-        clock: clockReducer
+        clock: clockReducer,
+        fullscreen: fullscreenReducer
     }
 });

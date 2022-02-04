@@ -6,9 +6,10 @@ import { closeMenu, selectMenu } from '../../containers/Menu/menuSlice';
 import loader from '../../assets/loader.svg';
 import reddit from '../../utilities/redditAPI';
 import { search, selectCommunities, toggleBuild } from './communitiesSlice';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { returnToTop } from '../../utilities/functions';
 import Subscribe from '../Subscribe/Subscribe';
+import { selectFullscreen } from '../Fullscreen/fullscreenSlice';
 
 const Communities = (props) => {
 
@@ -16,6 +17,9 @@ const Communities = (props) => {
 
     const { hasButtons, moderated } = props;
 
+    const location = useLocation().pathname;
+
+    const fullscreen = useSelector(selectFullscreen);
     const login = useSelector(selectLogin);
     const menu = useSelector(selectMenu);
     const communities = useSelector(selectCommunities);
@@ -105,6 +109,12 @@ const Communities = (props) => {
         return '';
     };
 
+    const listStyle = () => {
+        const originalStyle = menu.menuOpen && login.isLoading ? {height: ''} : {height: returnHeight()}
+        const accountStyle = fullscreen && location.split('/')[1] === 'account' ? {maxHeight: 'calc(100vh - 246px)'} : {}
+        return {...originalStyle, ...accountStyle}
+    }
+
     return (
         <div className='communities'>
             <div className='communitiesWrapper'>
@@ -114,7 +124,7 @@ const Communities = (props) => {
             </div>
             <div className='communitiesDropdown'>
                 <input onChange={handleChange} value={communities.search} type='search' placeholder="Search Communities..." data-test='communitiesInput'/>
-                <ul className='communitiesDropdownList' style={menu.menuOpen && login.isLoading ? {height: ''} : {height: returnHeight()}} data-test='communitiesList'>
+                <ul className='communitiesDropdownList' style={listStyle()} data-test='communitiesList'>
                     <li onClick={(e) =>{
                         dispatch(toggleBuild())
                         handleLinkClick(e)

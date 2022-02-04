@@ -8,6 +8,7 @@ import MessageCompose from './MessageCompose';
 import loader from '../../assets/loader.svg';
 import './messages.css';
 import { CSSTransition } from 'react-transition-group';
+import { selectFullscreen } from '../../components/Fullscreen/fullscreenSlice';
 
 const Messages = () => {
 
@@ -15,6 +16,7 @@ const Messages = () => {
     const navigate = useNavigate();
 
     const login = useSelector(selectLogin)
+    const fullscreen = useSelector(selectFullscreen);
 
     const [ inbox, setInbox ] = useState({});
     const [ unread, setUnread ] = useState({});
@@ -361,7 +363,7 @@ const Messages = () => {
 
     return (
         <CSSTransition in={mount} timeout={1000} classNames='tran1' mountOnEnter={true} unmountOnExit={true}>
-            <div className='messages'>
+            <div className='messages' style={fullscreen ? {height: 'calc(100vh - 120px)'} : {}}>
                 <div className='messagesMenu' onTouchStart={(e) => e.cancelable}>
                         <div onClick={() => {
                             if (compose.minimized) {

@@ -9,6 +9,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 80;
 }
 
 footer p {
@@ -27,4 +28,35 @@ footer p {
 .footerWrapper p:nth-of-type(2):hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+footer .newPost {
+    background-color: transparent;
+    display: flex
+    ;
+}
+
+footer .newPost svg {
+    background-color: var(--over3);
+}
+
+footer .newPostText {
+    display: none;
+}
+
+footer svg {
+    width: 44px;
+    height: 44px;
+    fill: var(--fg1);
+    border-radius: 50%;
+    padding: 8px;
+}
+
+footer svg:hover {
+    background-color: var(--prim2);
+}
+
+footer svg:active {
+    background-color: var(--prim1);
+    fill: var(--bg1);
 }

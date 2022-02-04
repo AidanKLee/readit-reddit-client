@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import Communities from '../../components/Communities/Communities';
+import { selectFullscreen } from '../../components/Fullscreen/fullscreenSlice';
 import { selectLogin, setUpdate, toggleImageUpload } from '../../components/LogIn/loginSlice';
 import { getTimePosted } from '../../utilities/functions';
 import { returnToTop } from '../../utilities/functions';
@@ -13,6 +14,7 @@ const Account = () => {
     
     const dispatch = useDispatch();
 
+    const fullscreen = useSelector(selectFullscreen);
     const login = useSelector(selectLogin);
     const update = useMemo(() => login.update,[login]);
 
@@ -132,7 +134,7 @@ const Account = () => {
                     <UserDetails account={account}/>
                 </CSSTransition>
                 <CSSTransition in={mountDetails} timeout={300} classNames='tran5' mountOnEnter={true} unmountOnExit={true}>
-                <div className='accountCommunitiesWrapper'>
+                <div className='accountCommunitiesWrapper' style={fullscreen ? {maxHeight: 'calc(100vh - 152px)'} : {}}>
                     <div className='accountHeader'>
                         <div className='accountCommunitiesLeft'>
                             <div className='accountCommunitiesLeftLeft'>
@@ -152,7 +154,7 @@ const Account = () => {
                 </CSSTransition>
             </div>
             <CSSTransition in={mountDetails} timeout={300} classNames='tran5' mountOnEnter={true} unmountOnExit={true}>
-                <div className='accountAboutWrapper'>
+                <div className='accountAboutWrapper' style={fullscreen ? {maxHeight: 'calc(100vh - 152px)'} : {}}>
                     <div className='accountHeader'>
                         <p>Account</p>
                     </div>

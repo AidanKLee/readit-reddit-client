@@ -15,6 +15,7 @@ import Clock from '../components/Clock/Clock';
 import Build from '../components/Build/Build';
 import FileUpload from '../components/FileUpload/FileUpload';
 import { CSSTransition } from 'react-transition-group';
+import { toggleFullscreen } from '../components/Fullscreen/fullscreenSlice';
 
 
 function App() {
@@ -91,6 +92,16 @@ useEffect(() => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[login.initialLoginAttempt])
 
+  const handleFullscreenChange = (e) => {
+    dispatch(toggleFullscreen())
+  }
+
+  useEffect(() => {
+    window.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => window.removeEventListener('fullscreenchange', handleFullscreenChange)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+},[])
+
   return (
     <div className="App" data-test='App'>
         <Header />
@@ -99,7 +110,7 @@ useEffect(() => {
         </CSSTransition>
         <Menu />
         {
-          login.authorization ?
+          login.authorization && !document.fullscreenElement ?
           <div className='appButton'>
             <NewPost />
           </div> : undefined
@@ -111,7 +122,7 @@ useEffect(() => {
           login.authorization && login.imageUpload ? <CSSTransition in={login.imageUpload.open} timeout={400} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true}><FileUpload/></CSSTransition> : undefined
         }
         <Footer />
-        <Clock />
+        {/* <Clock /> */}
     </div>
   );
 }
