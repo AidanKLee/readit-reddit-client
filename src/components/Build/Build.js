@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import reddit from '../../utilities/redditAPI';
-import { selectCommunities, toggleBuild } from '../Communities/communitiesSlice';
+import { toggleBuild } from '../Communities/communitiesSlice';
 import './build.css';
 
-const Build = () => {
+const Build = (props) => {
 
     const dispatch = useDispatch();
 
@@ -76,11 +76,10 @@ const Build = () => {
         wikimode: "disabled"
     })
 
-    const communities = useSelector(selectCommunities);
-
     const [ warning, setWarning ] = useState();
     const [ failed, setFailed ] = useState(false);
-    const [ after, setAfter ] = useState(false)
+
+    const [ after, setAfter ] = props.after;
 
     useEffect(() => {
         if (settings.name.length === 0) {
@@ -102,8 +101,13 @@ const Build = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[settings.name])
 
+    useEffect(() => {
+        const page = document.documentElement;
+        page.style.overflow = 'hidden'
+        return () => page.style.overflow = 'auto'
+    },[])
+
     const handleChange = (e) => {
-        
         const name = e.target.name;
         let value = e.target.value;
         const toggle = value === 'on';
@@ -140,8 +144,7 @@ const Build = () => {
     }
 
     return (
-        <CSSTransition in={communities.build} timeout={300} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setAfter(true)} onExit={() => setAfter(false)}>
-            <div className='build'>
+        <div className='build'>
             <CSSTransition in={after} timeout={500} classNames={'tran3'} mountOnEnter={true} unmountOnExit={true} onExited={() => dispatch(toggleBuild())}>
                 <div className='buildWrapper'>
                     <div className='buildContent'>
@@ -199,9 +202,8 @@ const Build = () => {
                         </div>
                     </div>
                 </div>
-                </CSSTransition>
-            </div>
-        </CSSTransition>
+            </CSSTransition>
+        </div>
     )
 }
 

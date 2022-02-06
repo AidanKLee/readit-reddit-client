@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from '../containers/Header/Header';
 import Main from '../containers/Main/Main';
@@ -16,6 +16,7 @@ import Build from '../components/Build/Build';
 import FileUpload from '../components/FileUpload/FileUpload';
 import { CSSTransition } from 'react-transition-group';
 import { selectFullscreen, toggleFullscreen } from '../components/Fullscreen/fullscreenSlice';
+import { selectCommunities } from '../components/Communities/communitiesSlice';
 
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
   const darkMode = useSelector(selectDarkMode);
   const clock = useSelector(selectClock);
   const fullscreen = useSelector(selectFullscreen);
+  const communities = useSelector(selectCommunities);
+
+  const [ after, setAfter ] = useState(false);
 
   useEffect(() => {
     const localStorageDark = localStorage.getItem('darkMode');
@@ -117,7 +121,7 @@ useEffect(() => {
           </div> : undefined
         }
         {
-          login.authorization ? <Build/> : undefined
+          login.authorization ? <CSSTransition in={communities.build} timeout={300} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true} onEntered={() => setAfter(true)} onExit={() => setAfter(false)}><Build after={[after, setAfter]}/></CSSTransition> : undefined
         }
         {
           login.authorization && login.imageUpload ? <CSSTransition in={login.imageUpload.open} timeout={400} classNames={'tran4'} mountOnEnter={true} unmountOnExit={true}><FileUpload/></CSSTransition> : undefined

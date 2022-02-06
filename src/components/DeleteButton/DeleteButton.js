@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { stopScroll } from '../../utilities/functions';
 import reddit from '../../utilities/redditAPI';
 import './deleteButton.css';
 
@@ -21,29 +20,38 @@ const DeleteButton = (props) => {
         // setScrollPos(window.scrollY);
     }
 
-    // const preventScroll = () => {
-    //     stopScroll(scrollPos);
-    // }
-
-    // const prevent = (e) => {
-    //     e.preventDefault();
+    // const stopScrolling = (e) => {
+    //     if ((e.type !== 'touchmove' && e.type !== 'scroll') || (e.type === 'touchmove' && e.touches.length < 2)) {
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //     } else if (e.type === 'scroll') {
+    //         stopScroll(scrollPos)
+    //     }
+    //     return false;
     // }
 
     // useEffect(() => {
+    //     // const page = document.documentElement;
+    //     const eventTypes = 'scroll mousewheel touchmove'.split(' ')
     //     if (warning) {
-    //         window.addEventListener('scroll', preventScroll, {passive: false});
-    //         window.addEventListener('mousewheel', prevent, {passive: false});
-    //         window.addEventListener('touchmove', prevent, {passive: false});
+    //         eventTypes.forEach(type => {
+    //             window.addEventListener(type, stopScrolling, {passive: false});
+    //         })
+    //         return () => {
+    //             eventTypes.forEach(type => {
+    //                 window.removeEventListener(type, stopScrolling, {passive: false});
+    //             })
+    //         }
     //     }
-        
-        
-    //     return () => {
-    //         window.removeEventListener('scroll', preventScroll);
-    //         window.removeEventListener('mousewheel', prevent);
-    //         window.addEventListener('touchmove', prevent, {passive: false});
-    //     }
-    //         // eslint-disable-next-line react-hooks/exhaustive-deps
     // },[warning])
+
+    useEffect(() => {
+        const page = document.documentElement;
+        if (warning) {
+            page.style.overflow = 'hidden'
+            return () => page.style.overflow = 'auto'
+        }
+    },[warning])
 
     return (
         <div className='delete'>

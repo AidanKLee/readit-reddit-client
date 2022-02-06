@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import reddit from '../../utilities/redditAPI';
 import { selectLogin, setUpdate, toggleImageUpload } from '../LogIn/loginSlice';
@@ -91,6 +91,12 @@ const FileUpload = () => {
             )
         }
     }
+
+    useEffect(() => {
+        const page = document.documentElement;
+        page.style.overflow = 'hidden'
+        return () => page.style.overflow = 'auto'
+    },[])
 
     return (
         <div className='fileUpload' style={dragStyle()}>

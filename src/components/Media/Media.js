@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { stopScroll } from '../../utilities/functions';
+import React, { useEffect } from 'react';
 import './media.css';
 
 const Media = (props) => {
@@ -24,11 +23,16 @@ const Media = (props) => {
     }
 
     useEffect(() => {
+        const page = document.documentElement;
         if (mediaOpen) {
-            document.documentElement.addEventListener('keydown', toggleView)
+            page.addEventListener('keydown', toggleView);
+            page.style.overflow = 'hidden';
         }
 
-        return () => document.documentElement.removeEventListener('keydown', toggleView)
+        return () => {
+            page.removeEventListener('keydown', toggleView);
+            page.style.overflow = 'auto';
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[mediaOpen])
     

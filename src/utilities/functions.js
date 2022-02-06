@@ -180,10 +180,10 @@ export const addComment = (parentId, newComment, commentList, dispatcher, stateS
     }
 }
 
-// export const stopScroll = (y) => {
-//     window.scrollTo({
-//         top: y,
-//         left: 0,
-//         behavior: 'auto'
-//     });
-// }
+export const stopScroll = (y) => {
+    window.scrollTo({
+        top: y,
+        left: 0,
+        behavior: 'auto'
+    });
+}
