@@ -300,3 +300,7 @@ header .communitiesDropdownListItem:hover {
     padding: 2px;
     fill: var(--fg1);
 }
+
+.communitiesDropdown input {
+    color: var(--fg2);
+}
